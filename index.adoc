@@ -2,8 +2,8 @@
 layout: astra
 sidebar: sidebar
 permalink: index.html
-lead: Astra Control Center software provides application-aware data management of Kubernetes clusters in your on-premise environment. Easily back up Kubernetes apps, migrate data to a different cluster, and instantly create working application clones. If you need to manage Kubernetes apps running in a public cloud, go to the docs for Astra Control Service.
-summary: Astra Control Center software provides application-aware data management of Kubernetes clusters in your on-premise environment. Easily back up Kubernetes apps, migrate data to a different cluster, and instantly create working application clones. If you need to manage Kubernetes apps running in a public cloud, go to the docs for Astra Control Service.
+lead: Astra Data Store provides persistent storage and data management services for Kubernetes native containerized applications on your hardware for compute and storage. Astra Data Store is part of the Astra family of products that also includes Astra Control Services and Astra Control Center. With Astra Control, you can back up Kubernetes apps, migrate data to a different cluster, and instantly create working application clones. Astra Control Center software provides application-aware data management of Kubernetes clusters in your on-premise environment. Astra Control Services enables you to manage Kubernetes apps running in a public cloud.
+summary: Astra Data Store provides persistent storage and data management services for Kubernetes native containerized applications on your hardware for compute and storage. Astra Data Store is part of the Astra family of products that also includes Astra Control Services and Astra Control Center. With Astra Control, you can back up Kubernetes apps, migrate data to a different cluster, and instantly create working application clones. Astra Control Center software provides application-aware data management of Kubernetes clusters in your on-premise environment. Astra Control Services enables you to manage Kubernetes apps running in a public cloud.
 ---
 
 = Astra Control Center Documentation
