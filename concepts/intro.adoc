@@ -5,21 +5,29 @@ keywords: introduction, how astra works, how Astra works, what Astra is, concept
 summary: Astra is a Kubernetes application data lifecycle management service that simplifies operations for stateful applications. Easily protect, back up, and migrate Kubernetes workloads, and instantly create working application clones.
 ---
 
-= Intro to Astra Control
+= Intro to Astra
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/concepts/
 
-Astra Control is a Kubernetes application data lifecycle management solution that simplifies operations for stateful applications. Easily protect, back up, and migrate Kubernetes workloads, and instantly create working application clones.
+The Astra family of products provides Kubernetes application data lifecycle management that simplifies operations for stateful applications. Easily protect, back up, and migrate Kubernetes workloads, and instantly create working application clones.
 
 The Astra family of products includes:
 
-* Astra Control
 * Astra Data Store
+* Astra Control
+
+== Astra Data Store
+
+=== Astra Data Store features
+
+TBD
+
+=== How Astra Data Store works
+
+TBD
 
 == Astra Control
-
-=== Astra Control features
 
 Astra Control offers critical capabilities for Kubernetes application data lifecycle management:
 
@@ -132,13 +140,7 @@ Astra Control Service continually watches your compute for state changes, so it'
 
 Astra Control's Free Plan enables you to manage up to 10 apps in your account. If you want to manage more than 10 apps, then you'll need to set up billing by upgrading from the Free Plan to the Premium Plan.
 
-== Astra Data Store
 
-=== Astra Data Store features
-
-
-
-=== How Astra Data Store works
 
 == For more information
 

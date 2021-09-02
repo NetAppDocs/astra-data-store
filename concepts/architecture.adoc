@@ -10,11 +10,11 @@ summary: Here is an overview of the various components of the Astra Control envi
 :icons: font
 :imagesdir: ../media/concepts/
 
-Here is an overview of the various components of the Astra Control environment.
+Here is an overview of the various components of the Astra environment.
 
-image:astra-cc-arch.png[Astra Control architecture diagram and components]
+image:astra-cc-arch.png[Astra architecture diagram and components]
 
-== Astra Control components
+== Astra components
 
 * *Kubernetes clusters*: Kubernetes is a portable, extensible, open-source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. Astra provides management services for applications hosted in a Kubernetes cluster.
 
@@ -27,7 +27,7 @@ Astra Control Center uses an ONTAP AFF and FAS storage backend. As a storage sof
 
 * *Cloud Insights*:  A NetApp cloud infrastructure monitoring tool, Cloud Insights enables you to monitor performance and utilization for your Kubernetes clusters managed by Astra Control Center. Cloud Insights correlates storage usage to workloads. When you enable the Cloud Insights connection in Astra Control Center, telemetry information shows in Astra Control Center UI pages.
 
-== Astra Control interfaces
+== Astra interfaces
 
 You can complete tasks using different interfaces:
 
