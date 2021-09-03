@@ -1,13 +1,13 @@
 section: get-started
 title: Get started
 entries:
-  - title: Astra Control Center requirements
+  - title: Astra Data Store requirements
     url: /get-started/requirements.html
-  - title: Quick start for Astra Control Center
+  - title: Quick start for Astra Data Store
     url: /get-started/quick-start.html
-  - title: Install Astra Control Center
+  - title: Install Astra Data Store
     url: /get-started/install_acc.html
-  - title: Set up Astra Control Center
+  - title: Set up Astra Data Store
     url: /get-started/setup_overview.html
     entries:
       - title: Prerequisites for adding a cluster
