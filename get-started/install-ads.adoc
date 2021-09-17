@@ -21,6 +21,7 @@ To install Astra Data Store, download the installation bundle from the NetApp Su
 
 .What you'll need
 * link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
+* Root administrative permissions.
 * From your OpenShift cluster, ensure all cluster operators are in a healthy state (`available` is `true`):
 +
 ----
@@ -116,102 +117,55 @@ for astraImageFile in $(ls images/*.tar)
 done
 ----
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-.  (For registries with auth requirements only) If you use a registry that requires authentication, you need to do the following:
-.. Create the `netapp-acc-operator` namespace:
+. Install the AstraDSOperator:
+.. List the AstraDS manifests:
 +
 ----
-kubectl create ns netapp-acc-operator
-----
-+
-Response:
-+
-----
-namespace/netapp-acc-operator created
+[<root ID> ~]# ls manifests/
+astrads_v1alpha1_astradscluster_external.yaml  astrads_v1alpha1_astradsdeployment_external.yaml  astrads_v1alpha1_astradsoperator_external.yaml
 ----
 
-.. Create a secret for the `netapp-acc-operator` namespace. Add Docker information and run the following command:
+. Edit the Astra Data Store operator custom resource defintion (CRD) yaml (`astrads_v1alpha1_astradsoperator_external.yaml`) to refer to your local registry and secret.
 +
 ----
-kubectl create secret docker-registry astra-registry-cred -n netapp-acc-operator --docker-server=[Docker_registry_path] --docker-username=[username] --docker-password=[token]
-----
-+
-Sample response:
-+
-----
-secret/astra-registry-cred created
+vim astrads_v1alpha1_astradsoperator_external.yaml
 ----
 
-.. Create the `netapp-acc` (or custom named) namespace.
-+
-----
-kubectl create ns [netapp-acc or custom]
-----
-+
-Sample response:
-+
-----
-namespace/netapp-acc created
-----
-
-..  Create a secret for the `netapp-acc` (or custom named) namespace. Add Docker information and run the following command:
-+
-----
-kubectl create secret docker-registry astra-registry-cred -n [netapp-acc or custom] --docker-server=[Docker_registry_path] --docker-username=[username] --docker-password=[token]
-----
-+
-Response
-+
-----
-secret/astra-registry-cred created
-----
-
-. Edit the Astra Data Store operator deployment yaml (`astra_control_center_operator_deploy.yaml`) to refer to your local registry and secret.
-+
-----
-vim astra_control_center_operator_deploy.yaml
-----
-.. If you use a registry that requires authentication, replace the default line of `imagePullSecrets: []` with the following:
-+
-----
-imagePullSecrets:
-- name: astra-registry-cred
-----
-
-.. Change `[Docker_registry_path]` for the `kube-rbac-prox` image to the registry path where you pushed the images in a previous step.
-.. Change `[Docker_registry_path]` for the `acc-operator-controller-manager` image to the registry path where you pushed the images in a previous step.
+.. Change `[Docker_registry_path]` for the `kube-rbac-proxy` image to the registry path where you pushed the images in a previous step.
+.. Change `[Docker_registry_path]` for the `ads-operator` image to the registry path where you pushed the images in a previous step.
 
 +
 [subs=+quotes]
 ----
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    control-plane: operator
+  name: astrads-system
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+.
+.
+.
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    control-plane: controller-manager
-  name: acc-operator-controller-manager
-  namespace: netapp-acc-operator
+    control-plane: operator
+  name: astrads-operator
+  namespace: astrads-system
 spec:
   replicas: 1
   selector:
     matchLabels:
-      control-plane: controller-manager
+      control-plane: operator
   template:
     metadata:
       labels:
-        control-plane: controller-manager
+        control-plane: operator
     spec:
       containers:
       - args:
@@ -219,23 +173,49 @@ spec:
         - --upstream=http://127.0.0.1:8080/
         - --logtostderr=true
         - --v=10
-        *image: [Docker_registry_path]/kube-rbac-proxy:v0.5.0*
+        image: [Docker_registry_path]/kube-rbac-proxy:v0.6.0
         name: kube-rbac-proxy
         ports:
         - containerPort: 8443
           name: https
-      - args:
-        - --health-probe-bind-address=:8081
-        - --metrics-bind-address=127.0.0.1:8080
-        - --leader-elect
-        command:
-        - /manager
-        env:
-        - name: ACCOP_LOG_LEVEL
-          value: "2"
-        *image: [Docker_registry_path]/acc-operator:[version x.y.z]*
+      - command:
+        - /operator
+        image: [Docker_registry_path]/ads-operator:dev-6091923
         imagePullPolicy: IfNotPresent
-      *imagePullSecrets: []*
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - liveness -heartbeat 30
+          failureThreshold: 3
+          initialDelaySeconds: 30
+          periodSeconds: 15
+          successThreshold: 1
+          timeoutSeconds: 15
+        name: manager
+        resources:
+          limits:
+            cpu: 100m
+            memory: 30Mi
+          requests:
+            cpu: 100m
+            memory: 20Mi
+      terminationGracePeriodSeconds: 10
+----
+
+. Apply the updated file to your Astra Data Store cluster:
++
+----
+kubectl apply -f astrads_v1alpha1_astradsoperator_external.yaml
+----
+
+.Verify that the Astra Data Store operator pod has restarted and is running:
++
+----
+[<root ID> ~]$ kubectl get pods -n astrads-system
+NAME                                READY   STATUS    RESTARTS   AGE
+astrads-operator-56d9b69cf4-tkfcb   2/2     Running   0          85s
 ----
 
 . Edit the Astra Data Store custom resource (CR) file (`astra_control_center_min.yaml`):
