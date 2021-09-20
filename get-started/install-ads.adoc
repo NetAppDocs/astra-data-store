@@ -125,15 +125,14 @@ done
 astrads_v1alpha1_astradscluster_external.yaml  astrads_v1alpha1_astradsdeployment_external.yaml  astrads_v1alpha1_astradsoperator_external.yaml
 ----
 
-. Edit the Astra Data Store operator custom resource defintion (CRD) yaml (`astrads_v1alpha1_astradsoperator_external.yaml`) to refer to your local registry and secret.
+.. Edit the Astra Data Store operator custom resource definition (CRD) yaml to refer to your local registry and secret.
 +
 ----
 vim astrads_v1alpha1_astradsoperator_external.yaml
 ----
 
-.. Change `[Docker_registry_path]` for the `kube-rbac-proxy` image to the registry path where you pushed the images in a previous step.
-.. Change `[Docker_registry_path]` for the `ads-operator` image to the registry path where you pushed the images in a previous step.
-
+... Change `[Docker_registry_path]` for the `kube-rbac-proxy` image to the registry path where you pushed the images in a previous step.
+... Change `[Docker_registry_path]` for the `ads-operator` image to the registry path where you pushed the images in a previous step.
 +
 [subs=+quotes]
 ----
@@ -204,31 +203,168 @@ spec:
       terminationGracePeriodSeconds: 10
 ----
 
-. Apply the updated file to your Astra Data Store cluster:
+.. Apply the updated file to your Astra Data Store cluster:
 +
 ----
 kubectl apply -f astrads_v1alpha1_astradsoperator_external.yaml
 ----
 
-.Verify that the Astra Data Store operator pod has restarted and is running:
+.. Verify that the Astra Data Store operator pod has restarted and is running:
 +
 ----
 [<root ID> ~]$ kubectl get pods -n astrads-system
+----
++
+Response:
++
+----
 NAME                                READY   STATUS    RESTARTS   AGE
 astrads-operator-56d9b69cf4-tkfcb   2/2     Running   0          85s
 ----
 
-. Edit the Astra Data Store custom resource (CR) file (`astra_control_center_min.yaml`):
+. Edit the Astra Data Store deployment custom resource (CR) file:
+.. VIM the yaml file:
 +
 ----
-vim astra_control_center_min.yaml
+vim astrads_v1alpha1_astradsdeployment_external.yaml
 ----
-+
-NOTE: If additional customizations are required for your environment, you can use `astra_control_center.yaml` as an alternative CR. `astra_control_center_min.yaml` is the default CR and is suitable for most installations.
-+
-NOTE: Properties configured by the CR cannot be changed after initial Astra Data Store deployment.
 
 .. Change `[Docker_registry_path]` to the registry path where you pushed the images in the previous step.
+
++
+[subs=+quotes]
+----
+apiVersion: astrads.netapp.io/v1alpha1
+kind: AstraDSDeployment
+metadata:
+name: astradsdeployment
+namespace: astrads-system
+spec:
+images:
+*dmsController: [Docker_registry_path]/ads-dms-controller:dev-6093843*
+*firetapInstaller: [Docker_registry_path]/ads-firetap-installer:dev-12.75.0-6091923*
+*firegen: [Docker_registry_path]/ads-firetap-firegen:dev-6093843*
+*firetapMetrics: [Docker_registry_path]/ads-firetap-metrics:dev-6091923*
+*clusterController: [Docker_registry_path]/ads-cluster-controller:dev-6093843*
+*support: [Docker_registry_path]/ads-support-controller:1.0*
+*licenseController: [Docker_registry_path]/ads-license-controller:dev-6091923*
+*callhomeListener: [Docker_registry_path]/ads-callhome-listener:dev-6093843*
+*autosupportCronjob: [Docker_registry_path]/ads-autosupport-cronjob:dev-6093843*
+*fluentBit: [Docker_registry_path]/fluent-bit:1.6.8*
+*nodeInfoController: [Docker_registry_path]/ads-nodeinfo-controller:dev-6093843*
+*kubeRbacProxy: [Docker_registry_path]/kube-rbac-proxy:v0.6.0*
+version: 0.0.1
+----
+
+. Edit and apply the Netapp License File (NLF) that you obtained from the Netapp Support Site (NSS) to your Astra Data Store cluster:
+
+.. Copy and paste the content of the NLF after `netappLicenseFile:`.
+.. Enter the name of the cluster that you are going to deploy or have already deployed.
++
+[subs=+quotes]
+----
+apiVersion: astrads.netapp.io/v1alpha1
+kind: AstraDSLicense
+metadata:
+  name: "e900000005"
+  namespace: "astrads-system"
+spec:
+  *netappLicenseFile: <NLF-contents>*
+  *adsClusterName: "<Astra-Data-Store-cluster-name>"*
+----
+
+.. Create the license file:
++
+----
+[<root ID> ~]$ kubectl apply -f <sample-license-yaml>
+----
++
+Response:
++
+----
+astradslicense.astrads.netapp.io/e900000005 created
+----
+
+.. Verify the changes:
++
+----
+[<root ID> ~]$ kubectl get astradslicense -A
+----
++
+Response:
++
+----
+NAMESPACE        NAME         ADSCLUSTER                      VALID   PRODUCT                       EVALUATION   ENDDATE      VALIDATED
+astrads-system   e900000005   astrads-sti-c6220-09-10-11-12   true    Astra Data Store Enterprise   true         2021-12-01   2021-06-23T23:36:11Z
+----
+
+. Install the Astra Data Store cluster:
+.. VIM the yaml file:
++
+----
+vim astrads_v1alpha1_astradscluster_external.yaml
+----
+
+.. In `metadata`, change the `name` string to the name of your cluster.
+.. Update the following required values in `spec`:
+... Change the `mvip` string to the IP address of a floating management IP that is routable from any worker node in the cluster.
+... In `adsDataNetworks`, list floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume.
+... In `astraOptions`, add the license number (`serialNumber`) from the NLF.
+... In `adsNodeConfig`, enter the per-node CPU core count and memory limits for the FireTap container.
+.. (Optional) The following values can be optionally modified otherwise the default value will be used:
+... In `spec`, enter a limit to how many nodes can be in the deployment (`adsNodeCount`).
+... In `spec`, enter a selector label that filters out nodes for the cluster (`adsNodeSelector`).
+...  In `spec`, provide a key that defines which protection domain a node belongs to (`adsProtectionDomainKey`).
+... In `adsNetworkInterfaces`, enter the management, cluster, and storage interfaces.
+... In `adsNodeConfig`, enter the per-node capacity, name of cache device to be configured for the FireTap container, and drive regex filter to select disks.
+
++
+[subs=+quotes]
+----
+apiVersion: astrads.netapp.io/v1alpha1
+kind: AstraDSCluster
+metadata:
+  *name: <name of your cluster>*
+  namespace: astrads-system
+spec:
+  *mvip: <management IP address>*
+  adsNodeCount: <optional node limit>
+  adsNodeSelector: <optional selector label for node filtering>
+  adsProtectionDomainKey: <optional key that defines which protection domain a node belongs to>
+  adsDataNetworks:
+    - *addresses: <CSV list of floating IP addresses>*
+      netmask:
+      gateway:
+  adsNetworkInterfaces:
+    managementInterface: <Optional management interface>
+    clusterInterface: <Optional cluster interface>
+    storageInterface: <Optional storage interface>
+  astraOptions:
+    *serialNumber: <serial number from license file>*
+  adsNodeConfig:
+    *cpu: <per-node cpu core count>*
+    *memory: <per node memory limit>*
+    capacity: <optional limit for per-node raw storage consumption>
+    cacheDevice: <optional name of device to be configured as cache device for FireTap container>
+    drivesFilter: <optional regex filter to select disks>
+  autoSupportConfig:
+    historyRetentionCount: 10
+    destinationURL: "https://testbed.netapp.com/put/AsupPut"
+    periodic:
+      - schedule: "0 0 * * 0"
+        periodicconfig:
+        - component:
+            name: controlplane
+            event: weekly
+          userMessage: Weekly Control Plane AutoSupport bundle
+----
+
+
+
+
+
+
+
 .. Change the `accountName` string to the name you want to associate with the account.
 .. Change the `astraAddress` string to the FQDN you want to use in your browser to access Astra. Do not use `http://` or `https://` in the address. Copy this FQDN for use in a <<Log in to the Astra Data Store UI,later step>>.
 .. Change the `email` string to the default initial administrator address. Copy this email address for use in a <<Log in to the Astra Data Store UI,later step>>.
