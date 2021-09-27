@@ -13,23 +13,96 @@ summary: Get started by verifying support for your environment.
 Get started by verifying that your environment meets Astra Data Store requirements.
 
 //POLARIS-654
-== Persistent volume sharing support
+== Persistent volume sharing requirements
+
 * NFS 4.1 client/server in Kubernetes clusters
- - K8S apps will access files through persistent volumes shared over NFS 4.1, using the AUTH_SYS authentication method.
- - Parallel NFS (pNFS) is not supported.
- - Only IP-based export policies are supported.
+* K8S apps will access files through persistent volumes shared over NFS 4.1, using the AUTH_SYS authentication method.
+* Parallel NFS (pNFS) is not supported.
+* Only IP-based export policies are supported.
 
 //POLARIS-458
-== Minimum resource configuration
-* Min # of Nodes – 3
+== Node physical resource requirements
+A minimum size cluster of Astra SDS is 3 nodes. The minimum resource requirements for each node in an Astra SDS cluster are as follows:
 
-Per node,
-Min # of drives – 2
-Min # of cores – 4 (minimal acceptable CPU model can be determined on further engineering analysis on feasibility)
-Min RAM – 4GB
-Min # of NW BW – 10Gb
-Min capacity – 1TB
+* Minumum number of drives: 2
+* Minimum number of CPU cores: 4
+* Minimum RAM: 4GB
+* Minimum number of NW BW: 10Gb
+* Minimum storage capacity: 1TB
 
+//POLARIS-460
+//dissimilar node types are supported for scale
+== Astra SDS cluster expansion requirements
+Astra SDS supports dissimilar node types in a cluster. If you are expanding a cluster, any node capability is supported for the new node, as long as the new node's performance is not lower than the lowest performing node in the cluster. All nodes, including new nodes during an expansion, must meet the requirements in <<Node physical resource requirements>>.
+
+//POLARIS-461
+== Supported media types in Astra SDS
+Astra SDS clusters support SAS and NVMe TLC SSD storage, with the following capabilities:
+
+* Maximum capacity per drive: 15.36TB
+* Maximum number of drives per node: 24
+* Maximum number of nodes per cluster: 40
+
+//POLARIS-656 - more questions here for HA requirements (Naveen M is SME)
+== Astra SDS high availability requirements
+Astra SDS requires Element 12.3 or later for high availability to function correctly. It makes use of Protection Domains.
+
+//POLARIS-2175
+== Astra SDS hardware and software requirements
+Astra SDS requires the following hardware and software configuration on each node:
+
+.Software
+* Operating systems: Red Hat Enterprise Linux 7.7 and 8.2
+* Kubernetes distribution: OpenShift 4.6, Anthos 1.7
+* Kubernetes version: 1.19
+
+.Hardware
+* HPE DL360
+* HPE DL380
+* Dell R640
+* Dell R740
+
+//POLARIS-2317 and 2316
+== Feature and expansion limitations of Astra SDS Starter Edition
+Astra SDS Starter Edition has certain feature and expansion limitations.
+
+.Minimum resource requirements
+Min. Memory requirement per node: 32GiB
+
+.Feature limitations
+* NFS vVols are not supported
+* Cloud connection is required
+
+.Expansion limitations
+|===
+|Resource |Limits
+
+|Number of nodes in a cluster
+|5
+
+|Persistent volumes per node
+|10
+
+|vCPU cores per node
+|9
+
+|vCPU cores per Cluster
+|45
+
+|Max. Capacity per node
+|1TiB
+
+|Max. Capacity per Cluster
+|4TiB + 1TiB
+
+|Max. Capacity per Volume
+|1TiB
+
+|===
+
+
+//POLARIS-450
+== PV requirements of apps
 
 
 
