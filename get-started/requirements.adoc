@@ -20,7 +20,7 @@ Each Astra Data Store cluster supports using persistent volumes to cover the sto
 * NFS 4.1 client/server in Kubernetes clusters
 * K8S apps will access files through persistent volumes shared over NFS 4.1, which requires the the AUTH_SYS authentication method.
 
-.Limitations
+.Capabilities
 * Parallel NFS (pNFS) is not supported.
 * Only IP-based export policies are supported.
 
@@ -28,7 +28,7 @@ Each Astra Data Store cluster supports using persistent volumes to cover the sto
 == Node physical resource requirements
 A minimum size cluster of Astra SDS is 3 nodes. The minimum resource requirements for each node in an Astra SDS cluster are as follows:
 
-* Minumum number of drives: 2
+* Minimum number of drives: 2
 * Minimum number of CPU cores: 4
 * Minimum RAM: 4GB
 * Minimum number of NW BW: 10Gb
@@ -67,13 +67,13 @@ Astra SDS requires the following hardware and software configuration on each nod
 * Dell R740
 
 //POLARIS-2317 and 2316
-== Feature and expansion limitations of Astra SDS Starter Edition
+== Feature and expansion capabilities of Astra SDS Starter Edition
 Astra SDS Starter Edition has certain feature and expansion limitations.
 
 .Minimum resource requirements
 Min. Memory requirement per node: 32GiB
 
-.Feature limitations
+.Feature capabilities
 * NFS vVols are not supported
 * Cloud connection is required
 
@@ -128,7 +128,7 @@ Astra Data Store requires that you open the following ports in the internal fire
 |Description
 
 |Port
-|Description Description
+|Description
 
 |Port
 |Description
