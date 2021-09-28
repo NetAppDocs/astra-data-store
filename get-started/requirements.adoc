@@ -18,15 +18,15 @@ Each Astra Data Store cluster supports using persistent volumes to cover the sto
 
 .Requirements
 * NFS 4.1 client/server in Kubernetes clusters
-* K8S apps will access files through persistent volumes shared over NFS 4.1, which requires the the AUTH_SYS authentication method.
+* Kubernetes apps will access files through persistent volumes shared over NFS 4.1, which requires the the AUTH_SYS authentication method.
 
 .Capabilities
 * Parallel NFS (pNFS) is not supported.
 * Only IP-based export policies are supported.
 
 //POLARIS-458
-== Node physical resource requirements
-A minimum size cluster of Astra SDS is 3 nodes. The minimum resource requirements for each node in an Astra SDS cluster are as follows:
+== Node minimum resource requirements
+A minimum size cluster of Astra Data Store is 3 nodes. The minimum resource requirements for each node in an Astra Data Store cluster are as follows:
 
 * Minimum number of drives: 2
 * Minimum number of CPU cores: 4
@@ -36,24 +36,24 @@ A minimum size cluster of Astra SDS is 3 nodes. The minimum resource requirement
 
 //POLARIS-460
 //dissimilar node types and HW and capabilities are supported for scale
-== Astra SDS cluster expansion requirements
-Astra SDS supports dissimilar node types in a cluster. If you are expanding a cluster, any node capability is supported for the new node, as long as the new node's performance is not lower than the lowest performing node in the cluster. All nodes, including new nodes during an expansion, must meet the requirements in <<Node physical resource requirements>>.
+== Astra Data Store cluster expansion requirements
+Astra Data Store supports nodes of different types and capabilities in a cluster. If you are expanding a cluster, Astra Data Store supports adding nodes with any performance capabilities, as long as they are not lower than the least performant node in the cluster. All nodes, including new nodes during an expansion, need to at least meet the minimum requirements in <<Node physical resource requirements>>.
 
 //POLARIS-461
-== Supported media types in Astra SDS
-Astra SDS clusters support SAS and NVMe TLC SSD storage, with the following capabilities:
+== Supported media types in Astra Data Store
+Astra Data Store clusters support SAS and NVMe TLC SSD storage with the following capabilities:
 
 * Maximum capacity per drive: 15.36TB
 * Maximum number of drives per node: 24
 * Maximum number of nodes per cluster: 40
 
 //POLARIS-656 - more questions here for HA requirements (Naveen M is SME)
-== Astra SDS high availability requirements
-Astra SDS requires Element 12.3 or later for high availability to function correctly. It makes use of Protection Domains.
+== Astra Data Store high availability requirements
+Astra Data Store requires Element 12.3 or later for high availability to function correctly. High availability makes use of the Element software Protection Domains feature.
 
 //POLARIS-2175
-== Astra SDS hardware and software requirements
-Astra SDS requires the following hardware and software configuration on each node:
+== Astra Data Store hardware and software requirements
+Astra Data Store requires the following hardware and software configuration on each node:
 
 .Software
 * Operating systems: Red Hat Enterprise Linux 7.7 and 8.2
@@ -67,8 +67,8 @@ Astra SDS requires the following hardware and software configuration on each nod
 * Dell R740
 
 //POLARIS-2317 and 2316
-== Feature and expansion capabilities of Astra SDS Starter Edition
-Astra SDS Starter Edition has certain feature and expansion limitations.
+== Feature and expansion capabilities of Astra Data Store Starter Edition
+Astra Data Store Starter Edition has certain feature and expansion limitations.
 
 .Minimum resource requirements
 Min. Memory requirement per node: 32GiB
@@ -142,7 +142,7 @@ Astra Data Store has the following cluster capabilities:
 * Maximum cluster size: 40 nodes
 * Minimum volume size: 1GiB
 * Maximum volume size: 100TB
-* Maximum number of volumes per Astra SDS cluster: 4000
+* Maximum number of volumes per Astra Data Store cluster: 4000
 * Maximum number of snapshots per volume: 256
 * Capacity – multiple PB of usable capacity
 
