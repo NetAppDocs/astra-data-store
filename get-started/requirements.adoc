@@ -12,11 +12,15 @@ summary: Get started by verifying support for your environment.
 
 Get started by verifying that your environment meets Astra Data Store requirements.
 
-//POLARIS-654
+//POLARIS-654 and POLARIS-450
 == Persistent volume sharing requirements
+Each Astra Data Store cluster supports using persistent volumes to cover the storage needs of any apps installed on that cluster. Persistent volumes in Astra Data Store have the following requirements and limitations:
 
+.Requirements
 * NFS 4.1 client/server in Kubernetes clusters
-* K8S apps will access files through persistent volumes shared over NFS 4.1, using the AUTH_SYS authentication method.
+* K8S apps will access files through persistent volumes shared over NFS 4.1, which requires the the AUTH_SYS authentication method.
+
+.Limitations
 * Parallel NFS (pNFS) is not supported.
 * Only IP-based export policies are supported.
 
@@ -31,7 +35,7 @@ A minimum size cluster of Astra SDS is 3 nodes. The minimum resource requirement
 * Minimum storage capacity: 1TB
 
 //POLARIS-460
-//dissimilar node types are supported for scale
+//dissimilar node types and HW and capabilities are supported for scale
 == Astra SDS cluster expansion requirements
 Astra SDS supports dissimilar node types in a cluster. If you are expanding a cluster, any node capability is supported for the new node, as long as the new node's performance is not lower than the lowest performing node in the cluster. All nodes, including new nodes during an expansion, must meet the requirements in <<Node physical resource requirements>>.
 
@@ -74,6 +78,7 @@ Min. Memory requirement per node: 32GiB
 * Cloud connection is required
 
 .Expansion limitations
+
 |===
 |Resource |Limits
 
@@ -100,30 +105,53 @@ Min. Memory requirement per node: 32GiB
 
 |===
 
+//POLARIS-1285 - Do we want to document ports that ASDS uses?
+== Required TCP ports
+Astra Data Store requires that you open the following ports in the internal firewall configuration:
 
-//POLARIS-450
-== PV requirements of apps
+|===
+|Port |Description
 
+|Port
+|Description
 
+|Port
+|Description
+
+|Port
+|Description
+
+|Port
+|Description
+
+|Port
+|Description
+
+|Port
+|Description Description
+
+|Port
+|Description
+
+|===
+
+//POLARIS-479
+== Astra Data Store cluster capabilities
+Astra Data Store has the following cluster capabilities:
+
+* Maximum cluster size: 40 nodes
+* Minimum volume size: 1GiB
+* Maximum volume size: 100TB
+* Maximum number of volumes per Astra SDS cluster: 4000
+* Maximum number of snapshots per volume: 256
+* Capacity – multiple PB of usable capacity
 
 
 == Supported web browsers
 
 Astra Control Center supports recent versions of Firefox, Safari, and Chrome with a minimum resolution of 1280 x 720.
 
-////
-== Integration with your organization
 
-Before you deploy Astra Control Center, you should determine which internal integrations should occur, including the following:
-
-* Single sign on
-* SMTP server for email notifications
-
-If you want to integrate these options, you should obtain the following:
-
-* SSO integration confirmation details
-* SMTP server configuration details
-////
 == What's next
 
 View the link:quick-start.html[quick start] overview.
