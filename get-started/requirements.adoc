@@ -33,7 +33,7 @@ Astra Data Store requires the following hardware and software configuration on e
 == Networking requirements
 Astra Data Store needs a certain network interface and IP address configuration for the management, cluster, and data networks.
 
-.Network interfaces
+.Network interface requirements
 * Minimum configuration: One 10GbE or faster network interface
 If unspecified then the interface hosting MIP will be used for all the 3 networks (management, cluster and data)
 * Maximum configuration: Two network interfaces
@@ -42,7 +42,7 @@ If unspecified then the interface hosting MIP will be used for all the 3 network
 
 NOTE: The cluster network should reside on the same interface as either the management network (if the management network is 10GbE or faster), or the data network.
 
-.IP addresses
+.IP address requirements
 * Management network
 ** One IPv4 address (pre-configured) for the management IP address (MIP) of each node
 ** One IPv4 address (free/spare/unconfigured) for the management virtual IP address (MVIP) of the cluster. This address is configured on the management network interface during Astra Data Store cluster installation.
