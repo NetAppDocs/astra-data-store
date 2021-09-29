@@ -70,7 +70,7 @@ A minimum size cluster of Astra Data Store is 3 nodes. The minimum resource requ
 * Minimum number of drives: 2
 * Minimum number of CPU cores: 4
 * Minimum RAM: 4GB
-* Minimum number of NW BW: 10Gb
+* Minimum networking bandwidth: 10GbE
 * Minimum storage capacity: 1TB
 
 //POLARIS-460
