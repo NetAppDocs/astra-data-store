@@ -20,8 +20,8 @@ Astra Data Store requires an Astra Data Store license for full functionality. Ob
 Astra Data Store requires the following hardware and software configuration on each node:
 
 .Software
-* Operating systems: Red Hat Enterprise Linux 7.7 and 8.2
-* Kubernetes distribution: OpenShift 4.6, Anthos 1.7
+* Operating systems: Red Hat Enterprise Linux 7.7 or 8.2
+* Kubernetes distribution: OpenShift 4.6 or Google Anthos 1.7
 * Kubernetes version: 1.19
 
 .Hardware
