@@ -13,7 +13,7 @@ summary: To install Astra Data Store after addressing some environmental prerequ
 To install Astra Data Store, do the following steps:
 
 * <<Install Astra Data Store>>
-* <<Log in to the Astra Data Store UI>>
+* <<Install Astra Trident>>
 
 == Install Astra Data Store
 
@@ -359,7 +359,117 @@ spec:
           userMessage: Weekly Control Plane AutoSupport bundle
 ----
 
+. Verify the cluster deployment progress:
++
+----
+kubectl get astradscluster -n astrads-system
+----
 
+Sample return:
++
+----
+NAME                        STATUS    VERSION                            SERIAL NUMBER   MVIP           AGE
+
+sample-0309d8b   created   sample-9.11.0-6090501   081856669       10.224.8.232   13d
+----
+
+. Run the following bash script after cluster creation to reserve node CPU and memory resources to constrain k8s:
++
+----
+#!/bin/bash
+set -eio pipefail
+CPU=8
+MEM=32
+
+
+CLUSTER_KIND="AstraDSCluster"
+LDIR="/tmp/ADS"
+LABEL_PREFIX="astrads.netapp.io"
+SSH="ssh"
+SCP="scp"
+mkdir -p ${LDIR}
+if ! CLUSTER_NAME=`kubectl get ${CLUSTER_KIND} -A -o jsonpath={.items[0].metadata.name}` ; then
+        CLUSTER_NAME=""
+fi
+SCRIPT=${LDIR}/sys_res.sh
+KUBE_RESERVED='{cpu: 8000m, memory: 32G}'
+echo "#!/bin/bash
+cat /var/lib/kubelet/config.yaml | python3 -c \"import yaml,sys; y = yaml.load(sys.stdin); y['systemReserved'] = yaml.safe_load(sys.argv[1]); print(yaml.dump(y,default_flow_style=False))\" \"${KUBE_RESERVED}\" > /var/lib/kubelet/config.yaml.new
+mv /var/lib/kubelet/config.yaml.new /var/lib/kubelet/config.yaml
+echo \"Restarting kubelet\"
+systemctl restart kubelet
+sleep 10
+systemctl status kubelet
+grep -A 3 "systemReserved" /var/lib/kubelet/config.yaml
+" > ${SCRIPT}
+kubectl get nodes  -L ${LABEL_PREFIX}/cluster -o wide
+NODES=`kubectl get nodes -L ${LABEL_PREFIX}/cluster | awk /${CLUSTER_NAME}/'{print $1}'`
+for NODE in $NODES ; do
+        echo "$NODE"
+        $SCP ${SCRIPT} root@${NODE}:sys_res.sh
+        $SSH root@${NODE} chmod +x sys_res.sh
+        $SSH root@${NODE} ./sys_res.sh
+done
+----
+
+== Install Astra Trident
+
+To install Trident, download the installation bundle from the NetApp Support Site and perform a series a commands to install Trident in your environment. You can use this procedure to install Trident in internet-connected or air-gapped environments.
+
+.What you'll need
+* link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
+* Root administrative permissions.
+* If you are installing from an air-gapped environment, download the Trident bundle from the NetApp Support Site.
+
+.Steps
+. Create and open a new Trident directory:
++
+----
+[root@example ~]# mkdir trident
+[root@example ~]# cd trident
+----
+
+. If you are installing from an internet-connected environment, download the Trident bundle from the NetApp Support Site using a secure, file-transfer tool, such as GNU wget:
++
+----
+[root@example trident]# wget <URL for Trident bundle>
+Resolving ... 10.193.34.109
+Connecting to |10.193.34.109|:8081... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 87210186 (83M) [application/x-tgz]
+Saving to: ‘trident-90cf892ddcc0983dfb875c95d3f55bb602d0202f.tgz’
+
+100%[======================================================================================================================================================================================================================================>] 87,210,186   107MB/s   in 0.8s
+
+2021-07-01 16:31:43 (107 MB/s) - ‘trident-90cf892ddcc0983dfb875c95d3f55bb602d0202f.tgz’ saved [87210186/87210186]
+----
+
+. Extract the images from the bundle:
++
+Sample command and response:
+----
+[root@example trident]# gunzip trident-90cf892ddcc0983dfb875c95d3f55bb602d0202f.tgz
+trident_docker_image.tgz
+trident-operator_docker_image.tgz
+trident-installer-21.07.0-test.jenkins-trident-submit-287.tar.gz
+trident-operator-21.07.0-test.jenkins-trident-submit-287.tgz
+----
+
+. Load the Trident images into your preferred registry. All images should be loaded under one parent directory path; for example,  `nexus.barnacle.company.com:5001/trident`.
++
+Sample commands and responses:
+----
+[root@example trident]# docker load -i trident_docker_image.tgz
+d2de0904777e: Loading layer [==================================================>] 51.69 MB/51.69 MB
+c110bbf04909: Loading layer [==================================================>]  39.7 MB/39.7 MB
+0f7ceb16c114: Loading layer [==================================================>] 1.248 MB/1.248 MB
+Loaded image: nexus.barnacle.company.com:5001/trident:21.07.0-test.jenkins-trident-submit-287
+
+[root@example trident]# docker images | grep trident
+nexus.barnacle.netapp.com:5001/trident             21.07.0-test.jenkins-trident-submit-287   9ed44525ee10        8 days ago          94.4 MB
+----
+
+. Install Trident:
 
 
 
