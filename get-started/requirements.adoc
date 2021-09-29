@@ -35,7 +35,9 @@ Astra Data Store needs a certain network interface and IP address configuration 
 
 .Network interface requirements
 * Minimum configuration: One 10GbE or faster network interface
-If unspecified then the interface hosting MIP will be used for all the 3 networks (management, cluster and data)
++
+NOTE: If unspecified, the interface that hosts the management IP address (MIP) is used for all 3 networks (management, cluster and data).
+
 * Maximum configuration: Two network interfaces
 ** One 1GbE or faster interface for the management network
 ** One 10GbE or faster interface for the data network
@@ -94,7 +96,7 @@ Astra Data Store requires Element 12.3 or later for high availability to functio
 
 //POLARIS-1285 - Do we want to document ports that ASDS uses?
 == Required TCP ports
-Astra Data Store requires that you open the following ports in the internal firewall configuration:
+Astra Data Store requires that you open the following ports in your edge firewall:
 
 |===
 |Port |Description
@@ -127,11 +129,11 @@ Astra Data Store requires that you open the following ports in the internal fire
 Astra Data Store Starter Edition has certain feature and expansion limitations.
 
 .Minimum resource requirements
-Min. Memory requirement per node: 32GiB
+The minimum memory requirement per node is 32GB.
 
 .Feature capabilities
 * NFS vVols are not supported
-* Cloud connection is required
+* A connection to the cloud is required
 
 .Expansion limitations
 
