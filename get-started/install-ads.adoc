@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: get-started/install-ads.html
 keywords: astra, astra data store, install, deploy, download
-summary: To install Astra Data Store after addressing some environmental prerequisites, you'll download the bundle and install following the steps described.
+summary: To install Astra Data Store after addressing some environmental prerequisites, you'll download the bundle and install following the steps described. You'll also install or update Astra Trident, K8s snapshot files, storage backend, and default storage class.
 ---
 
 = Install Astra Data Store
@@ -10,10 +10,15 @@ summary: To install Astra Data Store after addressing some environmental prerequ
 :icons: font
 :imagesdir: ../media/get-started/
 
-To install Astra Data Store, do the following steps:
+To install Astra Data Store after addressing some environmental prerequisites, you'll download the bundle and install following the steps described. You'll also install or update Astra Trident, K8s snapshot files, storage backend, and default storage class.
+
+To install Astra Data Store, complete the following steps:
 
 * <<Install Astra Data Store>>
 * <<Install Astra Trident>>
+* <<Install K8s Snapshot CRDs and Controller>>
+* <<Set up Astra Data Store as storage backend>>
+* <<Create a generic Astra Data Store storage class>>
 
 == Install Astra Data Store
 
@@ -22,40 +27,21 @@ To install Astra Data Store, download the installation bundle from the NetApp Su
 .What you'll need
 * link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
 * Root administrative permissions.
-* From your OpenShift cluster, ensure all cluster operators are in a healthy state (`available` is `true`):
-+
-----
-oc get clusteroperators
-----
-
-* From your OpenShift cluster, ensure all API services are in a healthy state (`available` is `true`):
-+
-----
-oc get apiservices
-----
+* If you are installing from an air-gapped environment, download the Astra Data Store bundle from the NetApp Support Site.
 
 .About this task
-The Astra Data Store installation process does the following:
+The Astra Data Store installation process guides you through the following high-level steps:
 
-* Installs the Astra components into the `netapp-acc` (or custom named) namespace.
-* Creates a default account.
-* Establishes a default administrative user email address and default one-time password of `ACC-<UUID_of_installation>` for this instance of Astra Data Store. This user is assigned the Owner role in the system and is needed for first time login to the UI.
-* Helps you determine that all Astra Data Store pods are running.
-* Installs the Astra UI.
-
-NOTE: Podman commands can be used in place of Docker commands if you are using Red Hat’s Podman repository.
+* Download the Astra Data Store Co-Dev Bundle.
+* Unpack the bundle then change directory.
+* Copy the kubectl-astrads binary.
+* Push the images to your local registry.
+* Install the AstraDSOperator.
+* Install the AstraDSDeployment.
+* Install the AstraDSLicense.
+* Install the AstraDSCluster.
 
 .Steps
-
-Log into NSS and download the Astra Data Store Co-Dev Bundle.
-Unpack the bundle then change directory into the resulting folder.
-Copy kubectl-astrads binary
-Push the images to your local registry.
-Install the AstraDSOperator.
-Install the AstraDSDeployment.
-Install the AstraDSLicense.
-Install the AstraDSCluster.
-
 . Log in to the NetApp Support Site and download the Astra Data Store bundle (`astra-data-store-[version].tar.gz`) from the https://mysupport.netapp.com/site/products/all/details/astra-data-store-downloads-tab[NetApp Support Site^].
 . Download the zip of Astra Data Store license file (NLF) from https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^].
 . (Optional) Use the following command to verify the signature of the bundle:
@@ -364,7 +350,7 @@ spec:
 ----
 kubectl get astradscluster -n astrads-system
 ----
-
++
 Sample return:
 +
 ----
@@ -447,6 +433,7 @@ Saving to: ‘trident-90cf892ddcc0983dfb875c95d3f55bb602d0202f.tgz’
 . Extract the images from the bundle:
 +
 Sample command and response:
++
 ----
 [root@example trident]# gunzip trident-90cf892ddcc0983dfb875c95d3f55bb602d0202f.tgz
 trident_docker_image.tgz
@@ -458,6 +445,7 @@ trident-operator-21.07.0-test.jenkins-trident-submit-287.tgz
 . Load the Trident images into your preferred registry. All images should be loaded under one parent directory path; for example,  `nexus.barnacle.company.com:5001/trident`.
 +
 Sample commands and responses:
++
 ----
 [root@example trident]# docker load -i trident_docker_image.tgz
 d2de0904777e: Loading layer [==================================================>] 51.69 MB/51.69 MB
@@ -484,6 +472,7 @@ nexus.barnacle.netapp.com:5001/trident             21.07.0-test.jenkins-trident-
 ----
 +
 Sample response:
++
 ----
 k8s.gcr.io/sig-storage/csi-provisioner:v2.1.1
 k8s.gcr.io/sig-storage/csi-attacher:v3.1.0
@@ -506,7 +495,8 @@ k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.1.0
 [root@example trident-installer]$ ./tridentctl install –debug --image-registry [registry_full_path] -n trident
 ----
 +
-Sample response
+Sample response:
++
 ----
 INFO Created Kubernetes clients.                   namespace=default version=v1.21.2
 W0701 16:35:23.835995   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
@@ -556,7 +546,8 @@ INFO Trident installation succeeded.
 [root@example trident-installer]$ kubectl get pods -n trident
 ----
 +
-Sample response
+Sample response:
++
 ----
 NAME                           READY   STATUS    RESTARTS   AGE
 trident-csi-6457bdd4d4-k9rw6   6/6     Running   0          32s
@@ -587,6 +578,7 @@ kubectl apply -f trident/k8svolumesnapshotclasses.yaml
 ----
 +
 Response:
++
 ----
 customresourcedefinition.apiextensions.k8s.io/volumesnapshotclasses.snapshot.storage.k8s.io created
 ----
@@ -598,6 +590,7 @@ kubectl apply -f trident/k8svolumesnapshotcontents.yaml
 ----
 +
 Response:
++
 ----
 customresourcedefinition.apiextensions.k8s.io/volumesnapshotcontents.snapshot.storage.k8s.io created
 ----
@@ -609,6 +602,7 @@ kubectl apply -f trident/k8svolumesnapshots.yaml
 ----
 +
 Response:
++
 ----
 customresourcedefinition.apiextensions.k8s.io/volumesnapshots.snapshot.storage.k8s.io created
 ----
@@ -620,6 +614,7 @@ kubectl apply -f trident/k8s-setup-snapshot-controller.yaml
 ----
 +
 Response:
++
 ----
 deployment.apps/snapshot-controller created
 ----
@@ -631,6 +626,7 @@ kubectl apply -f trident/k8s-rbac-snapshot-controller.yaml
 ----
 +
 Response:
++
 ----
 serviceaccount/snapshot-controller created
 clusterrole.rbac.authorization.k8s.io/snapshot-controller-runner created
@@ -646,6 +642,7 @@ k get crd | grep volumesnapshot
 ----
 +
 Sample response:
++
 ----
 astradsvolumesnapshots.astrads.netapp.io              2021-08-04T17:48:21Z
 volumesnapshotclasses.snapshot.storage.k8s.io         2021-08-04T22:05:49Z
@@ -660,254 +657,301 @@ k get pods -n kube-system | grep snapshot
 ----
 +
 Sample response:
++
 ----
 snapshot-controller-7f58886ff4-cdh78                                    1/1     Running   0          13s
 snapshot-controller-7f58886ff4-tmrd9                                    1/1     Running   0          32s
 ----
 
+== Set up Astra Data Store as storage backend
 
+Configure storage backend parameters in the ads_backend.json file and create the Astra Data Store storage backend.
 
-
-
-
-.. Change the `accountName` string to the name you want to associate with the account.
-.. Change the `astraAddress` string to the FQDN you want to use in your browser to access Astra. Do not use `http://` or `https://` in the address. Copy this FQDN for use in a <<Log in to the Astra Data Store UI,later step>>.
-.. Change the `email` string to the default initial administrator address. Copy this email address for use in a <<Log in to the Astra Data Store UI,later step>>.
-.. Change `enrolled` for autoSupport to `false` for sites without internet connectivity or retain `true` for connected sites.
-.. (Optional) Add a first name `firstName` and last name `lastName` of the user associated with the account. You can perform this step now or later within the UI.
-.. (Optional) Change the `storageClass` value to another Trident storageClass resource if required by your installation.
-.. If you are not using a registry that requires authorization, delete the `secret` line.
-
+.Steps
+. Open `ads_backend.json` in a secure terminal:
++
+----
+cat ads_backend.json
+----
+. Configure the JSON file:
+.. Change the `"cluster"` value to the cluster name for the Astra Data Store cluster.
+.. Change the `"namespace"` value to the namespace you want to use with volume creation.
+.. Change the `"autoExportPolicy"` value to `true`.
+.. Populate the `"autoExportCIDRs"` list with IP addresses you want to grant access. Use `0.0.0.0/0` to allow all.
+//"kubeconfig" → Convert .kube/config yaml file to json without spaces(minimize), then base64 it and use the base64 output
+//python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=None)' < kubeconfig_filepath > kubeconf.json
+//cat kubeconf.json | base64 | tr -d '\n'
+//. "defaults" → List of defaults:
+//snapshotPolicy,
+//exportPolicy,
+//unixPermissions,
+//snapshotDir,
+//qosPolicy,
+//size
 +
 [subs=+quotes]
 ----
-apiVersion: astra.netapp.io/v1
-kind: AstraControlCenter
+{
+    "version": 1,
+    "storageDriverName": "astrads-nas",
+    "storagePrefix": "",
+    *"cluster": "example-1234584",*
+    *"namespace": "astrads-system",*
+    *"autoExportPolicy": true,*
+    *"autoExportCIDRs": ["0.0.0.0/0"],*
+    "kubeconfig": "<ID>",
+    "debugTraceFlags": {"method": true, "api": true},
+    "labels": {"cloud": "on-prem", "creator": "trident-dev"},
+    "defaults": {
+        "qosPolicy": "gold"
+    },
+    "storage": [
+        {
+            "labels": {
+                "performance": "extreme"
+            },
+            "defaults": {
+                "qosPolicy": "gold"
+            }
+        },
+        {
+            "labels": {
+                "performance": "premium"
+            },
+            "defaults": {
+                "qosPolicy": "silver",
+                "unixPermissions": "0755"
+            }
+        },
+        {
+            "labels": {
+                "performance": "standard"
+            },
+            "defaults": {
+                "qosPolicy": "bronze"
+            }
+        }
+    ]
+}
+----
+
+. Create the storage backend:
++
+----
+tridentctl create backend -f ads_backend.json -n trident
+----
++
+Sample response:
++
+----
++------------------+----------------+--------------------------------------+--------+---------+
+|       NAME       | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++------------------+----------------+--------------------------------------+--------+---------+
+| example-1234584 | astrads-nas    | 2125fa7a-730e-43c8-873b-6012fcc3b527 | online |       0 |
++------------------+----------------+--------------------------------------+--------+---------+
+----
+
+== Create a generic Astra Data Store storage class
+
+Create the Trident default storage class and apply it to the storage backend.
+
+.Steps
+. Create the trident-csi storage class:
+.. Run the following command:
++
+----
+cat ads_sc_generic.yaml
+----
++
+Response:
++
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
-  name: astra
-spec:
-  *accountName: "Example"*
-  astraVersion: "ASTRA_VERSION"
-  *astraAddress: "astra.example.com"*
-  autoSupport:
-    *enrolled: true*
-  *email: "[admin@example.com]"*
-  *firstName: "SRE"*
-  *lastName: "Admin"*
-  imageRegistry:
-    *name: "[Docker_registry_path]"*
-    *secret: "astra-registry-cred"*
-    *storageClass: "ontap-gold"*
+  name: trident-csi
+provisioner: csi.trident.netapp.io
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+allowVolumeExpansion: true
+mountOptions:
+  - vers=4
 ----
 
-. Install the Astra Data Store operator:
+.. Create trident-csi:
 +
 ----
-kubectl apply -f astra_control_center_operator_deploy.yaml
+kubectl create -f ads_sc_generic.yaml
+----
++
+Response:
++
+----
+storageclass.storage.k8s.io/trident-csi created
+----
+
+. Verify that storage class has been added:
++
+----
+kubectl get storageclass -A
+----
++
+Response:
++
+----
+NAME          PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+trident-csi   csi.trident.netapp.io   Delete          Immediate           true
+----
+
+. Verify that the Trident backend has been updated with the default storage class parameters:
++
+----
+tridentctl get backend -n trident -o yaml
 ----
 +
 Sample response:
-+
-----
-namespace/netapp-acc-operator created
-customresourcedefinition.apiextensions.k8s.io/astracontrolcenters.astra.netapp.io created
-role.rbac.authorization.k8s.io/acc-operator-leader-election-role created
-clusterrole.rbac.authorization.k8s.io/acc-operator-manager-role created
-clusterrole.rbac.authorization.k8s.io/acc-operator-metrics-reader created
-clusterrole.rbac.authorization.k8s.io/acc-operator-proxy-role created
-rolebinding.rbac.authorization.k8s.io/acc-operator-leader-election-rolebinding created
-clusterrolebinding.rbac.authorization.k8s.io/acc-operator-manager-rolebinding created
-clusterrolebinding.rbac.authorization.k8s.io/acc-operator-proxy-rolebinding created
-configmap/acc-operator-manager-config created
-service/acc-operator-controller-manager-metrics-service created
-deployment.apps/acc-operator-controller-manager created
-----
-
-. If you didn't already do so in a previous step, create the `netapp-acc` (or custom) namespace:
-+
-----
-kubectl create ns [netapp-acc or custom]
-----
-+
-Sample response:
-+
-----
-namespace/netapp-acc created
-----
-
-. Install Astra Data Store in the `netapp-acc` (or your custom) namespace:
-+
-----
-kubectl apply -f astra_control_center_min.yaml -n [netapp-acc or custom]
-----
-+
-Sample response:
-+
-----
-astracontrolcenter.astra.netapp.io/astra created
-----
-
-. Verify that all system components installed successfully.
-+
-----
-kubectl get pods -n [netapp-acc or custom]
-----
-+
-Each pod should have a status of `Running`. It may take several minutes before the system pods are deployed.
-+
-Sample response:
-+
-----
-NAME                                         READY   STATUS    RESTARTS   AGE
-acc-helm-repo-5fdfff786f-gkv6z               1/1     Running   0          4m58s
-activity-649f869bf7-jn5gs                    1/1     Running   0          3m14s
-asup-79846b5fdc-s9s97                        1/1     Running   0          3m10s
-authentication-84c78f5cf4-qhx9t              1/1     Running   0          118s
-billing-9b8496787-v8rzv                      1/1     Running   0          2m54s
-bucketservice-5fb876d9d5-wkfvz               1/1     Running   0          3m26s
-cloud-extension-f9f4f59c6-dz6s6              1/1     Running   0          3m
-cloud-insights-service-5676b8c6d4-6q7lv      1/1     Running   0          2m52s
-composite-compute-7dcc9c6d6c-lxdr6           1/1     Running   0          2m50s
-composite-volume-74dbfd7577-cd42b            1/1     Running   0          3m2s
-credentials-75dbf46f9d-5qm2b                 1/1     Running   0          3m32s
-entitlement-6cf875cb48-gkvhp                 1/1     Running   0          3m12s
-features-74fd97bb46-vss2n                    1/1     Running   0          3m6s
-fluent-bit-ds-2g9jb                          1/1     Running   0          113s
-fluent-bit-ds-5tg5h                          1/1     Running   0          113s
-fluent-bit-ds-qfxb8                          1/1     Running   0          113s
-graphql-server-7769f98b86-p4qrv              1/1     Running   0          90s
-identity-566c566cd5-ntfj6                    1/1     Running   0          3m16s
-influxdb2-0                                  1/1     Running   0          4m43s
-krakend-5cb8d56978-44q66                     1/1     Running   0          93s
-license-66cbbc6f48-27kgf                     1/1     Running   0          3m4s
-login-ui-584f7fd84b-dmdrp                    1/1     Running   0          87s
-loki-0                                       1/1     Running   0          4m44s
-metrics-ingestion-service-6dcfddf45f-mhnvh   1/1     Running   0          3m8s
-monitoring-operator-78d67b4d4-nxs6v          2/2     Running   0          116s
-nats-0                                       1/1     Running   0          4m40s
-nats-1                                       1/1     Running   0          4m26s
-nats-2                                       1/1     Running   0          4m15s
-nautilus-9b664bc55-rn9t8                     1/1     Running   0          2m56s
-openapi-dc5ddfb7d-6q8vh                      1/1     Running   0          3m20s
-polaris-consul-consul-5tjs7                  1/1     Running   0          4m43s
-polaris-consul-consul-5wbnx                  1/1     Running   0          4m43s
-polaris-consul-consul-bfvl7                  1/1     Running   0          4m43s
-polaris-consul-consul-server-0               1/1     Running   0          4m43s
-polaris-consul-consul-server-1               1/1     Running   0          4m43s
-polaris-consul-consul-server-2               1/1     Running   0          4m43s
-polaris-mongodb-0                            2/2     Running   0          4m49s
-polaris-mongodb-1                            2/2     Running   0          4m22s
-polaris-mongodb-arbiter-0                    1/1     Running   0          4m49s
-polaris-ui-6648875998-75d98                  1/1     Running   0          92s
-polaris-vault-0                              1/1     Running   0          4m41s
-polaris-vault-1                              1/1     Running   0          4m41s
-polaris-vault-2                              1/1     Running   0          4m41s
-storage-backend-metrics-69546f4fc8-m7lfj     1/1     Running   0          3m22s
-storage-provider-5d46f755b-qfv89             1/1     Running   0          3m30s
-support-5dc579865c-z4pwq                     1/1     Running   0          3m18s
-telegraf-ds-4452f                            1/1     Running   0          113s
-telegraf-ds-gnqxl                            1/1     Running   0          113s
-telegraf-ds-jhw74                            1/1     Running   0          113s
-telegraf-rs-gg6m4                            1/1     Running   0          113s
-telemetry-service-6dcc875f98-zft26           1/1     Running   0          3m24s
-tenancy-7f7f77f699-q7l6w                     1/1     Running   0          3m28s
-traefik-769d846f9b-c9crt                     1/1     Running   0          83s
-traefik-769d846f9b-l9n4k                     1/1     Running   0          67s
-trident-svc-8649c8bfc5-pdj79                 1/1     Running   0          2m57s
-vault-controller-745879f98b-49c5v            1/1     Running   0          4m51s
-----
-
-. (Optional) To ensure the installation is completed, you can watch the `acc-operator` logs using the following command.
-+
-----
-kubectl logs deploy/acc-operator-controller-manager -n netapp-acc-operator -c manager -f
-----
-
-. When all the pods are running, verify installation success by retrieving the AstraControlCenter instance installed by the ACC Operator.
-+
-----
-kubectl get acc -o yaml -n netapp-acc
-----
-
-. Check the `status.deploymentState` field in the response for the `Deployed` value. If deployment was unsuccessful, an error message appears instead.
-+
-NOTE: You will use the `uuid` in the next step.
-
 +
 [subs=+quotes]
 ----
-apiVersion: v1
 items:
-- apiVersion: astra.netapp.io/v1
-  kind: AstraControlCenter
-  metadata:
-    creationTimestamp: "2021-07-28T21:36:49Z"
-    finalizers:
-    - astracontrolcenter.netapp.io/finalizer
-   generation: 1
-    name: astra
-    namespace: netapp-acc
-    resourceVersion: "27797604"
-    selfLink: /apis/astra.netapp.io/v1/namespaces/netapp-acc/astracontrolcenters/astra
-    uid: 61cd8b65-047b-431a-ba35-510afcb845f1
-  spec:
-    accountName: Example
-    astraAddress: astra.example.com
-    astraResourcesScaler: "Off"
-    astraVersion: 21.08.52
-    autoSupport:
-      enrolled: false
-    email: admin@example.com
-    firstName: SRE
-    lastName: Admin
-    imageRegistry:
-      name: registry_name/astra
-  status:
-    certManager: deploy
-    *deploymentState: Deployed*
-    observedGeneration: 1
-    observedVersion: 21.08.52
-    postInstall: Complete
-    *uuid: c49008a5-4ef1-4c5d-a53e-830daf994116*
-kind: List
-metadata:
-  resourceVersion: ""
-  selfLink: ""
-----
-
-. To get the one-time password you will use when you log in to Astra Data Store, copy the `status.uuid` value from the response in the previous step. The password is `ACC-` followed by the UUID value (`ACC-[UUID]` or, in this example, `ACC-c49008a5-4ef1-4c5d-a53e-830daf994116`).
-
-== Log in to the Astra Data Store UI
-
-After installing ACC, you will change the password for the default administrator and log in to the ACC UI dashboard.
-
-.Steps
-. In a browser, enter the FQDN you used in the `astraAddress` in the  `astra_control_center_min.yaml` CR when <<Install Astra Data Store,you installed ACC>>.
-. Accept the self-signed certificates when prompted.
-+
-NOTE: You can create a custom certificate after login.
-
-. At the Astra Data Store login page, enter the value you used for `email` in `astra_control_center_min.yaml` CR when <<Install Astra Data Store,you installed ACC>>, followed by the one-time password (`ACC-[UUID]`).
-+
-NOTE: If you enter an incorrect password three times, the admin account will be locked for 15 minutes.
-
-. Select *Login*.
-. Change the password when prompted.
-+
-NOTE: If this is your first login and you forget the password and no other administrative user accounts have yet been created, contact NetApp Support for password recovery assistance.
-
-. (Optional) Remove the existing self-signed TLS certificate and replace it with a link:../get-started/add-custom-tls-certificate.html[custom TLS certificate signed by a Certificate Authority (CA)].
-
-== Troubleshoot the installation
-
-If any of the services are in `Error` status, you can inspect the logs. Look for API response codes in the 400 to 500 range. Those indicate the place where a failure happened.
-
-.Steps
-
-. To inspect the Astra Data Store operator logs, enter the following:
-+
-----
-kubectl logs --follow -n netapp-acc-operator $(kubectl get pods -n netapp-acc-operator -o name)  -c manager
+- backendUUID: 2125fa7a-730e-43c8-873b-6012fcc3b527
+  config:
+    autoExportCIDRs:
+    - 0.0.0.0/0
+    autoExportPolicy: true
+    backendName: ""
+    cluster: example-1234584
+    credentials: null
+    debug: false
+    debugTraceFlags:
+      api: true
+      method: true
+    defaults:
+      exportPolicy: default
+      qosPolicy: gold
+      size: 1G
+      snapshotDir: "false"
+      snapshotPolicy: none
+      unixPermissions: "0777"
+    disableDelete: false
+    kubeconfig: <ID>
+    labels:
+      cloud: on-prem
+      creator: trident-dev
+    limitVolumeSize: ""
+    namespace: astrads-system
+    nfsMountOptions: ""
+    region: ""
+    serialNumbers: null
+    storage:
+    - defaults:
+        exportPolicy: ""
+        qosPolicy: gold
+        size: ""
+        snapshotDir: ""
+        snapshotPolicy: ""
+        unixPermissions: ""
+      labels:
+        performance: extreme
+      region: ""
+      supportedTopologies: null
+      zone: ""
+    - defaults:
+        exportPolicy: ""
+        qosPolicy: silver
+        size: ""
+        snapshotDir: ""
+        snapshotPolicy: ""
+        unixPermissions: "0755"
+      labels:
+        performance: premium
+      region: ""
+      supportedTopologies: null
+      zone: ""
+    - defaults:
+        exportPolicy: ""
+        qosPolicy: bronze
+        size: ""
+        snapshotDir: ""
+        snapshotPolicy: ""
+        unixPermissions: ""
+      labels:
+        performance: standard
+      region: ""
+      supportedTopologies: null
+      zone: ""
+    storageDriverName: astrads-nas
+    storagePrefix: ""
+    supportedTopologies: null
+    version: 1
+    zone: ""
+  configRef: ""
+  name: example-1234584
+  online: true
+  protocol: file
+  state: online
+  storage:
+    example-1234584_pool_0:
+      name: example-1234584_pool_0
+      storageAttributes:
+        backendType:
+          offer:
+          - astrads-nas
+        clones:
+          offer: true
+        encryption:
+          offer: false
+        labels:
+          offer:
+            cloud: on-prem
+            creator: trident-dev
+            performance: extreme
+        snapshots:
+          offer: true
+      storageClasses:
+      - trident-csi
+      supportedTopologies: null
+    example-1234584_pool_1:
+      name: example-1234584_pool_1
+      storageAttributes:
+        backendType:
+          offer:
+          - astrads-nas
+        clones:
+          offer: true
+        encryption:
+          offer: false
+        labels:
+          offer:
+            cloud: on-prem
+            creator: trident-dev
+            performance: premium
+        snapshots:
+          offer: true
+      storageClasses:
+      - trident-csi
+      supportedTopologies: null
+    example-1234584_pool_2:
+      name: example-1234584_pool_2
+      storageAttributes:
+        backendType:
+          offer:
+          - astrads-nas
+        clones:
+          offer: true
+        encryption:
+          offer: false
+        labels:
+          offer:
+            cloud: on-prem
+            creator: trident-dev
+            performance: standard
+        snapshots:
+          offer: true
+      storageClasses:
+      *- trident-csi*
+      supportedTopologies: null
+  volumes: []
 ----
 
 == What's next
