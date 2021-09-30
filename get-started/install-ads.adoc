@@ -470,6 +470,201 @@ nexus.barnacle.netapp.com:5001/trident             21.07.0-test.jenkins-trident-
 ----
 
 . Install Trident:
+.. Extract the Trident installer:
++
+----
+[root@example ~/trident]$ gunzip trident-installer-21.07.0-test.jenkins-trident-submit-287.tar.gz
+----
+
+.. List the required sidecar images and their corresponding versions for the installed Kubernetes version.
+// These sidecar images need to be downloaded from public repository??? A sample required trident sidecar images for k8s v1.19.0 are:
++
+----
+[root@example ~/trident]$ tridentctl images
+----
++
+Sample response:
+----
+k8s.gcr.io/sig-storage/csi-provisioner:v2.1.1
+k8s.gcr.io/sig-storage/csi-attacher:v3.1.0
+k8s.gcr.io/sig-storage/csi-resizer:v1.1.0
+k8s.gcr.io/sig-storage/csi-snapshotter:v3.0.3
+k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.1.0
+----
+
+.. Load sidecar images to parent registry:
+... Change to the Trident installer directory:
++
+----
+[root@example ~/trident]$ cd trident-installer
+----
+
+... Enter the full path for the parent registry that contains all Trident images for `[registry_full_path]`; for example, `nexus.barnacle.company.com:5001/trident`. Run the command.
+//Make sure the 'k8s.gcr.io/sig-storage' path is removed from the image path while pushing them under parent path???
++
+----
+[root@example trident-installer]$ ./tridentctl install –debug --image-registry [registry_full_path] -n trident
+----
++
+Sample response
+----
+INFO Created Kubernetes clients.                   namespace=default version=v1.21.2
+W0701 16:35:23.835995   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.837720   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.839377   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.841455   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.846474   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.848624   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.850769   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.852833   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.854837   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.856952   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:24.037261   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+INFO Starting Trident installation.                namespace=trident
+INFO Created namespace.                            namespace=trident
+INFO Created service account.
+INFO Created cluster role.
+INFO Created cluster role binding.
+W0701 16:35:24.097810   27909 warnings.go:70] policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+W0701 16:35:24.100987   27909 warnings.go:70] policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+INFO Created Trident pod security policy.
+W0701 16:35:24.117681   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:24.119927   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:24.122045   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:24.124118   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:24.126166   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:24.128214   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:24.130436   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:24.132501   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+INFO Added finalizers to custom resource definitions.
+W0701 16:35:24.157003   27909 warnings.go:70] storage.k8s.io/v1beta1 CSIDriver is deprecated in v1.19+, unavailable in v1.22+; use storage.k8s.io/v1 CSIDriver
+W0701 16:35:24.159669   27909 warnings.go:70] storage.k8s.io/v1beta1 CSIDriver is deprecated in v1.19+, unavailable in v1.22+; use storage.k8s.io/v1 CSIDriver
+INFO Created Trident service.
+INFO Created Trident secret.
+INFO Created Trident deployment.
+INFO Created Trident daemonset.
+INFO Waiting for Trident pod to start.
+INFO Trident pod started.                          deployment=trident-csi namespace=trident pod=trident-csi-6457bdd4d4-k9rw6
+INFO Waiting for Trident REST interface.
+INFO Trident REST interface is up.                 version=21.07.0-test.jenkins-trident-submit-287+c201299862cc3502e8e97eea6e801577134916dc
+INFO Trident installation succeeded.
+----
+
+... Verify that Trident was successfully installed by verifying that pods are up and running:
++
+----
+[root@example trident-installer]$ kubectl get pods -n trident
+----
++
+Sample response
+----
+NAME                           READY   STATUS    RESTARTS   AGE
+trident-csi-6457bdd4d4-k9rw6   6/6     Running   0          32s
+trident-csi-6hgsr              1/2     Running   2          32s
+trident-csi-8jhtx              1/2     Running   2          32s
+trident-csi-nh2kq              2/2     Running   0          32s
+trident-csi-sjksd              1/2     Running   2          32s
+----
+
+== Install K8s Snapshot CRDs and Controller
+
+K8s snapshot CRDs and controller are required to create PVC snapshots. If you do not already have the CRD and controller installed for your environment, run the following commands to install them.
+
+.What you'll need
+* Download the link:https://github.com/kubernetes-csi/external-snapshotter/tree/master/deploy/kubernetes/snapshot-controller[Kubernetes snapshot controller YAML files]:
+** k8s-setup-snapshot-controller.yaml
+** k8s-rbac-snapshot-controller.yaml
+* Download the link:https://github.com/kubernetes-csi/external-snapshotter/tree/master/client/config/crd[YAML CRDs]:
+** k8svolumesnapshotclasses.yaml
+** k8svolumesnapshotcontents.yaml
+** k8svolumesnapshots.yaml
+
+.Steps
+. Apply k8svolumesnapshotclasses.yaml:
++
+----
+kubectl apply -f trident/k8svolumesnapshotclasses.yaml
+----
++
+Response:
+----
+customresourcedefinition.apiextensions.k8s.io/volumesnapshotclasses.snapshot.storage.k8s.io created
+----
+
+. Apply k8svolumesnapshotcontents.yaml:
++
+----
+kubectl apply -f trident/k8svolumesnapshotcontents.yaml
+----
++
+Response:
+----
+customresourcedefinition.apiextensions.k8s.io/volumesnapshotcontents.snapshot.storage.k8s.io created
+----
+
+. Apply k8svolumesnapshots.yaml:
++
+----
+kubectl apply -f trident/k8svolumesnapshots.yaml
+----
++
+Response:
+----
+customresourcedefinition.apiextensions.k8s.io/volumesnapshots.snapshot.storage.k8s.io created
+----
+
+. Apply k8s-setup-snapshot-controller.yaml:
++
+----
+kubectl apply -f trident/k8s-setup-snapshot-controller.yaml
+----
++
+Response:
+----
+deployment.apps/snapshot-controller created
+----
+
+. Apply k8s-setup-snapshot-controller.yaml:
++
+----
+kubectl apply -f trident/k8s-rbac-snapshot-controller.yaml
+----
++
+Response:
+----
+serviceaccount/snapshot-controller created
+clusterrole.rbac.authorization.k8s.io/snapshot-controller-runner created
+clusterrolebinding.rbac.authorization.k8s.io/snapshot-controller-role created
+role.rbac.authorization.k8s.io/snapshot-controller-leaderelection created
+rolebinding.rbac.authorization.k8s.io/snapshot-controller-leaderelection created
+----
+
+. Verify that the CRD YAML files are applied:
++
+----
+k get crd | grep volumesnapshot
+----
++
+Sample response:
+----
+astradsvolumesnapshots.astrads.netapp.io              2021-08-04T17:48:21Z
+volumesnapshotclasses.snapshot.storage.k8s.io         2021-08-04T22:05:49Z
+volumesnapshotcontents.snapshot.storage.k8s.io        2021-08-04T22:05:59Z
+volumesnapshots.snapshot.storage.k8s.io               2021-08-04T22:06:17Z
+----
+
+. Verify that the snapshot controller files are applied:
++
+----
+k get pods -n kube-system | grep snapshot
+----
++
+Sample response:
+----
+snapshot-controller-7f58886ff4-cdh78                                    1/1     Running   0          13s
+snapshot-controller-7f58886ff4-tmrd9                                    1/1     Running   0          32s
+----
+
 
 
 
