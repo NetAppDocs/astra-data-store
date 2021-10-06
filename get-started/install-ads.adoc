@@ -36,6 +36,7 @@ The Astra Data Store installation process guides you through the following high-
 * Unpack the bundle then change directory.
 * Copy the kubectl-astrads binary.
 * Push the images to your local registry.
+* Install the Monitoring Operator.
 * Install the AstraDSOperator.
 * Install the AstraDSDeployment.
 * Install the AstraDSLicense.
@@ -62,17 +63,17 @@ tar -vxzf astra-data-store-[version].tar.gz
 cd astra-data-store-[version]
 ----
 
-. Define the path where kubectl binary is to be installed. kubectl-astrads is a custom kubectl extension that installs and manages Astra DS clusters.
+. Define the path where kubectl binary is to be installed. For example, `/usr/bin/kubectl` could be the binary path where kubectl is installed.
 +
 ----
 which kubectl
-/usr/bin/kubectl #Example binary path where kubectl is installed
+<install_path>
 ----
 
-. Copy the kubectl-astrads binary to the standard path where k8s kubectl binaries are installed.
+. Copy the kubectl-astrads binary to the standard path where k8s kubectl binaries are installed; for example, `/usr/bin/`. kubectl-astrads is a custom kubectl extension that installs and manages Astra DS clusters.
 +
 ----
-$ cp -f kubectl-astrads <path from previous command>
+cp -f kubectl-astrads <path from previous command>
 ----
 
 . Add the files in the Astra Data Store image directory to your local registry.
@@ -103,18 +104,31 @@ for astraImageFile in $(ls images/*.tar)
 done
 ----
 
+. Install the monitoring operator:
+//MORE NEEDED HERE???
++
+----
+[root@example ~]# helm3 install /u/samip/p4/netapp-monitoring --generate-name -n default
+----
+
 . Install the AstraDSOperator:
 .. List the AstraDS manifests:
 +
 ----
-[<root ID> ~]# ls manifests/
-astrads_v1alpha1_astradscluster_external.yaml  astrads_v1alpha1_astradsdeployment_external.yaml  astrads_v1alpha1_astradsoperator_external.yaml
+[root@example ~]# ls manifests/
+----
++
+Response:
+----
+astradscluster.yaml
+astradsdeployment.yaml
+astradsoperator.yaml
 ----
 
 .. Edit the Astra Data Store operator custom resource definition (CRD) yaml to refer to your local registry and secret.
 +
 ----
-vim astrads_v1alpha1_astradsoperator_external.yaml
+vim astradsoperator.yaml
 ----
 
 ... Change `[Docker_registry_path]` for the `kube-rbac-proxy` image to the registry path where you pushed the images in a previous step.
@@ -192,13 +206,13 @@ spec:
 .. Apply the updated file to your Astra Data Store cluster:
 +
 ----
-kubectl apply -f astrads_v1alpha1_astradsoperator_external.yaml
+kubectl apply -f astradsoperator.yaml
 ----
 
 .. Verify that the Astra Data Store operator pod has restarted and is running:
 +
 ----
-[<root ID> ~]$ kubectl get pods -n astrads-system
+[root@example ~]$ kubectl get pods -n astrads-system
 ----
 +
 Response:
@@ -212,7 +226,7 @@ astrads-operator-56d9b69cf4-tkfcb   2/2     Running   0          85s
 .. VIM the yaml file:
 +
 ----
-vim astrads_v1alpha1_astradsdeployment_external.yaml
+vim astradsdeployment.yaml
 ----
 
 .. Change `[Docker_registry_path]` to the registry path where you pushed the images in the previous step.
@@ -242,6 +256,12 @@ images:
 version: 0.0.1
 ----
 
+.. Apply the updated file:
++
+----
+kubectl apply -f astradsdeployment.yaml
+----
+
 . Edit and apply the Netapp License File (NLF) that you obtained from the Netapp Support Site (NSS) to your Astra Data Store cluster:
 
 .. Copy and paste the content of the NLF after `netappLicenseFile:`.
@@ -262,7 +282,7 @@ spec:
 .. Create the license file:
 +
 ----
-[<root ID> ~]$ kubectl apply -f <sample-license-yaml>
+[root@example ~]$ kubectl apply -f <sample-license-yaml>
 ----
 +
 Response:
@@ -288,7 +308,7 @@ astrads-system   e900000005   astrads-sti-c6220-09-10-11-12   true    Astra Data
 .. VIM the yaml file:
 +
 ----
-vim astrads_v1alpha1_astradscluster_external.yaml
+vim astradscluster.yaml
 ----
 
 .. In `metadata`, change the `name` string to the name of your cluster.
@@ -345,6 +365,12 @@ spec:
           userMessage: Weekly Control Plane AutoSupport bundle
 ----
 
+.. Apply the updated file to your cluster:
++
+----
+kubectl apply -f astradscluster.yaml
+----
+
 . Verify the cluster deployment progress:
 +
 ----
@@ -360,6 +386,7 @@ sample-0309d8b   created   sample-9.11.0-6090501   081856669       10.224.8.232 
 ----
 
 . Run the following bash script after cluster creation to reserve node CPU and memory resources to constrain k8s:
+//Confirm still needed???
 +
 ----
 #!/bin/bash
