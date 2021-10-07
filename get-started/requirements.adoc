@@ -141,6 +141,8 @@ Each Astra Data Store cluster supports using persistent volumes to cover the sto
 * Only IP-based export policies are supported.
 
 //POLARIS-1285 - Do we want to document ports that ASDS uses?
+// ADS just needs standard ports that K8S uses
+////
 == Required TCP ports
 Astra Data Store requires that you open the following ports in your edge firewall:
 
@@ -170,6 +172,8 @@ Astra Data Store requires that you open the following ports in your edge firewal
 
 |===
 
+////
+////
 //POLARIS-2317 and 2316
 == Astra Data Store Starter Edition feature and expansion capabilities
 Astra Data Store Starter Edition has certain feature and expansion limitations.
@@ -207,6 +211,8 @@ The minimum memory requirement per node is 32GB.
 |Max. Capacity per Volume
 |1TiB
 |===
+
+////
 
 == What's next
 
