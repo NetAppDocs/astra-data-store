@@ -31,7 +31,7 @@ Astra Data Store requires the following hardware and software configuration on e
 ** Red Hat Enterprise Linux 8.2
 ** Red Hat Enterprise Linux CoreOS (RHCOS)
 ** Ubuntu 20.04
-* Kubernetes distribution:
+* Kubernetes distributions:
 ** Red Hat OpenShift 4.6
 ** Red Hat OpenShift 4.7
 ** Google Anthos 1.7
