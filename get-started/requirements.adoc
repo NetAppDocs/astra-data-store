@@ -13,7 +13,7 @@ summary: Get started by verifying support for your environment.
 Get started by verifying that your environment meets Astra Data Store requirements.
 
 == Licensing
-Astra Data Store requires an Astra Data Store license for full functionality. Obtain an evaluation license or Premium license from the NetApp Support Site. <<Cluster capabilities>> contains capabilities of each type of license.
+Astra Data Store requires an Astra Data Store license for full functionality. Obtain an evaluation license or Premium license from the NetApp Support Site. <<Maximum capabilities for a cluster>> contains capabilities of each type of license.
 
 //POLARIS-2175
 == Hardware and software requirements
@@ -26,12 +26,12 @@ Astra Data Store requires the following hardware and software configuration on e
 * Dell R740
 
 .Software
-* Operating systems
+* Operating systems:
 ** Red Hat Enterprise Linux 7.9
 ** Red Hat Enterprise Linux 8.2
 ** Red Hat Enterprise Linux CoreOS (RHCOS)
 ** Ubuntu 20.04
-* Kubernetes distribution
+* Kubernetes distribution:
 ** Red Hat OpenShift 4.6
 ** Red Hat OpenShift 4.7
 ** Google Anthos 1.7
