@@ -41,6 +41,9 @@ Astra Data Store provides end-to-end Kubernetes-native storage and data manage
 * *Integration with NetApp Cloud Insights*: Delivers observability, analytics and monitoring for continuous optimization​.
 ​
 
+image:ads-intro.png[Astra Data Store Kubernetes-native storage and data management]
+
+
 == Get started with Astra Data Store
 
 
