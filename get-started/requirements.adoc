@@ -134,7 +134,7 @@ Each Astra Data Store cluster supports using persistent volumes to cover the sto
 
 .Requirements
 * NFS 4.1 client/server in Kubernetes clusters
-* Kubernetes apps will access files through persistent volumes shared over NFS 4.1, which requires the the AUTH_SYS authentication method.
+* Kubernetes apps will access files through persistent volumes shared over NFS 4.1, which requires the AUTH_SYS authentication method.
 
 .Capabilities
 * Parallel NFS (pNFS) is not supported.
