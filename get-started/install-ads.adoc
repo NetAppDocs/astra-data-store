@@ -32,17 +32,16 @@ To install Astra Data Store, download the installation bundle from the NetApp Su
 .About this task
 The Astra Data Store installation process guides you through the following high-level steps:
 
-* Download the Astra Data Store Co-Dev Bundle.
-* Unpack the bundle then change directory.
-* Copy the kubectl-astrads binary.
-* Push the images to your local registry.
-* Install the Monitoring Operator.
-* Install the AstraDSOperator.
-* Install the AstraDSDeployment.
-* Install the AstraDSLicense.
-* Install the AstraDSCluster.
+* <<Download the Astra Data Store bundle>>
+* <<Unpack the bundle and change directory>>
+* <<Copy the binary and push images to your local registry>>
+* <<Install the monitoring operator>>
+* <<Install the Astra Data Store operator>>
+* <<Edit and apply the Astra Data Store Deployment YAML>>
+* <<Edit and apply the Astra Data Store License>>
+* <<Install the Astra Data Store cluster>>
 
-.Steps
+=== Download the Astra Data Store bundle
 . Log in to the NetApp Support Site and download the Astra Data Store bundle (`astra-data-store-[version].tar.gz`) from the https://mysupport.netapp.com/site/products/all/details/astra-data-store-downloads-tab[NetApp Support Site^].
 . Download the zip of Astra Data Store license file (NLF) from https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^].
 . (Optional) Use the following command to verify the signature of the bundle:
@@ -50,6 +49,8 @@ The Astra Data Store installation process guides you through the following high-
 ----
 openssl dgst -sha256 -verify astra-data-store[version].pub -signature <astra-data-store[version].sig astra-control-center[version].tar.gz
 ----
+
+=== Unpack the bundle and change directory
 
 . Extract the images:
 +
@@ -69,6 +70,8 @@ cd astra-data-store-[version]
 which kubectl
 <install_path>
 ----
+
+=== Copy the binary and push images to your local registry
 
 . Copy the kubectl-astrads binary to the standard path where k8s kubectl binaries are installed; for example, `/usr/bin/`. kubectl-astrads is a custom kubectl extension that installs and manages Astra DS clusters.
 +
@@ -104,35 +107,37 @@ for astraImageFile in $(ls images/*.tar)
 done
 ----
 
-. Install the monitoring operator:
-//MORE NEEDED HERE???
-+
+=== Install the monitoring operator
+(Optional) The monitoring operator is only recommended if Astra Data Store monitoring will not be performed in Astra Control Center. You can install the monitoring operator if you Astra Data Store instance is a standalone deployment, uses CI to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
+
+. Run the install command:
 ----
 [root@example ~]# helm3 install /u/samip/p4/netapp-monitoring --generate-name -n default
 ----
 
-. Install the AstraDSOperator:
-.. List the AstraDS manifests:
+=== Install the Astra Data Store operator
+. List the AstraDS manifests:
 +
 ----
 [root@example ~]# ls manifests/
 ----
 +
 Response:
++
 ----
 astradscluster.yaml
 astradsdeployment.yaml
 astradsoperator.yaml
 ----
 
-.. Edit the Astra Data Store operator custom resource definition (CRD) yaml to refer to your local registry and secret.
+. Edit the Astra Data Store operator custom resource definition (CRD) yaml to refer to your local registry and secret.
 +
 ----
 vim astradsoperator.yaml
 ----
 
-... Change `[Docker_registry_path]` for the `kube-rbac-proxy` image to the registry path where you pushed the images in a previous step.
-... Change `[Docker_registry_path]` for the `ads-operator` image to the registry path where you pushed the images in a previous step.
+.. Change `[Docker_registry_path]` for the `kube-rbac-proxy` image to the registry path where you pushed the images in a previous step.
+.. Change `[Docker_registry_path]` for the `ads-operator` image to the registry path where you pushed the images in a previous step.
 +
 [subs=+quotes]
 ----
@@ -172,14 +177,14 @@ spec:
         - --upstream=http://127.0.0.1:8080/
         - --logtostderr=true
         - --v=10
-        image: [Docker_registry_path]/kube-rbac-proxy:v0.6.0
+        *image: [Docker_registry_path]/kube-rbac-proxy:v0.6.0*
         name: kube-rbac-proxy
         ports:
         - containerPort: 8443
           name: https
       - command:
         - /operator
-        image: [Docker_registry_path]/ads-operator:dev-6091923
+        *image: [Docker_registry_path]/ads-operator:dev-6091923*
         imagePullPolicy: IfNotPresent
         livenessProbe:
           exec:
@@ -203,13 +208,13 @@ spec:
       terminationGracePeriodSeconds: 10
 ----
 
-.. Apply the updated file to your Astra Data Store cluster:
+. Apply the updated file to your Astra Data Store cluster:
 +
 ----
 kubectl apply -f astradsoperator.yaml
 ----
 
-.. Verify that the Astra Data Store operator pod has restarted and is running:
+. Verify that the Astra Data Store operator pod has restarted and is running:
 +
 ----
 [root@example ~]$ kubectl get pods -n astrads-system
@@ -222,6 +227,7 @@ NAME                                READY   STATUS    RESTARTS   AGE
 astrads-operator-56d9b69cf4-tkfcb   2/2     Running   0          85s
 ----
 
+=== Edit and apply the Astra Data Store Deployment YAML
 . Edit the Astra Data Store deployment custom resource (CR) file:
 .. VIM the yaml file:
 +
@@ -230,7 +236,6 @@ vim astradsdeployment.yaml
 ----
 
 .. Change `[Docker_registry_path]` to the registry path where you pushed the images in the previous step.
-
 +
 [subs=+quotes]
 ----
@@ -255,14 +260,15 @@ images:
 *kubeRbacProxy: [Docker_registry_path]/kube-rbac-proxy:v0.6.0*
 version: 0.0.1
 ----
-
-.. Apply the updated file:
+. Apply the updated file:
 +
 ----
 kubectl apply -f astradsdeployment.yaml
 ----
 
-. Edit and apply the Netapp License File (NLF) that you obtained from the Netapp Support Site (NSS) to your Astra Data Store cluster:
+=== Edit and apply the Astra Data Store License
+
+. Edit and apply the NetApp License File (NLF) that you obtained from the NetApp Support Site (NSS) to your Astra Data Store cluster:
 
 .. Copy and paste the content of the NLF after `netappLicenseFile:`.
 .. Enter the name of the cluster that you are going to deploy or have already deployed.
@@ -304,17 +310,19 @@ NAMESPACE        NAME         ADSCLUSTER                      VALID   PRODUCT   
 astrads-system   e900000005   astrads-sti-c6220-09-10-11-12   true    Astra Data Store Enterprise   true         2021-12-01   2021-06-23T23:36:11Z
 ----
 
-. Install the Astra Data Store cluster:
-.. VIM the yaml file:
+=== Install the Astra Data Store cluster
+. VIM the yaml file:
 +
 ----
 vim astradscluster.yaml
 ----
 
+. Edit the following values in the YAML file. An example follows these steps:
 .. In `metadata`, change the `name` string to the name of your cluster.
 .. Update the following required values in `spec`:
 ... Change the `mvip` string to the IP address of a floating management IP that is routable from any worker node in the cluster.
 ... In `adsDataNetworks`, list floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume.
+... In `adsDataNetworks`, specify the netmask used by the data network.
 ... In `astraOptions`, add the license number (`serialNumber`) from the NLF.
 ... In `adsNodeConfig`, enter the per-node CPU core count and memory limits for the FireTap container.
 .. (Optional) The following values can be optionally modified otherwise the default value will be used:
@@ -323,7 +331,6 @@ vim astradscluster.yaml
 ...  In `spec`, provide a key that defines which protection domain a node belongs to (`adsProtectionDomainKey`).
 ... In `adsNetworkInterfaces`, enter the management, cluster, and storage interfaces.
 ... In `adsNodeConfig`, enter the per-node capacity, name of cache device to be configured for the FireTap container, and drive regex filter to select disks.
-
 +
 [subs=+quotes]
 ----
@@ -339,12 +346,12 @@ spec:
   adsProtectionDomainKey: <optional key that defines which protection domain a node belongs to>
   adsDataNetworks:
     - *addresses: <CSV list of floating IP addresses>*
-      netmask:
+      *netmask: <The netmask used by dataNetworks>*
       gateway:
   adsNetworkInterfaces:
-    managementInterface: <Optional management interface>
-    clusterInterface: <Optional cluster interface>
-    storageInterface: <Optional storage interface>
+    managementInterface: <Management interface>
+    clusterInterface: <Cluster interface>
+    storageInterface: <Storage interface>
   astraOptions:
     *serialNumber: <serial number from license file>*
   adsNodeConfig:
@@ -365,7 +372,7 @@ spec:
           userMessage: Weekly Control Plane AutoSupport bundle
 ----
 
-.. Apply the updated file to your cluster:
+. Apply the updated file to your cluster:
 +
 ----
 kubectl apply -f astradscluster.yaml
