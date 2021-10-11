@@ -64,6 +64,8 @@ homepage:
           url: /solutions/postgres-deploy-from-helm-chart.html
     - title: Blogs & community
       links:
+        - title: Astra blogs
+          url: https://cloud.netapp.com/blog/topic/astra
         - title: Slack channel
           url: https://netapppub.slack.com/#astra
         - title: NetApp Community
