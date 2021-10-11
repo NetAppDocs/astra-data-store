@@ -1,0 +1,986 @@
+---
+sidebar: sidebar
+permalink: get-started/install-ads.html
+keywords: astra, astra data store, install, deploy, download
+summary: To install Astra Data Store after addressing some environmental prerequisites, you'll download the bundle and install following the steps described. You'll also install or update Astra Trident, K8s snapshot files, storage backend, and default storage class.
+---
+
+= Install Astra Data Store
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/get-started/
+
+To install Astra Data Store after addressing some environmental prerequisites, you'll download the bundle and install following the steps described. You'll also install or update Astra Trident, K8s snapshot files, storage backend, and default storage class.
+
+To install Astra Data Store, complete the following steps:
+
+* <<Install Astra Data Store>>
+* <<Install Astra Trident>>
+* <<Install K8s Snapshot CRDs and Controller>>
+* <<Set up Astra Data Store as storage backend>>
+* <<Create a generic Astra Data Store storage class>>
+
+== Install Astra Data Store
+
+To install Astra Data Store, download the installation bundle from the NetApp Support Site and perform a series a commands to install Astra Data Store Operator and Astra Data Store in your environment. You can use this procedure to install Astra Data Store in internet-connected or air-gapped environments.
+
+.What you'll need
+* link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
+* Root administrative permissions.
+* If you are installing from an air-gapped environment, download the Astra Data Store bundle from the NetApp Support Site.
+
+.About this task
+The Astra Data Store installation process guides you through the following high-level steps:
+
+* Download the Astra Data Store Co-Dev Bundle.
+* Unpack the bundle then change directory.
+* Copy the kubectl-astrads binary.
+* Push the images to your local registry.
+* Install the Monitoring Operator.
+* Install the AstraDSOperator.
+* Install the AstraDSDeployment.
+* Install the AstraDSLicense.
+* Install the AstraDSCluster.
+
+.Steps
+. Log in to the NetApp Support Site and download the Astra Data Store bundle (`astra-data-store-[version].tar.gz`) from the https://mysupport.netapp.com/site/products/all/details/astra-data-store-downloads-tab[NetApp Support Site^].
+. Download the zip of Astra Data Store license file (NLF) from https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^].
+. (Optional) Use the following command to verify the signature of the bundle:
++
+----
+openssl dgst -sha256 -verify astra-data-store[version].pub -signature <astra-data-store[version].sig astra-control-center[version].tar.gz
+----
+
+. Extract the images:
++
+----
+tar -vxzf astra-data-store-[version].tar.gz
+----
+
+. Change to the Astra directory.
++
+----
+cd astra-data-store-[version]
+----
+
+. Define the path where kubectl binary is to be installed. For example, `/usr/bin/kubectl` could be the binary path where kubectl is installed.
++
+----
+which kubectl
+<install_path>
+----
+
+. Copy the kubectl-astrads binary to the standard path where k8s kubectl binaries are installed; for example, `/usr/bin/`. kubectl-astrads is a custom kubectl extension that installs and manages Astra DS clusters.
++
+----
+cp -f kubectl-astrads <path from previous command>
+----
+
+. Add the files in the Astra Data Store image directory to your local registry.
++
+NOTE: See a sample script for the automatic loading of images below.
+
+.. Log in to your Docker registry:
++
+----
+docker login [Docker_registry_path]
+----
+
+.. Load the images into Docker.
+.. Tag the images.
+.. Push the images to your local registry.
+
++
+----
+export REGISTRY=[Docker_registry_path]
+for astraImageFile in $(ls images/*.tar)
+  # Load to local cache. And store the name of the loaded image trimming the 'Loaded images: '
+  do astraImage=$(docker load --input ${astraImageFile} | sed 's/Loaded image(s): //')
+  astraImage=$(echo ${astraImage} | sed 's!localhost/!!')
+  # Tag with local image repo.
+  docker tag ${astraImage} ${REGISTRY}/${astraImage}
+  # Push to the local repo.
+  docker push ${REGISTRY}/${astraImage}
+done
+----
+
+. Install the monitoring operator:
+//MORE NEEDED HERE???
++
+----
+[root@example ~]# helm3 install /u/samip/p4/netapp-monitoring --generate-name -n default
+----
+
+. Install the AstraDSOperator:
+.. List the AstraDS manifests:
++
+----
+[root@example ~]# ls manifests/
+----
++
+Response:
+----
+astradscluster.yaml
+astradsdeployment.yaml
+astradsoperator.yaml
+----
+
+.. Edit the Astra Data Store operator custom resource definition (CRD) yaml to refer to your local registry and secret.
++
+----
+vim astradsoperator.yaml
+----
+
+... Change `[Docker_registry_path]` for the `kube-rbac-proxy` image to the registry path where you pushed the images in a previous step.
+... Change `[Docker_registry_path]` for the `ads-operator` image to the registry path where you pushed the images in a previous step.
++
+[subs=+quotes]
+----
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    control-plane: operator
+  name: astrads-system
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+.
+.
+.
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    control-plane: operator
+  name: astrads-operator
+  namespace: astrads-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      control-plane: operator
+  template:
+    metadata:
+      labels:
+        control-plane: operator
+    spec:
+      containers:
+      - args:
+        - --secure-listen-address=0.0.0.0:8443
+        - --upstream=http://127.0.0.1:8080/
+        - --logtostderr=true
+        - --v=10
+        image: [Docker_registry_path]/kube-rbac-proxy:v0.6.0
+        name: kube-rbac-proxy
+        ports:
+        - containerPort: 8443
+          name: https
+      - command:
+        - /operator
+        image: [Docker_registry_path]/ads-operator:dev-6091923
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - liveness -heartbeat 30
+          failureThreshold: 3
+          initialDelaySeconds: 30
+          periodSeconds: 15
+          successThreshold: 1
+          timeoutSeconds: 15
+        name: manager
+        resources:
+          limits:
+            cpu: 100m
+            memory: 30Mi
+          requests:
+            cpu: 100m
+            memory: 20Mi
+      terminationGracePeriodSeconds: 10
+----
+
+.. Apply the updated file to your Astra Data Store cluster:
++
+----
+kubectl apply -f astradsoperator.yaml
+----
+
+.. Verify that the Astra Data Store operator pod has restarted and is running:
++
+----
+[root@example ~]$ kubectl get pods -n astrads-system
+----
++
+Response:
++
+----
+NAME                                READY   STATUS    RESTARTS   AGE
+astrads-operator-56d9b69cf4-tkfcb   2/2     Running   0          85s
+----
+
+. Edit the Astra Data Store deployment custom resource (CR) file:
+.. VIM the yaml file:
++
+----
+vim astradsdeployment.yaml
+----
+
+.. Change `[Docker_registry_path]` to the registry path where you pushed the images in the previous step.
+
++
+[subs=+quotes]
+----
+apiVersion: astrads.netapp.io/v1alpha1
+kind: AstraDSDeployment
+metadata:
+name: astradsdeployment
+namespace: astrads-system
+spec:
+images:
+*dmsController: [Docker_registry_path]/ads-dms-controller:dev-6093843*
+*firetapInstaller: [Docker_registry_path]/ads-firetap-installer:dev-12.75.0-6091923*
+*firegen: [Docker_registry_path]/ads-firetap-firegen:dev-6093843*
+*firetapMetrics: [Docker_registry_path]/ads-firetap-metrics:dev-6091923*
+*clusterController: [Docker_registry_path]/ads-cluster-controller:dev-6093843*
+*support: [Docker_registry_path]/ads-support-controller:1.0*
+*licenseController: [Docker_registry_path]/ads-license-controller:dev-6091923*
+*callhomeListener: [Docker_registry_path]/ads-callhome-listener:dev-6093843*
+*autosupportCronjob: [Docker_registry_path]/ads-autosupport-cronjob:dev-6093843*
+*fluentBit: [Docker_registry_path]/fluent-bit:1.6.8*
+*nodeInfoController: [Docker_registry_path]/ads-nodeinfo-controller:dev-6093843*
+*kubeRbacProxy: [Docker_registry_path]/kube-rbac-proxy:v0.6.0*
+version: 0.0.1
+----
+
+.. Apply the updated file:
++
+----
+kubectl apply -f astradsdeployment.yaml
+----
+
+. Edit and apply the Netapp License File (NLF) that you obtained from the Netapp Support Site (NSS) to your Astra Data Store cluster:
+
+.. Copy and paste the content of the NLF after `netappLicenseFile:`.
+.. Enter the name of the cluster that you are going to deploy or have already deployed.
++
+[subs=+quotes]
+----
+apiVersion: astrads.netapp.io/v1alpha1
+kind: AstraDSLicense
+metadata:
+  name: "e900000005"
+  namespace: "astrads-system"
+spec:
+  *netappLicenseFile: <NLF-contents>*
+  *adsClusterName: "<Astra-Data-Store-cluster-name>"*
+----
+
+.. Create the license file:
++
+----
+[root@example ~]$ kubectl apply -f <sample-license-yaml>
+----
++
+Response:
++
+----
+astradslicense.astrads.netapp.io/e900000005 created
+----
+
+.. Verify the changes:
++
+----
+[<root ID> ~]$ kubectl get astradslicense -A
+----
++
+Response:
++
+----
+NAMESPACE        NAME         ADSCLUSTER                      VALID   PRODUCT                       EVALUATION   ENDDATE      VALIDATED
+astrads-system   e900000005   astrads-sti-c6220-09-10-11-12   true    Astra Data Store Enterprise   true         2021-12-01   2021-06-23T23:36:11Z
+----
+
+. Install the Astra Data Store cluster:
+.. VIM the yaml file:
++
+----
+vim astradscluster.yaml
+----
+
+.. In `metadata`, change the `name` string to the name of your cluster.
+.. Update the following required values in `spec`:
+... Change the `mvip` string to the IP address of a floating management IP that is routable from any worker node in the cluster.
+... In `adsDataNetworks`, list floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume.
+... In `astraOptions`, add the license number (`serialNumber`) from the NLF.
+... In `adsNodeConfig`, enter the per-node CPU core count and memory limits for the FireTap container.
+.. (Optional) The following values can be optionally modified otherwise the default value will be used:
+... In `spec`, enter a limit to how many nodes can be in the deployment (`adsNodeCount`).
+... In `spec`, enter a selector label that filters out nodes for the cluster (`adsNodeSelector`).
+...  In `spec`, provide a key that defines which protection domain a node belongs to (`adsProtectionDomainKey`).
+... In `adsNetworkInterfaces`, enter the management, cluster, and storage interfaces.
+... In `adsNodeConfig`, enter the per-node capacity, name of cache device to be configured for the FireTap container, and drive regex filter to select disks.
+
++
+[subs=+quotes]
+----
+apiVersion: astrads.netapp.io/v1alpha1
+kind: AstraDSCluster
+metadata:
+  *name: <name of your cluster>*
+  namespace: astrads-system
+spec:
+  *mvip: <management IP address>*
+  adsNodeCount: <optional node limit>
+  adsNodeSelector: <optional selector label for node filtering>
+  adsProtectionDomainKey: <optional key that defines which protection domain a node belongs to>
+  adsDataNetworks:
+    - *addresses: <CSV list of floating IP addresses>*
+      netmask:
+      gateway:
+  adsNetworkInterfaces:
+    managementInterface: <Optional management interface>
+    clusterInterface: <Optional cluster interface>
+    storageInterface: <Optional storage interface>
+  astraOptions:
+    *serialNumber: <serial number from license file>*
+  adsNodeConfig:
+    *cpu: <per-node cpu core count>*
+    *memory: <per node memory limit>*
+    capacity: <optional limit for per-node raw storage consumption>
+    cacheDevice: <optional name of device to be configured as cache device for FireTap container>
+    drivesFilter: <optional regex filter to select disks>
+  autoSupportConfig:
+    historyRetentionCount: 10
+    destinationURL: "https://testbed.netapp.com/put/AsupPut"
+    periodic:
+      - schedule: "0 0 * * 0"
+        periodicconfig:
+        - component:
+            name: controlplane
+            event: weekly
+          userMessage: Weekly Control Plane AutoSupport bundle
+----
+
+.. Apply the updated file to your cluster:
++
+----
+kubectl apply -f astradscluster.yaml
+----
+
+. Verify the cluster deployment progress:
++
+----
+kubectl get astradscluster -n astrads-system
+----
++
+Sample return:
++
+----
+NAME                        STATUS    VERSION                            SERIAL NUMBER   MVIP           AGE
+
+sample-0309d8b   created   sample-9.11.0-6090501   081856669       10.224.8.232   13d
+----
+
+. Run the following bash script after cluster creation to reserve node CPU and memory resources to constrain k8s:
+//Confirm still needed???
++
+----
+#!/bin/bash
+set -eio pipefail
+CPU=8
+MEM=32
+
+
+CLUSTER_KIND="AstraDSCluster"
+LDIR="/tmp/ADS"
+LABEL_PREFIX="astrads.netapp.io"
+SSH="ssh"
+SCP="scp"
+mkdir -p ${LDIR}
+if ! CLUSTER_NAME=`kubectl get ${CLUSTER_KIND} -A -o jsonpath={.items[0].metadata.name}` ; then
+        CLUSTER_NAME=""
+fi
+SCRIPT=${LDIR}/sys_res.sh
+KUBE_RESERVED='{cpu: 8000m, memory: 32G}'
+echo "#!/bin/bash
+cat /var/lib/kubelet/config.yaml | python3 -c \"import yaml,sys; y = yaml.load(sys.stdin); y['systemReserved'] = yaml.safe_load(sys.argv[1]); print(yaml.dump(y,default_flow_style=False))\" \"${KUBE_RESERVED}\" > /var/lib/kubelet/config.yaml.new
+mv /var/lib/kubelet/config.yaml.new /var/lib/kubelet/config.yaml
+echo \"Restarting kubelet\"
+systemctl restart kubelet
+sleep 10
+systemctl status kubelet
+grep -A 3 "systemReserved" /var/lib/kubelet/config.yaml
+" > ${SCRIPT}
+kubectl get nodes  -L ${LABEL_PREFIX}/cluster -o wide
+NODES=`kubectl get nodes -L ${LABEL_PREFIX}/cluster | awk /${CLUSTER_NAME}/'{print $1}'`
+for NODE in $NODES ; do
+        echo "$NODE"
+        $SCP ${SCRIPT} root@${NODE}:sys_res.sh
+        $SSH root@${NODE} chmod +x sys_res.sh
+        $SSH root@${NODE} ./sys_res.sh
+done
+----
+
+== Install Astra Trident
+
+To install Trident, download the installation bundle from the NetApp Support Site and perform a series a commands to install Trident in your environment. You can use this procedure to install Trident in internet-connected or air-gapped environments.
+
+.What you'll need
+* link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
+* Root administrative permissions.
+* If you are installing from an air-gapped environment, download the Trident bundle from the NetApp Support Site.
+
+.Steps
+. Create and open a new Trident directory:
++
+----
+[root@example ~]# mkdir trident
+[root@example ~]# cd trident
+----
+
+. If you are installing from an internet-connected environment, download the Trident bundle from the NetApp Support Site using a secure, file-transfer tool, such as GNU wget:
++
+----
+[root@example trident]# wget <URL for Trident bundle>
+Resolving ... 10.193.34.109
+Connecting to |10.193.34.109|:8081... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 87210186 (83M) [application/x-tgz]
+Saving to: ‘trident-90cf892ddcc0983dfb875c95d3f55bb602d0202f.tgz’
+
+100%[======================================================================================================================================================================================================================================>] 87,210,186   107MB/s   in 0.8s
+
+2021-07-01 16:31:43 (107 MB/s) - ‘trident-90cf892ddcc0983dfb875c95d3f55bb602d0202f.tgz’ saved [87210186/87210186]
+----
+
+. Extract the images from the bundle:
++
+Sample command and response:
++
+----
+[root@example trident]# gunzip trident-90cf892ddcc0983dfb875c95d3f55bb602d0202f.tgz
+trident_docker_image.tgz
+trident-operator_docker_image.tgz
+trident-installer-21.07.0-test.jenkins-trident-submit-287.tar.gz
+trident-operator-21.07.0-test.jenkins-trident-submit-287.tgz
+----
+
+. Load the Trident images into your preferred registry. All images should be loaded under one parent directory path; for example,  `nexus.barnacle.company.com:5001/trident`.
++
+Sample commands and responses:
++
+----
+[root@example trident]# docker load -i trident_docker_image.tgz
+d2de0904777e: Loading layer [==================================================>] 51.69 MB/51.69 MB
+c110bbf04909: Loading layer [==================================================>]  39.7 MB/39.7 MB
+0f7ceb16c114: Loading layer [==================================================>] 1.248 MB/1.248 MB
+Loaded image: nexus.barnacle.company.com:5001/trident:21.07.0-test.jenkins-trident-submit-287
+
+[root@example trident]# docker images | grep trident
+nexus.barnacle.netapp.com:5001/trident             21.07.0-test.jenkins-trident-submit-287   9ed44525ee10        8 days ago          94.4 MB
+----
+
+. Install Trident:
+.. Extract the Trident installer:
++
+----
+[root@example ~/trident]$ gunzip trident-installer-21.07.0-test.jenkins-trident-submit-287.tar.gz
+----
+
+.. List the required sidecar images and their corresponding versions for the installed Kubernetes version.
+// These sidecar images need to be downloaded from public repository??? A sample required trident sidecar images for k8s v1.19.0 are:
++
+----
+[root@example ~/trident]$ tridentctl images
+----
++
+Sample response:
++
+----
+k8s.gcr.io/sig-storage/csi-provisioner:v2.1.1
+k8s.gcr.io/sig-storage/csi-attacher:v3.1.0
+k8s.gcr.io/sig-storage/csi-resizer:v1.1.0
+k8s.gcr.io/sig-storage/csi-snapshotter:v3.0.3
+k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.1.0
+----
+
+.. Load sidecar images to parent registry:
+... Change to the Trident installer directory:
++
+----
+[root@example ~/trident]$ cd trident-installer
+----
+
+... Enter the full path for the parent registry that contains all Trident images for `[registry_full_path]`; for example, `nexus.barnacle.company.com:5001/trident`. Run the command.
+//Make sure the 'k8s.gcr.io/sig-storage' path is removed from the image path while pushing them under parent path???
++
+----
+[root@example trident-installer]$ ./tridentctl install –debug --image-registry [registry_full_path] -n trident
+----
++
+Sample response:
++
+----
+INFO Created Kubernetes clients.                   namespace=default version=v1.21.2
+W0701 16:35:23.835995   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.837720   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.839377   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.841455   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.846474   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.848624   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.850769   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.852833   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.854837   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:23.856952   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:24.037261   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+INFO Starting Trident installation.                namespace=trident
+INFO Created namespace.                            namespace=trident
+INFO Created service account.
+INFO Created cluster role.
+INFO Created cluster role binding.
+W0701 16:35:24.097810   27909 warnings.go:70] policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+W0701 16:35:24.100987   27909 warnings.go:70] policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+INFO Created Trident pod security policy.
+W0701 16:35:24.117681   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:24.119927   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:24.122045   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:24.124118   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:24.126166   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:24.128214   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:24.130436   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+W0701 16:35:24.132501   27909 warnings.go:70] apiextensions.k8s.io/v1beta1 CustomResourceDefinition is deprecated in v1.16+, unavailable in v1.22+; use apiextensions.k8s.io/v1 CustomResourceDefinition
+INFO Added finalizers to custom resource definitions.
+W0701 16:35:24.157003   27909 warnings.go:70] storage.k8s.io/v1beta1 CSIDriver is deprecated in v1.19+, unavailable in v1.22+; use storage.k8s.io/v1 CSIDriver
+W0701 16:35:24.159669   27909 warnings.go:70] storage.k8s.io/v1beta1 CSIDriver is deprecated in v1.19+, unavailable in v1.22+; use storage.k8s.io/v1 CSIDriver
+INFO Created Trident service.
+INFO Created Trident secret.
+INFO Created Trident deployment.
+INFO Created Trident daemonset.
+INFO Waiting for Trident pod to start.
+INFO Trident pod started.                          deployment=trident-csi namespace=trident pod=trident-csi-6457bdd4d4-k9rw6
+INFO Waiting for Trident REST interface.
+INFO Trident REST interface is up.                 version=21.07.0-test.jenkins-trident-submit-287+c201299862cc3502e8e97eea6e801577134916dc
+INFO Trident installation succeeded.
+----
+
+... Verify that Trident was successfully installed by verifying that pods are up and running:
++
+----
+[root@example trident-installer]$ kubectl get pods -n trident
+----
++
+Sample response:
++
+----
+NAME                           READY   STATUS    RESTARTS   AGE
+trident-csi-6457bdd4d4-k9rw6   6/6     Running   0          32s
+trident-csi-6hgsr              1/2     Running   2          32s
+trident-csi-8jhtx              1/2     Running   2          32s
+trident-csi-nh2kq              2/2     Running   0          32s
+trident-csi-sjksd              1/2     Running   2          32s
+----
+
+== Install K8s Snapshot CRDs and Controller
+
+K8s snapshot CRDs and controller are required to create PVC snapshots. If you do not already have the CRD and controller installed for your environment, run the following commands to install them.
+
+.What you'll need
+* Download the link:https://github.com/kubernetes-csi/external-snapshotter/tree/master/deploy/kubernetes/snapshot-controller[Kubernetes snapshot controller YAML files]:
+** k8s-setup-snapshot-controller.yaml
+** k8s-rbac-snapshot-controller.yaml
+* Download the link:https://github.com/kubernetes-csi/external-snapshotter/tree/master/client/config/crd[YAML CRDs]:
+** k8svolumesnapshotclasses.yaml
+** k8svolumesnapshotcontents.yaml
+** k8svolumesnapshots.yaml
+
+.Steps
+. Apply k8svolumesnapshotclasses.yaml:
++
+----
+kubectl apply -f trident/k8svolumesnapshotclasses.yaml
+----
++
+Response:
++
+----
+customresourcedefinition.apiextensions.k8s.io/volumesnapshotclasses.snapshot.storage.k8s.io created
+----
+
+. Apply k8svolumesnapshotcontents.yaml:
++
+----
+kubectl apply -f trident/k8svolumesnapshotcontents.yaml
+----
++
+Response:
++
+----
+customresourcedefinition.apiextensions.k8s.io/volumesnapshotcontents.snapshot.storage.k8s.io created
+----
+
+. Apply k8svolumesnapshots.yaml:
++
+----
+kubectl apply -f trident/k8svolumesnapshots.yaml
+----
++
+Response:
++
+----
+customresourcedefinition.apiextensions.k8s.io/volumesnapshots.snapshot.storage.k8s.io created
+----
+
+. Apply k8s-setup-snapshot-controller.yaml:
++
+----
+kubectl apply -f trident/k8s-setup-snapshot-controller.yaml
+----
++
+Response:
++
+----
+deployment.apps/snapshot-controller created
+----
+
+. Apply k8s-setup-snapshot-controller.yaml:
++
+----
+kubectl apply -f trident/k8s-rbac-snapshot-controller.yaml
+----
++
+Response:
++
+----
+serviceaccount/snapshot-controller created
+clusterrole.rbac.authorization.k8s.io/snapshot-controller-runner created
+clusterrolebinding.rbac.authorization.k8s.io/snapshot-controller-role created
+role.rbac.authorization.k8s.io/snapshot-controller-leaderelection created
+rolebinding.rbac.authorization.k8s.io/snapshot-controller-leaderelection created
+----
+
+. Verify that the CRD YAML files are applied:
++
+----
+k get crd | grep volumesnapshot
+----
++
+Sample response:
++
+----
+astradsvolumesnapshots.astrads.netapp.io              2021-08-04T17:48:21Z
+volumesnapshotclasses.snapshot.storage.k8s.io         2021-08-04T22:05:49Z
+volumesnapshotcontents.snapshot.storage.k8s.io        2021-08-04T22:05:59Z
+volumesnapshots.snapshot.storage.k8s.io               2021-08-04T22:06:17Z
+----
+
+. Verify that the snapshot controller files are applied:
++
+----
+k get pods -n kube-system | grep snapshot
+----
++
+Sample response:
++
+----
+snapshot-controller-7f58886ff4-cdh78                                    1/1     Running   0          13s
+snapshot-controller-7f58886ff4-tmrd9                                    1/1     Running   0          32s
+----
+
+== Set up Astra Data Store as storage backend
+
+Configure storage backend parameters in the ads_backend.json file and create the Astra Data Store storage backend.
+
+.Steps
+. Open `ads_backend.json` in a secure terminal:
++
+----
+cat ads_backend.json
+----
+. Configure the JSON file:
+.. Change the `"cluster"` value to the cluster name for the Astra Data Store cluster.
+.. Change the `"namespace"` value to the namespace you want to use with volume creation.
+.. Change the `"autoExportPolicy"` value to `true`.
+.. Populate the `"autoExportCIDRs"` list with IP addresses you want to grant access. Use `0.0.0.0/0` to allow all.
+//"kubeconfig" → Convert .kube/config yaml file to json without spaces(minimize), then base64 it and use the base64 output
+//python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=None)' < kubeconfig_filepath > kubeconf.json
+//cat kubeconf.json | base64 | tr -d '\n'
+//. "defaults" → List of defaults:
+//snapshotPolicy,
+//exportPolicy,
+//unixPermissions,
+//snapshotDir,
+//qosPolicy,
+//size
++
+[subs=+quotes]
+----
+{
+    "version": 1,
+    "storageDriverName": "astrads-nas",
+    "storagePrefix": "",
+    *"cluster": "example-1234584",*
+    *"namespace": "astrads-system",*
+    *"autoExportPolicy": true,*
+    *"autoExportCIDRs": ["0.0.0.0/0"],*
+    "kubeconfig": "<ID>",
+    "debugTraceFlags": {"method": true, "api": true},
+    "labels": {"cloud": "on-prem", "creator": "trident-dev"},
+    "defaults": {
+        "qosPolicy": "gold"
+    },
+    "storage": [
+        {
+            "labels": {
+                "performance": "extreme"
+            },
+            "defaults": {
+                "qosPolicy": "gold"
+            }
+        },
+        {
+            "labels": {
+                "performance": "premium"
+            },
+            "defaults": {
+                "qosPolicy": "silver",
+                "unixPermissions": "0755"
+            }
+        },
+        {
+            "labels": {
+                "performance": "standard"
+            },
+            "defaults": {
+                "qosPolicy": "bronze"
+            }
+        }
+    ]
+}
+----
+
+. Create the storage backend:
++
+----
+tridentctl create backend -f ads_backend.json -n trident
+----
++
+Sample response:
++
+----
++------------------+----------------+--------------------------------------+--------+---------+
+|       NAME       | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++------------------+----------------+--------------------------------------+--------+---------+
+| example-1234584 | astrads-nas    | 2125fa7a-730e-43c8-873b-6012fcc3b527 | online |       0 |
++------------------+----------------+--------------------------------------+--------+---------+
+----
+
+== Create a generic Astra Data Store storage class
+
+Create the Trident default storage class and apply it to the storage backend.
+
+.Steps
+. Create the trident-csi storage class:
+.. Run the following command:
++
+----
+cat ads_sc_generic.yaml
+----
++
+Response:
++
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: trident-csi
+provisioner: csi.trident.netapp.io
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+allowVolumeExpansion: true
+mountOptions:
+  - vers=4
+----
+
+.. Create trident-csi:
++
+----
+kubectl create -f ads_sc_generic.yaml
+----
++
+Response:
++
+----
+storageclass.storage.k8s.io/trident-csi created
+----
+
+. Verify that storage class has been added:
++
+----
+kubectl get storageclass -A
+----
++
+Response:
++
+----
+NAME          PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+trident-csi   csi.trident.netapp.io   Delete          Immediate           true
+----
+
+. Verify that the Trident backend has been updated with the default storage class parameters:
++
+----
+tridentctl get backend -n trident -o yaml
+----
++
+Sample response:
++
+[subs=+quotes]
+----
+items:
+- backendUUID: 2125fa7a-730e-43c8-873b-6012fcc3b527
+  config:
+    autoExportCIDRs:
+    - 0.0.0.0/0
+    autoExportPolicy: true
+    backendName: ""
+    cluster: example-1234584
+    credentials: null
+    debug: false
+    debugTraceFlags:
+      api: true
+      method: true
+    defaults:
+      exportPolicy: default
+      qosPolicy: gold
+      size: 1G
+      snapshotDir: "false"
+      snapshotPolicy: none
+      unixPermissions: "0777"
+    disableDelete: false
+    kubeconfig: <ID>
+    labels:
+      cloud: on-prem
+      creator: trident-dev
+    limitVolumeSize: ""
+    namespace: astrads-system
+    nfsMountOptions: ""
+    region: ""
+    serialNumbers: null
+    storage:
+    - defaults:
+        exportPolicy: ""
+        qosPolicy: gold
+        size: ""
+        snapshotDir: ""
+        snapshotPolicy: ""
+        unixPermissions: ""
+      labels:
+        performance: extreme
+      region: ""
+      supportedTopologies: null
+      zone: ""
+    - defaults:
+        exportPolicy: ""
+        qosPolicy: silver
+        size: ""
+        snapshotDir: ""
+        snapshotPolicy: ""
+        unixPermissions: "0755"
+      labels:
+        performance: premium
+      region: ""
+      supportedTopologies: null
+      zone: ""
+    - defaults:
+        exportPolicy: ""
+        qosPolicy: bronze
+        size: ""
+        snapshotDir: ""
+        snapshotPolicy: ""
+        unixPermissions: ""
+      labels:
+        performance: standard
+      region: ""
+      supportedTopologies: null
+      zone: ""
+    storageDriverName: astrads-nas
+    storagePrefix: ""
+    supportedTopologies: null
+    version: 1
+    zone: ""
+  configRef: ""
+  name: example-1234584
+  online: true
+  protocol: file
+  state: online
+  storage:
+    example-1234584_pool_0:
+      name: example-1234584_pool_0
+      storageAttributes:
+        backendType:
+          offer:
+          - astrads-nas
+        clones:
+          offer: true
+        encryption:
+          offer: false
+        labels:
+          offer:
+            cloud: on-prem
+            creator: trident-dev
+            performance: extreme
+        snapshots:
+          offer: true
+      storageClasses:
+      - trident-csi
+      supportedTopologies: null
+    example-1234584_pool_1:
+      name: example-1234584_pool_1
+      storageAttributes:
+        backendType:
+          offer:
+          - astrads-nas
+        clones:
+          offer: true
+        encryption:
+          offer: false
+        labels:
+          offer:
+            cloud: on-prem
+            creator: trident-dev
+            performance: premium
+        snapshots:
+          offer: true
+      storageClasses:
+      - trident-csi
+      supportedTopologies: null
+    example-1234584_pool_2:
+      name: example-1234584_pool_2
+      storageAttributes:
+        backendType:
+          offer:
+          - astrads-nas
+        clones:
+          offer: true
+        encryption:
+          offer: false
+        labels:
+          offer:
+            cloud: on-prem
+            creator: trident-dev
+            performance: standard
+        snapshots:
+          offer: true
+      storageClasses:
+      *- trident-csi*
+      supportedTopologies: null
+  volumes: []
+----
+
+== What's next
+
+Complete the deployment by performing link:setup_overview.html[setup tasks].

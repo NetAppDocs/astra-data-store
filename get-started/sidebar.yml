@@ -6,7 +6,7 @@ entries:
   - title: Quick start for Astra Data Store
     url: /get-started/quick-start.html
   - title: Install Astra Data Store
-    url: /get-started/install_acc.html
+    url: /get-started/install-ads.html
   - title: Set up Astra Data Store
     url: /get-started/setup_overview.html
   - title: FAQ
