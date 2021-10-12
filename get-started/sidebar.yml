@@ -6,13 +6,8 @@ entries:
   - title: Quick start for Astra Data Store
     url: /get-started/quick-start.html
   - title: Install Astra Data Store
-    url: /get-started/install_acc.html
+    url: /get-started/install-ads.html
   - title: Set up Astra Data Store
     url: /get-started/setup_overview.html
-    entries:
-      - title: Prerequisites for adding a cluster
-        url: /get-started/add-cluster-reqs.html
-      - title: Add a custom TLS certificate
-        url: /get-started/add-custom-tls-certificate.html
   - title: FAQ
     url: /get-started/faq.html
