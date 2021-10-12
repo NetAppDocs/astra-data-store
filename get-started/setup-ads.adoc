@@ -100,14 +100,14 @@ k8s.gcr.io/sig-storage/csi-snapshotter:v3.0.3
 k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.1.0
 ----
 
-.. Load sidecar images to parent registry:
+.. Load sidecar images to the parent registry:
 ... Change to the Trident installer directory:
 +
 ----
 [root@example ~/trident]$ cd trident-installer
 ----
 
-... Enter the full path for the parent registry that contains all Trident images for `[registry_full_path]`; for example, `nexus.barnacle.company.com:5001/trident`. Run the command.
+... Enter the full path for the parent registry that contains all Trident images for `[registry_full_path]`; for example, `nexus.barnacle.company.com:5001/trident`, and run the command:
 //Make sure the 'k8s.gcr.io/sig-storage' path is removed from the image path while pushing them under parent path???
 +
 ----
@@ -159,7 +159,7 @@ INFO Trident REST interface is up.                 version=21.07.0-test.jenkins-
 INFO Trident installation succeeded.
 ----
 
-.. Verify that Trident was successfully installed by verifying that pods are up and running:
+.. Verify that Trident was successfully installed by verifying that the pods are up and running:
 +
 ----
 [root@example trident-installer]$ kubectl get pods -n trident
@@ -323,7 +323,7 @@ cat ads_backend.json
     "debugTraceFlags": {"method": true, "api": true},
     "labels": {"cloud": "on-prem", "creator": "trident-dev"},
     "defaults": {
-        "qosPolicy": "gold"
+        "qosPolicy": "bronze"
     },
     "storage": [
         {
@@ -331,7 +331,7 @@ cat ads_backend.json
                 "performance": "extreme"
             },
             "defaults": {
-                "qosPolicy": "gold"
+                "qosPolicy": "bronze"
             }
         },
         {
@@ -339,7 +339,7 @@ cat ads_backend.json
                 "performance": "premium"
             },
             "defaults": {
-                "qosPolicy": "silver",
+                "qosPolicy": "bronze",
                 "unixPermissions": "0755"
             }
         },
@@ -448,7 +448,7 @@ items:
       method: true
     defaults:
       exportPolicy: default
-      qosPolicy: gold
+      qosPolicy: bronze
       size: 1G
       snapshotDir: "false"
       snapshotPolicy: none
@@ -466,7 +466,7 @@ items:
     storage:
     - defaults:
         exportPolicy: ""
-        qosPolicy: gold
+        qosPolicy: bronze
         size: ""
         snapshotDir: ""
         snapshotPolicy: ""
@@ -478,7 +478,7 @@ items:
       zone: ""
     - defaults:
         exportPolicy: ""
-        qosPolicy: silver
+        qosPolicy: bronze
         size: ""
         snapshotDir: ""
         snapshotPolicy: ""
