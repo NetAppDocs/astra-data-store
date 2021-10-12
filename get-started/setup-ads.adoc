@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: get-started/setup-ads.html
 keywords: astra, astra data store, setup, trident, backend
-summary: After you have installed Astra Data Store and addressed some environmental prerequisites, you'll also install or update Astra Trident, K8s snapshot files, the storage backend, and default storage class.
+summary: After you have installed Astra Data Store and addressed some environmental prerequisites, you'll install or update Astra Trident, configure K8s snapshot capabilities, set up the storage backend, and create a default storage class.
 ---
 
 = Set up Astra Data Store components
@@ -10,7 +10,7 @@ summary: After you have installed Astra Data Store and addressed some environmen
 :icons: font
 :imagesdir: ../media/get-started/
 
-After you have installed Astra Data Store and addressed some environmental prerequisites, you'll also install or update Astra Trident, K8s snapshot files, the storage backend, and default storage class:
+After you have installed Astra Data Store and addressed some environmental prerequisites, you'll install or update Astra Trident, configure K8s snapshot capabilities, set up the storage backend, and create a default storage class:
 
 * <<Install Astra Trident>>
 * <<Install K8s Snapshot CRDs and Controller>>
