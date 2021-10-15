@@ -12,7 +12,7 @@ summary: Here is an overview of the various components of the Astra Control envi
 
 Here is an overview of the various components of the Astra environment.
 
-image:astra-cc-arch.png[Astra architecture diagram and components]
+image:astra-ads-architecture-diagram.png[Astra architecture diagram and components]
 
 == Astra components
 
@@ -44,7 +44,7 @@ You can complete tasks using different interfaces:
 
 * *API*: Both Astra Control Service and Astra Control Center use the same Astra API. Using the API, you can perform the same tasks that you would using the UI.
 
-* *kubectl commands*: To work with Astra Data Store, you can use kubectl commands. 
+* *kubectl commands*: To work with Astra Data Store, you can use kubectl commands.
 
 
 == For more information
