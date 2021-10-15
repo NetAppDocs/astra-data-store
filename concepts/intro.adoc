@@ -10,7 +10,7 @@ summary: Astra Data Store is a Kubernetes native shared file service for both co
 :icons: font
 :imagesdir: ../media/concepts/
 
-Astra Data Store is a Kubernetes native shared file service for both container and VM workloads delivering enterprise data management.
+Astra Data Store is Kubernetes-native, shared file software-defined storage (SDS) solution for on-premises data centers that helps customers manage their cloud-native applications. Astra Data Store provides a native shared file service for both container and VM workloads along with NetApp enterprise data management. 
 
 With Astra Data Store, you can do the following:
 
