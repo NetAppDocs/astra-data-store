@@ -1,0 +1,32 @@
+---
+sidebar: sidebar
+permalink: concepts/storage-efficiency.html
+keywords: how astra works, how Astra works, what Astra is, astra data store,
+summary: Astra Data Store uses storage efficiency technologies such as thin provisioning, zero-block elimination, compression, and deduplication.
+---
+
+= Storage efficiency in Astra Data Store
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/concepts/
+
+Astra Data Store uses storage efficiency technologies based on ONTAP technologies including:
+
+* Thin provisioning
+* Zero-block elimination
+* Compression
+* Deduplication
+* Data tiering using Fabric Pool
+
+See https://docs.netapp.com/ontap-9/index.jsp[storage efficiency details].
+
+Astra Data Store offers a storage efficiency guarantee similar to that offered by ONTAP appliances as limited by the hardware resources provided to its clusters and only in all-flash configurations.
+
+== For more information
+
+* https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family introduction^]
+* https://docs.netapp.com/us-en/astra/index.html[Astra Control Service documentation^]
+* https://docs.netapp.com/us-en/astra-control-center/[Astra Control Center documentation^]
+* https://docs.netapp.com/us-en/trident/index.html[Astra Trident documentation^]
+* https://docs.netapp.com/us-en/astra-automation/index.html[Use the Astra API^]
+* https://docs.netapp.com/us-en/ontap/index.html[ONTAP documentation^]

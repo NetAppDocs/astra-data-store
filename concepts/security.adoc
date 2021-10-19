@@ -1,0 +1,36 @@
+---
+sidebar: sidebar
+permalink: concepts/security.html
+keywords: how astra works, how Astra security works, what Astra is, astra data store, kubernetes
+summary: Astra Data Store uses several methods to secure client and administrator access to storage, protect communication and data, and protect against viruses.
+---
+
+= Security in Astra Data Store
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/concepts/
+
+Astra Data Store uses several methods to secure client and administrator access to storage, protect communication and data, and protect against viruses.
+
+Astra Data Store uses the following security methods:
+
+* Communication encryption using SSL and IPSec
+* Role-based access control governs access to features
+* Deployment security
+* Certificate management
+* Software encryption at rest including internal and external key management
+* Kubernetes APIs are encrypted to the highest industry standard.
++
+Custom Resource Definitions (CRDs) are extensions to the kubernetes REST API that are created when the Astra Data Store operator is deployed. External entities interact with the CRDs by making calls to the Kubernetes API server. Astra Data Store watches for updates to specific CRDs and then makes calls to internal REST APIs. Security is built into Kubernetes and the Kubernetes API server.
+
+
+
+== For more information
+
+* https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family introduction^]
+* https://docs.netapp.com/us-en/astra/index.html[Astra Control Service documentation^]
+* https://docs.netapp.com/us-en/astra-control-center/[Astra Control Center documentation^]
+* https://docs.netapp.com/us-en/trident/index.html[Astra Trident documentation^]
+* https://docs.netapp.com/us-en/astra-automation/index.html[Use the Astra API^]
+* https://docs.netapp.com/us-en/cloudinsights/[Cloud Insights documentation^]
+* https://docs.netapp.com/us-en/ontap/index.html[ONTAP documentation^]
