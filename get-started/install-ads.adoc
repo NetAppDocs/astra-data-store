@@ -308,7 +308,7 @@ vim astradscluster.yaml
 +
 NOTE: An example follows these steps.
 
-.. In `metadata`, change the `name` string to the name of your cluster.
+.. In `metadata`, change the `name` string to the name of your cluster. This must be the same cluster name used when you <<Edit and apply the Astra Data Store License,applied the license>>.
 .. Update the following required values in `spec`:
 ... Change the `mvip` string to the IP address of a floating management IP that is routable from any worker node in the cluster.
 ... In `adsDataNetworks`, list floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume.
