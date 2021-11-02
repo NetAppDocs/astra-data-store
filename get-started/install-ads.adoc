@@ -113,8 +113,8 @@ Response:
 +
 ----
 astradscluster.yaml
-astradsversion.yaml
 astradsoperator.yaml
+astradsversion.yaml
 ----
 
 . Edit the Astra Data Store operator custom resource definition (CRD) YAML to refer to the local registry (`your_registry_path`) you pushed the images to in a <<substep_image_local_registry_push,previous step>>:
