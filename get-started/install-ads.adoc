@@ -25,8 +25,8 @@ The Astra Data Store installation process guides you through the following high-
 * <<Install the monitoring operator>>
 * <<Install the Astra Data Store operator>>
 * <<Edit and apply the Astra Data Store Deployment YAML>>
-* <<Edit and apply the Astra Data Store License>>
 * <<Install the Astra Data Store cluster>>
+* <<Edit and apply the Astra Data Store license>>
 
 == Download the Astra Data Store bundle
 . Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store-downloads-tab[NetApp Support Site^] and download the Astra Data Store bundle (`astra-data-store-[version].tar.gz`).
@@ -34,7 +34,7 @@ The Astra Data Store installation process guides you through the following high-
 . (Optional) Use the following command to verify the signature of the bundle:
 +
 ----
-openssl dgst -sha256 -verify astra-data-store[version].pub -signature <astra-data-store[version].sig astra-control-center[version].tar.gz
+openssl dgst -sha256 -verify astra-data-store[version].pub -signature <astra-data-store[version].sig astra-data-store[version].tar.gz
 ----
 
 == Unpack the bundle and change directory
@@ -70,10 +70,10 @@ cp -f kubectl-astrads <path from previous command>
 +
 NOTE: See a sample script for the automatic loading of images below.
 
-.. Log in to your Docker registry:
+.. Log in to your registry:
 +
 ----
-docker login [Docker_registry_path]
+docker login [your_registry_path]
 ----
 
 .. Load the images into Docker.
@@ -82,7 +82,7 @@ docker login [Docker_registry_path]
 
 +
 ----
-export REGISTRY=[Docker_registry_path]
+export REGISTRY=[your_registry_path]
 for astraImageFile in $(ls images/*.tar)
   # Load to local cache. And store the name of the loaded image trimming the 'Loaded images: '
   do astraImage=$(docker load --input ${astraImageFile} | sed 's/Loaded image(s): //')
@@ -99,100 +99,28 @@ done
 
 . Run the install command:
 ----
-[root@example ~]# helm3 install /u/samip/p4/netapp-monitoring --generate-name -n default
+helm3 install /u/samip/p4/netapp-monitoring --generate-name -n default
 ----
 
 == Install the Astra Data Store operator
 . List the Astra Data Store manifests:
 +
 ----
-[root@example ~]# ls manifests/
+ls manifests/
 ----
 +
 Response:
 +
 ----
 astradscluster.yaml
-astradsdeployment.yaml
+astradsversion.yaml
 astradsoperator.yaml
 ----
 
-. Edit the Astra Data Store operator custom resource definition (CRD) YAML to refer to your local registry and secret.
+. Edit the Astra Data Store operator custom resource definition (CRD) YAML to refer to the local registry (`your_registry_path`) you pushed the images to in a <<substep_image_local_registry_push,previous step>>:
 +
 ----
-vim astradsoperator.yaml
-----
-
-.. Change `[Docker_registry_path]` for the `kube-rbac-proxy` image to the registry path where you pushed the images in a <<substep_image_local_registry_push,previous step>>.
-.. Change `[Docker_registry_path]` for the `ads-operator` image to the registry path where you pushed the images in a <<substep_image_local_registry_push,previous step>>.
-+
-[subs=+quotes]
-----
-apiVersion: v1
-kind: Namespace
-metadata:
-  labels:
-    control-plane: operator
-  name: astrads-system
----
-apiVersion: apiextensions.k8s.io/v1
-kind: CustomResourceDefinition
-.
-.
-.
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    control-plane: operator
-  name: astrads-operator
-  namespace: astrads-system
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      control-plane: operator
-  template:
-    metadata:
-      labels:
-        control-plane: operator
-    spec:
-      containers:
-      - args:
-        - --secure-listen-address=0.0.0.0:8443
-        - --upstream=http://127.0.0.1:8080/
-        - --logtostderr=true
-        - --v=10
-        *image: [Docker_registry_path]/kube-rbac-proxy:v0.6.0*
-        name: kube-rbac-proxy
-        ports:
-        - containerPort: 8443
-          name: https
-      - command:
-        - /operator
-        *image: [Docker_registry_path]/ads-operator:dev-6091923*
-        imagePullPolicy: IfNotPresent
-        livenessProbe:
-          exec:
-            command:
-            - /bin/sh
-            - -c
-            - liveness -heartbeat 30
-          failureThreshold: 3
-          initialDelaySeconds: 30
-          periodSeconds: 15
-          successThreshold: 1
-          timeoutSeconds: 15
-        name: manager
-        resources:
-          limits:
-            cpu: 100m
-            memory: 30Mi
-          requests:
-            cpu: 100m
-            memory: 20Mi
-      terminationGracePeriodSeconds: 10
+sed -i 's/\[your_registry_path\]/docker.repo.customer.com/' astradsoperator.yaml
 ----
 
 . Apply the changes to the file:
@@ -201,81 +129,38 @@ spec:
 kubectl apply -f astradsoperator.yaml
 ----
 
-. Verify that the Astra Data Store operator pod has restarted and is running:
+. Verify that the Astra Data Store operator pod has started and is running:
 +
 ----
-[root@example ~]$ kubectl get pods -n astrads-system
+kubectl get pods -n astrads-system
 ----
 +
 Response:
 +
 ----
 NAME                                READY   STATUS    RESTARTS   AGE
-astrads-operator-56d9b69cf4-tkfcb   2/2     Running   0          85s
+astrads-operator-5ffb94fbf-7ln4h    1/1     Running   0          17m
 ----
 
 == Edit and apply the Astra Data Store Deployment YAML
-. Edit the Astra Data Store deployment custom resource (CR) file:
-.. Open the yaml file:
+. Edit the Astra Data Store deployment custom resource (CR) file to refer to the local registry (`your_registry_path`) you pushed the images to in a <<substep_image_local_registry_push,previous step>>:
 +
 ----
-vim astradsdeployment.yaml
+sed -i 's/\[your_registry_path\]/docker.repo.customer.com/' astradsversion.yaml
 ----
 
-.. Change `[Docker_registry_path]` to the registry path where you pushed the images in a <<substep_image_local_registry_push,previous step>>.
-+
-[subs=+quotes]
-----
-apiVersion: astrads.netapp.io/v1alpha1
-kind: AstraDSDeployment
-metadata:
-name: astradsdeployment
-namespace: astrads-system
-spec:
-images:
-*dmsController: [Docker_registry_path]/ads-dms-controller:dev-6093843*
-*firetapInstaller: [Docker_registry_path]/ads-firetap-installer:dev-12.75.0-6091923*
-*firegen: [Docker_registry_path]/ads-firetap-firegen:dev-6093843*
-*firetapMetrics: [Docker_registry_path]/ads-firetap-metrics:dev-6091923*
-*clusterController: [Docker_registry_path]/ads-cluster-controller:dev-6093843*
-*support: [Docker_registry_path]/ads-support-controller:1.0*
-*licenseController: [Docker_registry_path]/ads-license-controller:dev-6091923*
-*callhomeListener: [Docker_registry_path]/ads-callhome-listener:dev-6093843*
-*autosupportCronjob: [Docker_registry_path]/ads-autosupport-cronjob:dev-6093843*
-*fluentBit: [Docker_registry_path]/fluent-bit:1.6.8*
-*nodeInfoController: [Docker_registry_path]/ads-nodeinfo-controller:dev-6093843*
-*kubeRbacProxy: [Docker_registry_path]/kube-rbac-proxy:v0.6.0*
-version: 0.0.1
-----
 . Apply the updated file:
 +
 ----
-kubectl apply -f astradsdeployment.yaml
+kubectl apply -f astradsversion.yaml
 ----
 
-== Edit and apply the Astra Data Store License
+== Edit and apply the Astra Data Store license
 
-. Edit and apply the NetApp License File (NLF) that you obtained from the NetApp Support Site (NSS):
-
-.. Copy and paste the content of the NLF after `netappLicenseFile:`.
-.. Enter the name of the cluster that you are going to deploy or have already deployed.
-+
-[subs=+quotes]
-----
-apiVersion: astrads.netapp.io/v1alpha1
-kind: AstraDSLicense
-metadata:
-  name: "e900000005"
-  namespace: "astrads-system"
-spec:
-  *netappLicenseFile: <NLF-contents>*
-  *adsClusterName: "<Astra-Data-Store-cluster-name>"*
-----
-
-.. Create the license file:
+. Apply the NetApp License File (NLF) that you obtained from the NetApp Support Site (NSS). Before you run the command, enter the name of the cluster (`<Astra-Data-Store-cluster-name>`) that you are <<Install the Astra Data Store cluster,going to deploy>> or have already deployed and the path to the license file (`<file_path/file.txt>`):
 +
 ----
-[root@example ~]$ kubectl apply -f <sample-license-yaml>
+kubectl astrads license add --license-file-path <file_path/file.txt> --ads-cluster-name <Astra-Data-Store-cluster-name> -n astrads-system
 ----
 +
 Response:
@@ -284,17 +169,30 @@ Response:
 astradslicense.astrads.netapp.io/e900000005 created
 ----
 
-.. Verify the changes:
+. Verify that license has been added:
 +
 ----
-[<root ID> ~]$ kubectl get astradslicense -A
+kubectl get astradslicense -A
 ----
 +
 Response:
 +
 ----
-NAMESPACE        NAME         ADSCLUSTER                      VALID   PRODUCT                       EVALUATION   ENDDATE      VALIDATED
-astrads-system   e900000005   astrads-sti-c6220-09-10-11-12   true    Astra Data Store Enterprise   true         2021-12-01   2021-06-23T23:36:11Z
+Status:
+  Ads Cluster Name:  astrads-cluster-c62b612
+  Configuration:
+    Cluster Core Count Total:           45
+    Cluster Storage Max Capacity Ti B:  240
+  Last Autosupport:                     2021-10-29T19:19:47Z
+  Last License Validation:              2021-10-29T19:25:13Z
+  License Info:
+    End Date:                  2022-01-23
+    Entitlement Last Updated:  2021-10-26T18:26:14.882845
+    Evaluation:                true
+    Host ID:                   
+      License Serial Number:     p100000006
+      Product:                   Astra Data Store Preview
+      Protocol:                  ADS_DEV_SUBS
 ----
 
 == Install the Astra Data Store cluster
@@ -308,7 +206,7 @@ vim astradscluster.yaml
 +
 NOTE: An example follows these steps.
 
-.. In `metadata`, change the `name` string to the name of your cluster. This must be the same cluster name used when you <<Edit and apply the Astra Data Store License,applied the license>>.
+.. In `metadata`, change the `name` string to the name of your cluster. This must be the same cluster name use when you <<Edit and apply the Astra Data Store license,apply the license>>.
 .. Update the following required values in `spec`:
 ... Change the `mvip` string to the IP address of a floating management IP that is routable from any worker node in the cluster.
 ... In `adsDataNetworks`, list floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume.
@@ -316,7 +214,7 @@ NOTE: An example follows these steps.
 ... In `astraOptions`, add the license number (`serialNumber`) from the NLF.
 ... In `adsNodeConfig`, enter the per-node CPU core count and memory limits for the FireTap container.
 .. For `monitoringConfig`, do one of the following:
-* If you configured a <<Install the monitoring operator,monitoring operator>>, add the the namespace in which the agent CR (monitoring operator resource) is applied (default is `netapp-monitoring`) and the repo path for your registry (`Docker_registry_path`) that you used in previous steps.
+* If you configured a <<Install the monitoring operator,monitoring operator>>, add the the namespace in which the agent CR (monitoring operator resource) is applied (default is `netapp-monitoring`) and the repo path for your registry (`your_registry_path`) that you used in previous steps.
 * If you did not configure a <<Install the monitoring operator,monitoring operator>>, remove or comment out the `monitoringConfig` section.
 .. (Optional) The following values can be optionally modified otherwise the default value will be used:
 ... In `spec`, enter a limit for how many nodes can be in the deployment (`adsNodeCount`).
@@ -356,7 +254,7 @@ spec:
     drivesFilter: <optional regex filter to select disks>
   *monitoringConfig:*
     *namespace: <namespace where applied>*
-    *repo: <Docker_registry_path>*
+    *repo: <your_registry_path>*
   autoSupportConfig:
     historyRetentionCount: 10
     destinationURL: "https://testbed.netapp.com/put/AsupPut"
@@ -387,46 +285,6 @@ Sample return:
 NAME                        STATUS    VERSION                            SERIAL NUMBER   MVIP           AGE
 
 sample-0309d8b   created   sample-9.11.0-6090501   081856669       10.224.8.232   13d
-----
-
-. Run the following bash script after cluster creation to reserve node CPU and memory resources to constrain k8s:
-//Confirm still needed???
-+
-----
-#!/bin/bash
-set -eio pipefail
-CPU=8
-MEM=32
-
-
-CLUSTER_KIND="AstraDSCluster"
-LDIR="/tmp/ADS"
-LABEL_PREFIX="astrads.netapp.io"
-SSH="ssh"
-SCP="scp"
-mkdir -p ${LDIR}
-if ! CLUSTER_NAME=`kubectl get ${CLUSTER_KIND} -A -o jsonpath={.items[0].metadata.name}` ; then
-        CLUSTER_NAME=""
-fi
-SCRIPT=${LDIR}/sys_res.sh
-KUBE_RESERVED='{cpu: 8000m, memory: 32G}'
-echo "#!/bin/bash
-cat /var/lib/kubelet/config.yaml | python3 -c \"import yaml,sys; y = yaml.load(sys.stdin); y['systemReserved'] = yaml.safe_load(sys.argv[1]); print(yaml.dump(y,default_flow_style=False))\" \"${KUBE_RESERVED}\" > /var/lib/kubelet/config.yaml.new
-mv /var/lib/kubelet/config.yaml.new /var/lib/kubelet/config.yaml
-echo \"Restarting kubelet\"
-systemctl restart kubelet
-sleep 10
-systemctl status kubelet
-grep -A 3 "systemReserved" /var/lib/kubelet/config.yaml
-" > ${SCRIPT}
-kubectl get nodes  -L ${LABEL_PREFIX}/cluster -o wide
-NODES=`kubectl get nodes -L ${LABEL_PREFIX}/cluster | awk /${CLUSTER_NAME}/'{print $1}'`
-for NODE in $NODES ; do
-        echo "$NODE"
-        $SCP ${SCRIPT} root@${NODE}:sys_res.sh
-        $SSH root@${NODE} chmod +x sys_res.sh
-        $SSH root@${NODE} ./sys_res.sh
-done
 ----
 
 == What's next
