@@ -5,6 +5,8 @@ entries:
     url: /concepts/intro.html
   - title: Architecture and components
     url: /concepts/architecture.html
+  - title: Cluster expansion
+    url: /concepts/expansion.html
   - title: Storage efficiency
     url: /concepts/storage-efficiency.html
   - title: Security
