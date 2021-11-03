@@ -20,7 +20,7 @@ To get a perspective on the entire Astra family, see https://docs.netapp.com/us-
 
 The Astra Data Store preview supports the following environment:
 
-[%header,cols=2*]
+[%header,cols="2, 5a"]
 |===
 |Features
 |Customer provided Kubernetes cluster
@@ -29,12 +29,15 @@ The Astra Data Store preview supports the following environment:
 |Provides storage for Kubernetes native apps whose lifecycle is managed by Astra Control Center.
 
 |Deployment
-|* Deployed on bare metal or virtual volumes.
+|Deployed in various ways:
+
+* On bare metal or virtual volumes.
+
 * As a standalone, dedicated Kubernetes cluster serving persistent volumes to Kubernetes apps running in a separate cluster, providing storage to Astra Control Center (standalone cluster)
 
-* Deployed with the Kubernetes applications running in the same cluster on the same node pool (converged)
+* With the Kubernetes applications running in the same cluster on the same node pool (converged)
 
-* Deployed with the Kubernetes applications running in the same cluster on different node pools (disaggregated)
+* With the Kubernetes applications running in the same cluster on different node pools (disaggregated)
 
 
 |Drives

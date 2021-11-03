@@ -20,22 +20,22 @@ homepage:
           url: /concepts/intro.html
         - title: What's in Astra Data Store
           url: /release-notes/whats-new.html
-        - title: Release notes
-          url: /release-notes/rn_overview.html
         - title: Try it out
-          url: /get-started/setup_overview.html#add-a-license-for-astra-control-center
+          url: /get-started/install-ads.html#edit-and-apply-the-astra-data-store-license
         - title: Install Astra Data Store
-          url: /get-started/install_acc.html
+          url: /get-started/install-ads.html
+        - title: Set up Astra Data Store
+          url: /get-started/setup-ads.html
     - title: Use Astra Data Store
       links:
-        - title: Manage accounts
-          url: /use/manage-users.html
-        - title: Manage apps
-          url: /use/manage-apps.html
-        - title: Protect apps
-          url: /use/protect-apps.html
-        - title: Clone and migrate apps
-          url: /use/clone-apps.html
+        - title: Use kubectl commands
+          url: /use/kubectl-commands-ads.html
+        - title: Deploy apps
+          url: /use/deploy-apps.html
+        - title: Configure Confluent endpoints
+          url: /use/configure-endpoints.html
+        - title: Use Astra Data Store with Astra Control Center
+          url: /use/ads-acc-ui.html
     - title: Use Astra API
       links:
         - title: Get started with the Astra API
@@ -44,24 +44,12 @@ homepage:
           url: https://docs.netapp.com/us-en/astra-automation/reference/api_reference.html
         - title: API workflows
           url: https://docs.netapp.com/us-en/astra-automation/workflows/workflows_before.html
-    - title: Solution briefs
-      links:
-        - title: PostgreSQL DBaaS with Astra Control
-          url: https://cloud.netapp.com/hubfs/SB-4122-0221-PostgresSQL-DBaaS-with-Astra%20(2).pdf
-        - title: MySQL DBaaS with Astra Control
-          url: https://cloud.netapp.com/hubfs/SB-4110-0221-MySQL-Astra%20(2).pdf
-        - title: Simplify Jenkins lifecycle management
-          url: https://cloud.netapp.com/hubfs/SB-4100-Jenkins%20(2).pdf
     - title: Demos & tutorials
       links:
-        - title: Deploy Jenkins
-          url: /solutions/jenkins-deploy-from-helm-chart.html
-        - title: Deploy MariaDB
-          url: /solutions/mariadb-deploy-from-helm-chart.html
-        - title: Deploy MySQL
-          url: /solutions/mysql-deploy-from-helm-chart.html
-        - title: Deploy Postgres
-          url: /solutions/postgres-deploy-from-helm-chart.html
+        - title: Future of Kubernetes
+          url: https://cloud.netapp.com/astra-data-store
+        - title: Astra Data Store demo
+          url: https://netapp.hubs.vidyard.com/watch/aDmgkBbJhUTZAGmH5XKimA?
     - title: Blogs & community
       links:
         - title: Astra blogs

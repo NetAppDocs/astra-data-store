@@ -1,0 +1,39 @@
+---
+sidebar: sidebar
+permalink: use/configure-endpoints.html
+keywords: astra, astra data store, kubectl, endpoints, confluent
+summary: You can use kubectl commands with Astra Data Store to deploy apps.
+---
+
+= Configure Confluent endpoints
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/get-started/
+
+You can use kubectl commands with Astra Data Store to configure endpoints for use with Confluent, for example.
+
+
+== REWRITE  was: Show the volume mount on the node
+
+. Enter: `kubectl get pods -n astrads-system`
+
++
+Result:
++
+====
+mongo00  1/1 Running 0   23m
+mongo01  1/1 Running 0   21m
+====
+
+. Enter: `kubectl describe pod -n astrads-system mongo0  | grep Node`
+
++
+Result:
++
+====
+Node:
+Node-Selectors: <none>
+====
+
+. Enter: `ssh <IP-address> -l root`
+. Enter: `mount | grep pvc`
