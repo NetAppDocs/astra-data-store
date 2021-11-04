@@ -95,7 +95,7 @@ done
 ----
 
 == Install the monitoring operator
-(Optional) The monitoring operator is recommended if Astra Data Store monitoring will not be performed in Astra Control Center. You can install the monitoring operator if your Astra Data Store instance is a standalone deployment, uses CI to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
+(Optional) The monitoring operator is recommended if Astra Data Store monitoring will not be performed in Astra Control Center. You can install the monitoring operator if your Astra Data Store instance is a standalone deployment, uses Cloud Insights to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
 
 . Run the install command:
 ----
@@ -156,6 +156,8 @@ kubectl apply -f astradsversion.yaml
 ----
 
 == Edit and apply the Astra Data Store license
+
+NOTE: For the Astra Data Store Preview release, the license type is limited to Evaluation.
 
 . Apply the NetApp License File (NLF) that you obtained from the NetApp Support Site (NSS). Before you run the command, enter the name of the cluster (`<Astra-Data-Store-cluster-name>`) that you are <<Install the Astra Data Store cluster,going to deploy>> or have already deployed and the path to the license file (`<file_path/file.txt>`):
 +
