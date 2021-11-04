@@ -14,6 +14,7 @@ To install Astra Data Store, download the installation bundle from the NetApp Su
 
 .What you'll need
 * link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
+* Access to the NetApp Support Site. https://www.netapp.com/cloud-services/astra/data-store-form/[Register] for a preview if you don’t already have a full-access NetApp Support Site account.
 * Root administrative permissions.
 
 .About this task
