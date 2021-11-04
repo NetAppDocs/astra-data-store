@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar
 permalink: use/kubectl-commands-ads.html
-keywords: astra, astra data store, kubectl
-summary: To install Astra Data Store after addressing some environmental prerequisites, you'll download the bundle and install following the steps described.
+keywords: astra, astra data store, astra datastore, kubectl
+summary: You can use kubectl commands directly with Astra Data Store.
 ---
 
 = Use kubectl commands with Astra Data Store
@@ -20,7 +20,7 @@ While all artifacts in these instructions exist in the same namespaces (for exam
 
 == Some tasks you can do with kubectl commands
 
-You can perform many tasks with kubectl commands.
+You can perform many Astra Data Store tasks with kubectl commands.
 
 Here are instructions for some of them:
 
@@ -29,9 +29,10 @@ Here are instructions for some of them:
 * <<Display volumes>>
 * <<Display the server IP>>
 * <<Describe the volume>>
-* <<Show the volume mount on the node>>
-* <<Show the volume mount inside the MongoDB container>>
-
+* <<Show the volume mount on a node>>
+* <<Show the volume mount inside a MongoDB container>>
+* <<Replace a drive>>
+* <<Replace a node>>
 
 
 == Available commands
@@ -43,7 +44,9 @@ Here are instructions for some of them:
 * *help*: Get help about any command.
 * *license*: Add a license in the astrads cluster, during the initial Astra Data Store deployment or if you need to update a license after deployment.
 * *maintenance*: Place a node into maintenance mode.
-* *monitoring*: Manage monitoring output by deploying the monitoring operator. This is done during the initial Astra Data Store deployment. See "Configure Astra Data Store for monitoring.""
+* *monitoring*: Manage monitoring output by deploying the monitoring operator. This is done during the initial Astra Data Store deployment.
++
+See link:../get-started/install-ads.html#install-the-monitoring-operator[Configure Astra Data Store for monitoring].
 * *nodes*: List the nodes in a cluster.
 
 == Place a node in maintenance mode
@@ -131,7 +134,7 @@ Status:
     Type: AstraDSVolumeOnline
 ====
 
-== Show the volume mount on the node
+== Show the volume mount on a node
 
 . Enter: `kubectl get pods -n astrads-system`
 
@@ -156,7 +159,7 @@ Node-Selectors: <none>
 . Enter: `ssh <IP-address> -l root`
 . Enter: `mount | grep pvc`
 
-== Show the volume mount inside the MongoDB container
+== Show the volume mount inside a MongoDB container
 
 . Enter: `kubectl get pods -n astrads-system`
 
@@ -173,3 +176,7 @@ mongo1  1/1 Running 0   21m
 . Enter: `show dbs`
 . Enter: `use ycsb-_rand0_`
 . Enter: `show collections`
+
+== Replace a drive
+
+== Replace a node

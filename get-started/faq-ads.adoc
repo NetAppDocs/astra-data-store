@@ -5,7 +5,7 @@ keywords: faq, frequently asked questions, astra, astra data store, kubernetes, 
 summary: This FAQ can help if you're just looking for a quick answer to a question.
 ---
 
-= Frequently asked questions for Astra Control Center
+= Frequently asked questions for Astra Data Store
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/
@@ -19,17 +19,13 @@ The following sections provide answers to some additional questions that you mig
 == Access to Astra Data Store
 
 
-*I am using the Evaluation license. How to I change to the full license?*
+*Does the Astra Data Store preview require a license?*
 
-You can easily change to a full license by obtaining the NetApp license file (NLF).
-
-*Steps*
-
-* TBD
-* Browse to the license file you downloaded.
+Yes, Astra Data Store preview requires a NetApp license file (NLF).
 
 
-== Registering Kubernetes clusters
+
+== Working with Kubernetes clusters
 
 *I need to add worker nodes to my Kubernetes cluster after adding to Astra Control. What should I do?*
 
@@ -45,10 +41,3 @@ New worker nodes can be added to existing pools. These will be automatically dis
 *Will NetApp Trident be uninstalled if I remove a Kubernetes cluster from Astra Data Store?*
 
 Trident will not be uninstalled from a cluster if you remove it from Astra Data Store.
-
-== Managing applications
-
-
-*Where can I manage an application?*
-
-You don't manage apps in Astra Data Store. Applications must be deployed outside of Astra Control and then managed using Astra Control Center.
