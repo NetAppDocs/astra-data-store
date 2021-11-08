@@ -47,8 +47,8 @@ The Astra Data Store preview supports the following environment:
 |Customer provides the Kubernetes cluster.
 |===
 
-== Astra Data Store interfaces
-Astra Data Store uses the following:
+== Platform and other tools used by Astra Data Store 
+Astra Data Store works with the following:
 
 * *Kubernetes clusters*: Kubernetes is an open-source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. Astra provides management services for applications hosted in a Kubernetes cluster.
 +
@@ -60,7 +60,7 @@ You use Trident to create volumes on Astra Data Store.
 
 * *Cloud Insights*:  A NetApp cloud infrastructure monitoring tool, Cloud Insights enables you to monitor performance and utilization for your Kubernetes clusters managed by Astra Control. Cloud Insights correlates storage usage to workloads. When you enable the Cloud Insights connection in Astra Control, telemetry information shows in Astra Control UI pages.
 +
-Cloud Insights displays information for Astra Data Store.
+Cloud Insights displays information about resources in Astra Data Store.
 
 
 == Astra Data Store interfaces

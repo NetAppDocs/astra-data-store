@@ -11,29 +11,3 @@ summary: You can use kubectl commands with Astra Data Store to deploy apps.
 :imagesdir: ../media/get-started/
 
 You can use kubectl commands with Astra Data Store to deploy apps.
-
-
-== REWRITE TO DEPLOY APPS was: Show the volume mount on the node
-
-. Enter: `kubectl get pods -n astrads-system`
-
-+
-Result:
-+
-====
-mongo00  1/1 Running 0   23m
-mongo01  1/1 Running 0   21m
-====
-
-. Enter: `kubectl describe pod -n astrads-system mongo0  | grep Node`
-
-+
-Result:
-+
-====
-Node:
-Node-Selectors: <none>
-====
-
-. Enter: `ssh <IP-address> -l root`
-. Enter: `mount | grep pvc`

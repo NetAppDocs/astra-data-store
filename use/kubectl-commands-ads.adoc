@@ -57,7 +57,7 @@ TBD
 
 Enter: `kubectl describe deployment -n astrads-system mongo0`
 
-Result:
+Response:
 
 ====
 Pod template:
@@ -88,7 +88,7 @@ Display the volumes to which it is bound.
 
 Enter: `kubectl describe pvc -n astrads-system mongo0`
 
-Result:
+Response:
 ====
 Name:         mongo-pvc0
 Namespace:    astrads-system
@@ -101,7 +101,7 @@ Volume:
 
 Enter: `kubectl get astradsvolumes -n astrads-system | grep <volume_ID>``
 
-Result:
+Response:
 
 ====
 <volume_ID> 8Gi astrads-cluster-420a40  true
@@ -113,7 +113,7 @@ Result:
 
 Enter: `kubectl describe astradsvolumes -n astrads-system <volume_ID>``
 
-Result:
+Response:
 
 ====
 Spec:
@@ -139,7 +139,7 @@ Status:
 . Enter: `kubectl get pods -n astrads-system`
 
 +
-Result:
+Response:
 +
 ====
 mongo00  1/1 Running 0   23m
@@ -149,7 +149,7 @@ mongo01  1/1 Running 0   21m
 . Enter: `kubectl describe pod -n astrads-system mongo0  | grep Node`
 
 +
-Result:
+Response:
 +
 ====
 Node:
@@ -164,7 +164,7 @@ Node-Selectors: <none>
 . Enter: `kubectl get pods -n astrads-system`
 
 +
-Result:
+Response:
 +
 ====
 mongo0  1/1 Running 0   23m

@@ -12,7 +12,7 @@ summary: Get started with Astra Data Store in a few steps.
 
 This page provides a high-level overview of the steps needed to get started with Astra Data Store. The links within each step take you to a page that provides more details.
 
-Try it out! If you want to try Astra Data Store, you can use a 90-day evaluation license. See link:../get-started/setup_ads.html#edit-and-apply-the-astra-data-store-license[licensing information] for details.
+Try it out! If you want to try Astra Data Store, you can use a 90-day evaluation license. See link:../get-started/setup-ads.html#edit-and-apply-the-astra-data-store-license[licensing information] for details.
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png[One] Review Kubernetes cluster requirements
 
@@ -38,7 +38,7 @@ link:../get-started/requirements.html[Learn more about the Astra Data Store requ
 
 
 [role="quick-margin-para"]
-link:../get-started/install_ads.html[Learn more about installing Astra Data Store].
+link:../get-started/install-ads.html[Learn more about installing Astra Data Store].
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png[Three] Complete some initial setup tasks
 
@@ -52,7 +52,7 @@ link:../get-started/install_ads.html[Learn more about installing Astra Data Stor
 
 
 [role="quick-margin-para"]
-link:../get-started/setup_ads.html[Learn more about the initial setup process].
+link:../get-started/setup-ads.html[Learn more about the initial setup process].
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png[Four] Use Astra Data Store
 
@@ -62,7 +62,7 @@ After you finish setting up Astra Data Store, here's what you might do next:
 [role="quick-margin-list"]
 * Use kubectl commands to complete tasks, such as place a node in maintenance mode, replace a drive, or replace a node. link:../use/kubectl-commands-ads.html[Learn more about how to use kubectl commands with Astra Data Store].
 
-* Configure monitoring endpoints link:../use/configure-endpoints.html[Learn more about configuring endpoints].
+* Configure monitoring endpoints link:../use/configure-endpoints.html[Learn more about configuring monitoring endpoints].
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-5.png[Five] Continue from this Quick Start
 
