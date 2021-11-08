@@ -14,11 +14,11 @@ Astra Data Store uses several methods to secure client and administrator access 
 
 Astra Data Store uses the following security methods:
 
-* Communication encryption using SSL and IPSec
+* Communication encryption using mutual transport layer security (mTLS)
 * Role-based access control governs access to features
 * Deployment security
 * Certificate management
-* Software encryption at rest including internal and external key management
+* Software encryption at rest including internal key management
 * Kubernetes APIs are encrypted to the highest industry standard.
 +
 Custom Resource Definitions (CRDs) are extensions to the kubernetes REST API that are created when the Astra Data Store operator is deployed. External entities interact with the CRDs by making calls to the Kubernetes API server. Astra Data Store watches for updates to specific CRDs and then makes calls to internal REST APIs. Security is built into Kubernetes and the Kubernetes API server.

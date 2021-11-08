@@ -12,7 +12,7 @@ summary: Get started with Astra Data Store in a few steps.
 
 This page provides a high-level overview of the steps needed to get started with Astra Data Store. The links within each step take you to a page that provides more details.
 
-Try it out! If you want to try Astra Data Store, you can use a 90-day evaluation license. See link:../get-started/setup_overview.html#add-a-license-for-astra-control-center[licensing information] for details.
+Try it out! If you want to try Astra Data Store, you can use a 90-day evaluation license. See link:../get-started/setup-ads.html#edit-and-apply-the-astra-data-store-license[licensing information] for details.
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png[One] Review Kubernetes cluster requirements
 
@@ -32,24 +32,27 @@ link:../get-started/requirements.html[Learn more about the Astra Data Store requ
 [role="quick-margin-list"]
 * Download Astra Data Store from the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^].
 * Install Astra Data Store in your local environment.
-* Discover your Trident configuration.
+* Optionally, install the monitoring operator. This enables you to connect to NetApp Cloud Insights so you can display metrics on the health of your system, capacity, and throughput.
+* Apply the Astra Data Store license.
+* Install the Astra Data Store cluster.
+
 
 [role="quick-margin-para"]
-link:../get-started/install_ads.html[Learn more about installing Astra Data Store].
+link:../get-started/install-ads.html[Learn more about installing Astra Data Store].
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png[Three] Complete some initial setup tasks
 
 
 [role="quick-margin-list"]
 
-* Add a license.
-* Add a Kubernetes cluster and Astra Data Store discovers details.
-* Add an ONTAP storage backend.
-* Optionally, add an object store bucket that will store your app backups.
+* Install Astra Trident.
+* Install Kubernetes Snapshot custom resource definitions (CRDs) and controller.
+* Set up Astra Data Store as a storage backend.
+* Create a generic Astra Data Store storage class.
 
 
 [role="quick-margin-para"]
-link:../get-started/setup_overview.html[Learn more about the initial setup process].
+link:../get-started/setup-ads.html[Learn more about the initial setup process].
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png[Four] Use Astra Data Store
 
@@ -57,18 +60,12 @@ link:../get-started/setup_overview.html[Learn more about the initial setup proce
 After you finish setting up Astra Data Store, here's what you might do next:
 
 [role="quick-margin-list"]
-* Manage an app. link:../use/use-ads.html[Learn more about how to use Astra Data Store].
+* Use kubectl commands to complete tasks, such as place a node in maintenance mode, replace a drive, or replace a node. link:../use/kubectl-commands-ads.html[Learn more about how to use kubectl commands with Astra Data Store].
 
-* Optionally, connect to NetApp Cloud Insights to display metrics on the health of your system, capacity, and throughput inside the Astra Control Center UI. link:../use/monitor-protect.html[Learn more about connecting to Cloud Insights].
+* Configure monitoring endpoints link:../use/configure-endpoints.html[Learn more about configuring monitoring endpoints].
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-5.png[Five] Continue from this Quick Start
 
 
 [role="quick-margin-para"]
-link:../get-started/install_ads.html[Install Astra Data Store].
-
-
-
-== Find more information
-
-* https://docs.netapp.com/us-en/astra-automation/index.html[Use the Astra API^]
+link:../get-started/install-ads.html[Install Astra Data Store].

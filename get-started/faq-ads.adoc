@@ -1,0 +1,43 @@
+---
+sidebar: sidebar
+permalink: get-started/faq-ads.html
+keywords: faq, frequently asked questions, astra, astra data store, kubernetes, persistent volumes
+summary: This FAQ can help if you're just looking for a quick answer to a question.
+---
+
+= Frequently asked questions for Astra Data Store
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/
+
+This FAQ can help if you're just looking for a quick answer to a question.
+
+== Overview
+
+The following sections provide answers to some additional questions that you might come across as you use Astra Data Store. For additional clarifications, please reach out to astra.feedback@netapp.com
+
+== Access to Astra Data Store
+
+
+*Does the Astra Data Store preview require a license?*
+
+Yes, Astra Data Store preview requires a NetApp license file (NLF).
+
+
+
+== Working with Kubernetes clusters
+
+*I need to add worker nodes to my Kubernetes cluster after adding to Astra Control. What should I do?*
+
+New worker nodes can be added to existing pools. These will be automatically discovered by Astra Control. If the new nodes are not visible in Astra Control, check if the new worker nodes are running the supported image type. You can also verify the health of the new worker nodes by using the `kubectl get nodes` command.
+
+*How do I properly unmanage a cluster?*
+
+.	link:../use/unmanage.html[Unmanage the applications from Astra Control].
+.	link:../use/unmanage.html#stop-managing-compute[Unmanage the cluster from Astra Control].
+
+
+
+*Will NetApp Trident be uninstalled if I remove a Kubernetes cluster from Astra Data Store?*
+
+Trident will not be uninstalled from a cluster if you remove it from Astra Data Store.

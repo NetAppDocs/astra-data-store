@@ -1,0 +1,66 @@
+---
+sidebar: sidebar
+permalink: use/configure-endpoints.html
+keywords: astra, astra data store, kubectl, endpoints, confluent
+summary: You can use kubectl commands with Astra Data Store to configure endpoints for use with Confluent, for example.
+---
+
+= Configure monitoring endpoints
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/get-started/
+
+You can set up monitoring endpoints by using kubectl commands with Astra Data Store.
+
+For example, to collect Kubernetes events from systems monitored by Astra Data Store, add a Fluentd connection.
+
+== Monitor event logs
+To monitor Event Management System (EMS) logs, do the following:
+
+* Configure monitoring in the Astra Data Store cluster custom resource (CR).
+* Set up the Cloud Insights connections.
+* Set up Fluentd to stream logs to Cloud Insights.
+* Stream event logs to Elastic.
+
+=== Configure monitoring in the Astra Data Store cluster
+
+If the monitoring option has not been configured the Astra Data Store cluster CR, you can set it up using `astrads` extensions.
+
+====
+kubectl astrads monitoring setup -m <NAMESPACE OF AGENT INSTALLED>  -r <DOCKER REPO TO FIND FLUENT/TELEGRAF ETC IMAGES>
+====
+
+
+=== Set up Cloud Insights
+If the Cloud Insights connection has not been set in the Agent CR, you can set up MO with the Cloud Insights information using `astrads` extensions.
+
+====
+kubectl astrads monitoring ci --domain <CI_DOMAIN> --apiKey <CI_API_KEY>
+====
+
+
+=== Set up Fluentd to stream to Cloud Insights
+
+To stream Fluentd logs to Cloud Insights, use the following kubectl command to set it up.
+
+You can send logs (Kubernetes events) from Astra Data Store to your Fluentd endpoint. The Fluentd connection is disabled by default.
+
+NOTE: Only the event logs from managed clusters are forwarded to Fluentd.
+
+====
+kubectl astrads monitoring ci --domain <CI_DOMAIN> --apiKey <CI_API_KEY> --fluent
+====
+
+
+Now you can visit the Fluentd server that you connected and view the event logs.
+
+If the connection failed for some reason, the status shows Failed.
+
+NOTE:	If you are having trouble with log collection, you should log in to your worker node and ensure that your logs are available in /var/log/containers/.
+
+=== Stream logs to Elastic
+To stream EMS events and other pod logs to Elastic, use the `astrads` extensions.
+
+====
+kubectl astrads monitoring --host <ELASTIC HOST NAME> --port <ELASTIC HOST PORT> es
+====
