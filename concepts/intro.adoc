@@ -14,7 +14,6 @@ Astra Data Store is Kubernetes-native, shared file software-defined storage (SDS
 
 With Astra Data Store, you can do the following:
 
-* *Move cloud-native applications*: Move an application and its data from one Kubernetes cluster to another, no matter where the clusters are located. ​
 * *Support Kubernetes containerized workloads*: Support containerized workloads with enterprise data management services and tools you are used to.
 * *Use Kubernetes "application-as-a-service" platform for DevOps*: Create elastic, software-defined, self-serve platforms that deliver automated, repeatable services, which removes complexity from developers​.
 

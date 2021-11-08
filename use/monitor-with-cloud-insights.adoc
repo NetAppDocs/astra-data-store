@@ -1,0 +1,178 @@
+---
+sidebar: sidebar
+permalink: use/monitor-with-cloud-insights.html
+keywords: astra, astra data store, kubectl, endpoints, cloud insights
+summary: You can use kubectl commands with Astra Data Store to configure endpoints for use with Confluent, for example.
+---
+
+= Monitor resources with Cloud Insights
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/get-started/
+
+You can monitor Astra Data Store assets using Cloud Insights metrics.
+
+* <<Perform Cloud Insight connection prerequisites>>
+* <<Retrieve the Cloud Insights API Key>>
+* <<Install the Astra Data Store Monitoring Operator>>
+* <<Install the Astra Data Store collector>>
+
+== Perform Cloud Insight connection prerequisites
+
+Prior to connecting Astra Data Store with Cloud Insights, you need to:
+
+* link:install-ads.html#install-the-monitoring-operator[Install the Astra Data Store Monitoring Operator].
+* link:install-ads.html#copy-the-binary-and-push-images-to-your-local-registry[Install the kubectl-astrads binary] by following the Astra Data Store installation documentation.
+
+Gather the following information:
+
+* *Cloud Insights Tenant URL*. This is the unique URL generated for the Cloud Insights tenant
+* *Cloud Insights API Key* with Read/Write permissions to the categories: Acquisition Unit, Data Collection, Data Ingestion. This will be used for the read/write operations, setting up the Aquisition Unit and setting up data ingest processes.
+* *Kubernetes API Server IP address and port*. This is used to monitor the Astra Data Store cluster.
+* *Kubernetes API Token*. This is used to call Kubernetes APIs.
+* *Persistent volume information*. Information about the persistent volumes that are already created.
+
+
+== Retrieve the Cloud Insights API Key
+You need to retrieve Cloud Insights API key and keep this handy for future steps.
+
+. Log into Cloud Insights.
+. From *Admin* > *API Access*, retrieve the API keys.
+. Select the *+API Access Token* button on the top right to create one API key.
+. Copy the key to be used later.
+
+== Install the Astra Data Store Monitoring Operator
+
+Install a Cloud Insights Acquisition Unit, Telegraf agent, and Fluent Bit agent via the Monitoring Operator. You do this by configuring the Monitoring Operator agent Custom Resource (CR).
+
+Then, metrics will be sent as follows:
+
+* Telegraf will send metrics to the Cloud Insights data lake.
+* Fluent Bit will send logs to the log ingestion service.
+
+.Steps
+. Configure the monitoring namespace for the kubectl-astrads extension:
++
+====
+kubectl astrads monitoring setup --monitoringNamespace netapp-monitoring
+====
+
+. Configure Fluent Bit to send logs to Cloud Insights:
++
+====
+kubectl astrads monitoring ci --domain <CI_DOMAIN_NAME> --apiKey <CI_API_KEY>
+====
+
++
+Complete the previous command:
++
+
+* Replace <CI_DOMAIN_NAME> with the Cloud Insights tenant domain name.
+* Replace <CI_API_KEY> with the Cloud Insights API key.
+
+
+. Configure Telegraf to send metrics to Cloud Insights:
++
+====
+kubectl astrads monitoring telegraf -o CI
+====
+
+. Enable the Cloud Insights Acquisition Unit:
++
+====
+kubectl astrads monitoring au
+====
+
++
+If a storage provisioner has not been configured in the Kubernetes cluster, append ``--storageClass <NAME>`` to the command above and replace ``<NAME>`` with the name of the StorageClass containing the three PVs for the Acquisition Unit.
+
++
+The Monitoring Operator now installs the Acquisition Unit, Telegraf agent and Fluent Bit agent. This might take several minutes to complete.
+
+. Periodically check the Acquisition Unit status until the status is `UP`. Alternatively, you can wait for the new Acquisition Unit to appear in the Cloud Insights UI under the Acquisition Units tab of the Data Collectors page (*Admin* > *Data Collectors*).
++
+====
+kubectl --namespace netapp-monitoring get agent -o jsonpath='{.status.au-pod-status}' agent-monitoring-netapp
+====
+
+After the Acquisition Unit is installed, you can add the Astra Data Store collector from the Cloud Insights Add Data Collector page.
+
+== Install the Astra Data Store collector
+Next, install the Astra Data Store collector.
+
+. Log in to Cloud Insights.
+. Select *Admin* > *Data Collectors*.
+. Select *+ Data Collector*  to add a new collector.
+. Click on the *Astra Data Store* tile.
+. Select the correct Acquisition Unit that was deployed by the Monitoring Operator.
+. Enter a name, the Kubernetes API Server IP address, port, and the Kubernetes API Token.
+. Select *Complete Setup* to start monitoring the Astra Data Store cluster.
+
+
+=== Edit the Cloud Insights connection
+You can later edit the Kubernetes API key or the Cloud Insights API key:
+
+* If you want to update Kubernetes API key, you should edit the Astra Data Store collector from the Cloud Insights UI.
+* If you want to update the Cloud Insights API Keys used for telemetry and logs, you should edit the Monitoring Operator CR using kubectl commands.
+
+
+==== Update the Kubernetes API token
+. Log in to Cloud Insights.
+. Select *Admin* > *Data Collectors* to access the Data Collectors page.
+. Find the entry for the Astra Data Store cluster.
+. Click on the menu on the right side of the page, and select *Edit*.
+
+
+==== Update the Cloud Insights API key
+Repeat the steps in the previous section to create a new Cloud Insights API key.
+
+. Edit the Monitoring Operator CR:
++
+====
+kubectl --namespace netapp-monitoring edit agent agent-monitoring-netapp
+====
+
+. Locate the `output-sink` section and find the entry with the name "CI".
+. For the label `api-key`, replace the current value with the new API Key.
++
+The section looks something like this:
++
+====
+ output-sink:
+  - api-key: <api key value>
+    domain-name: <tenant url>
+    name: CI
+====
+
+. Save and quit the editor window.
+
+The Monitoring Operator will update Telegraf and Fluent Bit to use the new API Key.
+
+=== Disconnect from Cloud Insights
+To disconnect from Cloud Insights, you will need to delete the Astra Data Store collector from the Cloud Insights UI first. After that is complete, you can remove the Acquisition Unit, Telegraf and Fluent Bit configurations from the Monitoring Operator.
+
+==== Remove the Astra Data Store collector
+
+. Log in to Cloud Insights.
+. Select *Admin* > *Data Collectors* to access the Data Collectors page.
+
+. Find the entry for the Astra Data Store cluster.
+. Select the kebab menu on the right side of the screen, and select *Delete*.
+. Click *Delete* on the confirmation page.
+
+==== Remove the Acquisition Unit, Telegraf and Fluent Bit
+
+. Edit the Monitoring Operator CR:
++
+====
+kubectl --namespace netapp-monitoring edit agent agent-monitoring-netapp
+====
+
+. Locate the `au`  section and set `isEnabled: false`
+. Locate the `fluent-bit` section and remove the plugin named ``"ads-tail-ci"``. If there are no more plugins, you can remove the fluent-bit section.
+. Locate the `telegraf`  section and remove the plugin named ``"ads-open-metric"``. If there are no more plugins, you can remove the telegraf section.
+
+. Locate the `output-sink` section and remove the sink named ``"CI"``.
+. Save and quit the editor window.
+
+The Monitoring Operator will update the Telegraf and Fluent Bit configurations and remove the Acquisition Unit.
