@@ -17,10 +17,7 @@ You can use the Astra Control Center user interface (UI) to perform Astra Data S
 
 For the Astra Data Store tasks that you can complete using Astra Control Center, see these instructions:
 
-* Monitor the health of your system
-* Manage Astra Data Store clusters
-* Manage Astra Data Store backend
-* Manage user accounts
-* Manage persistent volume claims (PVCs)
-* Provision apps
-* Protect apps
+* Import Astra Data Store clusters to your Astra Control Center installation
+* Monitor the health of your Astra Data Store assets using Astra Control Center
+* View Astra Data Store backend storage details
+* View nodes, disks, and persistent volume claims (PVCs) and their state
