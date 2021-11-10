@@ -39,7 +39,9 @@ homepage:
           url: /use/kubectl-commands-ads.html
         - title: Deploy apps
           url: /use/deploy-apps.html
-        - title: Configure Confluent endpoints
+        - title: Monitor assets with Cloud Insights
+          url: /use/monitor-with-cloud-insights.html
+        - title: Monitor event logs
           url: /use/configure-endpoints.html
         - title: Use Astra Data Store with Astra Control Center
           url: /use/ads-acc-ui.html
