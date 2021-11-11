@@ -209,22 +209,28 @@ vim astradscluster.yaml
 +
 NOTE: An example follows these steps.
 
-.. In `metadata`, change the `name` string to the name of your cluster. This must be the same cluster name use when you <<Edit and apply the Astra Data Store license,apply the license>>.
-.. Update the following required values in `spec`:
-... Change the `mvip` string to the IP address of a floating management IP that is routable from any worker node in the cluster.
-... In `adsDataNetworks`, list floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume.
-... In `adsDataNetworks`, specify the netmask used by the data network.
-... In `astraOptions`, add the license number (`serialNumber`) from the NLF.
-... In `adsNodeConfig`, enter the per-node CPU core count and memory limits for the FireTap container.
-.. For `monitoringConfig`, do one of the following:
+.. (Required) *Metadata*: In `metadata`, change the `name` string to the name of your cluster. This must be the same cluster name use when you <<Edit and apply the Astra Data Store license,apply the license>>.
+.. (Required) *Spec*: Change the following required values in `spec`:
+* Change the `mvip` string to the IP address of a floating management IP that is routable from any worker node in the cluster.
+* In `adsDataNetworks`, list floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume.
+* In `adsDataNetworks`, specify the netmask used by the data network.
+* In `astraOptions`, add the license number (`serialNumber`) from the NLF.
+* In `adsNodeConfig`, enter the per-node CPU core count and memory limits for the FireTap container.
+.. (Required) *monitoringConfig*: For `monitoringConfig`, do one of the following:
 * If you configured a <<Install the monitoring operator,monitoring operator>>, add the the namespace in which the agent CR (monitoring operator resource) is applied (default is `netapp-monitoring`) and the repo path for your registry (`your_registry_path`) that you used in previous steps.
 * If you did not configure a <<Install the monitoring operator,monitoring operator>>, remove or comment out the `monitoringConfig` section.
-.. (Optional) The following values can be optionally modified otherwise the default value will be used:
-... In `spec`, enter a limit for how many nodes can be in the deployment (`adsNodeCount`).
-... In `spec`, enter a selector label that filters out nodes for the cluster (`adsNodeSelector`).
-...  In `spec`, provide a key that defines which protection domain a node belongs to (`adsProtectionDomainKey`).
-... In `adsNetworkInterfaces`, enter the management, cluster, and storage interfaces.
-... In `adsNodeConfig`, enter the per-node capacity, name of cache device to be configured for the FireTap container, and drive regex filter to select disks.
+.. (Optional) *autoSupportConfig*: Change the following AutoSupport values or use the default values:
+* For `historyRetentionCount`, enter a limit for the number of ASUPs present in a system at any given time.
+* For `coredumpUpload`, enter `true` if core dumps should be uploaded to backend by default.
+* For `autoUpload`:, retain the setting of `true` for the Astra Data Store preview edition.
+* For `destinationURL`, enter the backend URL where ASUPs will be uploaded.
+* In `periodicconfig`, enter the `event` ASUP reporting frequency for each system component.
+.. (Optional) Change the following values or use the default values:
+* In `spec`, enter a limit for how many nodes can be in the deployment (`adsNodeCount`).
+* In `spec`, enter a selector label that filters out nodes for the cluster (`adsNodeSelector`).
+*  In `spec`, provide a key that defines which protection domain a node belongs to (`adsProtectionDomainKey`).
+* In `adsNetworkInterfaces`, enter the management, cluster, and storage interfaces.
+* In `adsNodeConfig`, enter the per-node capacity, name of cache device to be configured for the FireTap container, and drive regex filter to select disks.
 
 +
 [subs=+quotes]
@@ -260,14 +266,21 @@ spec:
     *repo: <your_registry_path>*
   autoSupportConfig:
     historyRetentionCount: 10
-    destinationURL: "https://testbed.netapp.com/put/AsupPut"
+    coredumpUpload: false
+    autoUpload: true
+    destinationURL: "https://example.com/put/AsupPut"
     periodic:
-      - schedule: "0 0 * * 0"
+      - schedule: "0 0 * * *"
         periodicconfig:
         - component:
             name: controlplane
-            event: weekly
-          userMessage: Weekly Control Plane AutoSupport bundle
+            event: daily
+          userMessage: Daily Control Plane AutoSupport bundle
+        - component:
+            name: storage
+            event: dailyMonitoring
+          nodes: all
+          userMessage: Daily Monitoring Storage AutoSupport bundle
 ----
 
 . Apply the updated file:
