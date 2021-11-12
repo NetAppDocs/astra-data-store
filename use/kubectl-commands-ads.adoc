@@ -59,7 +59,7 @@ Enter: `kubectl describe deployment -n astrads-system mongo0`
 
 Response:
 
-====
+----
 Pod template:
   Labels: app=mongo0
           ...
@@ -80,7 +80,7 @@ Pod template:
       Type:
       ClaimName: mongo-pvc0
       ReadOnly: false
-====
+----
 
 == Display volumes
 
@@ -89,13 +89,13 @@ Display the volumes to which it is bound.
 Enter: `kubectl describe pvc -n astrads-system mongo0`
 
 Response:
-====
+----
 Name:         mongo-pvc0
 Namespace:    astrads-system
 StorageClass: trident-csi
 Status:       Bound
 Volume:
-====
+----
 
 == Display the server IP
 
@@ -103,9 +103,9 @@ Enter: `kubectl get astradsvolumes -n astrads-system | grep <volume_ID>``
 
 Response:
 
-====
+----
 <volume_ID> 8Gi astrads-cluster-420a40  true
-====
+----
 
 
 
@@ -115,7 +115,7 @@ Enter: `kubectl describe astradsvolumes -n astrads-system <volume_ID>``
 
 Response:
 
-====
+----
 Spec:
   Cluster:
   Display Name:
@@ -132,7 +132,7 @@ Status:
     Reason: VolumeOnline
     Status: True
     Type: AstraDSVolumeOnline
-====
+----
 
 == Show the volume mount on a node
 
@@ -141,20 +141,20 @@ Status:
 +
 Response:
 +
-====
+----
 mongo00  1/1 Running 0   23m
 mongo01  1/1 Running 0   21m
-====
+----
 
 . Enter: `kubectl describe pod -n astrads-system mongo0  | grep Node`
 
 +
 Response:
 +
-====
+----
 Node:
 Node-Selectors: <none>
-====
+----
 
 . Enter: `ssh <IP-address> -l root`
 . Enter: `mount | grep pvc`
@@ -166,10 +166,10 @@ Node-Selectors: <none>
 +
 Response:
 +
-====
+----
 mongo0  1/1 Running 0   23m
 mongo1  1/1 Running 0   21m
-====
+----
 
 . Enter: `kubectl exec -it -n astrads-system mongo0 <pod_id>`
 . Log into MongoDB.
@@ -192,62 +192,62 @@ The following provides an overview of the steps needed to replace a failed drive
 .Steps
 . Get the cluster details:
 +
-====
+----
 kubectl describe <cluster_ID> -n
-====
+----
 
 +
 Sample:
 +
-====
+----
 kubectl describe adscl -n astrads-system
-====
+----
 . ssh into the nodes:
 +
-====
+----
 ssh root@<ip_address>
-====
+----
 
 . List all the active drives on that node:
 +
-====
+----
 runc exec -t firetap /sf/packages/netapp-photon/cmd_firestorm.py -c 'disk show'
-====
+----
 +
 Response:
 +
-====
+----
  DISK    OWNER        POOL   SERIAL  HOME        DR HOME
  ------  ----------   -----  ------  ---------   -------
  v0.0    fires-9(09)  Pool0  1234   fires-9(09)
  v0.1    fires-9(09)  Pool0  5678   fires-9(09)
  v0.2    fires-9(09)  Pool0  9101   fires-9(09)
  v0.3    fires-9(09)  Pool0  1213   fires-9(09)
-====
+----
 
 . List all the drives on that node:
 +
-====
+----
 - lsblk -o NAME,SERIAL,SIZE
-====
+----
 
 
 . Create a failed drive CR:
 +
-====
+----
 kubectl get adsfd -n astrads-system
-====
+----
 +
 Response:
 +
-====
+----
  NAME                                   AGE
  158c66c5-3e84-5530-8ede-d8e3cbbf67af   37s
-====
+----
 
 . Get the failed drive details:
 +
-====
+----
  Name:         158c66c5-3e84-5530-8ede-d8e3cbbf67af
 Namespace:    astrads-system
 Labels:       <none>
@@ -302,32 +302,32 @@ Status:
    Size Bytes:      107374182400
  State:             ReadyToReplace
 Events:              <none>
-====
+----
 
 . Edit the failed drive CR and replace it with available drive.
 +
-====
+----
 kubectl edit adsfd -n astrads-system
-====
+----
 +
 Response:
 +
-====
+----
  astradsfaileddrive.astrads.netapp.io/158c66c5-3e84-5530-8ede-d8e3cbbf67af edited
 ...
 Spec:
   Execute Replace:  true
   Replace With:     6000c2949046697ae1c738208ffc6620
 ...
-====
+----
 
 . Verify the drive is active in cluster CR and node.
 +
-====
+----
 kubectl describe adscl -n astrads-system
-====
+----
 +
-====
+----
  ...
  Status:              Added
     Drive Statuses:
@@ -360,7 +360,7 @@ kubectl describe adscl -n astrads-system
     Node Version:        12.75.0.6169843
     Status:              Added
 ...
-====
+----
 
 
 == Replace a node
@@ -368,37 +368,37 @@ kubectl describe adscl -n astrads-system
 
 . List the pods in the `astrads-system` namespace (our example uses a 1x5 configuration with 4 nodes in the cluster):
 +
-====
+----
  kubectl get pods -n astrads-system
 NAME                                 READY  STATUS    RESTARTS   AGE
 astrads-cluster-controller...        1/1    Running   1          20h
 astrads-deployment-support...        3/3    Running   0          20h
 astrads-ds-cluster-multinodes-21209.  /1    Running   0          20h
-====
+----
 
 
 
 . List all the nodes:
 +
-====
+----
  kubectl astrads nodes list
 NODE NAME           NODE STATUS    CLUSTER NAME
 sti-rx2540-534d..   Added       cluster-multinodes-21209
 sti-rx2540-535d...  Added       cluster-multinodes-21209
 ...
-====
+----
 
 . Describe the cluster:
 +
-====
+----
  kubectl astrads clusters list
 CLUSTER NAME               CLUSTER STATUS  NODE COUNT
 cluster-multinodes-21209   created         4
-====
+----
 
 . Verify that the Node HA is marked as "False" on the failed node:
 +
-====
+----
  kubectl describe astradscluster -n astrads-system
 Name:         cluster-multinodes-21209
 Namespace:    astrads-system
@@ -597,11 +597,11 @@ Events:
   Type     Reason                      Age                     From         Message
   ----     ------                      ----                    ----         -------
   Warning  MonitoringConfigSetupError  4m32s (x7390 over 24h)  ADSOperator  Unable to setup monitoring agent for ADS cluster: monitoring CRD not found
-====
+----
 
 . Modify the Cluster CR to remove the failed node. The node count decrements to 3:
 +
-====
+----
  # rvi nate_hosts/netappsdscluster.yaml
  # cat nate_hosts/netappsdscluster.yaml t
 apiVersion: astrads.netapp.io/v1alpha1
@@ -781,11 +781,11 @@ spec:
           userMessage: Daily Control Plane AutoSupport bundle
  kubectl apply -f nate_hosts/netappsdscluster.yaml
 astradscluster.astrads.netapp.io/cluster-multinodes-21209 configured
-====
+----
 
 . Verify the node is removed from the cluster:
 +
-====
+----
  kubectl get nodes --show-labels
 NAME                                            STATUS   ROLES                 AGE   VERSION   LABELS
 sti-astramaster-237   Ready control-plane,master   24h   v1.20.0
@@ -818,11 +818,11 @@ Labels:       <none>
 Kind:         AstraDSCluster
 Metadata:
 ...
-====
+----
 
 . Add a node to the cluster for replacement by modifying the cluster CR. The node count increments to 4. Verify that new node is picked up for addition.
 +
-====
+----
  rvi nate_hosts/netappsdscluster.yaml
  cat nate_hosts/netappsdscluster.yaml
 apiVersion: astrads.netapp.io/v1alpha1
@@ -830,9 +830,9 @@ kind: AstraDSCluster
 metadata:
   name: cluster-multinodes-21209
   namespace: astrads-system
-====
+----
 +
-====
+----
  kubectl apply -f nate_hosts/netappsdscluster.yaml
 astradscluster.astrads.netapp.io/cluster-multinodes-21209 configured
 
@@ -854,4 +854,4 @@ cluster-multinodes-21209        created         4
  kubectl astrads drives list
 DRIVE NAME    DRIVE ID    DRIVE STATUS   NODE NAME     CLUSTER NAME
 scsi-36000..  c3e197f2... Active         sti-rx2540... cluster-multinodes-21209
-====
+----
