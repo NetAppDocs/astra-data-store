@@ -10,11 +10,11 @@ summary: Get started by verifying support for your environment.
 :icons: font
 :imagesdir: ../media/get-started/
 
-Get started by verifying that your environment meets Astra Data Store preview edition requirements.
+Get started by verifying that your environment meets Astra Data Store preview requirements.
 
 //POLARIS-458
 == Minimum resource requirements for each node
-These are the minimum resource requirements for each node in an Astra Data Store preview edition cluster:
+These are the minimum resource requirements for each node in an Astra Data Store preview cluster:
 
 //* Minimum number of drives: 2
 * Minimum number of physical CPU cores: 4
@@ -27,14 +27,16 @@ These are the minimum resource requirements for each node in an Astra Data Store
 * Minimum number of cache devices: 1 (8GB or greater in size)
 
 == Minimum resource requirements for a cluster
-Each Astra Data Store preview edition cluster needs at least the following:
+Each Astra Data Store preview cluster needs at least the following:
+
 
 * Minimum cluster size: 4 worker nodes, 1 master node
 * Minimum volume size: 1GiB
 * Minimum drive size: 100GiB
 
 == Maximum capabilities for each node
-Each node in an Astra Data Store preview edition cluster has the following capabilities:
+Each node in an Astra Data Store preview cluster has the following capabilities:
+
 
 * Maximum provisioned capacity per node: 1TiB
 //* Max usable (aka raw) capacity per node: 48TiB
@@ -42,7 +44,8 @@ Each node in an Astra Data Store preview edition cluster has the following capab
 
 //POLARIS-479
 == Maximum capabilities for a cluster
-Astra Data Store preview edition has the following cluster capabilities:
+Astra Data Store preview has the following cluster capabilities:
+
 
 * Maximum cluster size: 5 nodes
 * Maximum volume size: 1TB
@@ -97,7 +100,7 @@ Astra Data Store clusters support SAS and NVMe TLC SSD storage with the followin
 * RAID configurations are not supported (if you use a RAID controller, enable "pass-through" mode).
 
 == Licensing
-Astra Data Store requires an Astra Data Store license for full functionality. Obtain a Preview license from the NetApp Support Site.
+Astra Data Store requires an Astra Data Store license for full functionality. Obtain a preview license from the NetApp Support Site.
 
 == Networking requirements
 Astra Data Store needs a certain network interface and IP address configuration for the management, cluster, and data networks.
