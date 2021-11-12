@@ -12,31 +12,31 @@ summary: This FAQ can help if you're just looking for a quick answer to a questi
 
 This FAQ can help if you're just looking for a quick answer to a question.
 
-== Overview
+For additional clarifications, please reach out to astra.feedback@netapp.com
 
-The following sections provide answers to some additional questions that you might come across as you use Astra Data Store. For additional clarifications, please reach out to astra.feedback@netapp.com
-
-== Access to Astra Data Store
-
+== Licensing
 
 *Does the Astra Data Store preview require a license?*
 
 Yes, Astra Data Store preview requires a NetApp license file (NLF).
 
+See link:../get-started/requirements.html[learn about Astra Data Store requirements].
 
+== Support
 
-== Working with Kubernetes clusters
+*What type of support is included with the Astra Data Store preview?*
 
-*I need to add worker nodes to my Kubernetes cluster after adding to Astra Control. What should I do?*
+With the Astra Data Store preview, you can access community only support using the Container Slack channel. This channel is monitored by NetApp Support and our Technical Marketing Engineers.
 
-New worker nodes can be added to existing pools. These will be automatically discovered by Astra Control. If the new nodes are not visible in Astra Control, check if the new worker nodes are running the supported image type. You can also verify the health of the new worker nodes by using the `kubectl get nodes` command.
+https://netapp.io/slack[NetApp Container Slack channel]
 
-*How do I properly unmanage a cluster?*
+The preview release requires that your system is connected to the cloud and integrated into the NetApp Active IQ and AutoSupport tools.
 
-.	link:../use/unmanage.html[Unmanage the applications from Astra Control].
-.	link:../use/unmanage.html#stop-managing-compute[Unmanage the cluster from Astra Control].
+This is the only Support offered with the preview release.
 
+See link:../support/get-help-ads.html[learn about Astra Data Store support operations].
 
+== Cluster management
 
 *Will NetApp Trident be uninstalled if I remove a Kubernetes cluster from Astra Data Store?*
 
