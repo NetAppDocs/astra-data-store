@@ -30,14 +30,14 @@ To install Trident, download the installation bundle from the NetApp Support Sit
 . Create and open a new Trident directory:
 +
 ----
-[root@example ~]# mkdir trident
-[root@example ~]# cd trident
+mkdir trident
+cd trident
 ----
 
 . If you are installing from an internet-connected environment, download the Trident bundle from the NetApp Support Site using a secure, file-transfer tool, such as GNU wget:
 +
 ----
-[root@example trident]# wget <https://github.com/NetApp/trident/releases/download/v21.10.0/trident-installer-21.10.0.tar.gz>
+wget <https://github.com/NetApp/trident/releases/download/v21.10.0/trident-installer-21.10.0.tar.gz>
 Resolving ... 10.193.34.109
 Connecting to |10.193.34.109|:8081... connected.
 HTTP request sent, awaiting response... 200 OK
@@ -54,7 +54,7 @@ Saving to: ‘trident-installer-21.10.0.tar.gz’
 Sample command and response:
 +
 ----
-[root@example trident]# gunzip trident-installer-21.10.0.tar.gz
+gunzip trident-installer-21.10.0.tar.gz
 trident_docker_image.tgz
 trident-operator_docker_image.tgz
 trident-installer-21.07.0-test.jenkins-trident-submit-287.tar.gz
@@ -80,14 +80,14 @@ nexus.barnacle.netapp.com:5001/trident             21.07.0-test.jenkins-trident-
 .. Extract the Trident installer:
 +
 ----
-[root@example ~/trident]$ gunzip trident-installer-21.07.0-test.jenkins-trident-submit-287.tar.gz
+gunzip trident-installer-21.07.0-test.jenkins-trident-submit-287.tar.gz
 ----
 
 .. List the required sidecar images and their corresponding versions for the installed Kubernetes version.
 // These sidecar images need to be downloaded from public repository??? A sample required trident sidecar images for k8s v1.19.0 are:
 +
 ----
-[root@example ~/trident]$ tridentctl images
+tridentctl images
 ----
 +
 Sample response:
@@ -104,14 +104,14 @@ k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.1.0
 ... Change to the Trident installer directory:
 +
 ----
-[root@example ~/trident]$ cd trident-installer
+cd trident-installer
 ----
 
 ... Enter the full path for the parent registry that contains all Trident images for `[registry_full_path]`; for example, `nexus.barnacle.company.com:5001/trident`, and run the command:
 //Make sure the 'k8s.gcr.io/sig-storage' path is removed from the image path while pushing them under parent path???
 +
 ----
-[root@example trident-installer]$ ./tridentctl install –debug --image-registry [registry_full_path] -n trident
+./tridentctl install –debug --image-registry [registry_full_path] -n trident
 ----
 +
 Sample response:
@@ -162,7 +162,7 @@ INFO Trident installation succeeded.
 .. Verify that Trident was successfully installed by verifying that the pods are up and running:
 +
 ----
-[root@example trident-installer]$ kubectl get pods -n trident
+kubectl get pods -n trident
 ----
 +
 Sample response:

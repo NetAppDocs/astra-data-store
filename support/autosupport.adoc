@@ -10,7 +10,7 @@ summary: NetApp provides support for Astra Data Store in a variety of ways. Exte
 :icons: font
 :imagesdir: ../media/support/
 
-AutoSupport monitors the Astra Data Store system run-time and information, and sends messages to NetApp Support. These system components can be monitored, depending on your configuration:
+AutoSupport monitors the Astra Data Store system run-time and information and sends messages to NetApp Support. These system components can be monitored, depending on your configuration:
 
 * Control plane
 * Storage

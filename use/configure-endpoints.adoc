@@ -14,6 +14,7 @@ summary: You can use kubectl commands with Astra Data Store to configure endpoin
 To monitor Event Management System (EMS) logs, you can do the following high level tasks:
 
 * <<Configure monitoring in the Astra Data Store cluster custom resource (CR)>>
+* <<Set up Cloud Insights>>
 * <<Set up Fluentd to stream logs to Cloud Insights>>
 * <<Stream event logs to Elastic>>.
 
@@ -21,9 +22,9 @@ To monitor Event Management System (EMS) logs, you can do the following high lev
 
 If the monitoring option has not been configured the Astra Data Store cluster CR, you can set it up using `astrads` extensions.
 
-====
+----
 kubectl astrads monitoring setup -m <NAMESPACE OF AGENT INSTALLED>  -r <DOCKER REPO TO FIND FLUENT/TELEGRAF ETC IMAGES>
-====
+----
 
 
 == Set up Cloud Insights
@@ -39,20 +40,20 @@ You can send logs (Kubernetes events) from Astra Data Store to your Fluentd endp
 
 NOTE: Only the event logs from managed clusters are forwarded to Fluentd.
 
-====
+----
 kubectl astrads monitoring ci --domain <CI_DOMAIN> --apiKey <CI_API_KEY> --fluent
-====
+----
 
 
 Now you can visit the Fluentd server that you connected and view the event logs.
 
-If the connection failed for some reason, the status shows Failed.
+If the connection failed for some reason, the status shows `Failed`.
 
 NOTE:	If you are having trouble with log collection, you should log in to your worker node and ensure that your logs are available in /var/log/containers/.
 
 == Stream event logs to Elastic
 To stream EMS events and other pod logs to streams logs to a third-party endpoint such as Elastic, use the `astrads` extensions.
 
-====
+----
 kubectl astrads monitoring --host <ELASTIC HOST NAME> --port <ELASTIC HOST PORT> es
-====
+----
