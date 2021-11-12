@@ -222,7 +222,7 @@ NOTE: An example follows these steps.
 .. (Optional) *autoSupportConfig*: Change the following AutoSupport values or use the default values:
 * For `historyRetentionCount`, enter a limit for the number of ASUPs present in a system at any given time.
 * For `coredumpUpload`, enter `true` if core dumps should be uploaded to backend by default.
-* For `autoUpload`:, retain the setting of `true` for the Astra Data Store preview edition.
+* For `autoUpload`, retain the setting of `true` for the Astra Data Store preview edition.
 * For `destinationURL`, enter the backend URL where ASUPs will be uploaded.
 * In `periodicconfig`, enter the `event` ASUP reporting frequency for each system component.
 .. (Optional) Change the following values or use the default values:
