@@ -16,6 +16,16 @@ IMPORTANT: If you have an evaluation license for Astra Data Store, you can get t
 
 You must first link:../get-started/setup_overview.html[activate support for your NetApp serial number] in order to use these non self-service support options. A NetApp Support Site (NSS) SSO account is required for chat and web ticketing along with case management.
 
+.Options
+* <<Self-support options>>
+* <<Automatic support monitoring (concept info)>>
+** <<Configure custom control plane AutoSupport collection>>
+** <<Configure custom storage AutoSupport collection>>
+** <<List ASUPs in the system>>
+** <<Download an ASUP Bundle>>
+** <<ASUP Mapping of Events to Collections (concept info)>>
+
+
 == Self-support options
 
 These options are available for free 24x7:
@@ -39,7 +49,12 @@ Go to the containers channel in thePub workspace to connect with peers and exper
 Send an email to astra.feedback@netapp.com to let us know your thoughts, ideas, or concerns.
 
 == Automatic support monitoring (concept info)
-AutoSupport monitors the Astra Data Store system run-time and system information and sends messages to NetApp Support. AutoSupport (ASUP) bundles are available from the NetApp Support Site (NSS) or for manual uploads. AutoSupport is enabled by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store cluster installation]. AutoSupport bundles are collected after an AutoSupport CR is applied to the cluster.
+AutoSupport monitors the Astra Data Store system run-time and information, and sends messages to NetApp Support. These system components can be monitored, depending on your configuration:
+
+* Control plane
+* Storage
+
+AutoSupport is enabled by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store cluster installation] or after an AutoSupport CR is applied to the cluster. Once enabled, AutoSupport (ASUP) bundles are automatically uploaded to the NetApp Support Site (NSS) or made available for manual downloads.
 
 AutoSupport bundles are triggered in the following ways:
 
@@ -55,74 +70,104 @@ These trigger scenarios generate one of these Autosupport types:
 * Storage AutoSupport: A collection of storage reports and performance data.
 * Core Dump AutoSupport: A collection of system core dumps.
 
-=== Configure control plane AutoSupport
+=== Configure custom control plane AutoSupport collection
+You can create a custom AutoSupport collection configuration that reports on control plane events. Most installations already enable periodic event reporting by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store cluster installation]. This procedure describes how to configure an AutoSupport CR that reports based on parameters you select:
 
+.Options
+* Collect a control plane component:
++
+----
+kubectl astrasds asup collect -c controlplane
+----
++
+This option autogenerates a name and uses the default for Trigger and Priority fields:
++
+----
+NAMESPACE    NAME                                           SEQUENCE   COMPONENT      EVENT      TRIGGER PRIORITY   SIZE  STATE
+sds-system   controlplane-manual-20210420t151152416624012   2          controlplane   manual      event  userTrigger 0    error
+----
 
-=== Configure storage AutoSupport
+* Collect a control plane component with a custom name:
++
+----
+kubectl astrasds asup collect -c controlplane <myASUPname>.
+----
 
+* Collect a control plane component for an event type:
+//???Isn't there only manual event types?
++
+----
+kubectl astrasds asup collect -c controlplane -e <event_type>
+----
+
+=== Configure custom storage AutoSupport collection
+You can create a custom AutoSupport collection configuration that reports on storage component events. Most installations already enable periodic event reporting by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store cluster installation]. This procedure describes how to configure an AutoSupport CR that reports based on parameters you select:
+
+.Options
+* Collect a storage ASUP for all nodes:
++
+----
+kubectl astrasds asup collect -c storage
+----
+
+* Collect a storage ASUP for all nodes for a specified duration:
++
+NOTE: Use standard ISO date time format with a duration (`d`) in hours.
+
+----
+kubectl-astrads asup collect -c storage -t 2021-01-01T15:00:00Z -d 24
+----
+
+* Collect a storage ASUP for all nodes for a `performance` event:
++
+NOTE: The default is a `manual` event.
+
+----
+kubectl-astrads asup collect -c storage -e performance example-perf-storage-asup
+----
+
+* Collect a storage ASUP for specified node:
++
+----
+kubectl astrasds asup collect -c storage –-nodes <nodename>
+----
+
+* Collect a storage ASUP for specified nodes:
++
+----
+kubectl astrasds asup collect -c storage –-nodes nodename1,nodename2,nodename3
+----
+
+=== List ASUPs in the system
+Use the following command to list ASUPs in the system by name:
+
+----
+./kubectl-astrasds asup list
+----
+
+Sample response:
+
+----
+NAMESPACE  NAME                                                STATUS
+     sds-system controlplane-clustercreatedsuccessfully-2021050...  error
+     sds-system controlplane-manual-20210505t070437776700607        error
+     sds-system storage-coredump-20210504t153114598673012           error
+     sds-system storage-manual-20210505t070437776633690             error
+     sds-system storage-manual-20210505t070437776693353             error
+----
 
 === Download an ASUP Bundle
+You can download locally-collected ASUP bundles using this command. Use `-o <location>` to specify a location other than the current working directory:
+
+----
+./kubectl-astrasds asup download controlplane-clustercreatedsuccessfully-20210506t200956487629094 -o <location>
+----
 
 === Upload an ASUP Bundle
 
-=== ASUP Mapping of Events to Collections (concept info)
 
 
-
-
-=== Enable daily scheduled support bundle upload to NetApp Support
-
-During Astra Data Store installation, if you specified `enrolled: true` for `autoSupport` in the Astra Data Store Custom Resource Definition (CRD) file (`astra_data_store_min.yaml`), daily support bundles are automatically uploaded to the NetApp Support Site.
-
-=== Generate support bundle to provide to NetApp Support
-
-Astra Data Store enables the admin user to generate bundles, which include information useful to NetApp Support, including logs, events for all the components of the Astra deployment, metrics, and topology information about the clusters and apps under management. If you are connected to the Internet, you can upload support bundles to NetApp Support Site (NSS) directly from the Astra Data Store UI.
-
-NOTE: The time taken by Astra Data Store to generate the bundle depends on the size of your Astra Data Store installation as well as the parameters of the requested support bundle. The time duration that you specified when requesting a support bundle dictates the time it takes for the bundle to be generated (for example, a shorter time period results in faster bundle generation).
-
-Before you begin, determine whether a proxy connection will be required to upload bundles to NSS. If a proxy connection is needed, verify that Astra Data Store has been configured to use a proxy server.
-
-. Select *Accounts* > *Connections*.
-. Check the proxy settings in *Connection settings*.
-
-.Steps
-. Create a case on the NSS portal using the license serial number listed on the *Support* page of the Astra Data Store UI.
-. Perform the following steps for generating the support bundle by using the Astra Data Store UI:
-.. On the *Support* page, in the Support bundle tile, select *Generate*.
-.. In the *Generate a Support Bundle* window, select the timeframe.
-+
-You can choose between quick or custom timeframes.
-+
-NOTE: You can choose a custom date range as well as specify a custom time period during the date range.
-.. After you make the selections, select *Confirm*.
-.. Check the *Upload the bundle to the NetApp Support Site when generated*.
-+
-image:upload-bundle.png[Shows the upload Support bundle to NSS checkbox.]
-.. Select *Generate Bundle*.
-+
-When the support bundle is ready, a notification appears on the *Accounts* > *Notification* page in the Alerts area, on the *Activity* page, and also in the notifications list (accessible by selecting the icon in the top-right side of the UI).
-+
-If the generation failed, an icon appears on the Generate Bundle page. Select the icon to see the message.
-
-TIP: The notifications icon at the top-right side of the UI provides information about events related to the support bundle, such as when the bundle is successfully created, when the bundle creation fails, when the bundle could not be uploaded, when the bundle could not be downloaded, and so on.
-
-=== If you have an air-gapped installation
-
-If you have an air-gapped installation, perform the following steps after the Support bundle is generated.
-When the bundle is available for download, it appears next to *Generated* in the *Support Bundles* section of the *Support* page as shown:
-
-image:support-bundle.png[Shows the Support bundle generated and ready for download.]
-
-. Select the *Download* icon to download the bundle locally.
-. Manually upload the bundle to NSS.
-+
-You can use one of the following methods to do this:
-
-* Use https://upload.netapp.com/sg[NetApp Authenticated File Upload (login required)^].
-* Attach the bundle to the case directly on NSS.
-* Use NetApp AIQ.
 
 [discrete]
 == Find more information
 * https://kb.netapp.com/Advice_and_Troubleshooting/Miscellaneous/How_to_upload_a_file_to_NetApp[How to upload a file to NetApp (login required)^]
-* https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/How_to_manually_upload_AutoSupport_messages_to_NetApp_in_ONTAP_9[How to manually upload a file to NetApp (login required)^]
