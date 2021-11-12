@@ -1,11 +1,13 @@
 section: concepts
 title: Concepts
 entries:
-  - title: Intro to Astra
+  - title: Intro to Astra Data Store
     url: /concepts/intro.html
-  - title: Architecture and components
+  - title: Architecture
     url: /concepts/architecture.html
-  - title: Validated vs standard apps
-    url: /concepts/validated-vs-standard.html
-  - title: Storage classes and PV size
-    url: /concepts/choose-class-and-size.html
+  - title: Cluster expansion
+    url: /concepts/expansion.html
+  - title: Storage efficiency
+    url: /concepts/storage-efficiency.html
+  - title: Security
+    url: /concepts/security.html

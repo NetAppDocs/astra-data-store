@@ -1,0 +1,23 @@
+---
+sidebar: sidebar
+permalink: use/ads-acc-ui.html
+keywords: astra, astra data store, astra control center
+summary: You can use kubectl commands with Astra Data Store to deploy apps.
+---
+
+= Use Astra Control Center with Astra Data Store
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/get-started/
+
+You can use the Astra Control Center user interface (UI) to perform Astra Data Store tasks.
+
+
+== Tasks you can complete using Astra Control Center
+
+For the Astra Data Store tasks that you can complete using Astra Control Center, see these instructions:
+
+* Import Astra Data Store clusters to your Astra Control Center installation
+* Monitor the health of your Astra Data Store assets using Astra Control Center
+* View Astra Data Store backend storage details
+* View nodes, disks, and persistent volume claims (PVCs) and their state

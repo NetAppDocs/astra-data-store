@@ -1,46 +1,89 @@
 ---
 sidebar: sidebar
 permalink: concepts/architecture.html
-keywords: astra, astra control, architecture, astra control center, kubernetes, netapp, clusters, trident
-summary: Here is an overview of the various components of the Astra Control environment.
+keywords: astra, astra datastore, architecture, astra data store, kubernetes, netapp, clusters, trident
+summary: Here is an overview of the Astra Data Store environment.
 ---
 
-= Architecture and components
+= Astra Data Store architecture
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/concepts/
 
-Here is an overview of the various components of the Astra environment.
+Here is an overview of the Astra architecture.
 
-image:astra-cc-arch.png[Astra architecture diagram and components]
+image:astra-ads-architecture-diagram.png[Astra architecture diagram and components]
 
-== Astra components
+To get a perspective on the entire Astra family, see https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family introduction^].
 
-* *Kubernetes clusters*: Kubernetes is a portable, extensible, open-source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. Astra provides management services for applications hosted in a Kubernetes cluster.
+== Astra Data Store environment
 
-* *Trident*: As a fully supported open source storage provisioner and orchestrator maintained by NetApp, Trident enables you to create storage volumes for containerized applications managed by Docker and Kubernetes. When deployed with Astra Control Center, Trident includes a configured ONTAP storage backend.
+The Astra Data Store preview supports the following environment:
 
-* *Storage backend*: Astra Control Service uses link:https://cloud.netapp.com/cloud-volumes-service-for-gcp[NetApp Cloud Volumes Service for Google Cloud] as the backend storage for GKE clusters and https://cloud.netapp.com/azure-netapp-files[Azure NetApp Files] as the backend storage for AKS clusters.
+[%header,cols="2, 5a"]
+|===
+|Features
+|Customer provided Kubernetes cluster
 
+|Description
+|Provides storage for Kubernetes native apps whose lifecycle is managed by Astra Control Center.
+
+|Deployment
+|Deployed in various ways:
+
+* On bare metal or virtual volumes.
+
+* As a standalone, dedicated Kubernetes cluster serving persistent volumes to Kubernetes apps running in a separate cluster, providing storage to Astra Control Center (standalone cluster)
+
+* With the Kubernetes applications running in the same cluster on the same node pool (converged)
+
+* With the Kubernetes applications running in the same cluster on different node pools (disaggregated)
+
+
+|Drives
+|Manages storage drives directly on hosts.
+
+|Kubernetes cluster provided by
+|Customer provides the Kubernetes cluster.
+|===
+
+== Platform and other tools used by Astra Data Store 
+Astra Data Store works with the following:
+
+* *Kubernetes clusters*: Kubernetes is an open-source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. Astra provides management services for applications hosted in a Kubernetes cluster.
 +
-Astra Control Center uses an ONTAP AFF and FAS storage backend. As a storage software and hardware platform, ONTAP provides core storage services, support for multiple storage access protocols, and storage management functionality, such as snapshots and mirroring.
+Astra Data Store is a Kubernetes app itself deployed into a Kubernetes cluster that provides data services for Kubernetes apps.
 
-* *Cloud Insights*:  A NetApp cloud infrastructure monitoring tool, Cloud Insights enables you to monitor performance and utilization for your Kubernetes clusters managed by Astra Control Center. Cloud Insights correlates storage usage to workloads. When you enable the Cloud Insights connection in Astra Control Center, telemetry information shows in Astra Control Center UI pages.
+* *Astra Trident*: As a fully supported open source storage provisioner and orchestrator maintained by NetApp, Trident enables you to create storage volumes for containerized applications managed by Docker and Kubernetes.
++
+You use Trident to create volumes on Astra Data Store.
 
-== Astra interfaces
+* *Cloud Insights*:  A NetApp cloud infrastructure monitoring tool, Cloud Insights enables you to monitor performance and utilization for your Kubernetes clusters managed by Astra Control. Cloud Insights correlates storage usage to workloads. When you enable the Cloud Insights connection in Astra Control, telemetry information shows in Astra Control UI pages.
++
+Cloud Insights displays information about resources in Astra Data Store.
+
+
+== Astra Data Store interfaces
 
 You can complete tasks using different interfaces:
 
-* *Web user interface (UI)*: Both Astra Control Service and Astra Control Center use the same web-based UI where you can manage, migrate and protect apps. Use the UI also to manage user accounts and configuration settings.
+* *Web user interface (UI)*: Both Astra Control Service and Astra Control Center use the same web-based UI where you can manage, migrate and protect apps.
++
+Using the UI, you can monitor Astra Data Store volumes.
 
 * *API*: Both Astra Control Service and Astra Control Center use the same Astra API. Using the API, you can perform the same tasks that you would using the UI.
++
+Using the API, you can monitor Astra Data Store volumes.
 
-Astra Control Center also enables you to manage, migrate, and protect Kubernetes clusters running within VM environments.
+* *kubectl commands*: To work with Astra Data Store, you can also use kubectl commands directly.
+
 
 == For more information
 
+* https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family introduction^]
 * https://docs.netapp.com/us-en/astra/index.html[Astra Control Service documentation^]
+* https://docs.netapp.com/us-en/astra-control-center/[Astra Control Center documentation^]
+* https://docs.netapp.com/us-en/trident/index.html[Astra Trident documentation^]
 * https://docs.netapp.com/us-en/astra-automation/index.html[Use the Astra API^]
-* https://netapp-trident.readthedocs.io/en/latest/index.html[Trident documentation^]
 * https://docs.netapp.com/us-en/cloudinsights/[Cloud Insights documentation^]
 * https://docs.netapp.com/us-en/ontap/index.html[ONTAP documentation^]
