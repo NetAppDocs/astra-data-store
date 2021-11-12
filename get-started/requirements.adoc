@@ -10,34 +10,35 @@ summary: Get started by verifying support for your environment.
 :icons: font
 :imagesdir: ../media/get-started/
 
-Get started by verifying that your environment meets Astra Data Store requirements.
+Get started by verifying that your environment meets Astra Data Store Preview Edition requirements.
 
 //POLARIS-458
 == Minimum resource requirements for each node
-The minimum resource requirements for each node in an Astra Data Store cluster are as follows:
+These are the minimum resource requirements for each node in an Astra Data Store Preview Edition cluster:
 
 //* Minimum number of drives: 2
 * Minimum number of physical CPU cores: 4
 * Minimum number of vCPUs: 10
-* Minimum RAM per node: 34GB
+* Minimum RAM per node: 36GB
 * Minimum networking bandwidth: 10GbE
 * Minimum storage capacity: 1TB
 * Minimum number of data drives: 3
 * Minimum available storage capacity: 100GiB
-* Minimum number of cache devices: 1
+* Minimum number of cache devices: 1 (8GB or greater in size)
 
 == Minimum resource requirements for a cluster
-Each node requires at least the following resources:
+Each Astra Data Store Preview Edition cluster needs at least the following:
 
 * Minimum cluster size: 4 worker nodes, 1 master node
 * Minimum volume size: 1GiB
 * Minimum drive size: 100GiB
 
 == Maximum capabilities for each node
-Each node in an Astra Data Store cluster has the following capabilities:
+Each node in an Astra Data Store Preview Edition cluster has the following capabilities:
 
-* Maximum provisioned capacity per node: 1TiB (for Astra Data Store Preview edition)
-* Max usable (aka raw) capacity per node: 48TiB
+* Maximum provisioned capacity per node: 1TiB
+//* Max usable (aka raw) capacity per node: 48TiB
+* Max usable (aka raw) capacity per node: 4TiB
 
 //POLARIS-479
 == Maximum capabilities for a cluster
@@ -91,8 +92,9 @@ Astra Data Store has been validated on the following hardware and software platf
 .Storage
 Astra Data Store clusters support SAS and NVMe TLC SSD storage with the following capabilities:
 
-* Each of the Kubernetes worker nodes which are part of the Astra Data Store deployment should have the same type and number of physical disks
-* The drives need to be addressable as SCSI devices, and each drive must have a unique serial number
+* Each of the Kubernetes worker nodes which are part of the Astra Data Store deployment should have the same type and number of physical disks.
+* The drives need to be addressable as SCSI devices, and each drive must have a unique serial number.
+* RAID configurations are not supported (if you use a RAID controller, enable "pass-through" mode).
 
 == Licensing
 Astra Data Store requires an Astra Data Store license for full functionality. Obtain a Preview license from the NetApp Support Site.
