@@ -37,13 +37,7 @@ Go to the Container channel to connect with peers and experts.
 +
 Send an email to astra.feedback@netapp.com to let us know your thoughts, ideas, or concerns.
 
-== Enable daily scheduled support bundle upload to NetApp Support
-
-During Astra Data Store installation, if you specify `enrolled: true` for `autoSupport` in the Astra Data Store Custom Resource Definition (CRD) file (`astra_data_store_min.yaml`), daily support bundles are automatically uploaded to the NetApp Support Site.
-
-
 
 [discrete]
 == Find more information
 * https://kb.netapp.com/Advice_and_Troubleshooting/Miscellaneous/How_to_upload_a_file_to_NetApp[How to upload a file to NetApp (login required)^]
-* https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/How_to_manually_upload_AutoSupport_messages_to_NetApp_in_ONTAP_9[How to manually upload a file to NetApp (login required)^]
