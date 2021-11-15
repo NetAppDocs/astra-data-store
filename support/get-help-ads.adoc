@@ -27,11 +27,10 @@ Search for articles, FAQs, or Break Fix information related to Astra Data Store.
 +
 This is the doc site that you're currently viewing.
 
-* https://netapppub.slack.com/#astra[Slack^]
-https://netapp.io/slack[NetApp Container Slack channel]
+* https://netapp.io/slack[NetApp "containers" Slack channel]
 
 +
-Go to the Container channel to connect with peers and experts.
+Go to the "containers" channel to connect with peers and experts.
 
 * Feedback email
 +

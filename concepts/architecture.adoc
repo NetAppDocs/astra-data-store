@@ -10,7 +10,7 @@ summary: Here is an overview of the Astra Data Store environment.
 :icons: font
 :imagesdir: ../media/concepts/
 
-Here is an overview of the Astra architecture.
+Astra Data Store is part of the Astra product family. Here is an overview of the Astra product family architecture that illustrates how Astra Data Store fits into that family.
 
 image:astra-ads-architecture-diagram.png[Astra architecture diagram and components]
 
@@ -67,13 +67,9 @@ Cloud Insights displays information about resources in Astra Data Store.
 
 You can complete tasks using different interfaces:
 
-* *Web user interface (UI)*: Both Astra Control Service and Astra Control Center use the same web-based UI where you can manage, migrate and protect apps.
-+
-Using the UI, you can monitor Astra Data Store volumes.
+* *Web user interface (UI)*: Astra Control Service and Astra Control Center use the same web-based UI where you can manage, migrate and protect apps. This UI also displays information about Astra Data Store volumes.
 
-* *API*: Both Astra Control Service and Astra Control Center use the same Astra API. Using the API, you can perform the same tasks that you would using the UI.
-+
-Using the API, you can monitor Astra Data Store volumes.
+* *API*: Astra Control Service and Astra Control Center use the same Astra Control API. Using the API, you can perform the same tasks that you would using the UI. You can also retrieve information about Astra Data Store with the Astra Control API.
 
 * *kubectl commands*: To work with Astra Data Store, you can also use kubectl commands directly.
 
