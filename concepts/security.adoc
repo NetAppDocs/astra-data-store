@@ -31,6 +31,6 @@ Custom Resource Definitions (CRDs) are extensions to the kubernetes REST API tha
 * https://docs.netapp.com/us-en/astra/index.html[Astra Control Service documentation^]
 * https://docs.netapp.com/us-en/astra-control-center/[Astra Control Center documentation^]
 * https://docs.netapp.com/us-en/trident/index.html[Astra Trident documentation^]
-* https://docs.netapp.com/us-en/astra-automation/index.html[Use the Astra API^]
+* https://docs.netapp.com/us-en/astra-automation/index.html[Use the Astra Control API^]
 * https://docs.netapp.com/us-en/cloudinsights/[Cloud Insights documentation^]
 * https://docs.netapp.com/us-en/ontap/index.html[ONTAP documentation^]
