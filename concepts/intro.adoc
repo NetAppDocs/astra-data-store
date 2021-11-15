@@ -17,6 +17,24 @@ With Astra Data Store, you can do the following:
 * *Support Kubernetes containerized workloads*: Support containerized workloads with enterprise data management services and tools you are used to.
 * *Use Kubernetes "application-as-a-service" platform for DevOps*: Create elastic, software-defined, self-serve platforms that deliver automated, repeatable services, which removes complexity from developers​.
 
+== Astra product family
+
+The Astra family of products provides Kubernetes application data lifecycle management that simplifies operations for stateful applications. Easily protect, back up, and migrate Kubernetes workloads, and instantly create working application clones.
+
+Astra offerings include:
+
+* *Astra Control*: Use application-aware, data management tools that manage, protect, and move Kubernetes workloads in both public clouds and on-premises.​
+** *Astra Control Service*: Use a service managed by NetApp for data management of Kubernetes workloads in public clouds.
+** *Astra Control Center*: Use self-managed software for data management of on-premises Kubernetes workloads.
+* *Astra Data Store*: Use a Kubernetes-native shared file service for container and VM workloads for enterprise data management.
+* *Astra Trident*: Use Container Storage Interface (CSI) compliant storage provisioning and management for Kubernetes workloads with NetApp storage providers.
+
+See https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family introduction^].
+
+
+image:astra-product-family.png[Astra product family]
+
+
 == Astra Data Store features
 
 Astra Data Store provides end-to-end Kubernetes-native storage and data management for your cloud-native applications​ with these features:
@@ -40,8 +58,6 @@ Astra Data Store provides end-to-end Kubernetes-native storage and data manage
 * *Integration with NetApp Cloud Insights*: Delivers observability, analytics and monitoring for continuous optimization​.
 ​
 
-image:astra-product-family.png[Astra Data Store Kubernetes-native storage and data management]
-
 
 == Get started with Astra Data Store
 
@@ -51,19 +67,6 @@ First, link:../get-started/requirements.html[learn about Astra Data Store requir
 Then, link:../get-started/quick-start.html[get started].
 
 
-== Astra product family
-
-The Astra family of products provides Kubernetes application data lifecycle management that simplifies operations for stateful applications. Easily protect, back up, and migrate Kubernetes workloads, and instantly create working application clones.
-
-Astra offerings include:
-
-* *Astra Control*: Use application-aware, data management tools that manage, protect, and move Kubernetes workloads in both public clouds and on-premises.​
-** *Astra Control Service*: Use a service managed by NetApp for data management of Kubernetes workloads in public clouds.
-** *Astra Control Center*: Use self-managed software for data management of on-premises Kubernetes workloads.
-* *Astra Data Store*: Use a Kubernetes-native shared file service for container and VM workloads for enterprise data management.
-* *Astra Trident*: Use Container Storage Interface (CSI) compliant storage provisioning and management for Kubernetes workloads with NetApp storage providers.
-
-See https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family introduction^].
 
 
 
