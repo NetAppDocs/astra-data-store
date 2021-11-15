@@ -13,6 +13,7 @@ summary: Get started by verifying support for your environment.
 Get started by verifying that your environment meets Astra Data Store preview requirements.
 
 //POLARIS-458
+////
 == Minimum resource requirements for each node
 These are the minimum resource requirements for each node in an Astra Data Store preview cluster:
 
@@ -25,15 +26,93 @@ These are the minimum resource requirements for each node in an Astra Data Store
 * Minimum number of data drives: 3
 * Minimum available storage capacity: 100GiB
 * Minimum number of cache devices: 1 (8GB or greater in size)
+////
 
-== Minimum resource requirements for a cluster
-Each Astra Data Store preview cluster needs at least the following:
+== Individual node resource requirements and capabilities
+These are the minimum resource requirements and maximum capabilities for each node in an Astra Data Store preview cluster:
+|===
+|Resource |Minimum |Maximum
 
+|Number of data drives
+|3
+|N/A
 
+|Number of physical CPU cores
+|4
+|N/A
+
+|number of vCPUs
+|10
+|N/A
+
+|RAM per node
+|36GB
+|N/A
+
+|Networking bandwidth
+|10GbE
+|N/A
+
+|storage capacity
+|1TB
+|N/A
+
+|Available storage capacity
+|100GiB
+|N/A
+
+|Number of cache devices
+|1 (8GB or greater in size)
+|N/A
+
+|Provisioned capacity
+|N/A
+|1TiB
+
+|Usable raw capacity per node
+|N/A
+|4TiB
+|===
+
+== Cluster resource requirements and capabilities
+Each Astra Data Store preview cluster has the following minimum requirements and maximum capabilities:
+
+|===
+|Resource |Minimum |Maximum
+
+|Cluster size
+|4 worker nodes, 1 master node
+|4 worker nodes, 1 master node
+
+|Volume size
+|1GiB
+|1TB
+
+|Drive size
+|100GiB
+|N/A
+
+|Number of volumes per Astra Data Store cluster
+|N/A
+|10 per node
+
+|Number of snapshots per volume
+|N/A
+|256
+
+|Number of data drives:
+|N/A
+|14
+|===
+
+////
 * Minimum cluster size: 4 worker nodes, 1 master node
 * Minimum volume size: 1GiB
 * Minimum drive size: 100GiB
+////
 
+
+////
 == Maximum capabilities for each node
 Each node in an Astra Data Store preview cluster has the following capabilities:
 
@@ -41,8 +120,10 @@ Each node in an Astra Data Store preview cluster has the following capabilities:
 * Maximum provisioned capacity per node: 1TiB
 //* Max usable (aka raw) capacity per node: 48TiB
 * Max usable (aka raw) capacity per node: 4TiB
+////
 
 //POLARIS-479
+////
 == Maximum capabilities for a cluster
 Astra Data Store preview has the following cluster capabilities:
 
@@ -55,6 +136,8 @@ Astra Data Store preview has the following cluster capabilities:
 //* Maximum number of drives per node: 24
 //* Maximum number of nodes per cluster: 40
 * Maximum number of data drives: 14
+////
+
 ////
 .Premium license
 * Maximum cluster size: 40 nodes
