@@ -17,7 +17,7 @@ Astra Data Store uses storage efficiency technologies based on ONTAP and SolidFi
 * *Compression*: Compression reduces the amount of physical storage required for a volume by combining data blocks in compression groups, each of which is stored as a single block. Reads of compressed data are faster than in traditional compression methods because ONTAP decompresses only the compression groups that contain the requested data, not an entire file.
 * *Deduplication*: Deduplication reduces the amount of storage required for a volume (or all the volumes in an AFF aggregate) by discarding duplicate blocks and replacing them with references to a single shared block. Reads of deduplicated data typically incur no performance charge. Writes incur a negligible charge except on overloaded nodes.
 
-All of these features are enabled by default. 
+All of these features are enabled by default.
 
 See https://docs.netapp.com/ontap-9/index.jsp[storage efficiency details].
 
@@ -28,5 +28,5 @@ See https://docs.netapp.com/ontap-9/index.jsp[storage efficiency details].
 * https://docs.netapp.com/us-en/astra/index.html[Astra Control Service documentation^]
 * https://docs.netapp.com/us-en/astra-control-center/[Astra Control Center documentation^]
 * https://docs.netapp.com/us-en/trident/index.html[Astra Trident documentation^]
-* https://docs.netapp.com/us-en/astra-automation/index.html[Use the Astra API^]
+* https://docs.netapp.com/us-en/astra-automation/index.html[Use the Astra Control API^]
 * https://docs.netapp.com/us-en/ontap/index.html[ONTAP documentation^]
