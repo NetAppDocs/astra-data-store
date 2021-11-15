@@ -2,15 +2,15 @@
 sidebar: sidebar
 permalink: use/monitor-with-cloud-insights.html
 keywords: astra, astra data store, kubectl, endpoints, cloud insights
-summary: You can use kubectl commands with Astra Data Store to configure endpoints for use with Confluent, for example.
+summary: You can monitor Astra Data Store assets using Cloud Insights metrics.
 ---
 
-= Monitor resources with Cloud Insights
+= Monitor metrics with Cloud Insights
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/get-started/
 
-You can monitor Astra Data Store assets using Cloud Insights metrics.
+You can monitor Astra Data Store metrics using Cloud Insights.
 
 * <<Perform Cloud Insight connection prerequisites>>
 * <<Download and run the installation script>>

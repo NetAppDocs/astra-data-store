@@ -37,7 +37,7 @@ homepage:
       links:
         - title: Manage with kubectl commands
           url: /use/kubectl-commands-ads.html
-        - title: Monitor with Cloud Insights
+        - title: Monitor metrics with Cloud Insights
           url: /use/monitor-with-cloud-insights.html
         - title: Monitor event logs
           url: /use/configure-endpoints.html
@@ -62,7 +62,7 @@ homepage:
         - title: Astra blogs
           url: https://cloud.netapp.com/blog/topic/astra
         - title: Slack “containers” channel
-          url: https://netapp.io/slack  
+          url: https://netapp.io/slack
         - title: Kubernetes Hub
           url: https://cloud.netapp.com/kubernetes-hub
         - title: Where to get help
