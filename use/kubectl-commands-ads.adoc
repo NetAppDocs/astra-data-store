@@ -5,12 +5,12 @@ keywords: astra, astra data store, astra datastore, kubectl
 summary: You can use kubectl commands directly with Astra Data Store.
 ---
 
-= Use kubectl commands with Astra Data Store
+= Manage Astra Data Store with kubectl commands
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/get-started/
 
-You can use kubectl commands directly with Astra Data Store.
+You can manage Astra Data Store by using kubectl commands.
 
 These instructions show you how to use Astra Data Store using a sample MongoDB app and YSCB IO Tool workflow. The application workload structure includes one MongoDB deployment consisting of a replica-set, which creates a mongo pod and with a MongoDB container running inside that pod.
 
@@ -48,6 +48,26 @@ Here are instructions for some of them:
 +
 See link:../get-started/install-ads.html#install-the-monitoring-operator[Configure Astra Data Store for monitoring].
 * *nodes*: List the nodes in a cluster.
+
+== List of kubectl API resources
+You can see a list of kubectl API resources as shown in the sample below.
+
+====
+ kubectl api-resources --api-group astrads.netapp.io
+NAME                   SHORTNAMES  APIGROUP           NAMESPACED  KIND
+astradsversions         adsve      astrads.netapp.io  true        AstraDSVersion
+astradsclusters         adscl      astrads.netapp.io  true        AstraDSCluster
+astradslicenses         adsli      astrads.netapp.io  true        AstraDSLicense
+astradsnodeinfoes       adsni      astrads.netapp.io  true        AstraDSNodeInfo
+astradsvolumes          adsvo      astrads.netapp.io  true        AstraDSVolume
+astradsqospolicies      adsqp      astrads.netapp.io  true        AstraDSQosPolicy
+astradsexportpolicies   adsep      astrads.netapp.io  true        AstraDSExportPolicy
+astradsvolumesnapshots  adsvs      astrads.netapp.io  true        AstraDSVolumeSnapshot
+astradsvolumefiles      adsvf      astrads.netapp.io  true        AstraDSVolumeFiles
+astradsautosupports     adsas      astrads.netapp.io  true        AstraDSAutoSupport
+astradsfaileddrives     adsfd      astrads.netapp.io  true        AstraDSFailedDrive
+astradsnodemanagements  adsnm      astrads.netapp.io  true        AstraDSNodeManagement
+====
 
 == Place a node in maintenance mode
 
