@@ -1,0 +1,22 @@
+---
+sidebar: sidebar
+permalink: release-notes/known-issues.html
+keywords: astra, control center, bugs, known issues, problems
+summary: Known issues identify problems that might prevent you from using this release of the product successfully.
+---
+
+= Known issues with this release
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/release-notes/
+
+Known issues identify problems that might prevent you from using this release of the product successfully.
+
+== Operator fails to select nodes when optional AdsNodeCount field is not set in cluster CR
+//???
+As a workaround, specify the node count value in the `AdsNodeCount` field in the astradscluster.yaml custom resource (CR).
+
+
+== Find more information
+
+* link:../release-notes/known-limitations.html[Known limitations for this release]

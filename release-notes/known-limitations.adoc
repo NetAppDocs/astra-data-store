@@ -1,0 +1,32 @@
+---
+sidebar: sidebar
+permalink: release-notes/known-limitations.html
+keywords: astra, control center, limitations, known limitations, interoperability
+summary: Known limitations identify platforms, devices, or functions that are not supported by this release of the product, or that do not interoperate correctly with it. Review these limitations carefully.
+---
+
+= Known limitations with this release
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/release-notes/
+
+Known limitations identify platforms, devices, or functions that are not supported by this release of the product, or that do not interoperate correctly with it. Review these limitations carefully.
+
+== Functionality to remove one or more nodes is not supported
+Astra Data Store does support failed node removal functionality.
+
+== Functionality to remove one or more drives is not supported
+Astra Data Store does support failed drive replacement functionality.
+
+== Add drive functionality is not supported
+
+
+== Firewall-enabled configuration is not supported
+
+
+== Upgrade functionality is not provided in this release
+The functionality to upgrade Astra Data Store will be provided in a future release.
+
+== Find more information
+
+* link:../release-notes/known-issues.html[Known issues for this release]
