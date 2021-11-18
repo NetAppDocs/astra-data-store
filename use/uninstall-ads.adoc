@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: use/uninstall-ads.html
 keywords: astra, astra data store, astra datastore, uninstall
-summary: To uninstall Astra Data Store, you will remove workloads, bindings, volumes, volume snapshots, export policies, clusters, license, deployment environment, and namespace. 
+summary: To uninstall Astra Data Store, you will remove workloads, bindings, volumes, volume snapshots, export policies, clusters, license, deployment environment, and namespace.
 ---
 
 = Uninstall Astra Data Store
@@ -43,7 +43,7 @@ Follow the steps below to uninstall Astra Data Store manually.
 
 === Delete the volumes, volume snapshots, and export policies
 
-Before deleting the cluster, manually delete the Astra Data Store volumes, volume snapshots, and export policy.
+Before deleting the cluster, manually delete the Astra Data Store volume snapshots, volumes, and export policy.
 
 TIP: If you do not first delete the volumes and export policy, the cluster deletion process pauses until the Astra Data Store volumes objects are deleted. It is more efficient to remove those items before starting to delete the cluster.
 
@@ -94,10 +94,10 @@ kubectl delete astradslicenses --all -A
 
 Delete the controllers, operators, namespace, and support pods in the cluster.
 
-. Delete the Astra Data Store deployment:
+. Delete the Astra Data Store controller:
 +
 ====
-kubectl delete astradsdeployment astradsdeployment -n astrads-system
+kubectl delete astradsversion astradsversion -n astrads-system
 ====
 
 . Delete the data store:
@@ -120,7 +120,7 @@ kubectl delete -f /x/eng/rlse/DOT/devN/final/bedrock/export/firetap/sds/manifest
 
 === Validate the removal of the astrads-system namespace
 
-Ensure that the namespace is not stuck in a `Terminating` state:
+Ensure that the namespace is not in a `Terminating` state:
 
 ====
 kubectl get ns | grep astrads-system
