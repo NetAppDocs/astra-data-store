@@ -30,23 +30,23 @@ To install Trident, download the installation bundle from the NetApp Support Sit
 . Create and open a new Trident directory:
 +
 ----
-[root@example ~]# mkdir trident
-[root@example ~]# cd trident
+mkdir trident
+cd trident
 ----
 
 . If you are installing from an internet-connected environment, download the Trident bundle from the NetApp Support Site using a secure, file-transfer tool, such as GNU wget:
 +
 ----
-[root@example trident]# wget <URL for Trident bundle>
+wget <https://github.com/NetApp/trident/releases/download/v21.10.0/trident-installer-21.10.0.tar.gz>
 Resolving ... 10.193.34.109
 Connecting to |10.193.34.109|:8081... connected.
 HTTP request sent, awaiting response... 200 OK
 Length: 87210186 (83M) [application/x-tgz]
-Saving to: ‘trident-90cf892ddcc0983dfb875c95d3f55bb602d0202f.tgz’
+Saving to: ‘trident-installer-21.10.0.tar.gz’
 
 100%[======================================================================================================================================================================================================================================>] 87,210,186   107MB/s   in 0.8s
 
-2021-07-01 16:31:43 (107 MB/s) - ‘trident-90cf892ddcc0983dfb875c95d3f55bb602d0202f.tgz’ saved [87210186/87210186]
+2021-07-01 16:31:43 (107 MB/s) - ‘trident-installer-21.10.0.tar.gz’ saved [87210186/87210186]
 ----
 
 . Extract the images from the bundle:
@@ -54,7 +54,7 @@ Saving to: ‘trident-90cf892ddcc0983dfb875c95d3f55bb602d0202f.tgz’
 Sample command and response:
 +
 ----
-[root@example trident]# gunzip trident-90cf892ddcc0983dfb875c95d3f55bb602d0202f.tgz
+gunzip trident-installer-21.10.0.tar.gz
 trident_docker_image.tgz
 trident-operator_docker_image.tgz
 trident-installer-21.07.0-test.jenkins-trident-submit-287.tar.gz
@@ -80,14 +80,14 @@ nexus.barnacle.netapp.com:5001/trident             21.07.0-test.jenkins-trident-
 .. Extract the Trident installer:
 +
 ----
-[root@example ~/trident]$ gunzip trident-installer-21.07.0-test.jenkins-trident-submit-287.tar.gz
+gunzip trident-installer-21.07.0-test.jenkins-trident-submit-287.tar.gz
 ----
 
 .. List the required sidecar images and their corresponding versions for the installed Kubernetes version.
 // These sidecar images need to be downloaded from public repository??? A sample required trident sidecar images for k8s v1.19.0 are:
 +
 ----
-[root@example ~/trident]$ tridentctl images
+tridentctl images
 ----
 +
 Sample response:
@@ -104,14 +104,14 @@ k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.1.0
 ... Change to the Trident installer directory:
 +
 ----
-[root@example ~/trident]$ cd trident-installer
+cd trident-installer
 ----
 
 ... Enter the full path for the parent registry that contains all Trident images for `[registry_full_path]`; for example, `nexus.barnacle.company.com:5001/trident`, and run the command:
 //Make sure the 'k8s.gcr.io/sig-storage' path is removed from the image path while pushing them under parent path???
 +
 ----
-[root@example trident-installer]$ ./tridentctl install –debug --image-registry [registry_full_path] -n trident
+./tridentctl install –debug --image-registry [registry_full_path] -n trident
 ----
 +
 Sample response:
@@ -162,7 +162,7 @@ INFO Trident installation succeeded.
 .. Verify that Trident was successfully installed by verifying that the pods are up and running:
 +
 ----
-[root@example trident-installer]$ kubectl get pods -n trident
+kubectl get pods -n trident
 ----
 +
 Sample response:
@@ -296,7 +296,7 @@ cat ads_backend.json
 . Configure the JSON file:
 .. Change the `"cluster"` value to the cluster name for the Astra Data Store cluster.
 .. Change the `"namespace"` value to the namespace you want to use with volume creation.
-.. Change the `"autoExportPolicy"` value to `true`.
+.. Change the `"autoExportPolicy"` value to `true` unless you set up an exportpolicy CR instead for this backend.
 .. Populate the `"autoExportCIDRs"` list with IP addresses you want to grant access. Use `0.0.0.0/0` to allow all.
 //"kubeconfig" → Convert .kube/config yaml file to json without spaces(minimize), then base64 it and use the base64 output
 //python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=None)' < kubeconfig_filepath > kubeconf.json
