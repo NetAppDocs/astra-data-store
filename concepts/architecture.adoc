@@ -12,7 +12,7 @@ summary: Here is an overview of the Astra Data Store environment.
 
 Astra Data Store is part of the Astra product family. Here is an overview of the Astra product family architecture that illustrates how Astra Data Store fits into that family.
 
-image:astra-ads-architecture-diagram.png[Astra architecture diagram and components]
+image:astra-ads-architecture-diagram-v2.png[Astra architecture diagram and components]
 
 To get a perspective on the entire Astra family, see https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family introduction^].
 
