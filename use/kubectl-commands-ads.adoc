@@ -10,9 +10,9 @@ summary: You can use kubectl commands directly with Astra Data Store.
 :icons: font
 :imagesdir: ../media/get-started/
 
-You can manage Astra Data Store by using kubectl commands.
+You can manage Astra Data Store assets by using kubectl commands.
 
-These instructions show you how to use Astra Data Store using a sample MongoDB app and YSCB IO Tool workflow. The application workload structure includes one MongoDB deployment consisting of a replica-set, which creates a mongo pod and with a MongoDB container running inside that pod.
+These instructions show you how to manage Astra Data Store assets by using a sample MongoDB app and YSCB IO Tool workflow. The sample app provides context for the examples. The application workload structure includes one MongoDB deployment consisting of a replica-set, which creates a mongo pod and with a MongoDB container running inside that pod.
 
 The deployment references a Trident persistent volume claim (PVC). This PVC initializes its own PV: `astradsvolume` and `astradsexportpolicy`. When the YSCB tool is started, IO is sent to the Mongo container inside the pod, and the mounted `astradsvolume` is filled with data.
 
@@ -99,6 +99,7 @@ Response:
       ClaimName: mongo-pvc0
       ReadOnly: false
 ----
+
 
 == Display volumes
 
