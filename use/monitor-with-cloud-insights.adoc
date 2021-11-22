@@ -32,7 +32,7 @@ Gather the following information:
 * *Cloud Insights API Key* with Read/Write permissions to the categories: Acquisition Unit, Data Collection, Data Ingestion and Log Ingestion. This will be used for the read/write operations, setting up the Acquisition Unit and setting up data ingest processes.
 * *Kubernetes API Server IP address and port*. This is used to monitor the Astra Data Store cluster.
 * *Kubernetes API Token*. This is used to call Kubernetes APIs.
-* *Persistent volume information*. Information about the persistent volumes that are already created.
+* *Persistent volume configuration*. Information about how persistent volumes are provisioned. See "Acquisition Unit" below for details.
 
 == Download and run the installation script
 
@@ -56,7 +56,7 @@ The script contains your Cloud Insights tenant URL and the selected API Access T
 
 . Click *Complete Setup* after the script completes.
 +
-The Astra Data Store collector appears in the Datasources list.
+After the installation script completes, the Astra Data Store collector appears in the Datasources list.
 +
 NOTE: If the script exits due to an error, you can rerun it again once the error is resolved. The script supports additional parameters such as the Monitoring Operator namespace and Kubernetes API server port if your environment does not use the default settings. Use the ``"-h"`` option to see the usage and help text.
 
@@ -75,11 +75,9 @@ Acquisition Unit has been installed successfully.
 Configuring Astra Data Store data collector
 Astra Data Store collector data '<CLUSTER_NAME>' created
 Configuration done!
-----
-+
-The Monitoring Operator now installs the Acquisition Unit, Telegraf agent and Fluent Bit agent. This might take several minutes to complete.
+====
 
-. Periodically check the Acquisition Unit status until the status is `UP`. Alternatively, you can wait for the new Acquisition Unit to appear in the Cloud Insights UI under the Acquisition Units tab of the Data Collectors page (*Admin* > *Data Collectors*).
+
 +
 ----
 kubectl --namespace netapp-monitoring get agent -o jsonpath='{.status.au-pod-status}' agent-monitoring-netapp
@@ -87,10 +85,73 @@ kubectl --namespace netapp-monitoring get agent -o jsonpath='{.status.au-pod-sta
 
 
 === Acquisition Unit storage
-The Acquisition Unit requires three Persistent Volumes for storing installation files, configuration data and logs. The Monitoring Operator uses the default storage class to create Persistent Volume Claims. You can specify a different storage class name using the ``-s` option when running the installer script.
+The Acquisition Unit requires three Persistent Volumes for storing installation files, configuration data and logs. The Monitoring Operator uses the default storage class to create Persistent Volume Claims. You can specify a different storage class name using the `-s` option when running the installer script.
 
 If your Kubernetes cluster does not have a storage provisioner (such as NetApp Trident), you can provide a local filesystem path using the `-r` option when running the installer script. When the `-r` option is set, the installer script creates three persistent volumes inside the provided directory. This directory requires a minimum of 150 GB free space.
 
+.Example Agent CR
+
+Below is an example of what the `monitoring-netapp` agent CR will look like after running the installer script.
+
+====
+ spec:
+  au:
+    isEnabled: true
+    storageClassName: auto-sc
+  cluster-name: meg-ads-21-22-29-30
+  docker-repo: docker.repo.eng.netapp.com/global/astra
+  fluent-bit:
+  - name: ads-tail
+    outputs:
+    - sink: ADS_STDOUT
+    substitutions:
+    - key: TAG
+      value: firetapems
+    - key: LOG_FILE
+      values:
+      - /var/log/firetap/*/ems/ems
+      - /var/log/firetap/ems/*/ems/ems
+    - key: ADS_CLUSTER_NAME
+      value: meg-ads-21-22-28-29-30
+  - name: agent
+  - name: ads-tail-ci
+    outputs:
+    - sink: CI
+    substitutions:
+    - key: TAG
+      value: netapp.ads
+    - key: LOG_FILE
+      values:
+      - /var/log/firetap/*/ems/ems
+      - /var/log/firetap/ems/*/ems/ems
+    - key: ADS_CLUSTER_NAME
+      value: meg-ads-21-22-28-29-30
+  output-sink:
+  - api-key: abcd
+    domain-name: bzl9ngz.gst-adsdemo.ci-dev.netapp.com
+    name: CI
+  serviceAccount: sa-netapp-monitoring
+  telegraf:
+  - name: ads-open-metric
+    outputs:
+    - sink: CI
+    run-mode:
+    - ReplicaSet
+    substitutions:
+    - key: URLS
+      values:
+      - http://astrads-metrics-service.astrads-system.svc.cluster.local:9341
+    - key: METRIC_TYPE
+      value: ads-metric
+    - key: ADS_CATEGORY
+      value: netapp_ads
+    - key: ADS_CLUSTER_NAME
+      value: meg-ads-21-22-28-29-30
+  - name: agent
+status:
+  au-pod-status: UP
+  au-uuid: eddeccc6-3aa3-4dd2-a98c-220085fae6a9
+====
 
 === Installer script help
 
@@ -129,10 +190,9 @@ You can later edit the Kubernetes API key or the Cloud Insights API key:
 
 
 ==== Update the Cloud Insights API access token
-Repeat the steps in the previous section to create a new Cloud Insights API key.
 
 . Log in to Cloud Insights.
-. Access the API by selecting *Admin* > *API Access*.
+. Create a new Cloud Insights API Access token by selecting *Admin* > *API Access* and clicking *+API Access Token*.
 . Edit the Agent CR:
 +
 ----
@@ -159,9 +219,7 @@ The Monitoring Operator will update Telegraf and Fluent Bit to use the new API K
 To disconnect from Cloud Insights, you will need to delete the Astra Data Store collector from the Cloud Insights UI first. After that is complete, you can remove the Acquisition Unit, Telegraf and Fluent Bit configurations from the Monitoring Operator.
 
 ==== Remove the Astra Data Store collector
-To disconnect from Cloud Insights, you must delete the Astra Data Store collector from the Cloud Insights UI first. After that is complete, you can remove the Acquisition Unit, Telegraf and Fluent Bit configurations from the Monitoring Operator.
 
-.Steps
 . Log in to Cloud Insights.
 . Select *Admin* > *Data Collectors* to access the Data Collectors page.
 
@@ -183,5 +241,22 @@ kubectl --namespace netapp-monitoring edit agent agent-monitoring-netapp
 
 . Locate the `output-sink` section and remove the sink named `"CI"`.
 . Save and quit the editor window.
+
++
+The Monitoring Operator will update the Telegraf and Fluent Bit configurations and delete the Acquisition Unit pod.
+.	If you used local directories for the Acquisition Unit PVs instead of a Storage Provisioner, delete the PVs:
++
+====
+kubectl delete pv au-lib au-log au-pv
+====
++
+Then delete the actual directories on the node where the AU was running.
+
+.	After the Acquisition Unit pod has been deleted, you can delete the Acquisition Unit from Cloud Insights.
+..	In the Cloud Insights menu, select *Admin* > *Data Collectors*.
+..	Click on the *Acquisition Units* tab.
+..	Click on the menu next to the Acquisition Unit pod.
+..	Click *Delete*.
+
 
 The Monitoring Operator will update the Telegraf and Fluent Bit configurations and remove the Acquisition Unit.
