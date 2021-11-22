@@ -10,7 +10,7 @@ summary: Use kubectl commands with Astra Data Store to replace a node.
 :icons: font
 :imagesdir: ../media/troubleshooting/
 
-Use kubectl commands with Astra Data Store to replace a node.
+Use kubectl commands with Astra Data Store to replace a failed node in a cluster.
 
 .Steps
 
