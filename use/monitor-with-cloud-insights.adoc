@@ -17,6 +17,7 @@ You can monitor Astra Data Store metrics using Cloud Insights.
 * <<Edit the Cloud Insights connection>>
 * <<Disconnect from Cloud Insights>>
 
+
 == Perform Cloud Insight connection prerequisites
 
 Prior to connecting Astra Data Store with Cloud Insights, you need to:
@@ -61,8 +62,8 @@ NOTE: If the script exits due to an error, you can rerun it again once the error
 +
 Running the installation script produces output that looks like:
 +
-====
- Configuring Cloud Insights monitoring for Astra Data Store . . .
+----
+Configuring Cloud Insights monitoring for Astra Data Store . . .
 Configuring monitoring namespace
 ...
 Configuring output sink and Fluent Bit plugins
@@ -75,10 +76,13 @@ Astra Data Store collector data '<CLUSTER_NAME>' created
 Configuration done!
 ====
 
+
 +
+
 ====
  kubectl --namespace netapp-monitoring get agent -o jsonpath='{.status.au-pod-status}' agent-monitoring-netapp
 ====
+
 
 
 === Acquisition Unit storage
@@ -154,8 +158,10 @@ status:
 
 The full help text for the installer script is shown below:
 
+
 ====
  ./cloudinsights-ads-monitoring.sh -h
+
 USAGE: cloudinsights-ads-monitoring.sh [OPTIONS]
 Configure monitoring of Astra Data Store by Cloud Insights.
 OPTIONS:
@@ -169,7 +175,7 @@ OPTIONS:
                           Only specify this option if there is no Storage Provisioner installed and the PVs do not already exist.
   -s storage_class        Storage Class name for provisioning Acquisition Unit PVs. If not specified, the default storage class will be used.
   -t kubernetes_token     Kubernetes API server token.
-====
+----
 
 
 == Edit the Cloud Insights connection
@@ -192,21 +198,21 @@ You can later edit the Kubernetes API key or the Cloud Insights API key:
 . Create a new Cloud Insights API Access token by selecting *Admin* > *API Access* and clicking *+API Access Token*.
 . Edit the Agent CR:
 +
-====
+----
 kubectl --namespace netapp-monitoring edit agent agent-monitoring-netapp
-====
+----
 
-. Locate the `output-sink` section and find the entry with the name ``"CI"``.
+. Locate the `output-sink` section and find the entry with the name `"CI"`.
 . For the label `api-key`, replace the current value with the new API Key.
 +
 The section looks something like this:
 +
-====
+----
  output-sink:
   - api-key: <api key value>
     domain-name: <tenant url>
     name: CI
-====
+----
 
 . Save and quit the editor window.
 
@@ -228,15 +234,15 @@ To disconnect from Cloud Insights, you will need to delete the Astra Data Store 
 
 . Edit the Agent CR:
 +
-====
+----
 kubectl --namespace netapp-monitoring edit agent agent-monitoring-netapp
-====
+----
 
 . Locate the `au`  section and set `isEnabled: false`
-. Locate the `fluent-bit` section and remove the plugin named ``"ads-tail-ci"``. If there are no more plugins, you can remove the `fluent-bit` section.
-. Locate the `telegraf`  section and remove the plugin named ``"ads-open-metric"``. If there are no more plugins, you can remove the `telegraf` section.
+. Locate the `fluent-bit` section and remove the plugin named `"ads-tail-ci"`. If there are no more plugins, you can remove the `fluent-bit` section.
+. Locate the `telegraf`  section and remove the plugin named `"ads-open-metric"`. If there are no more plugins, you can remove the `telegraf` section.
 
-. Locate the `output-sink` section and remove the sink named ``"CI"``.
+. Locate the `output-sink` section and remove the sink named `"CI"`.
 . Save and quit the editor window.
 
 +
