@@ -13,9 +13,9 @@ summary: You can monitor Astra Data Store assets using Cloud Insights metrics.
 You can monitor Astra Data Store metrics using Cloud Insights.
 
 * <<Perform Cloud Insight connection prerequisites>>
-* <<Retrieve the Cloud Insights API Key>>
-* <<Install the Astra Data Store Monitoring Operator>>
-* <<Install the Astra Data Store collector>>
+* <<Download and run the installation script>>
+* <<Edit the Cloud Insights connection>>
+* <<Disconnect from Cloud Insights>>
 
 == Perform Cloud Insight connection prerequisites
 
@@ -77,7 +77,7 @@ Configuration done!
 
 +
 ====
-kubectl --namespace netapp-monitoring get agent -o jsonpath='{.status.au-pod-status}' agent-monitoring-netapp
+ kubectl --namespace netapp-monitoring get agent -o jsonpath='{.status.au-pod-status}' agent-monitoring-netapp
 ====
 
 
@@ -150,12 +150,12 @@ status:
   au-uuid: eddeccc6-3aa3-4dd2-a98c-220085fae6a9
 ====
 
-=== Installer script help
+== Installer script help
 
 The full help text for the installer script is shown below:
 
 ====
- $ ./cloudinsights-ads-monitoring.sh -h
+ ./cloudinsights-ads-monitoring.sh -h
 USAGE: cloudinsights-ads-monitoring.sh [OPTIONS]
 Configure monitoring of Astra Data Store by Cloud Insights.
 OPTIONS:
@@ -172,21 +172,21 @@ OPTIONS:
 ====
 
 
-=== Edit the Cloud Insights connection
+== Edit the Cloud Insights connection
 You can later edit the Kubernetes API key or the Cloud Insights API key:
 
 * If you want to update Kubernetes API key, you should edit the Astra Data Store collector from the Cloud Insights UI.
 * If you want to update the Cloud Insights API Keys used for telemetry and logs, you should edit the Monitoring Operator CR using kubectl commands.
 
 
-==== Update the Kubernetes API token
+=== Update the Kubernetes API token
 . Log in to Cloud Insights.
 . Select *Admin* > *Data Collectors* to access the Data Collectors page.
 . Find the entry for the Astra Data Store cluster.
 . Click on the menu on the right side of the page, and select *Edit*.
 
 
-==== Update the Cloud Insights API access token
+=== Update the Cloud Insights API access token
 
 . Log in to Cloud Insights.
 . Create a new Cloud Insights API Access token by selecting *Admin* > *API Access* and clicking *+API Access Token*.
@@ -212,10 +212,10 @@ The section looks something like this:
 
 The Monitoring Operator will update Telegraf and Fluent Bit to use the new API Key.
 
-=== Disconnect from Cloud Insights
+== Disconnect from Cloud Insights
 To disconnect from Cloud Insights, you will need to delete the Astra Data Store collector from the Cloud Insights UI first. After that is complete, you can remove the Acquisition Unit, Telegraf and Fluent Bit configurations from the Monitoring Operator.
 
-==== Remove the Astra Data Store collector
+=== Remove the Astra Data Store collector
 
 . Log in to Cloud Insights.
 . Select *Admin* > *Data Collectors* to access the Data Collectors page.
@@ -224,7 +224,7 @@ To disconnect from Cloud Insights, you will need to delete the Astra Data Store 
 . Select the kebab menu on the right side of the screen, and select *Delete*.
 . Click *Delete* on the confirmation page.
 
-==== Remove the Acquisition Unit, Telegraf and Fluent Bit
+=== Remove the Acquisition Unit, Telegraf and Fluent Bit
 
 . Edit the Agent CR:
 +

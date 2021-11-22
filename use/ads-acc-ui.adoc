@@ -17,10 +17,10 @@ You can use the Astra Control Center user interface (UI) to perform Astra Data S
 
 For the Astra Data Store tasks that you can complete using Astra Control Center, see these instructions:
 
-* Import Astra Data Store clusters to your Astra Control Center installation
-* Monitor the health of your Astra Data Store assets using Astra Control Center
-* View Astra Data Store backend storage details
-* View nodes, disks, and persistent volume claims (PVCs) and their state
+* https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-cluster[Import Astra Data Store clusters to your Astra Control Center installation^]
+* https://docs.netapp.com/us-en/astra-control-center/use/monitor-protect.html[Monitor the health of your Astra Data Store assets using Astra Control Center^]
+* https://docs.netapp.com/us-en/astra-control-center/use/manage-backend.html[View Astra Data Store backend storage details^]
+* https://docs.netapp.com/us-en/astra-control-center/use/view-dashboard.html[View nodes, disks, and persistent volume claims (PVCs) and their state^]
 
 == For more information
 
