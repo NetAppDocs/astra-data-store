@@ -186,9 +186,15 @@ Astra Data Store preview clusters support SAS and NVMe TLC SSD storage with the 
 Astra Data Store preview requires an Astra Data Store preview license for full functionality. Obtain a preview license from the NetApp Support Site.
 
 == Networking requirements
-Astra Data Store preview needs a certain network interface and IP address configuration for the management, cluster, and storage networks. You can use several configurations, depending on the need for one (combined management and cluster traffic) or two (separate management and cluster traffic) network interfaces per node. No VLAN tags are used in any of these configurations.
+Astra Data Store preview needs a certain network interface and IP address configuration for the management, cluster, and storage networks. You can use several configurations, depending on the need for one (combined management and cluster traffic) or two (separate management and cluster traffic) network interfaces per node. No VLAN tags are used in these configurations.
 
-NOTE: You should omit the data network gateway for each of these configurations. The exising routing configuration on each node should accommodate all of the addresses.
+NOTE: You should omit the data network gateway for each of these configurations. The existing routing configuration on each node should accommodate all of the addresses.
+
+The following abbreviations are used in this table:
+
+* MIP: Management IP address
+* CIP: Cluster IP address
+* MVIP: Management virtual IP address
 
 ////
 .Network interface requirements
@@ -220,38 +226,40 @@ NOTE: The cluster network should reside on the same interface as either the mana
 |===
 |Configuration |Bond mode |IP addresses needed
 
-|One network interface
+|One network interface per node
 |Team LACP
 a|
 
-* Two (2) IP addresses per node
+* Two (2) IP addresses per node:
 ** MIP/CIP: One (1) pre-configured IP address on management interface per node
-** DataIP: One (1) unused/unconfigured IP address per node in same subnet as MIP
-* One (1) IP address per cluster
+** Data IP: One (1) unused/unconfigured IP address per node in same subnet as MIP
+* One (1) IP address per cluster:
 ** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
 
-
-|Two network interfaces
+|Two network interfaces per node
 |Team LACP
 a|
 
-* Three (3) IP addresses per node
+* Three (3) IP addresses per node:
 ** MIP: One (1) pre-configured IP address on management interface per node
 ** CIP: One (1) pre-configured IP address on data interface per node in a different subnet from MIP
-** DataIP: One (1) unused/unconfigured IP address per node in same subnet as CIP
-* One (1) IP address per cluster
+** Data IP: One (1) unused/unconfigured IP address per node in same subnet as CIP
+* One (1) IP address per cluster:
 ** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
 
-|Two network interfaces
+|Two network interfaces per node
 |Active/Passive bonding
 a|
 
-* Three (3) IP addresses per node
+* Three (3) IP addresses per node:
 ** MIP: One (1) pre-configured IP address on management interface per node
 ** CIP: One (1) pre-configured IP address on data interface per node in a different subnet from MIP
-** DataIP: One (1) unused/unconfigured IP address per node in same subnet as CIP
-* One (1) IP address per cluster
+** Data IP: One (1) unused/unconfigured IP address per node in same subnet as CIP
+* One (1) IP address per cluster:
 ** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
++
+NOTE: This configuration is best for redundancy when using physical nodes.
+
 |===
 
 //POLARIS-656 - more questions here for HA requirements (Naveen M is SME)
