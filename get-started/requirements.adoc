@@ -226,7 +226,7 @@ NOTE: The cluster network should reside on the same interface as either the mana
 |===
 |Configuration |Bond mode |IP addresses needed
 
-|One network interface
+|One network interface per node
 |Team LACP
 a|
 
@@ -237,7 +237,7 @@ a|
 ** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
 
 
-|Two network interfaces
+|Two network interfaces per node
 |Team LACP
 a|
 
@@ -248,7 +248,7 @@ a|
 * One (1) IP address per cluster
 ** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
 
-|Two network interfaces
+|Two network interfaces per node
 |Active/Passive bonding
 a|
 
