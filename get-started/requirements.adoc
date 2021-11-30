@@ -190,6 +190,12 @@ Astra Data Store preview needs a certain network interface and IP address config
 
 NOTE: You should omit the data network gateway for each of these configurations. The exising routing configuration on each node should accommodate all of the addresses.
 
+The following abbreviations are used in this table:
+
+* MIP: Management IP address
+* CIP: Cluster IP address
+* MVIP: Management virtual IP address
+
 ////
 .Network interface requirements
 * Minimum configuration: One 10GbE or faster network interface
