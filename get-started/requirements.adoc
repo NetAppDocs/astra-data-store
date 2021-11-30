@@ -257,8 +257,9 @@ a|
 ** Data IP: One (1) unused/unconfigured IP address per node in same subnet as CIP
 * One (1) IP address per cluster:
 ** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
-
++
 NOTE: This configuration is best for redundancy when using physical nodes.
+
 |===
 
 //POLARIS-656 - more questions here for HA requirements (Naveen M is SME)
