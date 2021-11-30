@@ -186,19 +186,25 @@ Astra Data Store preview clusters support SAS and NVMe TLC SSD storage with the 
 Astra Data Store preview requires an Astra Data Store preview license for full functionality. Obtain a preview license from the NetApp Support Site.
 
 == Networking requirements
-Astra Data Store preview needs a certain network interface and IP address configuration for the management, cluster, and storage networks.
+Astra Data Store preview needs a certain network interface and IP address configuration for the management, cluster, and storage networks. You can use several configurations, depending on the need for one (combined management and cluster traffic) or two (separate management and cluster traffic) network interfaces per node. No VLAN tags are used in any of these configurations.
 
+NOTE: You should omit the data network gateway for each of these configurations. The exising routing configuration on each node should accommodate all of the addresses.
+
+////
 .Network interface requirements
 * Minimum configuration: One 10GbE or faster network interface
 +
-NOTE: If unspecified, the interface that hosts the management IP address (MIP) is used for all 3 networks (management, cluster and data).
+NOTE: If unspecified, the interface that hosts the management IP address (MIP) on the node is used for all 3 networks (management, cluster and data).
 
 * Maximum configuration: Two network interfaces
 ** One 1GbE or faster interface for the management network
 ** One 10GbE or faster interface for the data network
 
 NOTE: The cluster network should reside on the same interface as either the management network (if the management network is 10GbE or faster), or the data network.
+////
 
+
+////
 .IP address requirements
 * Management network
 ** One IPv4 address (pre-configured) for the management IP address (MIP) of each node
@@ -207,11 +213,9 @@ NOTE: The cluster network should reside on the same interface as either the mana
 ** One IPv4 address (pre-configured) for the cluster IP address of each node on the data network interface. As an alternative, the MIP of the management network interface can be used only if the MIP is hosted on a 10GbE or faster interface.
 * Data network
 ** One IPv4 address (free/spare/unconfigured) for the volume's export address of each node. This address is configured on the data network interface during Astra Data Store preview cluster installation.
+////
 
-.Possible configurations
-You can configure Astra Data Store preview networking in several ways, depending on if you need to use one (combined management and cluster traffic) or two (separate management and cluster traffic) network interfaces. No VLAN tags are used in any of these configurations.
-
-NOTE: You should omit the data network gateway for each of these configurations. The exising routing configuration on each node should accommodate all of the addresses.
+//.Possible configurations
 
 |===
 |Configuration |Bond mode |IP addresses needed
