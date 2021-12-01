@@ -228,7 +228,8 @@ NOTE: The cluster network should reside on the same interface as either the mana
 ** One IPv4 address (free/spare/unconfigured) for the volume's export address of each node. This address is configured on the data network interface during Astra Data Store preview cluster installation.
 ////
 
-//.Possible configurations
+.Supported configurations
+Astra Data Store preview supports the following network interface configurations.
 
 The following abbreviations are used in this table:
 
