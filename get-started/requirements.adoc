@@ -10,14 +10,149 @@ summary: Get started by verifying support for your environment.
 :icons: font
 :imagesdir: ../media/get-started/
 
-Get started by verifying that your environment meets Astra Data Store requirements.
+Get started by verifying that your environment meets Astra Data Store preview requirements.
 
-== Licensing
-Astra Data Store requires an Astra Data Store license for full functionality. Obtain an evaluation license or Premium license from the NetApp Support Site. <<Maximum capabilities for a cluster>> contains capabilities of each type of license.
+//POLARIS-458
+////
+== Minimum resource requirements for each node
+These are the minimum resource requirements for each node in an Astra Data Store preview cluster:
+
+//* Minimum number of drives: 2
+* Minimum number of physical CPU cores: 4
+* Minimum number of vCPUs: 10
+* Minimum RAM per node: 36GB
+* Minimum networking bandwidth: 10GbE
+* Minimum storage capacity: 1TB
+* Minimum number of data drives: 3
+* Minimum available storage capacity: 100GiB
+* Minimum number of cache devices: 1 (8GB or greater in size)
+////
+
+== Individual node resource requirements and capabilities
+These are the minimum resource requirements and maximum capabilities for each node in an Astra Data Store preview cluster:
+|===
+|Resource |Minimum |Maximum
+
+|Number of data drives
+|3
+|N/A
+
+|Number of physical CPU cores
+|4
+|N/A
+
+|Number of vCPUs
+|10
+|N/A
+
+|RAM
+|36GB
+|N/A
+
+|Networking bandwidth
+|10GbE
+|N/A
+
+|Total storage capacity
+|1TB
+|N/A
+
+|Available storage capacity
+|100GiB
+|N/A
+
+|Number of cache devices
+|1 (8GB or greater in size)
+|N/A
+
+|Provisioned capacity
+|N/A
+|1TiB
+
+|Usable raw capacity per node
+|N/A
+|4TiB
+|===
+
+== Cluster resource requirements and capabilities
+Each Astra Data Store preview cluster has the following minimum requirements and maximum capabilities:
+
+|===
+|Resource |Minimum |Maximum
+
+|Cluster size
+|4 worker nodes, 1 master node
+|4 worker nodes, 1 master node
+
+|Volume size
+|1GiB
+|1TB
+
+|Drive size
+|100GiB
+|N/A
+
+|Number of volumes
+|N/A
+|10 per node
+
+|Number of snapshots per volume
+|N/A
+|256
+
+|Number of data drives
+|N/A
+|14
+|===
+
+////
+* Minimum cluster size: 4 worker nodes, 1 master node
+* Minimum volume size: 1GiB
+* Minimum drive size: 100GiB
+////
+
+
+////
+== Maximum capabilities for each node
+Each node in an Astra Data Store preview cluster has the following capabilities:
+
+
+* Maximum provisioned capacity per node: 1TiB
+//* Max usable (aka raw) capacity per node: 48TiB
+* Max usable (aka raw) capacity per node: 4TiB
+////
+
+//POLARIS-479
+////
+== Maximum capabilities for a cluster
+Astra Data Store preview has the following cluster capabilities:
+
+
+* Maximum cluster size: 5 nodes
+* Maximum volume size: 1TB
+* Maximum number of volumes per Astra Data Store cluster: 10 per node
+* Maximum number of snapshots per volume: 256
+//* Maximum capacity per drive: 15.36TB
+//* Maximum number of drives per node: 24
+//* Maximum number of nodes per cluster: 40
+* Maximum number of data drives: 14
+////
+
+////
+.Premium license
+* Maximum cluster size: 40 nodes
+* Maximum volume size: 100TB
+* Maximum number of volumes per Astra Data Store cluster: 4000
+* Maximum number of snapshots per volume: 256
+* Maximum capacity per drive: 15.36TB
+* Maximum number of drives per node: 24
+* Maximum number of nodes per cluster: 40
+* Maximum number of data drives: 14
+////
 
 //POLARIS-2175
 == Hardware and software requirements
-Astra Data Store requires the following hardware and software configuration on each node:
+Astra Data Store preview supports the following hardware platforms, software, and storage.
 
 .Hardware platforms
 * HPE DL360
@@ -35,102 +170,120 @@ Astra Data Store requires the following hardware and software configuration on e
 ** Red Hat OpenShift 4.6
 ** Red Hat OpenShift 4.7
 ** Google Anthos 1.7
-** Upstream Kubernetes 1.20
-** Upstream Kubernetes 1.21
-** Upstream Kubernetes 1.22
+** Kubernetes 1.20
+** Kubernetes 1.21
+** Kubernetes 1.22
 
 //POLARIS-461
 .Storage
-Astra Data Store clusters support SAS and NVMe TLC SSD storage with the following capabilities:
+Astra Data Store preview clusters support SAS and NVMe TLC SSD storage with the following capabilities:
 
-* Each of the Kubernetes worker nodes which are part of the Astra Data Store deployment should have the same type and number of physical disks
-* The drives need to be addressable as SCSI devices, and each drive must have a unique serial number
+* Each of the Kubernetes worker nodes which are part of the Astra Data Store preview deployment should have the same type and number of physical disks.
+* The drives need to be addressable as SCSI devices, and each drive must have a unique serial number.
+* RAID configurations are not supported (if you use a RAID controller, enable "pass-through" mode).
 
-//POLARIS-458
-== Minimum resource requirements for each node
-A minimum size cluster of Astra Data Store is 3 nodes. The minimum resource requirements for each node in an Astra Data Store cluster are as follows:
-
-* Minimum number of drives: 2
-* Minimum number of physical CPU cores: 4
-* Minimum number of vCPUs: 10
-* Minimum RAM per node: 34GB
-* Minimum networking bandwidth: 10GbE
-* Minimum storage capacity: 1TB
-* Minimum number of data drives: 3
-
-== Maximum capabilities for each node
-Each node in an Astra Data Store cluster has the following capabilities:
-
-* Maximum provisioned capacity per node: 1TiB
-* Max usable (aka raw) capacity per node: 48TiB
-
-== Minimum resource requirements for a cluster
-Each node requires at least the following resources:
-
-* Minimum cluster size: 4 nodes
-* Minimum volume size: 1GiB
-* Minimum drive size: 100GiB
-* Minimum available capacity per host: 50GiB
-
-//POLARIS-479
-== Maximum capabilities for a cluster
-Depending on the type of license you have, Astra Data Store has the following cluster capabilities:
-
-.Evaluation license
-* Maximum cluster size: 40 nodes
-* Maximum volume size: 100TB
-* Maximum number of volumes per Astra Data Store cluster: 4000
-* Maximum number of snapshots per volume: 256
-* Maximum capacity per drive: 15.36TB
-* Maximum number of drives per node: 24
-* Maximum number of nodes per cluster: 40
-* Maximum number of data drives: 14
-
-.Premium license
-* Maximum cluster size: 40 nodes
-* Maximum volume size: 100TB
-* Maximum number of volumes per Astra Data Store cluster: 4000
-* Maximum number of snapshots per volume: 256
-* Maximum capacity per drive: 15.36TB
-* Maximum number of drives per node: 24
-* Maximum number of nodes per cluster: 40
-* Maximum number of data drives: 14
+== Licensing
+Astra Data Store preview requires an Astra Data Store preview license for full functionality. Obtain a preview license from the NetApp Support Site.
 
 == Networking requirements
-Astra Data Store needs a certain network interface and IP address configuration for the management, cluster, and data networks.
+Astra Data Store preview needs a certain network interface and IP address configuration for the management, cluster, and data networks. You can use several configurations, depending on the need for one or two network interfaces per node.
 
+Each network in Astra Data Store preview installations requires the following bandwidth:
+
+|===
+|Network |Required bandwidth
+
+|Management
+|1GbE or faster interface
+
+|Cluster
+|10GbE or faster interface
+
+|Data
+|10GbE or faster interface
+|===
+
+////
 .Network interface requirements
 * Minimum configuration: One 10GbE or faster network interface
 +
-NOTE: If unspecified, the interface that hosts the management IP address (MIP) is used for all 3 networks (management, cluster and data).
+NOTE: If unspecified, the interface that hosts the management IP address (MIP) on the node is used for all 3 networks (management, cluster and data).
 
 * Maximum configuration: Two network interfaces
 ** One 1GbE or faster interface for the management network
 ** One 10GbE or faster interface for the data network
 
 NOTE: The cluster network should reside on the same interface as either the management network (if the management network is 10GbE or faster), or the data network.
+////
 
+
+////
 .IP address requirements
 * Management network
 ** One IPv4 address (pre-configured) for the management IP address (MIP) of each node
-** One IPv4 address (free/spare/unconfigured) for the management virtual IP address (MVIP) of the cluster. This address is configured on the management network interface during Astra Data Store cluster installation.
+** One IPv4 address (free/spare/unconfigured) for the management virtual IP address (MVIP) of the cluster. This address is configured on the management network interface during Astra Data Store preview cluster installation.
 * Cluster network
-** One IPv4 address (pre-configured) for the cluster IP address of each node on the data network interface. As an alternative, the MIP of the management network interface can be used.
+** One IPv4 address (pre-configured) for the cluster IP address of each node on the data network interface. As an alternative, the MIP of the management network interface can be used only if the MIP is hosted on a 10GbE or faster interface.
 * Data network
-** One IPv4 address (free/spare/unconfigured) for the volume's export address of each node. This address is configured on the data network interface during Astra Data Store cluster installation.
+** One IPv4 address (free/spare/unconfigured) for the volume's export address of each node. This address is configured on the data network interface during Astra Data Store preview cluster installation.
+////
 
-//POLARIS-460
-//dissimilar node types and HW and capabilities are supported for scale
-== Cluster expansion requirements
-Astra Data Store supports nodes of different types and capabilities in a cluster. If you are expanding a cluster, Astra Data Store supports adding nodes with any performance capabilities, as long as they are not lower than the least performant node in the cluster. All nodes, including new nodes during an expansion, need to at least meet the minimum requirements in <<Node physical resource requirements>>.
+.Supported configurations
+Astra Data Store preview supports the following network interface configurations.
+
+The following abbreviations are used in this table:
+
+* MIP: Management IP address
+* CIP: Cluster IP address
+* MVIP: Management virtual IP address
+
+|===
+|Configuration |Bond mode |IP addresses needed
+
+|One network interface per node
+|Team LACP
+a|
+
+* Two (2) IP addresses per node:
+** MIP/CIP: One (1) pre-configured IP address on management interface per node
+** Data IP: One (1) unused/unconfigured IP address per node in same subnet as MIP
+* One (1) IP address per cluster:
+** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
+
+|Two network interfaces per node
+|Team LACP
+a|
+
+* Three (3) IP addresses per node:
+** MIP: One (1) pre-configured IP address on management interface per node
+** CIP: One (1) pre-configured IP address on data interface per node in a different subnet from MIP
+** Data IP: One (1) unused/unconfigured IP address per node in same subnet as CIP
+* One (1) IP address per cluster:
+** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
+
+|Two network interfaces per node (This configuration is best for redundancy when using physical nodes.)
+|Active/Passive bonding
+a|
+
+* Three (3) IP addresses per node:
+** MIP: One (1) pre-configured IP address on management interface per node
+** CIP: One (1) pre-configured IP address on data interface per node in a different subnet from MIP
+** Data IP: One (1) unused/unconfigured IP address per node in same subnet as CIP
+* One (1) IP address per cluster:
+** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
+
+|===
+NOTE: You should omit the data network gateway for each of these configurations. The existing routing configuration on each node should accommodate all of the addresses.
+
+NOTE: No VLAN tags are used in these configurations.
 
 //POLARIS-656 - more questions here for HA requirements (Naveen M is SME)
-== High availability requirements
-Astra Data Store requires Element 12.3 or later for high availability to function correctly. High availability makes use of the Element software Protection Domains feature.
+//== High availability requirements
+//Astra Data Store requires Element 12.3 or later for high availability to function correctly. High availability makes use of the Element software Protection Domains feature.
 
 //POLARIS-654 and POLARIS-450
 == Persistent volume sharing requirements
-Each Astra Data Store cluster supports using persistent volumes to cover the storage needs of any apps installed on that cluster. Persistent volumes in Astra Data Store have the following requirements and limitations:
+Each Astra Data Store preview cluster supports using persistent volumes to cover the storage needs of any apps installed on that cluster. Persistent volumes in Astra Data Store preview have the following requirements and capabilities:
 
 .Requirements
 * NFS 4.1 client/server in Kubernetes clusters
