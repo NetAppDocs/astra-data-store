@@ -186,7 +186,7 @@ Astra Data Store preview clusters support SAS and NVMe TLC SSD storage with the 
 Astra Data Store preview requires an Astra Data Store preview license for full functionality. Obtain a preview license from the NetApp Support Site.
 
 == Networking requirements
-Astra Data Store preview needs a certain network interface and IP address configuration for the management, cluster, and storage networks. You can use several configurations, depending on the need for one or two network interfaces per node.
+Astra Data Store preview needs a certain network interface and IP address configuration for the management, cluster, and data networks. You can use several configurations, depending on the need for one or two network interfaces per node.
 
 Each network in Astra Data Store preview installations requires the following bandwidth:
 
