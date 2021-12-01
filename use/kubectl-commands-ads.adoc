@@ -28,7 +28,7 @@ Here are instructions for some of them:
 * <<Display volumes>>
 * <<Display the server IP>>
 * <<Describe the volume>>
-* <<Show the volume mount on a node>>
+* <<Show the volume mount on a worker node>>
 * <<Show the volume mount inside a MongoDB container>>
 
 For troubleshooting, see these procedures:
@@ -100,6 +100,7 @@ Response:
       Type:
       ClaimName: mongo-pvc0
       ReadOnly: false
+
 ----
 end
 
@@ -158,7 +159,7 @@ Status:
     Type: AstraDSVolumeOnline
 ----
 
-== Show the volume mount on a node
+== Show the volume mount on a worker node
 
 . Enter: `kubectl get pods -n astrads-system`
 

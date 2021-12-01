@@ -77,20 +77,13 @@ Configuration done!
 ====
 
 
-+
-
-====
- kubectl --namespace netapp-monitoring get agent -o jsonpath='{.status.au-pod-status}' agent-monitoring-netapp
-====
-
-
 
 === Acquisition Unit storage
 The Acquisition Unit requires three Persistent Volumes for storing installation files, configuration data and logs. The Monitoring Operator uses the default storage class to create Persistent Volume Claims. You can specify a different storage class name using the `-s` option when running the installer script.
 
 If your Kubernetes cluster does not have a storage provisioner (such as NetApp Trident), you can provide a local filesystem path using the `-r` option when running the installer script. When the `-r` option is set, the installer script creates three persistent volumes inside the provided directory. This directory requires a minimum of 150 GB free space.
 
-.Example Agent CR
+== Example Agent CR
 
 Below is an example of what the `monitoring-netapp` agent CR will look like after running the installer script.
 
