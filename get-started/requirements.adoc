@@ -152,7 +152,7 @@ Astra Data Store preview has the following cluster capabilities:
 
 //POLARIS-2175
 == Hardware and software requirements
-Astra Data Store preview has been validated on the following hardware and software platforms.
+Astra Data Store preview supports the following hardware platforms, software, and storage.
 
 .Hardware platforms
 * HPE DL360
@@ -170,9 +170,9 @@ Astra Data Store preview has been validated on the following hardware and softwa
 ** Red Hat OpenShift 4.6
 ** Red Hat OpenShift 4.7
 ** Google Anthos 1.7
-** Upstream Kubernetes 1.20
-** Upstream Kubernetes 1.21
-** Upstream Kubernetes 1.22
+** Kubernetes 1.20
+** Kubernetes 1.21
+** Kubernetes 1.22
 
 //POLARIS-461
 .Storage
@@ -186,15 +186,22 @@ Astra Data Store preview clusters support SAS and NVMe TLC SSD storage with the 
 Astra Data Store preview requires an Astra Data Store preview license for full functionality. Obtain a preview license from the NetApp Support Site.
 
 == Networking requirements
-Astra Data Store preview needs a certain network interface and IP address configuration for the management, cluster, and storage networks. You can use several configurations, depending on the need for one (combined management and cluster traffic) or two (separate management and cluster traffic) network interfaces per node. No VLAN tags are used in these configurations.
+Astra Data Store preview needs a certain network interface and IP address configuration for the management, cluster, and storage networks. You can use several configurations, depending on the need for one or two network interfaces per node.
 
-NOTE: You should omit the data network gateway for each of these configurations. The existing routing configuration on each node should accommodate all of the addresses.
+Each network in Astra Data Store preview installations requires the following bandwidth:
 
-The following abbreviations are used in this table:
+|===
+|Network |Required bandwidth
 
-* MIP: Management IP address
-* CIP: Cluster IP address
-* MVIP: Management virtual IP address
+|Management
+|1GbE or faster interface
+
+|Cluster
+|10GbE or faster interface
+
+|Data
+|10GbE or faster interface
+|===
 
 ////
 .Network interface requirements
@@ -221,7 +228,14 @@ NOTE: The cluster network should reside on the same interface as either the mana
 ** One IPv4 address (free/spare/unconfigured) for the volume's export address of each node. This address is configured on the data network interface during Astra Data Store preview cluster installation.
 ////
 
-//.Possible configurations
+.Supported configurations
+Astra Data Store preview supports the following network interface configurations.
+
+The following abbreviations are used in this table:
+
+* MIP: Management IP address
+* CIP: Cluster IP address
+* MVIP: Management virtual IP address
 
 |===
 |Configuration |Bond mode |IP addresses needed
@@ -247,7 +261,7 @@ a|
 * One (1) IP address per cluster:
 ** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
 
-|Two network interfaces per node
+|Two network interfaces per node (This configuration is best for redundancy when using physical nodes.)
 |Active/Passive bonding
 a|
 
@@ -257,10 +271,11 @@ a|
 ** Data IP: One (1) unused/unconfigured IP address per node in same subnet as CIP
 * One (1) IP address per cluster:
 ** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
-+
-NOTE: This configuration is best for redundancy when using physical nodes.
 
 |===
+NOTE: You should omit the data network gateway for each of these configurations. The existing routing configuration on each node should accommodate all of the addresses.
+
+NOTE: No VLAN tags are used in these configurations.
 
 //POLARIS-656 - more questions here for HA requirements (Naveen M is SME)
 //== High availability requirements
