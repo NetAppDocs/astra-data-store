@@ -152,7 +152,7 @@ Astra Data Store preview has the following cluster capabilities:
 
 //POLARIS-2175
 == Hardware and software requirements
-Astra Data Store preview has been validated on the following hardware and software platforms.
+Astra Data Store preview supports the following hardware platforms, software, and storage.
 
 .Hardware platforms
 * HPE DL360
@@ -170,9 +170,9 @@ Astra Data Store preview has been validated on the following hardware and softwa
 ** Red Hat OpenShift 4.6
 ** Red Hat OpenShift 4.7
 ** Google Anthos 1.7
-** Upstream Kubernetes 1.20
-** Upstream Kubernetes 1.21
-** Upstream Kubernetes 1.22
+** Kubernetes 1.20
+** Kubernetes 1.21
+** Kubernetes 1.22
 
 //POLARIS-461
 .Storage
@@ -188,21 +188,20 @@ Astra Data Store preview requires an Astra Data Store preview license for full f
 == Networking requirements
 Astra Data Store preview needs a certain network interface and IP address configuration for the management, cluster, and storage networks. You can use several configurations, depending on the need for one or two network interfaces per node.
 
-Each network requires the following bandwidth:
+Each network in Astra Data Store preview installations requires the following bandwidth:
 
-* Management network: 1GbE or faster interface
-* Cluster network: 10GbE or faster interface
-* Data network: 10GbE or faster interface
+|===
+|Network |Required bandwidth
 
-The following abbreviations are used in this table:
+|Management
+|1GbE or faster interface
 
-* MIP: Management IP address
-* CIP: Cluster IP address
-* MVIP: Management virtual IP address
+|Cluster
+|10GbE or faster interface
 
-NOTE: You should omit the data network gateway for each of these configurations. The existing routing configuration on each node should accommodate all of the addresses.
-
-NOTE: No VLAN tags are used in these configurations.
+|Data
+|10GbE or faster interface
+|===
 
 ////
 .Network interface requirements
@@ -230,6 +229,12 @@ NOTE: The cluster network should reside on the same interface as either the mana
 ////
 
 //.Possible configurations
+
+The following abbreviations are used in this table:
+
+* MIP: Management IP address
+* CIP: Cluster IP address
+* MVIP: Management virtual IP address
 
 |===
 |Configuration |Bond mode |IP addresses needed
@@ -267,6 +272,9 @@ a|
 ** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
 
 |===
+NOTE: You should omit the data network gateway for each of these configurations. The existing routing configuration on each node should accommodate all of the addresses.
+
+NOTE: No VLAN tags are used in these configurations.
 
 //POLARIS-656 - more questions here for HA requirements (Naveen M is SME)
 //== High availability requirements
