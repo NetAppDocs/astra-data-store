@@ -28,7 +28,7 @@ Here are instructions for some of them:
 * <<Display volumes>>
 * <<Display the server IP>>
 * <<Describe the volume>>
-* <<Show the volume mount on a node>>
+* <<Show the volume mount on a worker node>>
 * <<Show the volume mount inside a MongoDB container>>
 * <<Place a node in maintenance mode>>
 * <<Replace a drive>>
@@ -99,7 +99,7 @@ Response:
       ClaimName: mongo-pvc0
       ReadOnly: false
 ====
-end 
+end
 
 == Display volumes
 
@@ -153,7 +153,7 @@ Status:
     Type: AstraDSVolumeOnline
 ====
 
-== Show the volume mount on a node
+== Show the volume mount on a worker node
 
 . Enter: `kubectl get pods -n astrads-system`
 
@@ -273,7 +273,7 @@ Sample:
 ====
  kubectl describe adscl -n astrads-system
 ====
-. ssh into the nodes:
+. ssh into the worker nodes:
 +
 ====
  ssh root@<ip_address>
