@@ -188,7 +188,7 @@ Astra Data Store preview requires an Astra Data Store preview license for full f
 == Networking requirements
 Astra Data Store preview needs a certain network interface and IP address configuration for the management, cluster, and data networks.
 
-Each network in Astra Data Store preview installations require the following bandwidth:
+Each network in Astra Data Store preview installations requires the following bandwidth:
 
 |===
 |Network |Required bandwidth
