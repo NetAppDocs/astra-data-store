@@ -2,21 +2,19 @@
 sidebar: sidebar
 permalink: use/kubectl-commands-ads.html
 keywords: astra, astra data store, astra datastore, kubectl
-summary: You can manage Astra Data Store assets by using kubectl commands.
+summary: You can use kubectl commands directly with Astra Data Store.
 ---
 
 = Manage Astra Data Store with kubectl commands
 :hardbreaks:
 :icons: font
-:imagesdir: ../media/use/
+:imagesdir: ../media/get-started/
 
 You can manage Astra Data Store assets by using kubectl commands.
 
 These instructions show you how to manage Astra Data Store assets by using a sample MongoDB app and YSCB IO Tool workflow. The sample app provides context for the examples. The application workload structure includes one MongoDB deployment consisting of a replica-set, which creates a mongo pod and with a MongoDB container running inside that pod.
 
-The deployment references a Trident persistent volume claim (PVC). This PVC initializes its own PV: `astradsvolume` and `astradsexportpolicy`. When the YSCB tool is started, IO is sent to the Mongo container inside the pod, and the mounted `astradsvolume` is filled with data.
 
-While all artifacts in these instructions exist in the same namespaces (for example: `astrads-system`), you can instead have their internal namespaces assigned to separate apps from backend artifacts.
 
 == Some tasks you can do with kubectl commands
 
@@ -28,13 +26,14 @@ Here are instructions for some of them:
 * <<Display volumes>>
 * <<Display the server IP>>
 * <<Describe the volume>>
-* <<Show the volume mount on a worker node>>
-* <<Show the volume mount inside a MongoDB container>>
 
-For troubleshooting, see these procedures:
-* link:../troubleshooting/ads-maintenance-mode.html[Place a node in maintenance mode].
-* link:../troubleshooting/ads-replace-drive.html[Replace a drive].
-* link:../troubleshooting/ads-replace-node.html[Replace a node].
+
+For cluster maintenance information, see link:/use/maintain-cluster.html[Maintain the cluster].
+
+* Place a node in maintenance mode
+* Replace a drive
+* Add a node
+* Replace a node
 
 
 == Available commands
@@ -54,8 +53,8 @@ See link:../get-started/install-ads.html#install-the-monitoring-operator[Configu
 == List of kubectl API resources
 You can see a list of kubectl API resources as shown in the sample below.
 
-----
-kubectl api-resources --api-group astrads.netapp.io
+====
+ kubectl api-resources --api-group astrads.netapp.io
 NAME                   SHORTNAMES  APIGROUP           NAMESPACED  KIND
 astradsversions         adsve      astrads.netapp.io  true        AstraDSVersion
 astradsclusters         adscl      astrads.netapp.io  true        AstraDSCluster
@@ -69,17 +68,21 @@ astradsvolumefiles      adsvf      astrads.netapp.io  true        AstraDSVolumeF
 astradsautosupports     adsas      astrads.netapp.io  true        AstraDSAutoSupport
 astradsfaileddrives     adsfd      astrads.netapp.io  true        AstraDSFailedDrive
 astradsnodemanagements  adsnm      astrads.netapp.io  true        AstraDSNodeManagement
-----
+====
 
 
 
 == Describe the deployment
 
+The deployment references a Trident persistent volume claim (PVC). This PVC initializes its own PV: `astradsvolume` and `astradsexportpolicy`. When the YSCB tool is started, IO is sent to the Mongo container inside the pod, and the mounted `astradsvolume` is filled with data.
+
+While all artifacts in these instructions exist in the same namespaces (for example: `astrads-system`), you can instead have their internal namespaces assigned to separate apps from backend artifacts.
+
 Enter: `kubectl describe deployment -n astrads-system mongo0`
 
 Response:
 
-----
+====
  Pod template:
   Labels: app=mongo0
           ...
@@ -100,10 +103,8 @@ Response:
       Type:
       ClaimName: mongo-pvc0
       ReadOnly: false
-
-----
+====
 end
-
 
 == Display volumes
 
@@ -112,14 +113,13 @@ Display the volumes to which it is bound.
 Enter: `kubectl describe pvc -n astrads-system mongo0`
 
 Response:
-----
+====
  Name:         mongo-pvc0
  Namespace:    astrads-system
  StorageClass: trident-csi
  Status:       Bound
  Volume:
-----
-
+====
 
 == Display the server IP
 
@@ -127,10 +127,9 @@ Enter: `kubectl get astradsvolumes -n astrads-system | grep <volume_ID>``
 
 Response:
 
-----
+====
  <volume_ID> 8Gi astrads-cluster-420a40  true
-----
-
+====
 
 
 
@@ -140,7 +139,7 @@ Enter: `kubectl describe astradsvolumes -n astrads-system <volume_ID>``
 
 Response:
 
-----
+====
  Spec:
   Cluster:
   Display Name:
@@ -157,47 +156,4 @@ Status:
     Reason: VolumeOnline
     Status: True
     Type: AstraDSVolumeOnline
-----
-
-== Show the volume mount on a worker node
-
-. Enter: `kubectl get pods -n astrads-system`
-
-+
-Response:
-+
-----
- mongo00  1/1 Running 0   23m
- mongo01  1/1 Running 0   21m
-----
-
-. Enter: `kubectl describe pod -n astrads-system mongo0  | grep Node`
-
-+
-Response:
-+
-----
- Node:
- Node-Selectors: <none>
-----
-
-. Enter: `ssh <IP-address> -l root`
-. Enter: `mount | grep pvc`
-
-== Show the volume mount inside a MongoDB container
-
-. Enter: `kubectl get pods -n astrads-system`
-
-+
-Response:
-+
-----
- mongo0  1/1 Running 0   23m
- mongo1  1/1 Running 0   21m
-----
-
-. Enter: `kubectl exec -it -n astrads-system mongo0 <pod_id>`
-. Log into MongoDB.
-. Enter: `show dbs`
-. Enter: `use ycsb-_rand0_`
-. Enter: `show collections`
+====
