@@ -16,36 +16,18 @@ image:astra-ads-architecture-diagram-v2.png[Astra architecture diagram and compo
 
 To get a perspective on the entire Astra family, see https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family introduction^].
 
-== Astra Data Store environment
+== Astra Data Store deployment options
 
-The Astra Data Store preview supports the following environment:
+Astra Data Store manages storage drives directly on the hosts using an application deployed and orchestrated with Kubernetes.
 
-[%header,cols="2, 5a"]
-|===
-|Features
-|Customer provided Kubernetes cluster
+It can be installed on bare metal or virtual hosts by using one of the following options:
 
-|Description
-|Provides storage for Kubernetes native apps whose lifecycle is managed by Astra Control Center.
+*	Deploy on a standalone dedicated Kubernetes cluster serving persistent volumes to Kubernetes applications running in a separate cluster.
+*	Deploy on a Kubernetes cluster also hosting other workload  applications on the same node pool (converged).
+*	Deploy on a Kubernetes cluster also hosting other workload applications on a different node pool (disaggregated).
 
-|Deployment
-|Deployed in various ways:
+link:../get-started/requirements.html[Learn more about the Astra Data Store hardware requirements].
 
-* On bare metal or virtual volumes.
-
-* As a standalone, dedicated Kubernetes cluster serving persistent volumes to Kubernetes apps running in a separate cluster, providing storage to Astra Control Center (standalone cluster)
-
-* With the Kubernetes applications running in the same cluster on the same node pool (converged)
-
-* With the Kubernetes applications running in the same cluster on different node pools (disaggregated)
-
-
-|Drives
-|Manages storage drives directly on hosts.
-
-|Kubernetes cluster provided by
-|Customer provides the Kubernetes cluster.
-|===
 
 == Platform and other tools used by Astra Data Store
 Astra Data Store works with the following:

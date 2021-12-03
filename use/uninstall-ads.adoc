@@ -43,7 +43,7 @@ Follow the steps below to uninstall Astra Data Store manually.
 
 === Delete the volumes, volume snapshots, and export policies
 
-Before deleting the cluster, manually delete the Astra Data Store volume snapshots, volumes, and export policy.
+Before deleting the cluster, you should delete the Astra Data Store volume snapshots, volumes, and export policy.
 
 TIP: If you do not first delete the volumes and export policy, the cluster deletion process pauses until the Astra Data Store volumes objects are deleted. It is more efficient to remove those items before starting to delete the cluster.
 
