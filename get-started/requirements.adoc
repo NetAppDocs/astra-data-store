@@ -266,7 +266,10 @@ NOTE: You should omit the data network gateway field in the cluster Custom Resou
 
 NOTE: No VLAN tags are used in these configurations.
 
+////
 NOTE: If you use the Calico Container Networking Interface (CNI) networking provider plugin with Kubernetes, you need to configure it to exclude at least one routing table from Calico control. For example, you can do this by changing the "routeTableRange" value in the Calico configmap .yaml file to a value of {Min: 2, Max: 250}. This enables Astra Data Store to perform policy-based network routing.
+
+////
 
 //POLARIS-656 - more questions here for HA requirements (Naveen M is SME)
 //== High availability requirements
