@@ -186,7 +186,7 @@ Astra Data Store preview clusters support SAS and NVMe TLC SSD storage with the 
 Astra Data Store preview requires an Astra Data Store preview license for full functionality. Obtain a preview license from the NetApp Support Site.
 
 == Networking requirements
-Astra Data Store preview needs a certain network interface and IP address configuration for the management, cluster, and data networks. You can use several configurations, depending on the need for one or two network interfaces per node.
+Astra Data Store preview needs a certain network interface and IP address configuration for the management, cluster, and data networks.
 
 Each network in Astra Data Store preview installations requires the following bandwidth:
 
@@ -231,6 +231,8 @@ NOTE: The cluster network should reside on the same interface as either the mana
 .Supported configurations
 Astra Data Store preview supports the following network interface configurations.
 
+NOTE: For increased redundancy when using physical nodes, you should use two network interfaces with an LACP bond or team mode configuration.
+
 The following abbreviations are used in this table:
 
 * MIP: Management IP address
@@ -241,7 +243,7 @@ The following abbreviations are used in this table:
 |Configuration |Bond mode |IP addresses needed
 
 |One network interface per node
-|Team LACP
+|Team mode LACP
 a|
 
 * Two (2) IP addresses per node:
@@ -250,19 +252,8 @@ a|
 * One (1) IP address per cluster:
 ** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
 
-|Two network interfaces per node
-|Team LACP
-a|
-
-* Three (3) IP addresses per node:
-** MIP: One (1) pre-configured IP address on management interface per node
-** CIP: One (1) pre-configured IP address on data interface per node in a different subnet from MIP
-** Data IP: One (1) unused/unconfigured IP address per node in same subnet as CIP
-* One (1) IP address per cluster:
-** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
-
 |Two network interfaces per node (This configuration is best for redundancy when using physical nodes.)
-|Active/Passive bonding
+|LACP (team or bond mode)
 a|
 
 * Three (3) IP addresses per node:
@@ -273,9 +264,11 @@ a|
 ** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
 
 |===
-NOTE: You should omit the data network gateway for each of these configurations. The existing routing configuration on each node should accommodate all of the addresses.
+NOTE: You should omit the data network gateway field in the cluster Custom Resource (CR) file, `astradscluster.yaml`, for both of these configurations. The existing routing configuration on each node accommodates all of the addresses.
 
 NOTE: No VLAN tags are used in these configurations.
+
+NOTE: If you use the Calico Container Networking Interface (CNI) networking provider plugin with Kubernetes, you need to configure it to exclude at least one routing table from Calico control. For example, you can do this by changing the "routeTableRange" value in the Calico configmap .yaml file to a value of {Min: 2, Max: 250}. This enables Astra Data Store to perform policy-based network routing.
 
 //POLARIS-656 - more questions here for HA requirements (Naveen M is SME)
 //== High availability requirements
