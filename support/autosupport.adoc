@@ -1,0 +1,137 @@
+---
+sidebar: sidebar
+permalink: support/autosupport.html
+keywords: how to use autosupport, asup, logs, asup bundle, support ticket, support bundle
+summary: NetApp provides support for Astra Data Store in a variety of ways. Extensive free self-support options are available 24x7, such as knowledgebase (KB) articles and a Slack channel. Your Astra Data Store account includes remote technical support via web ticketing.
+---
+
+= Automatic support monitoring
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/support/
+
+AutoSupport monitors the Astra Data Store system run-time and information and sends messages to NetApp Support. These system components can be monitored, depending on your configuration:
+
+* Control plane
+* Storage
+
+AutoSupport is enabled by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store cluster installation] or after an AutoSupport CR is applied to the cluster. Once enabled, AutoSupport (ASUP) bundles are automatically uploaded to the NetApp Support Site (NSS) or made available for manual downloads.
+
+.Options
+* <<AutoSupport triggers and scenarios>>
+* <<Configure custom control plane AutoSupport collection>>
+* <<Configure custom storage AutoSupport collection>>
+* <<List ASUPs in the system>>
+* <<Download an ASUP Bundle>>
+
+== AutoSupport triggers and scenarios
+AutoSupport bundles are triggered in the following ways:
+
+* Periodically: ASUP Bundles are created at intervals defined in a CR.
+* User Triggered: You can manually create your own ASUPs to look at the log.
+* Coredumps: If there are core dumps on a node, an ASUP is generated, and the core is sent to NetApp for further investigation.
+* Callhome event based: An ASUP is generated from a particular callhome event from the operating system.
+* Kubernetes event based: An ASUP is generated from a particular kubernetes event in the control plane.
+
+These trigger scenarios generate one of these Autosupport types:
+
+* ControlPlane AutoSupport: A collection of Astra Data Store control plane logs and CRs.
+* Storage AutoSupport: A collection of storage reports and performance data.
+* Core Dump AutoSupport: A collection of system core dumps.
+
+== Configure custom control plane AutoSupport collection
+You can create a custom AutoSupport collection configuration that reports on control plane events. Most installations already enable periodic event reporting by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store cluster installation]. This procedure describes how to configure an AutoSupport CR that reports based on parameters you select:
+
+.Options
+* Collect a control plane component:
++
+----
+kubectl astrasds asup collect -c controlplane
+----
++
+This option autogenerates a name and uses the default for Trigger and Priority fields:
++
+----
+NAMESPACE    NAME                      COMPONENT      EVENT      TRIGGER PRIORITY   SIZE  STATE
+sds-system   controlplane-manual-xxx   controlplane   manual      event   userTrigger 0    error
+----
+
+* Collect a control plane component with a custom name:
++
+----
+kubectl astrasds asup collect -c controlplane <myASUPname>
+----
+
+* Collect a control plane component for an event type:
+//???Isn't there only manual event types?
++
+----
+kubectl astrasds asup collect -c controlplane -e <event_type>
+----
+
+== Configure custom storage AutoSupport collection
+You can create a custom AutoSupport collection configuration that reports on storage component events. Most installations already enable periodic event reporting by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store cluster installation]. This procedure describes how to configure an AutoSupport CR that reports based on parameters you select:
+
+.Options
+* Collect a storage ASUP for all nodes:
++
+----
+kubectl astrasds asup collect -c storage
+----
+
+* Collect a storage ASUP for all nodes for a specified duration:
++
+NOTE: Use standard ISO date time format with a duration (`d`) in hours.
+
+----
+kubectl-astrads asup collect -c storage -t 2021-01-01T15:00:00Z -d 24
+----
+
+* Collect a storage ASUP for all nodes for a `performance` event:
++
+NOTE: The default is a `manual` event.
+
+----
+kubectl-astrads asup collect -c storage -e performance example-perf-storage-asup
+----
+
+* Collect a storage ASUP for specified node:
++
+----
+kubectl astrasds asup collect -c storage –-nodes <nodename>
+----
+
+* Collect a storage ASUP for specified nodes:
++
+----
+kubectl astrasds asup collect -c storage –-nodes nodename1,nodename2,nodename3
+----
+
+== List ASUPs in the system
+Use the following command to list ASUPs in the system by name:
+
+----
+./kubectl-astrasds asup list
+----
+
+Sample response:
+
+----
+NAMESPACE  NAME                                                STATUS
+sds-system controlplane-clustercreatedsuccessfully-2021050...  error
+sds-system controlplane-manual-20210505t070437776700607        error
+sds-system storage-coredump-20210504t153114598673012           error
+sds-system storage-manual-20210505t070437776633690             error
+sds-system storage-manual-20210505t070437776693353             error
+----
+
+== Download an ASUP Bundle
+You can download locally-collected ASUP bundles using this command. Use `-o <location>` to specify a location other than the current working directory:
+
+----
+./kubectl-astrasds asup download controlplane-clustercreatedsuccessfully-20210506t200956487629094 -o <location>
+----
+
+[discrete]
+== Find more information
+* https://kb.netapp.com/Advice_and_Troubleshooting/Miscellaneous/How_to_upload_a_file_to_NetApp[How to upload a file to NetApp (login required)^]
