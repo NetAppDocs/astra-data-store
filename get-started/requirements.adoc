@@ -252,7 +252,7 @@ a|
 * One (1) IP address per cluster:
 ** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
 
-|Two network interfaces per node (This configuration is best for redundancy when using physical nodes.)
+|Two network interfaces per node
 |LACP (team or bond mode)
 a|
 
