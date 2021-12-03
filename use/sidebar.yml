@@ -3,6 +3,8 @@ title: Use Astra Data Store
 entries:
   - title: Manage Astra Data Store with kubectl commands
     url: /use/kubectl-commands-ads.html
+  - title: Manage the cluster
+    url: /use/maintain-cluster.html 
   - title: Monitor metrics with Cloud Insights
     url: /use/monitor-with-cloud-insights.html
   - title: Configure and monitor event logs
