@@ -240,10 +240,9 @@ The following abbreviations are used in this table:
 * MVIP: Management virtual IP address
 
 |===
-|Configuration |Bond mode |IP addresses needed
+|Configuration |IP addresses needed
 
 |One network interface per node
-|Team mode LACP
 a|
 
 * Two (2) IP addresses per node:
@@ -253,7 +252,6 @@ a|
 ** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
 
 |Two network interfaces per node
-|LACP (team or bond mode)
 a|
 
 * Three (3) IP addresses per node:
