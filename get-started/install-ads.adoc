@@ -41,10 +41,10 @@ openssl dgst -sha256 -verify astra-data-store[version].pub -signature <astra-dat
 
 == Unpack the bundle and change directory
 
-. Extract the images:
+. Create a directory:
 +
 ----
-tar -vxzf astra-data-store-[version].tar.gz
+mkdir astra-data-store-[version]
 ----
 
 . Change to the Astra directory.
@@ -53,19 +53,28 @@ tar -vxzf astra-data-store-[version].tar.gz
 cd astra-data-store-[version]
 ----
 
-. Define the path where the kubectl binary is to be installed. For example, `/usr/bin/kubectl` could be the binary path where kubectl is installed.
+. Extract the images:
++
+----
+tar -vxzf astra-data-store-[version].tar.gz
+----
+
+. Define the path where the kubectl binary is to be installed.
++
+NOTE: `/usr/bin/kubectl` is used as an example as the binary path. Replace it with your path before running the command.
+
 +
 ----
 which kubectl
-<install_path>
+/usr/bin/kubectl
 ----
 
 == Copy the binary and push images to your local registry
 
-. Copy the kubectl-astrads binary from the directory you extracted images to the standard path where k8s kubectl binaries are installed; for example, `/usr/bin/`. kubectl-astrads is a custom kubectl extension that installs and manages Astra Data Store clusters.
-+
+. Copy the kubectl-astrads binary from the directory you used to extract images to the standard path where k8s kubectl binaries are installed; for example, `/usr/bin/`. kubectl-astrads is a custom kubectl extension that installs and manages Astra Data Store clusters.
+
 ----
-cp -f kubectl-astrads <path from previous command>
+cp -f ./bin/kubectl-astrads
 ----
 
 . Add the files in the Astra Data Store image directory to your local registry.
@@ -85,24 +94,29 @@ docker login [your_registry_path]
 +
 ----
 export REGISTRY=[your_registry_path]
-for astraImageFile in $(ls images/*.tar)
-  # Load to local cache. And store the name of the loaded image trimming the 'Loaded images: '
-  do astraImage=$(docker load --input ${astraImageFile} | sed 's/Loaded image(s): //')
-  astraImage=$(echo ${astraImage} | sed 's!localhost/!!')
-  # Tag with local image repo.
-  docker tag ${astraImage} ${REGISTRY}/${astraImage}
-  # Push to the local repo.
-  docker push ${REGISTRY}/${astraImage}
+
+for astraImageFile in $(ls images/*.tar) ; do
+   astraImage=$(docker load --input ${astraImageFile} | sed 's/Loaded image: //')
+   docker tag ${astraImage} ${REGISTRY}/${astraImage}
+   docker push ${REGISTRY}/${astraImage}
 done
 ----
 
 == Install the monitoring operator
 (Optional) The monitoring operator is recommended if Astra Data Store monitoring will not be performed in Astra Control Center. You can install the monitoring operator if your Astra Data Store instance is a standalone deployment, uses Cloud Insights to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
 
+. Replace `[YOUR REGISTRY]` with the path to your image registry:
++
+----
+sed -i 's/\[YOUR REGISTRY]/docker.repo.example.com/' astradsoperator.yaml
+----
+
 . Run the install command:
++
 ----
-helm3 install /u/samip/p4/netapp-monitoring --generate-name -n default
+kubectl apply -f  monitoring_operator.yaml
 ----
+
 
 == Install the Astra Data Store operator
 . List the Astra Data Store manifests:
@@ -119,16 +133,70 @@ astradsoperator.yaml
 astradsversion.yaml
 ----
 
-. Edit the Astra Data Store operator custom resource definition (CRD) YAML to refer to the local registry (`your_registry_path`) you pushed the images to in a <<substep_image_local_registry_push,previous step>>:
+. Edit the Astra Data Store operator custom resource definition (CRD) YAML to refer to the local registry you pushed the images to in a <<substep_image_local_registry_push,previous step>>:
++
+NOTE: Replace `docker.repo.example.com` with your repo path before running the command.
+
 +
 ----
-sed -i 's/\[your_registry_path\]/docker.repo.example.com/' astradsoperator.yaml
+sed -i 's/\[YOUR REGISTRY\]/docker.repo.example.com/' astradsoperator.yaml
 ----
 
 . Apply the changes to the file:
 +
 ----
 kubectl apply -f astradsoperator.yaml
+----
++
+Response:
++
+----
+namespace/astrads-system created
+customresourcedefinition.apiextensions.k8s.io/astradsautosupports.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradscloudsnapshots.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsclusters.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsdeployments.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsexportpolicies.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsfaileddrives.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradslicenses.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsnfsoptions.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsnodeinfoes.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsqospolicies.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsvolumefiles.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsvolumes.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsvolumesnapshots.astrads.netapp.io created
+role.rbac.authorization.k8s.io/astrads-leader-election-role created
+clusterrole.rbac.authorization.k8s.io/astrads-astradscloudsnapshot-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-astradscloudsnapshot-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-astradscluster-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-astradscluster-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-astradslicense-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-astradslicense-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-astradsvolume-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-astradsvolume-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-autosupport-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-autosupport-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-manager-role created
+clusterrole.rbac.authorization.k8s.io/astrads-metrics-reader created
+clusterrole.rbac.authorization.k8s.io/astrads-netappexportpolicy-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-netappexportpolicy-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-netappsdsdeployment-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-netappsdsdeployment-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-netappsdsnfsoption-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-netappsdsnfsoption-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-netappsdsnodeinfo-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-netappsdsnodeinfo-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-proxy-role created
+rolebinding.rbac.authorization.k8s.io/astrads-leader-election-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/astrads-manager-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/astrads-proxy-rolebinding created
+configmap/astrads-autosupport-cm created
+configmap/astrads-firetap-cm created
+configmap/astrads-fluent-bit-cm created
+configmap/astrads-kevents-asup created
+configmap/astrads-metrics-cm created
+service/astrads-operator-metrics-service created
+deployment.apps/astrads-operator created
 ----
 
 . Verify that the Astra Data Store operator pod has started and is running:
@@ -145,10 +213,13 @@ astrads-operator-5ffb94fbf-7ln4h    1/1     Running   0          17m
 ----
 
 == Apply the Astra Data Store version YAML
-. Edit the Astra Data Store version custom resource (CR) file to refer to the local registry (`your_registry_path`) you pushed the images to in a <<substep_image_local_registry_push,previous step>>:
+. Edit the Astra Data Store version custom resource (CR) file to refer to the local registry you pushed the images to in a <<substep_image_local_registry_push,previous step>>:
++
+NOTE: Replace `docker.repo.example.com` with your repo path before running the command.
+
 +
 ----
-sed -i 's/\[your_registry_path\]/docker.repo.example.com/' astradsversion.yaml
+sed 's~\[YOUR REGISTRY\]~docker.repo.example.com~' ./manifests/astradsoperator.yaml > astradsoperator.yaml
 ----
 
 . Apply the updated file:

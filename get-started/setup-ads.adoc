@@ -295,6 +295,7 @@ Configure storage backend parameters in the ads_backend.json file and create the
 ----
 cat ads_backend.json
 ----
+
 . Configure the JSON file:
 .. Change the `"cluster"` value to the cluster name for the Astra Data Store cluster.
 .. Change the `"namespace"` value to the namespace you want to use with volume creation.
