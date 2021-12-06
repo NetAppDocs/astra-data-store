@@ -65,7 +65,11 @@ These are the minimum resource requirements and maximum capabilities for each no
 |1 (8GB or greater in size)
 |N/A
 
-|Provisioned capacity
+|Number of volumes
+|N/A
+|10
+
+|Provisioned capacity (the combined size of all existing volumes per node)
 |N/A
 |1TiB
 
@@ -88,17 +92,25 @@ Each Astra Data Store preview cluster has the following minimum requirements and
 |1GiB
 |1TB
 
+|Provisioned capacity (the combined size of all existing volumes per cluster)
+|N/A
+|N * 1 TiB (where N is the number of nodes in the cluster)
+
 |Drive size
 |100GiB
 |N/A
 
 |Number of volumes
 |N/A
-|10 per node
+|N * 10 volumes per node (where N is the number of nodes in the cluster)
 
 |Number of snapshots per volume
 |N/A
 |256
+
+|Number of clones per volume
+|N/A
+|9
 
 |Number of data drives
 |N/A
