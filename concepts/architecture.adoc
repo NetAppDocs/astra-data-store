@@ -20,7 +20,7 @@ To get a perspective on the entire Astra family, see https://docs.netapp.com/us-
 
 Astra Data Store manages storage drives directly on the hosts using an application deployed and orchestrated with Kubernetes.
 
-It can be installed on bare metal or virtual hosts by using one of the following options:
+It can be installed on bare metal or virtual volumes by using one of the following options:
 
 *	Deploy on a standalone dedicated Kubernetes cluster serving persistent volumes to Kubernetes applications running in a separate cluster.
 *	Deploy on a Kubernetes cluster also hosting other workload  applications on the same node pool (converged).

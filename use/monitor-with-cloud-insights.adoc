@@ -17,7 +17,7 @@ You can monitor Astra Data Store metrics using Cloud Insights.
 * <<Edit the Cloud Insights connection>>
 * <<Disconnect from Cloud Insights>>
 
-You can also display a list of metrics generated in Astra Data Store by using the <<Open Metrics API Help>>. 
+You can also display a list of metrics generated in Astra Data Store by using the <<Open Metrics API Help>>.
 
 
 == Perform Cloud Insight connection prerequisites
@@ -26,6 +26,7 @@ Prior to connecting Astra Data Store with Cloud Insights, you need to:
 
 * link:install-ads.html#install-the-monitoring-operator[Install the Astra Data Store Monitoring Operator].
 * link:install-ads.html#copy-the-binary-and-push-images-to-your-local-registry[Install the kubectl-astrads binary] by following the Astra Data Store installation documentation.
+* link:https://docs.netapp.com/us-en/cloudinsights/task_cloud_insights_onboarding_1.html[Create a Cloud Insights account].
 * Ensure that the following commands are available: `awk, curl, grep` and `jq`
 
 Gather the following information:

@@ -48,23 +48,22 @@ Before deleting the cluster, you should delete the Astra Data Store volume snaps
 TIP: If you do not first delete the volumes and export policy, the cluster deletion process pauses until the Astra Data Store volumes objects are deleted. It is more efficient to remove those items before starting to delete the cluster.
 
 .Steps
-. Delete the volume snapshots:
-+
-====
-kubectl delete astradsvolumesnapshots --all -A
-====
+
 
 . Delete the volumes:
 +
-====
+----
 kubectl delete astradsvolumes --all -A
-====
+kubectl get astradsvolumes -A
+----
 
 . Delete the export policies:
 +
-====
+----
 kubectl delete astradsexportpolicies --all -A
-====
+kubectl get astradsexportpolicies -A
+
+----
 
 === Delete the Astra Data Store clusters
 
@@ -78,17 +77,21 @@ The uninstaller takes about a minute to finish. Then, clean up of the Astra Data
 
 . Delete the cluster:
 +
-====
+----
 kubectl delete astradsclusters --all -A
-====
+kubectl get astradsclusters -A
+----
 
 === Delete the licenses
 
+. ssh to each worker node in the cluster and validate that `firetap` or `netwd` are not running in the worker nodes.
 . Delete the Astra Data Store licenses:
 +
-====
+----
 kubectl delete astradslicenses --all -A
-====
+kubectl get astradslicenses -A
+
+----
 
 === Delete the astrads deployment objects
 
@@ -96,48 +99,55 @@ Delete the controllers, operators, namespace, and support pods in the cluster.
 
 . Delete the Astra Data Store controller:
 +
-====
+----
 kubectl delete astradsversion astradsversion -n astrads-system
-====
+kubectl get astradsversion -n astrads-system
 
-. Delete the data store:
+----
+
+. Delete the data store DaemonSets:
 +
-====
+----
 kubectl delete ds --all -n astrads-system
-====
+kubectl get ds -n astrads-system
+
+----
 
 . Delete all Astra Data Store deployments in the namespace:
 +
-====
+----
 kubectl delete deployments --all -n astrads-system
-====
+kubectl get deployments -n astrads-system
+----
 
 . Delete the Astra Data Store operator yaml file:
 +
-====
+----
 kubectl delete -f /x/eng/rlse/DOT/devN/final/bedrock/export/firetap/sds/manifests/netappsdsoperator.yaml
-====
+kubectl get pods -n astrads-system
+
+----
 
 === Validate the removal of the astrads-system namespace
 
 Ensure that the namespace is not in a `Terminating` state:
 
-====
+----
 kubectl get ns | grep astrads-system
-====
+----
 
 === Ensure containers are not running on worker nodes
 
 Validate that containers such as `firetap` or `netwd` are not running on the worker nodes.
 
-====
+----
 # runc list
-====
+----
 
 == Manual deletion sample
 The following shows a sample of an execution manual uninstallation script.
 
-====
+----
  [hprad ~]$ kubectl delete astradsvolumes --all -A
 No resources found
 [hprad ~]$ kubectl delete astradsexportpolicies --all -A
@@ -214,4 +224,4 @@ service "astrads-operator-metrics-service" deleted
 
  [root@sti-rx2540-535c ~]# runc list
 ID      PID     STATUS    BUNDLE       CREATED    OWNER
-====
+----
