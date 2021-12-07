@@ -24,11 +24,11 @@ The Astra Data Store installation process guides you through the following high-
 * <<Download the Astra Data Store bundle>>
 * <<Unpack the bundle and change directory>>
 * <<Copy the binary and push images to your local registry>>
-* <<Install the monitoring operator>>
 * <<Install the Astra Data Store operator>>
 * <<Apply the Astra Data Store version YAML>>
 * <<Install the Astra Data Store cluster>>
 * <<Apply the Astra Data Store license>>
+* <<Install the monitoring operator>>
 
 == Download the Astra Data Store bundle
 . Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store-downloads-tab[NetApp Support Site^] and download the Astra Data Store bundle (`astra-data-store-[version].tar.gz`).
@@ -72,7 +72,7 @@ which kubectl
 == Copy the binary and push images to your local registry
 
 . Copy the kubectl-astrads binary from the directory you used to extract images to the standard path where k8s kubectl binaries are installed; for example, `/usr/bin/`. kubectl-astrads is a custom kubectl extension that installs and manages Astra Data Store clusters.
-
++
 ----
 cp -f ./bin/kubectl-astrads
 ----
@@ -101,22 +101,6 @@ for astraImageFile in $(ls images/*.tar) ; do
    docker push ${REGISTRY}/${astraImage}
 done
 ----
-
-== Install the monitoring operator
-(Optional) The monitoring operator is recommended if Astra Data Store monitoring will not be performed in Astra Control Center. You can install the monitoring operator if your Astra Data Store instance is a standalone deployment, uses Cloud Insights to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
-
-. Replace `[YOUR REGISTRY]` with the path to your image registry:
-+
-----
-sed -i 's/\[YOUR REGISTRY]/docker.repo.example.com/' astradsoperator.yaml
-----
-
-. Run the install command:
-+
-----
-kubectl apply -f  monitoring_operator.yaml
-----
-
 
 == Install the Astra Data Store operator
 . List the Astra Data Store manifests:
@@ -213,7 +197,7 @@ astrads-operator-5ffb94fbf-7ln4h    1/1     Running   0          17m
 ----
 
 == Apply the Astra Data Store version YAML
-. Edit the Astra Data Store version custom resource (CR) file to refer to the local registry you pushed the images to in a <<substep_image_local_registry_push,previous step>>:
+. Edit the Astra Data Store version file to refer to the local registry you pushed the images to in a <<substep_image_local_registry_push,previous step>>:
 +
 NOTE: Replace `docker.repo.example.com` with your repo path before running the command.
 
@@ -268,64 +252,59 @@ NOTE: An example follows these steps.
 * In `adsDataNetworks`, list floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume.
 * In `adsDataNetworks`, specify the netmask used by the data network.
 .. (Required) *monitoringConfig*: For `monitoringConfig`, do one of the following:
-* If you configured a <<Install the monitoring operator,monitoring operator>>, add the the namespace in which the agent CR (monitoring operator resource) is applied (default is `netapp-monitoring`) and the repo path for your registry (`your_registry_path`) that you used in previous steps.
-* If you did not configure a <<Install the monitoring operator,monitoring operator>>, remove or comment out the `monitoringConfig` section.
-.. (Optional) *autoSupportConfig*: Change the following link:../support/autosupport.html[AutoSupport] values or use the default values:
-* For `historyRetentionCount`, enter a limit for the number of ASUPs present in a system at any given time.
-* For `coredumpUpload`, enter `true` if core dumps should be uploaded to backend by default.
-* For `autoUpload`, retain the setting of `true` for the Astra Data Store preview edition.
-* For `destinationURL`, enter the backend URL where ASUPs will be uploaded.
-* In `periodicconfig`, enter the `event` ASUP reporting frequency for each system component.
-.. (Optional) Change the following values or use the default values:
-* In `spec`, enter a limit for how many nodes can be in the deployment (`adsNodeCount`).
-* In `spec`, enter a selector label that filters out nodes for the cluster (`adsNodeSelector`).
-* In `adsNetworkInterfaces`, enter the management, cluster, and storage interfaces.
-* In `adsNodeConfig`, enter the per-node capacity, name of cache device to be configured for the FireTap container, and drive regex filter to select disks.
+* If you configured a <<Install the monitoring operator,monitoring operator>>, add the namespace in which the agent CR (monitoring operator resource) is applied (default is `netapp-monitoring`) and the repo path for your registry (`your_registry_path`) that you used in previous steps.
+* If you did not configure a <<Install the monitoring operator,monitoring operator>>, remove the `monitoringConfig` section or keep it commented out.
+.. (Optional) *autoSupportConfig*: Retain the link:../support/autosupport.html[AutoSupport] default values unless you need to configure a proxy:
+* For `proxyURL`, set the URL of the proxy with the port that will be used for AutoSupport bundle transfer.
+
++
+NOTE: Most comments have been removed from the YAML sample below.
 
 +
 [subs=+quotes]
 ----
 apiVersion: astrads.netapp.io/v1alpha1
 kind: AstraDSCluster
-metadata:
-  *name: <name of your cluster>*
+*metadata:*
+  *name: astrads-cluster-name*
   namespace: astrads-system
-spec:
-  *mvip: <management IP address>*
-  adsNodeCount: <optional node limit>
-  adsNodeSelector: <optional selector label for node filtering>
-  adsDataNetworks:
-    - *addresses: <CSV list of floating IP addresses>*
-      *netmask: <The netmask used by dataNetworks>*
-      gateway:
-  adsNetworkInterfaces:
-    managementInterface: <Management interface>
-    clusterInterface: <Cluster interface>
-    storageInterface: <Storage interface>
+*spec:*
   adsNodeConfig:
-    capacity: <optional limit for per-node raw storage consumption>
-    cacheDevice: <optional name of device to be configured as cache device for FireTap container>
-    drivesFilter: <optional regex filter to select disks>
-  *monitoringConfig:*
-    *namespace: <namespace where applied>*
-    *repo: <your_registry_path>*
+    cpu: 9
+    memory: 34
+  adsNodeCount: 4
+  *mvip: ""*
+  *adsDataNetworks:*
+    *- addresses: ""*
+      *netmask:*
+  adsNetworkInterfaces:
+    managementInterface: "mgmt"
+    clusterInterface: "data"
+    storageInterface: "data"
+  # [Optional] Provide a monitoring config to be used to setup/configure a monitoring agent.
+ *# monitoringConfig:*
+   *# namespace: "netapp-monitoring"*
+   *# repo: "[YOUR REGISTRY]"*
   autoSupportConfig:
-    historyRetentionCount: 10
-    coredumpUpload: false
     autoUpload: true
-    destinationURL: "https://example.com/put/AsupPut"
+    enabled: true
+    coredumpUpload: false
+    historyRetentionCount: 25
+    destinationURL: "https://support.netapp.com/put/AsupPut"
+    # ProxyURL defines the URL of the proxy with port to be used for AutoSupport bundle transfer
+    *# proxyURL:*
     periodic:
       - schedule: "0 0 * * *"
         periodicconfig:
         - component:
+            name: storage
+            event: dailyMonitoring
+          userMessage: Daily Monitoring Storage AutoSupport bundle
+          nodes: all
+        - component:
             name: controlplane
             event: daily
           userMessage: Daily Control Plane AutoSupport bundle
-        - component:
-            name: storage
-            event: dailyMonitoring
-          nodes: all
-          userMessage: Daily Monitoring Storage AutoSupport bundle
 ----
 
 . Apply the updated file:
@@ -346,6 +325,27 @@ Sample return:
 NAME                        STATUS    VERSION                            SERIAL NUMBER   MVIP           AGE
 
 sample-0309d8b   created   sample-9.11.0-6090501   081856669       10.224.8.232   13d
+----
+
+== Install the monitoring operator
+(Optional) The monitoring operator is recommended if Astra Data Store monitoring will not be performed in Astra Control Center. You can install the monitoring operator if your Astra Data Store instance is a standalone deployment, uses Cloud Insights to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
+
+. Replace `docker.repo.example.com` with the path to your image registry in the following command:
++
+----
+sed -i 's/\[YOUR REGISTRY]/docker.repo.example.com/' astradsoperator.yaml
+----
+
+. Run the install command:
++
+----
+kubectl apply -f  monitoring_operator.yaml
+----
+
+. Configure Astra Data Store for monitoring:
++
+----
+kubectl astrads monitoring -m netapp-monitoring -r [YOUR REGISTRY] setup
 ----
 
 == What's next
