@@ -27,6 +27,10 @@ Astra Data Store does not support firewall-enabled configurations.
 == Upgrade functionality is not provided in this release
 The functionality to upgrade Astra Data Store will be provided in a future release.
 
+== Autosupport periodic settings cannot be disabled in this release
+//CB review
+In the preview release, the periodic settings that are used for sending mandatory telemetry Autosupport bundles should not be changed. If you disable the sending of periodic Autosupport bundles, the cluster will be locked down and new volumes cannot be created until periodic settings are enabled again.
+ 
 == Find more information
 
 * link:../release-notes/known-issues.html[Known issues for this release]

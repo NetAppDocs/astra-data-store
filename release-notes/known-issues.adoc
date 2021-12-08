@@ -16,6 +16,15 @@ Known issues identify problems that might prevent you from using this release of
 //???
 As a workaround, specify the node count value in the `AdsNodeCount` field in the astradscluster.yaml custom resource (CR).
 
+== Calico Encryption interface name format conflict causes FireTap to crash
+//burt 1442348
+When Calico WireGuard Encryption is enabled, the default behavior is to create an interface named wireguard.cali on each node. This name format (the use of a dot) causes FireTap to crash during startup.
+
+To correct, change the wireguardInterfaceName setting in Calico's Felix configuration to specify an interface name without a dot. Here is one example of the many ways to modify the setting:
+
+calicoctl patch felixconfiguration default --type='merge' -p '{"spec":{"wireguardInterfaceName":"calico_wg"}}'
+
+In addition to creating interfaces on each node with the new name, this change might also leave behind the original wireguard.cali interfaces. Delete these interfaces to prevent this issue recurring.
 
 == Find more information
 
