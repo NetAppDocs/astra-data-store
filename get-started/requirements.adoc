@@ -65,7 +65,11 @@ These are the minimum resource requirements and maximum capabilities for each no
 |1 (8GB or greater in size)
 |N/A
 
-|Provisioned capacity
+|Number of volumes
+|N/A
+|10
+
+|Provisioned capacity (the combined size of all existing volumes per node)
 |N/A
 |1TiB
 
@@ -88,17 +92,25 @@ Each Astra Data Store preview cluster has the following minimum requirements and
 |1GiB
 |1TB
 
+|Provisioned capacity (the combined size of all existing volumes per cluster)
+|N/A
+|N * 1 TiB (where N is the number of nodes in the cluster)
+
 |Drive size
 |100GiB
 |N/A
 
 |Number of volumes
 |N/A
-|10 per node
+|N * 10 volumes per node (where N is the number of nodes in the cluster)
 
 |Number of snapshots per volume
 |N/A
 |256
+
+|Number of clones per volume
+|N/A
+|9
 
 |Number of data drives
 |N/A
@@ -152,7 +164,7 @@ Astra Data Store preview has the following cluster capabilities:
 
 //POLARIS-2175
 == Hardware and software requirements
-Astra Data Store preview has been validated on the following hardware and software platforms.
+Astra Data Store preview supports the following hardware platforms, software, and storage.
 
 .Hardware platforms
 * HPE DL360
@@ -170,9 +182,9 @@ Astra Data Store preview has been validated on the following hardware and softwa
 ** Red Hat OpenShift 4.6
 ** Red Hat OpenShift 4.7
 ** Google Anthos 1.7
-** Upstream Kubernetes 1.20
-** Upstream Kubernetes 1.21
-** Upstream Kubernetes 1.22
+** Kubernetes 1.20
+** Kubernetes 1.21
+** Kubernetes 1.22
 
 //POLARIS-461
 .Storage
@@ -188,17 +200,36 @@ Astra Data Store preview requires an Astra Data Store preview license for full f
 == Networking requirements
 Astra Data Store preview needs a certain network interface and IP address configuration for the management, cluster, and data networks.
 
+Each network in Astra Data Store preview installations requires the following bandwidth:
+
+|===
+|Network |Required bandwidth
+
+|Management
+|1GbE or faster interface
+
+|Cluster
+|10GbE or faster interface
+
+|Data
+|10GbE or faster interface
+|===
+
+////
 .Network interface requirements
 * Minimum configuration: One 10GbE or faster network interface
 +
-NOTE: If unspecified, the interface that hosts the management IP address (MIP) is used for all 3 networks (management, cluster and data).
+NOTE: If unspecified, the interface that hosts the management IP address (MIP) on the node is used for all 3 networks (management, cluster and data).
 
 * Maximum configuration: Two network interfaces
 ** One 1GbE or faster interface for the management network
 ** One 10GbE or faster interface for the data network
 
 NOTE: The cluster network should reside on the same interface as either the management network (if the management network is 10GbE or faster), or the data network.
+////
 
+
+////
 .IP address requirements
 * Management network
 ** One IPv4 address (pre-configured) for the management IP address (MIP) of each node
@@ -207,7 +238,50 @@ NOTE: The cluster network should reside on the same interface as either the mana
 ** One IPv4 address (pre-configured) for the cluster IP address of each node on the data network interface. As an alternative, the MIP of the management network interface can be used only if the MIP is hosted on a 10GbE or faster interface.
 * Data network
 ** One IPv4 address (free/spare/unconfigured) for the volume's export address of each node. This address is configured on the data network interface during Astra Data Store preview cluster installation.
+////
 
+.Supported configurations
+Astra Data Store preview supports the following network interface configurations.
+
+NOTE: For increased redundancy when using physical nodes, you should use two network interfaces with an LACP bond or team mode configuration.
+
+The following abbreviations are used in this table:
+
+* MIP: Management IP address
+* CIP: Cluster IP address
+* MVIP: Management virtual IP address
+
+|===
+|Configuration |IP addresses needed
+
+|One network interface per node
+a|
+
+* Two (2) IP addresses per node:
+** MIP/CIP: One (1) pre-configured IP address on management interface per node
+** Data IP: One (1) unused/unconfigured IP address per node in same subnet as MIP
+* One (1) IP address per cluster:
+** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
+
+|Two network interfaces per node
+a|
+
+* Three (3) IP addresses per node:
+** MIP: One (1) pre-configured IP address on management interface per node
+** CIP: One (1) pre-configured IP address on data interface per node in a different subnet from MIP
+** Data IP: One (1) unused/unconfigured IP address per node in same subnet as CIP
+* One (1) IP address per cluster:
+** MVIP: One (1) unused/unconfigured IP address per cluster in same subnet as MIP
+
+|===
+NOTE: You should omit the data network gateway field in the cluster Custom Resource (CR) file, `astradscluster.yaml`, for both of these configurations. The existing routing configuration on each node accommodates all of the addresses.
+
+NOTE: No VLAN tags are used in these configurations.
+
+////
+NOTE: If you use the Calico Container Networking Interface (CNI) networking provider plugin with Kubernetes, you need to configure it to exclude at least one routing table from Calico control. For example, you can do this by changing the "routeTableRange" value in the Calico configmap .yaml file to a value of {Min: 2, Max: 250}. This enables Astra Data Store to perform policy-based network routing.
+
+////
 
 //POLARIS-656 - more questions here for HA requirements (Naveen M is SME)
 //== High availability requirements
@@ -215,11 +289,12 @@ NOTE: The cluster network should reside on the same interface as either the mana
 
 //POLARIS-654 and POLARIS-450
 == Persistent volume sharing requirements
-Each Astra Data Store preview cluster supports using persistent volumes to cover the storage needs of any apps installed on that cluster. Persistent volumes in Astra Data Store preview have the following requirements and capabilities:
+Each Astra Data Store preview cluster supports using persistent volumes to address the storage needs of any apps installed on that cluster. Consider the following requirements and capabilities for persistent volumes in Astra Data Store preview:
 
 .Requirements
-* NFS 4.1 client/server in Kubernetes clusters
-* Kubernetes apps will access files through persistent volumes shared over NFS 4.1, which requires the AUTH_SYS authentication method.
+* The NFSv4.1 client/server must be installed on Kubernetes clusters.
+* The nfs-utils package must be installed on worker nodes.
+* Kubernetes apps access files using persistent volumes shared over NFSv4.1, which requires the AUTH_SYS authentication method.
 
 .Capabilities
 * Parallel NFS (pNFS) is not supported.
