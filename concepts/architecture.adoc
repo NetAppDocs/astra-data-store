@@ -20,11 +20,11 @@ To get a perspective on the entire Astra family, see https://docs.netapp.com/us-
 
 Astra Data Store manages storage drives directly on the hosts using an application deployed and orchestrated with Kubernetes.
 
-It can be installed on bare metal or virtual volumes by using one of the following options:
+It can be installed on bare metal or virtual servers by using one of the following options:
 
-*	Deploy on a standalone dedicated Kubernetes cluster serving persistent volumes to Kubernetes applications running in a separate cluster.
-*	Deploy on a Kubernetes cluster also hosting other workload  applications on the same node pool (converged).
-*	Deploy on a Kubernetes cluster also hosting other workload applications on a different node pool (disaggregated).
+*	Deploy on a standalone dedicated Kubernetes cluster serving persistent volumes to Kubernetes applications running in a separate cluster (standalone cluster).
+*	Deploy on a Kubernetes cluster also hosting other workload  applications on the same node pool (converged cluster).
+*	Deploy on a Kubernetes cluster also hosting other workload applications on a different node pool (disaggregated cluster).
 
 link:../get-started/requirements.html[Learn more about the Astra Data Store hardware requirements].
 
@@ -54,6 +54,11 @@ You can complete tasks using different interfaces:
 * *API*: Astra Control Service and Astra Control Center use the same Astra Control API. Using the API, you can perform the same tasks that you would using the UI. You can also retrieve information about Astra Data Store with the Astra Control API.
 
 * *kubectl commands*: To work with Astra Data Store, you can also use kubectl commands directly.
+
+* *kubectl extension*: Additionally, you can use the Astra Data Store kubernetes API extension.
++
+Custom Resource Definitions (CRDs) are extensions to the kubernetes REST API that are created when the Astra Data Store operator is deployed. External entities interact with the CRDs by making calls to the Kubernetes API server. Astra Data Store watches for updates to specific CRDs and then makes calls to internal REST APIs. 
+
 
 
 == For more information
