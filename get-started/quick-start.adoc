@@ -19,8 +19,7 @@ Try it out! If you want to try Astra Data Store, you can use a 90-day preview li
 [role="quick-margin-list"]
 
 * Clusters must be running in a healthy state, with at least four online worker nodes and one master node.
-* The cluster must be running Kubernetes.
-* Each of the Kubernetes worker nodes that are part of the Astra Data Store deployment should have the same type and number of physical disks.
+* Each of the Kubernetes worker nodes that are part of the Astra Data Store deployment should have the same type and number of physical disks that are used for storage.
 * The drives need to be addressable as SCSI devices, and each drive must have a unique serial number.
 
 
@@ -48,7 +47,7 @@ link:../get-started/install-ads.html[Learn more about installing Astra Data Stor
 * Install Astra Trident.
 * Install Kubernetes Snapshot custom resource definitions (CRDs) and controller.
 * Set up Astra Data Store as a storage backend.
-* Create a generic Astra Data Store storage class.
+* Create a Astra Data Store storage class.
 
 
 [role="quick-margin-para"]
@@ -60,7 +59,7 @@ link:../get-started/setup-ads.html[Learn more about the initial setup process].
 After you finish setting up Astra Data Store, here's what you might do next:
 
 [role="quick-margin-list"]
-* Use kubectl commands to complete tasks, such as place a node in maintenance mode, replace a drive, or replace a node. link:../use/kubectl-commands-ads.html[Learn more about how to use kubectl commands with Astra Data Store].
+* Use kubectl commands and kubectl astrads extension to manage the cluster, including tasks such as place a node in maintenance mode, replace a drive, or replace a node. link:../use/kubectl-commands-ads.html[Learn more about how to use kubectl commands with Astra Data Store].
 
 * Configure monitoring endpoints link:../use/configure-endpoints.html[Learn more about configuring monitoring endpoints].
 

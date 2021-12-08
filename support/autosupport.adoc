@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar
 permalink: support/autosupport.html
-keywords: how to use autosupport, asup, logs, asup bundle, support ticket, support bundle
+keywords: how to use autosupport, autosupport, asup, logs, asup bundle, support ticket, support bundle
 summary: NetApp provides support for Astra Data Store in a variety of ways. Extensive free self-support options are available 24x7, such as knowledgebase (KB) articles and a Slack channel. Your Astra Data Store account includes remote technical support via web ticketing.
 ---
 
@@ -46,27 +46,26 @@ You can create a custom AutoSupport collection configuration that reports on con
 * Collect a control plane component:
 +
 ----
-kubectl astrasds asup collect -c controlplane
+kubectl astrads asup collect -c controlplane
 ----
 +
 This option autogenerates a name and uses the default for Trigger and Priority fields:
 +
 ----
 NAMESPACE    NAME                      COMPONENT      EVENT      TRIGGER PRIORITY   SIZE  STATE
-sds-system   controlplane-manual-xxx   controlplane   manual      event   userTrigger 0    error
+astrads-system   controlplane-manual-xxx   controlplane   manual      event   userTrigger 0    error
 ----
 
 * Collect a control plane component with a custom name:
 +
 ----
-kubectl astrasds asup collect -c controlplane <myASUPname>
+kubectl astrads asup collect -c controlplane <myASUPname>
 ----
 
 * Collect a control plane component for an event type:
-//???Isn't there only manual event types?
 +
 ----
-kubectl astrasds asup collect -c controlplane -e <event_type>
+kubectl astrads asup collect -c controlplane -e <event_type>
 ----
 
 == Configure custom storage AutoSupport collection
@@ -76,7 +75,7 @@ You can create a custom AutoSupport collection configuration that reports on sto
 * Collect a storage ASUP for all nodes:
 +
 ----
-kubectl astrasds asup collect -c storage
+kubectl astrads asup collect -c storage
 ----
 
 * Collect a storage ASUP for all nodes for a specified duration:
@@ -84,7 +83,7 @@ kubectl astrasds asup collect -c storage
 NOTE: Use standard ISO date time format with a duration (`d`) in hours.
 
 ----
-kubectl-astrads asup collect -c storage -t 2021-01-01T15:00:00Z -d 24
+kubectl astrads asup collect -c storage -t 2021-01-01T15:00:00Z -d 24
 ----
 
 * Collect a storage ASUP for all nodes for a `performance` event:
@@ -98,31 +97,29 @@ kubectl-astrads asup collect -c storage -e performance example-perf-storage-asup
 * Collect a storage ASUP for specified node:
 +
 ----
-kubectl astrasds asup collect -c storage –-nodes <nodename>
+kubectl astrads asup collect -c storage –-nodes <nodename>
 ----
 
 * Collect a storage ASUP for specified nodes:
 +
 ----
-kubectl astrasds asup collect -c storage –-nodes nodename1,nodename2,nodename3
+kubectl astrads asup collect -c storage –-nodes nodename1,nodename2,nodename3
 ----
 
 == List ASUPs in the system
 Use the following command to list ASUPs in the system by name:
 
 ----
-./kubectl-astrasds asup list
+kubectl astrasds asup list --namespace=astrads-system
 ----
 
 Sample response:
 
 ----
-NAMESPACE  NAME                                                STATUS
-sds-system controlplane-clustercreatedsuccessfully-2021050...  error
-sds-system controlplane-manual-20210505t070437776700607        error
-sds-system storage-coredump-20210504t153114598673012           error
-sds-system storage-manual-20210505t070437776633690             error
-sds-system storage-manual-20210505t070437776693353             error
+NAMESPACE      NAME                                                SEQUENCE NUMBER EVENT                           SIZE    STATE       LOCAL COLLECTION
+astrads-system  storage-callhome.reboot.unknown-20211115t182151...  1               callhome.reboot.unknown         0       uploaded    astrads-ds-support-tdl2h:
+astrads-system  storage-callhome.reboot.unknown-20211115t182201...  2               callhome.reboot.unknown         0       uploaded    astrads-ds-support-xx6n8:
+astrads-system  storage-callhome.reboot.unknown-20211115t182204...  3               callhome.reboot.unknown         0       uploaded    astrads-ds-support-qghnx:
 ----
 
 == Download an ASUP Bundle

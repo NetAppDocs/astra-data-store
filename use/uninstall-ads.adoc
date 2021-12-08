@@ -10,7 +10,7 @@ summary: To uninstall Astra Data Store, you will remove workloads, bindings, vol
 :icons: font
 :imagesdir: ../media/use/
 
-To uninstall Astra Data Store, you will remove workloads, bindings, volumes, volume snapshots, export policies, clusters, license, deployment environment, and namespace.
+To uninstall Astra Data Store, you will remove workloads, bindings, volumes, volume snapshots, export policies, clusters, license, deployment environment, and the Astra Data Store namespace.
 
 
 .What you'll need
@@ -21,9 +21,9 @@ The Astra Data Store uninstallation process guides you through the following hig
 
 * <<Remove existing workloads and bindings>>
 * <<Delete the volumes, volume snapshots, and export policies>>
-* <<Delete the Astra Data Store clusters>>
-* <<Delete the licenses>>
-* <<Delete the astrads deployment objects>>
+* <<Delete the Astra Data Store cluster>>
+* <<Delete the license>>
+* <<Delete the astrads installation>>
 * <<Validate the removal of the astrads-system namespace>>
 * <<Ensure containers are not running on worker nodes>>
 
@@ -34,7 +34,7 @@ Before uninstalling Astra Data Store, you must first remove the following
 * All application workloads that use Astra Data Store as the backend storage
 * Trident bindings that use Astra Data Store as a backend.
 
-This ensures that your Kubernetes environment is left in a clean state, important if you reinstall.
+This ensures that your Kubernetes environment is left in a clean state, which is important if you reinstall.
 
 
 == Uninstall the Astra Data Store cluster and control plane
@@ -45,124 +45,139 @@ Follow the steps below to uninstall Astra Data Store manually.
 
 Before deleting the cluster, you should delete the Astra Data Store volume snapshots, volumes, and export policy.
 
-TIP: If you do not first delete the volumes and export policy, the cluster deletion process pauses until the Astra Data Store volumes objects are deleted. It is more efficient to remove those items before starting to delete the cluster.
+TIP: If you do not first delete volumes and export policies, the cluster deletion process pauses until the Astra Data Store volumes objects are deleted. It is more efficient to remove those items before starting to delete the cluster.
 
 .Steps
-. Delete the volume snapshots:
-+
-====
-kubectl delete astradsvolumesnapshots --all -A
-====
+
 
 . Delete the volumes:
 +
-====
+----
 kubectl delete astradsvolumes --all -A
-====
+kubectl get astradsvolumes -A
+----
 
 . Delete the export policies:
 +
-====
+----
 kubectl delete astradsexportpolicies --all -A
-====
+kubectl get astradsexportpolicies -A
 
-=== Delete the Astra Data Store clusters
+----
+
+. Delete the volume snapshots:
++
+----
+kubectl delete astradsvolumesnapshots --all -A
+----
+
+=== Delete the Astra Data Store cluster
 
 Deleting the cluster deletes only the Astra Data Store cluster object custom resource (CR) along with cluster-scoped resources.
 
 NOTE: The operator, nodeinfo pods, and the cluster controller (which are Kubernetes-scoped resources) remain even after the cluster is deleted.
 
-Deleting the cluster also deletes the nodes, which will stop the `firetap` and `netwd` services.
+Deleting the cluster also uninstalls FireTap from the nodes, which will stop the `firetap` and `netwd` services.
 
 The uninstaller takes about a minute to finish. Then, clean up of the Astra Data Store cluster-scoped resources starts.
 
 . Delete the cluster:
 +
-====
+----
 kubectl delete astradsclusters --all -A
-====
+kubectl get astradsclusters -A
+----
 
-=== Delete the licenses
+=== Delete the license
 
-. Delete the Astra Data Store licenses:
+. ssh to each worker node in the cluster and validate that `firetap` or `netwd` are not running in the worker nodes.
+. Delete the Astra Data Store license:
 +
-====
+----
 kubectl delete astradslicenses --all -A
-====
+kubectl get astradslicenses -A
 
-=== Delete the astrads deployment objects
+----
+
+=== Delete the astrads installation
 
 Delete the controllers, operators, namespace, and support pods in the cluster.
 
-. Delete the Astra Data Store controller:
+. Delete the Astra Data Store installation object:
 +
-====
+----
 kubectl delete astradsversion astradsversion -n astrads-system
-====
+kubectl get astradsversion -n astrads-system
 
-. Delete the data store:
+----
+
+. Delete the data store DaemonSets and all Astra Data Store controller resources:
 +
-====
+----
 kubectl delete ds --all -n astrads-system
-====
+kubectl get ds -n astrads-system
 
-. Delete all Astra Data Store deployments in the namespace:
-+
-====
 kubectl delete deployments --all -n astrads-system
-====
+kubectl get deployments -n astrads-system
+----
 
-. Delete the Astra Data Store operator yaml file:
+. Delete remaining artifacts and the operator yaml file:
 +
-====
-kubectl delete -f /x/eng/rlse/DOT/devN/final/bedrock/export/firetap/sds/manifests/netappsdsoperator.yaml
-====
+----
+kubectl delete -f /.../export/firetap/sds/manifests/netappsdsoperator.yaml
+kubectl get pods -n astrads-system
+
+----
 
 === Validate the removal of the astrads-system namespace
 
-Ensure that the namespace is not in a `Terminating` state:
+Ensure that the following command returns no result:
 
-====
+----
 kubectl get ns | grep astrads-system
-====
+----
 
 === Ensure containers are not running on worker nodes
 
 Validate that containers such as `firetap` or `netwd` are not running on the worker nodes.
+Run the following on each node.
 
-====
+----
+ssh <mynode1>
 # runc list
-====
+----
+
+
 
 == Manual deletion sample
 The following shows a sample of an execution manual uninstallation script.
 
-====
- [hprad ~]$ kubectl delete astradsvolumes --all -A
+----
+$ kubectl delete astradsvolumes --all -A
 No resources found
-[hprad ~]$ kubectl delete astradsexportpolicies --all -A
+$ kubectl delete astradsexportpolicies --all -A
 No resources found
-[hprad ~]$ kubectl delete astradsclusters --all -A
+$ kubectl delete astradsclusters --all -A
 astradscluster.astrads.netapp.io "astrads-sti-c6220-09-10-11-12" deleted
 
- [hprad ~]$ kubectl delete astradslicenses --all -A
+$ kubectl delete astradslicenses --all -A
 astradslicense.astrads.netapp.io "e900000005" deleted
 
- [hprad ~]$ kubectl delete astradsdeployment astradsdeployment -n astrads-system
+$ kubectl delete astradsdeployment astradsdeployment -n astrads-system
 astradsdeployment.astrads.netapp.io "astradsdeployment" deleted
 
- [hprad ~]$ kubectl delete ds --all -n astrads-system
+$ kubectl delete ds --all -n astrads-system
 daemonset.apps "astrads-ds-astrads-sti-c6220-09-10-11-12" deleted
 daemonset.apps "astrads-ds-nodeinfo-astradsdeployment" deleted
 daemonset.apps "astrads-ds-support" deleted
 
- [hprad ~]$ kubectl delete deployments --all -n astrads-system
+$ kubectl delete deployments --all -n astrads-system
 deployment.apps "astrads-cluster-controller" deleted
 deployment.apps "astrads-deployment-support" deleted
 deployment.apps "astrads-license-controller" deleted
 deployment.apps "astrads-operator" deleted
 
- [hprad ~]$ kubectl delete -f /x/eng/rlse/DOT/devN/final/bedrock/export/firetap/sds/manifests/netappsdsoperator.yaml
+$ kubectl delete -f /.../firetap/sds/manifests/netappsdsoperator.yaml
 namespace "astrads-system" deleted
 customresourcedefinition.apiextensions.k8s.io "astradsautosupports.astrads.netapp.io" deleted
 customresourcedefinition.apiextensions.k8s.io "astradscloudsnapshots.astrads.netapp.io" deleted
@@ -208,10 +223,10 @@ configmap "astrads-fluent-bit-cm" deleted
 configmap "astrads-kevents-asup" deleted
 configmap "astrads-metrics-cm" deleted
 service "astrads-operator-metrics-service" deleted
- Error from server (NotFound): error when deleting "/x/eng/rlse/DOT/devN/final/bedrock/export/firetap/sds/manifests/netappsdsoperator.yaml": deployments.apps "astrads-operator" not found
+ Error from server (NotFound): error when deleting "/.../export/firetap/sds/manifests/netappsdsoperator.yaml": deployments.apps "astrads-operator" not found
 
- [hprad ~]$ kubectl get ns | grep astrads-system
+$ kubectl get ns | grep astrads-system
 
- [root@sti-rx2540-535c ~]# runc list
+[root@sti-rx2540-535c ~]# runc list
 ID      PID     STATUS    BUNDLE       CREATED    OWNER
-====
+----

@@ -5,30 +5,17 @@ keywords: astra, astra data store, astra datastore, kubectl
 summary: You can use kubectl commands directly with Astra Data Store.
 ---
 
-= Manage Astra Data Store with kubectl commands
+= Manage Astra Data Store with kubectl commands or the Astra Data Store API extension
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/get-started/
 
-You can manage Astra Data Store assets by using kubectl commands.
+You can manage Astra Data Store assets by using kubectl commands or the Astra Data Store API extension.
 
 These instructions show you how to manage Astra Data Store assets by using a sample MongoDB app and Yahoo Cloud Serving Benchmark (YSCB) IO tool workflow. The sample app provides context for the examples. The application workload structure includes one MongoDB deployment consisting of a replica-set, which creates a mongo pod and with a MongoDB container running inside that pod.
 
 
-
-== Some tasks you can do with kubectl commands
-
-You can perform many Astra Data Store tasks with kubectl commands.
-
-Here are instructions for some of them:
-
-* <<Describe the deployment>>
-* <<Display volumes>>
-* <<Display the server IP>>
-* <<Describe the volume>>
-
-
-For cluster maintenance information, see link:/use/maintain-cluster.html[Maintain the cluster].
+For the following cluster maintenance information, see link:../use/maintain-cluster.html[Manage the cluster]:
 
 * Place a node in maintenance mode
 * Replace a drive
@@ -40,7 +27,7 @@ For cluster maintenance information, see link:/use/maintain-cluster.html[Maintai
 
 * *asup*: Manage AutoSupport.
 * *clusters*: Display a cluster.
-* *drives*: List drives in a cluster – just lists drives
+* *drives*: List drives in a cluster.
 * *faileddrive*: Replace a failed drive in a cluster.
 * *help*: Get help about any command.
 * *license*: Add a license in the astrads cluster, during the initial Astra Data Store deployment or if you need to update a license after deployment.
@@ -68,67 +55,6 @@ astradsvolumefiles      adsvf      astrads.netapp.io  true        AstraDSVolumeF
 astradsautosupports     adsas      astrads.netapp.io  true        AstraDSAutoSupport
 astradsfaileddrives     adsfd      astrads.netapp.io  true        AstraDSFailedDrive
 astradsnodemanagements  adsnm      astrads.netapp.io  true        AstraDSNodeManagement
-----
-
-
-
-== Describe the deployment
-
-The deployment references a Trident persistent volume claim (PVC). This PVC initializes its own PV: `astradsvolume` and `astradsexportpolicy`. When the YSCB tool is started, IO is sent to the Mongo container inside the pod, and the mounted `astradsvolume` is filled with data.
-
-While all artifacts in these instructions exist in the same namespaces (for example: `astrads-system`), you can instead have their internal namespaces assigned to separate apps from backend artifacts.
-
-Enter: `kubectl describe deployment -n astrads-system mongo0`
-
-Response:
-----
- Pod template:
-  Labels: app=mongo0
-          ...
-          role=database
-  Containers:
-    mongo0:
-      Image: mongo0
-      Post: 27017/TCP
-      Host Port:
-      Command:
-        Mongod
-         --bind_ip_all
-      Environment: <none>
-      Mounts:
-        /data/db from target10 (rw)
-  Volumes:
-    target10:
-      Type:
-      ClaimName: mongo-pvc0
-      ReadOnly: false
-
-----
-
-
-== Display volumes
-
-Display the volumes to which it is bound.
-
-Enter: `kubectl describe pvc -n astrads-system mongo0`
-
-Response:
-----
- Name:         mongo0
- Namespace:    astrads-system
- StorageClass: trident-csi
- Status:       Bound
- Volume:
-----
-
-== Display the server IP
-
-Enter: `kubectl get astradsvolumes -n astrads-system | grep <volume_ID>``
-
-Response:
-
-----
- <volume_ID> 8Gi astrads-cluster-420a40  true
 ----
 
 

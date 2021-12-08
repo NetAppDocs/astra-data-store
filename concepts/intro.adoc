@@ -53,7 +53,7 @@ Astra Data Store provides end-to-end Kubernetes-native storage and data manage
 
 ** *Data efficiency*: Controls cost as you scale through inline deduplication and compression features.
 
-* *Fits into your existing environment*: Supports your microservices-based and traditional workloads, serves all major Kubernetes distributions, provides file and block storage, and runs on your choice of hardware​.
+* *Fits into your existing environment*: Supports your microservices-based and traditional workloads, serves major Kubernetes distributions, provides file storage, and runs on your choice of hardware​.
 
 * *Integration with NetApp Cloud Insights*: Delivers observability, analytics and monitoring for continuous optimization​.
 ​
