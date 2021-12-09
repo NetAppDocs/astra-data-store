@@ -29,7 +29,9 @@ These are the minimum resource requirements for each node in an Astra Data Store
 ////
 
 == Individual node resource requirements and capabilities
-These are the minimum resource requirements and maximum capabilities for each node in an Astra Data Store preview cluster:
+These are the minimum resource requirements required to be assigned to each node and maximum capabilities for each node in an Astra Data Store preview cluster:
+
+// use GiB and TiB exclusively
 |===
 |Resource |Minimum |Maximum
 
@@ -37,32 +39,25 @@ These are the minimum resource requirements and maximum capabilities for each no
 |3
 |N/A
 
-|Number of physical CPU cores
-|4
-|N/A
-
 |Number of vCPUs
-|10
+|9
 |N/A
 
 |RAM
-|36GB
+|36GiB
 |N/A
 
 |Networking bandwidth
 |10GbE
 |N/A
 
-|Total storage capacity
-|1TB
-|N/A
-
+//min disk size
 |Available storage capacity
 |100GiB
 |N/A
 
 |Number of cache devices
-|1 (8GB or greater in size)
+|1 (8GiB or greater in size)
 |N/A
 
 |Number of volumes
@@ -90,7 +85,7 @@ Each Astra Data Store preview cluster has the following minimum requirements and
 
 |Volume size
 |1GiB
-|1TB
+|1TiB
 
 |Provisioned capacity (the combined size of all existing volumes per cluster)
 |N/A
@@ -185,6 +180,8 @@ Astra Data Store preview supports the following hardware platforms, software, an
 ** Kubernetes 1.20
 ** Kubernetes 1.21
 ** Kubernetes 1.22
+* Other software:
+** Astra Trident 21.10.1
 
 //POLARIS-461
 .Storage

@@ -15,7 +15,7 @@ You can manage Astra Data Store assets by using kubectl commands or the Astra Da
 These instructions show you how to manage Astra Data Store assets by using a sample MongoDB app and Yahoo Cloud Serving Benchmark (YSCB) IO tool workflow. The sample app provides context for the examples. The application workload structure includes one MongoDB deployment consisting of a replica-set, which creates a mongo pod and with a MongoDB container running inside that pod.
 
 
-For the following cluster maintenance information, see link:/use/maintain-cluster.html[Maintain the cluster]:
+For the following cluster maintenance information, see link:../use/maintain-cluster.html[Manage the cluster]:
 
 * Place a node in maintenance mode
 * Replace a drive
