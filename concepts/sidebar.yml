@@ -3,7 +3,7 @@ title: Concepts
 entries:
   - title: Intro to Astra Data Store
     url: /concepts/intro.html
-  - title: Architecture
+  - title: Deployment models
     url: /concepts/architecture.html
   - title: Cluster expansion
     url: /concepts/expansion.html

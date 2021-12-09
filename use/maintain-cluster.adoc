@@ -583,9 +583,7 @@ When a drive fails in a cluster, the drive must be replaced as soon as possible 
 
 . List possible replacement drives with the `kubectl astrads show-replacements` command, which filters drives that fit replacement restrictions (unused in cluster, not mounted, no partitions, and equal or larger than failed drive).
 +
-To list all drives without filtering possible replacement drives, add ``--all` to `show-replacements` command.
-+
-The `replace` command will execute drive replacement with the passed serial and will wait to return until a replacement is complete or has failed if --wait is passed
+To list all drives without filtering possible replacement drives, add `--all` to `show-replacements` command.
 +
 ----
 > kubectl astrads faileddrive list --cluster arda-6e4b4af
@@ -596,11 +594,17 @@ NAME       NODE                             CLUSTER        STATE                
 NAME  IDPATH             SERIAL  PARTITIONCOUNT   MOUNTED   SIZE
 sdh   /scsi-36000c29417  45000c  0                false     100GB
 
+
+----
+
+. Use the `replace` command to replace the drive with the passed serial number. The command completes the replacement or fails if ``--wait` time elapses.
++
+----
 > kubectl astrads faileddrive replace --cluster arda-6e4b4af --name 6000c290 --replaceWith 45000c --wait
 Drive replacement completed successfully
 ----
 
-. If `"kubectl astrads faileddrive replace` is executed using an inappropriate ``--replaceWith` serial number, an error appears similar to this:
+. If `kubectl astrads faileddrive replace` is executed using an inappropriate `--replaceWith` serial number, an error appears similar to this:
 +
 ----
 > kubectl astrads replacedrive replace --cluster astrads-cluster-f51b10a --name 6000c2927 --replaceWith BAD_SERIAL_NUMBER

@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: use/uninstall-ads.html
 keywords: astra, astra data store, astra datastore, uninstall
-summary: To uninstall Astra Data Store, you will remove workloads, bindings, volumes, volume snapshots, export policies, clusters, license, deployment environment, and namespace.
+summary: To uninstall Astra Data Store, you will remove workloads, bindings, volumes, export policies, clusters, license, deployment environment, and namespace.
 ---
 
 = Uninstall Astra Data Store
@@ -10,7 +10,7 @@ summary: To uninstall Astra Data Store, you will remove workloads, bindings, vol
 :icons: font
 :imagesdir: ../media/use/
 
-To uninstall Astra Data Store, you will remove workloads, bindings, volumes, volume snapshots, export policies, clusters, license, deployment environment, and the Astra Data Store namespace.
+To uninstall Astra Data Store, you will remove workloads, bindings, volumes, export policies, clusters, license, deployment environment, and the Astra Data Store namespace.
 
 
 .What you'll need
@@ -20,7 +20,7 @@ To uninstall Astra Data Store, you will remove workloads, bindings, volumes, vol
 The Astra Data Store uninstallation process guides you through the following high-level steps:
 
 * <<Remove existing workloads and bindings>>
-* <<Delete the volumes, volume snapshots, and export policies>>
+* <<Delete the volumes and export policies>>
 * <<Delete the Astra Data Store cluster>>
 * <<Delete the license>>
 * <<Delete the astrads installation>>
@@ -41,9 +41,9 @@ This ensures that your Kubernetes environment is left in a clean state, which is
 
 Follow the steps below to uninstall Astra Data Store manually.
 
-=== Delete the volumes, volume snapshots, and export policies
+=== Delete the volumes and export policies
 
-Before deleting the cluster, you should delete the Astra Data Store volume snapshots, volumes, and export policy.
+Before deleting the cluster, you should delete the Astra Data Store volumes and export policy.
 
 TIP: If you do not first delete volumes and export policies, the cluster deletion process pauses until the Astra Data Store volumes objects are deleted. It is more efficient to remove those items before starting to delete the cluster.
 
@@ -65,11 +65,6 @@ kubectl get astradsexportpolicies -A
 
 ----
 
-. Delete the volume snapshots:
-+
-----
-kubectl delete astradsvolumesnapshots --all -A
-----
 
 === Delete the Astra Data Store cluster
 
@@ -77,9 +72,9 @@ Deleting the cluster deletes only the Astra Data Store cluster object custom res
 
 NOTE: The operator, nodeinfo pods, and the cluster controller (which are Kubernetes-scoped resources) remain even after the cluster is deleted.
 
-Deleting the cluster also uninstalls FireTap from the nodes, which will stop the `firetap` and `netwd` services.
+Deleting the cluster also uninstalls the underlying operating system from the nodes, which will stop the `firetap` and `netwd` services.
 
-The uninstaller takes about a minute to finish. Then, clean up of the Astra Data Store cluster-scoped resources starts.
+The uninstaller takes about a minute to finish. Then, the removal of the Astra Data Store cluster-scoped resources starts.
 
 . Delete the cluster:
 +
@@ -99,7 +94,7 @@ kubectl get astradslicenses -A
 
 ----
 
-=== Delete the astrads installation
+=== Delete the Astra Data Store installation
 
 Delete the controllers, operators, namespace, and support pods in the cluster.
 

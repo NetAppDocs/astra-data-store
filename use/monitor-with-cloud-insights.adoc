@@ -8,7 +8,7 @@ summary: You can monitor Astra Data Store assets using Cloud Insights metrics.
 = Monitor metrics with Cloud Insights
 :hardbreaks:
 :icons: font
-:imagesdir: ../media/get-started/
+:imagesdir: ../media/use/
 
 You can monitor Astra Data Store metrics using Cloud Insights.
 
@@ -17,7 +17,10 @@ You can monitor Astra Data Store metrics using Cloud Insights.
 * <<Edit the Cloud Insights connection>>
 * <<Disconnect from Cloud Insights>>
 
-You can also display a list of metrics generated in Astra Data Store by using the <<Open Metrics API Help>>.
+Here are some sample Astra Data Store metrics displayed in Cloud Insights:
+image:ci_ui_metrics.png[Cloud Insights showing Astra Data Store metrics]
+
+You can also display a list of metrics generated in Astra Data Store by using the <<Open Metrics API help>>.
 
 
 == Perform Cloud Insight connection prerequisites
@@ -52,11 +55,16 @@ Then, metrics will be sent as follows:
 . Log in to Cloud Insights.
 . From the Cloud Insights menu, click on *Admin* > *Data Collectors*.
 . Click on *+ Data Collector* to add a new collector.
++
+image:ci_select_data_collector_tile.png[Cloud Insights showing Astra Data Store tile]
+
 . Click on the *Astra Data Store* tile.
 . Select the correct API Access Token or create a new one.
 . Follow the instructions to download the installer script, update the permissions, and run the script.
 +
 The script contains your Cloud Insights tenant URL and the selected API Access Token.
++
+image:ci_install_page_filledin.png[Cloud Insights showing Astra Data Store installation page]
 
 . Click *Complete Setup* after the script completes.
 +
@@ -158,7 +166,7 @@ The full help text for the installer script is shown below:
 
 
 ----
- ./cloudinsights-ads-monitoring.sh -h
+./cloudinsights-ads-monitoring.sh -h
 
 USAGE: cloudinsights-ads-monitoring.sh [OPTIONS]
 Configure monitoring of Astra Data Store by Cloud Insights.
@@ -263,7 +271,7 @@ Then delete the actual directories on the node where the AU was running.
 The Monitoring Operator will update the Telegraf and Fluent Bit configurations and remove the Acquisition Unit.
 
 
-== Open metrics API help
+== Open Metrics API help
 
 Here is a list of APIs that you can use to gather metrics from Astra Data Store.
 
