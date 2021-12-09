@@ -192,7 +192,7 @@ Astra Data Store preview clusters support SAS and NVMe TLC SSD storage with the 
 * RAID configurations are not supported (if you use a RAID controller, enable "pass-through" mode).
 
 == Licensing
-Astra Data Store preview requires an Astra Data Store preview license for full functionality. Obtain a preview license from the NetApp Support Site.
+Astra Data Store preview requires an Astra Data Store preview license for full functionality. Obtain a preview license from the https://mysupport.netapp.com[NetApp Support Site^].
 
 == Networking requirements
 Astra Data Store preview needs a certain network interface and IP address configuration for the management, cluster, and data networks.
