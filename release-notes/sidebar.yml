@@ -1,6 +1,5 @@
 section: release-notes
 title: Release notes
-url: /release-notes/rn_overview.html
 entries:
   - title: What's in this release of Astra Data Store
     url: /release-notes/whats-new.html
