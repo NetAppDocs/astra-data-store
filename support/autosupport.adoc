@@ -42,69 +42,71 @@ These trigger scenarios generate one of these Autosupport types:
 == Configure custom control plane AutoSupport collection
 You can create a custom AutoSupport collection configuration that reports on control plane events. Most installations already enable periodic event reporting by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store cluster installation]. This procedure describes how to configure an AutoSupport CR that reports based on parameters you select:
 
-.Options
-* Collect a control plane component:
+.Steps
+. Customize the following command to create a control plane collection CR:
 +
 ----
-kubectl astrads asup collect -c controlplane
-----
-+
-This option autogenerates a name and uses the default for Trigger and Priority fields:
-+
-----
-NAMESPACE    NAME                      COMPONENT      EVENT      TRIGGER PRIORITY   SIZE  STATE
-astrads-system   controlplane-manual-xxx   controlplane   manual      event   userTrigger 0    error
+kubectl astasds asup collect -c controlplane --namespace=astrads-system
 ----
 
-* Collect a control plane component with a custom name:
+.. Define custom parameters:
+* `<myASUPname>`: The name of the AutoSupport CR to be generated.
+* `-e <event name>`: The event name that triggers collection The event name should be predefined in component.yaml (which is mounted to support controllers).
++
+Example:
 +
 ----
-kubectl astrads asup collect -c controlplane <myASUPname>
+kubectl astrasds asup collect -c controlplane custom-asup-name -e debug --namespace=astrads-system
 ----
 
-* Collect a control plane component for an event type:
-+
-----
-kubectl astrads asup collect -c controlplane -e <event_type>
-----
+.. Add additional parameters as needed for your system:
+* `--cluster`: This flag is required in a multi-cluster environment.
+* `–-localCollection`: Enables local collection. The default is `false.`
+* `–-forceUpload`: Enables force upload. The default is `false.`
+* `–-retry`: Enables retry. The default is `false.`
 
 == Configure custom storage AutoSupport collection
 You can create a custom AutoSupport collection configuration that reports on storage component events. Most installations already enable periodic event reporting by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store cluster installation]. This procedure describes how to configure an AutoSupport CR that reports based on parameters you select:
 
-.Options
-* Collect a storage ASUP for all nodes:
+.Steps
+. Customize the following command to create a storage collection CR:
 +
 ----
-kubectl astrads asup collect -c storage
+kubectl astrasds asup collect -c storage --namespace=astrads-system
 ----
 
-* Collect a storage ASUP for all nodes for a specified duration:
+.. Define custom parameters:
+* `<myASUPname>`: The name of the AutoSupport CR to be generated.
+* `-e <event name>`: The event name that triggers collection The event name should be predefined in component.yaml (which is mounted to support controllers).
 +
-NOTE: Use standard ISO date time format with a duration (`d`) in hours.
-
-----
-kubectl astrads asup collect -c storage -t 2021-01-01T15:00:00Z -d 24
-----
-
-* Collect a storage ASUP for all nodes for a `performance` event:
+Example with performance event:
 +
-NOTE: The default is a `manual` event.
-
 ----
 kubectl-astrads asup collect -c storage -e performance example-perf-storage-asup
 ----
-
-* Collect a storage ASUP for specified node:
+* `-t <ISO_format> -d <hours>`: Collect a storage ASUP for all nodes for a specified duration. Use standard ISO date time format (`-t`) with a duration (`d`) in hours. For example:
 +
 ----
-kubectl astrads asup collect -c storage –-nodes <nodename>
+kubectl astrads asup collect -c storage -t 2021-01-01T15:00:00Z -d 24
 ----
-
-* Collect a storage ASUP for specified nodes:
+* `–-nodes <nodename>`: Collect a storage ASUP for specified node. For example:
 +
 ----
-kubectl astrads asup collect -c storage –-nodes nodename1,nodename2,nodename3
+kubectl astrads asup collect -c storage –-nodes example1
 ----
+
+* `–-nodes nodename1,nodename2,nodename3`: Collect a storage ASUP for specified nodes:
++
+----
+kubectl astrads asup collect -c storage –-nodes example1,example2,example3
+----
+
+.. Add additional parameters as needed for your system:
+* `--cluster`: This flag is required in a multi-cluster environment.
+* `–-localCollection`: Enables local collection. The default is `false.`
+* `–-forceUpload`: Enables force upload. The default is `false.`
+* `–-retry`: Enables retry. The default is `false.`
+
 
 == List ASUPs in the system
 Use the following command to list ASUPs in the system by name:
@@ -126,7 +128,7 @@ astrads-system  storage-callhome.reboot.unknown-20211115t182204...  3           
 You can download locally-collected ASUP bundles using this command. Use `-o <location>` to specify a location other than the current working directory:
 
 ----
-./kubectl-astrasds asup download controlplane-clustercreatedsuccessfully-20210506t200956487629094 -o <location>
+./kubectl-astrasds asup download <ASUP_bundle_name> -o <location>
 ----
 
 [discrete]
