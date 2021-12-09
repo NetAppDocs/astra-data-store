@@ -168,20 +168,20 @@ Astra Data Store preview supports the following hardware platforms, software, an
 * Dell R740
 
 .Software
-* Operating systems:
+* Astra Data Store preview has been validated on the following node operating systems:
 ** Red Hat Enterprise Linux 7.9
 ** Red Hat Enterprise Linux 8.2
 ** Red Hat Enterprise Linux CoreOS (RHCOS)
 ** Ubuntu 20.04
-* Kubernetes distributions:
+* Astra Data Store preview has been validated with the following Kubernetes distributions:
 ** Red Hat OpenShift 4.6
 ** Red Hat OpenShift 4.7
 ** Google Anthos 1.7
 ** Kubernetes 1.20
 ** Kubernetes 1.21
 ** Kubernetes 1.22
-* Other software:
-** Astra Trident 21.10.1
+
+NOTE: Astra Data Store preview requires Astra Trident version 21.10.1 for storage provisioning and orchestration. See the link:setup-ads.html#install-astra-trident[Astra Trident installation instructions].
 
 //POLARIS-461
 .Storage
