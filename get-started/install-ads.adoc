@@ -95,13 +95,16 @@ for astraImageFile in $(ls images/*.tar) ; do
    docker tag ${astraImage} ${REGISTRY}/${astraImage}
    docker push ${REGISTRY}/${astraImage}
 done
+sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/astradsoperator.yaml
+sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/astradsversion.yaml
+sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/astradscluster.yaml
 ----
 
 == Install the Astra Data Store operator
 . List the Astra Data Store manifests:
 +
 ----
-ls manifests/
+ls manifests/*yaml
 ----
 +
 Response:
@@ -110,21 +113,13 @@ Response:
 astradscluster.yaml
 astradsoperator.yaml
 astradsversion.yaml
-----
-
-. Edit the Astra Data Store operator custom resource definition (CRD) YAML to refer to the local registry you pushed the images to in a <<substep_image_local_registry_push,previous step>>:
-+
-NOTE: Replace `docker.repo.example.com` with your repo path before running the command.
-
-+
-----
-sed -i 's/\[YOUR REGISTRY\]/docker.repo.example.com/' astradsoperator.yaml
+monitoring_operator.yaml
 ----
 
 . Deploy the operator using kubectl apply:
 +
 ----
-kubectl apply -f astradsoperator.yaml
+kubectl apply -f ./manifests/astradsoperator.yaml
 ----
 +
 Response:
@@ -177,7 +172,6 @@ configmap/astrads-metrics-cm created
 service/astrads-operator-metrics-service created
 deployment.apps/astrads-operator created
 ----
-//START HERE WITH REVIEW
 . Verify that the Astra Data Store operator pod has started and is running:
 +
 ----
@@ -191,20 +185,44 @@ NAME                                READY   STATUS    RESTARTS   AGE
 astrads-operator-5ffb94fbf-7ln4h    1/1     Running   0          17m
 ----
 
-== Apply the Astra Data Store version YAML
-. Edit the Astra Data Store version file to refer to the local registry you pushed the images to in a <<substep_image_local_registry_push,previous step>>:
-+
-NOTE: Replace `docker.repo.example.com` with your repo path before running the command.
-
-+
-----
-sed 's~\[YOUR REGISTRY\]~docker.repo.example.com~' ./manifests/astradsoperator.yaml > astradsoperator.yaml
-----
+== Deploy the Astra Data Store version YAML
 
 . Deploy using kubectl apply:
 +
 ----
-kubectl apply -f astradsversion.yaml
+kubectl apply -f ./manifests/astradsversion.yaml
+----
+
+. Verify that the Astra Data Store version pod has started and is running:
++
+----
+kubectl get astradsversion -n astrads-system
+----
++
+Response:
++
+----
+NAME             AGE
+astradsversion   1m
+----
+
+. Verify that the pods are running:
++
+----
+kubectl get pods -n astrads-system
+----
++
+Response:
++
+----
+NAME                                          READY   STATUS    RESTARTS   AGE
+astrads-cluster-controller-7f6f884645-xxf2n   1/1     Running   0          117s
+astrads-ds-nodeinfo-astradsversion-2jqnk      1/1     Running   0          2m7s
+astrads-ds-nodeinfo-astradsversion-dbk7v      1/1     Running   0          2m7s
+astrads-ds-nodeinfo-astradsversion-rn9tt      1/1     Running   0          2m7s
+astrads-ds-nodeinfo-astradsversion-vsmhv      1/1     Running   0          2m7s
+astrads-license-controller-fb8fd56bc-bxq7j    1/1     Running   0          2m2s
+astrads-operator-5bb585bc69-7dfkx             1/1     Running   0          2m10s
 ----
 
 == Apply the Astra Data Store license
@@ -234,7 +252,7 @@ p100000006  astrads-c6220-1011121314    true    Astra Data Store Preview    true
 . Open the YAML file:
 +
 ----
-vim astradscluster.yaml
+vim ./manifests/astradscluster.yaml
 ----
 
 . Edit the following values in the YAML file.
@@ -246,9 +264,10 @@ NOTE: An example follows these steps.
 * Change the `mvip` string to the IP address of a floating management IP that is routable from any worker node in the cluster.
 * In `adsDataNetworks`, list floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume.
 * In `adsDataNetworks`, specify the netmask used by the data network.
-.. (Required) *monitoringConfig*: For `monitoringConfig`, do one of the following:
-* If you configured a <<Install the monitoring operator,monitoring operator>>, add the namespace in which the agent CR (monitoring operator resource) is applied (default is `netapp-monitoring`) and the repo path for your registry (`your_registry_path`) that you used in previous steps.
-* If you did not configure a <<Install the monitoring operator,monitoring operator>>, remove the `monitoringConfig` section or keep it commented out.
+//ADD adsNetworkInterfaces step. Need to add managementInterface for host. Specify a specific interface for cluster and storage.
+//.. (Required) *monitoringConfig*: For `monitoringConfig`, do one of the following:
+//* If you configured a <<Install the monitoring operator,monitoring operator>>, add the namespace in which the agent CR (monitoring operator resource) is applied (default is `netapp-monitoring`) and the repo path for your registry (`your_registry_path`) that you used in previous steps.
+//* If you did not configure a <<Install the monitoring operator,monitoring operator>>, remove the `monitoringConfig` section or keep it commented out.
 .. (Optional) *autoSupportConfig*: Retain the link:../support/autosupport.html[AutoSupport] default values unless you need to configure a proxy:
 * For `proxyURL`, set the URL of the proxy with the port that will be used for AutoSupport bundle transfer.
 
@@ -277,9 +296,9 @@ kind: AstraDSCluster
     clusterInterface: "data"
     storageInterface: "data"
   # [Optional] Provide a monitoring config to be used to setup/configure a monitoring agent.
- *# monitoringConfig:*
-   *# namespace: "netapp-monitoring"*
-   *# repo: "[YOUR REGISTRY]"*
+ # monitoringConfig:
+   # namespace: "netapp-monitoring"
+   # repo: "[YOUR REGISTRY]"
   autoSupportConfig:
     autoUpload: true
     enabled: true
@@ -305,7 +324,7 @@ kind: AstraDSCluster
 . Deploy the cluster using kubectl apply:
 +
 ----
-kubectl apply -f astradscluster.yaml
+kubectl apply -f ./manifests/astradscluster.yaml
 ----
 
 . Verify the cluster deployment progress:
@@ -317,24 +336,18 @@ kubectl get astradscluster -n astrads-system
 Sample return:
 +
 ----
-NAME                        STATUS    VERSION                            SERIAL NUMBER   MVIP           AGE
+NAME                        STATUS    VERSION    SERIAL NUMBER    MVIP       AGE
 
-sample-0309d8b   created   sample-9.11.0-6090501   081856669       10.224.8.232   13d
+astrads-c6220-1011121314   created   2021.10.0   p100000006       10.x.x.x   2m
 ----
 
 == Install the monitoring operator
 (Optional) The monitoring operator is recommended if Astra Data Store monitoring will not be performed in Astra Control Center. You can install the monitoring operator if your Astra Data Store instance is a standalone deployment, uses Cloud Insights to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
 
-. Replace `docker.repo.example.com` with the path to your image registry in the following command:
+. If you do not intend to use Astra Control Center to manage the cluster, run this install command:
 +
 ----
-sed -i 's/\[YOUR REGISTRY]/docker.repo.example.com/' astradsoperator.yaml
-----
-
-. Run the install command:
-+
-----
-kubectl apply -f  monitoring_operator.yaml
+kubectl apply -f ./manifests/monitoring_operator.yaml
 ----
 
 . Configure Astra Data Store for monitoring:
