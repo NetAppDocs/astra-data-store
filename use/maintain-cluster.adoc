@@ -416,7 +416,7 @@ spec:
             name: controlplane
             event: daily
           userMessage: Daily Control Plane AutoSupport bundle
-cat: t: No such file or directory
+
 [root@scspr2409016001 42733317_42952507_1x5Node_Astra_DAS-002]# cat nate_hosts/netappsdscluster.yaml
 apiVersion: astrads.netapp.io/v1alpha1
 kind: AstraDSCluster

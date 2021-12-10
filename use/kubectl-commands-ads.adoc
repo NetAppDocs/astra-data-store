@@ -12,6 +12,8 @@ summary: You can use kubectl commands directly with Astra Data Store.
 
 You can manage Astra Data Store assets by using kubectl commands or by using the Kubernetes API extension.
 
+To see how to deploy a sample app, see link:../use/deploy-apps.html[Deploy a test application].
+
 For the following cluster maintenance information, see link:../use/maintain-cluster.html[Manage the cluster]:
 
 * Place a node in maintenance mode
@@ -59,7 +61,7 @@ astradsnodemanagements  adsnm      astrads.netapp.io  true        AstraDSNodeMan
 
 == Describe the volume
 
-Enter: `kubectl describe astradsvolumes -n astrads-system <volume_ID>``
+Enter: `kubectl describe astradsvolumes <volume_ID> -n astrads-system`
 
 Response:
 
