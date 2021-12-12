@@ -28,6 +28,7 @@ The Astra Data Store installation process guides you through the following high-
 * <<Apply the Astra Data Store version YAML>>
 * <<Install the Astra Data Store cluster>>
 * <<Apply the Astra Data Store license>>
+* <<Configure Astra Data Store monitoring>>
 * <<Install the monitoring operator>>
 
 == Download the Astra Data Store bundle
@@ -222,7 +223,7 @@ astrads-ds-nodeinfo-astradsversion-dbk7v      1/1     Running   0          2m7s
 astrads-ds-nodeinfo-astradsversion-rn9tt      1/1     Running   0          2m7s
 astrads-ds-nodeinfo-astradsversion-vsmhv      1/1     Running   0          2m7s
 astrads-license-controller-fb8fd56bc-bxq7j    1/1     Running   0          2m2s
-astrads-operator-5bb585bc69-7dfkx             1/1     Running   0          2m10s
+astrads-operator-5ffb94fbf-7ln4h              1/1     Running   0          2m10s
 ----
 
 == Apply the Astra Data Store license
@@ -264,10 +265,8 @@ NOTE: An example follows these steps.
 * Change the `mvip` string to the IP address of a floating management IP that is routable from any worker node in the cluster.
 * In `adsDataNetworks`, list floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume.
 * In `adsDataNetworks`, specify the netmask used by the data network.
-//ADD adsNetworkInterfaces step. Need to add managementInterface for host. Specify a specific interface for cluster and storage.
-//.. (Required) *monitoringConfig*: For `monitoringConfig`, do one of the following:
-//* If you configured a <<Install the monitoring operator,monitoring operator>>, add the namespace in which the agent CR (monitoring operator resource) is applied (default is `netapp-monitoring`) and the repo path for your registry (`your_registry_path`) that you used in previous steps.
-//* If you did not configure a <<Install the monitoring operator,monitoring operator>>, remove the `monitoringConfig` section or keep it commented out.
+//ADD adsNetworkInterfaces step? Need to add managementInterface for host. Specify a specific interface for cluster and storage.
+.. (Optional) *monitoringConfig*: If you want to configure a <<Install the monitoring operator,monitoring operator>> (optional if you are not using Astra Control Center for monitoring), remove the commenting from the section, add the namespace in which the agent CR (monitoring operator resource) is applied (default is `netapp-monitoring`), and add the repo path for your registry (`your_registry_path`) that you used in previous steps.
 .. (Optional) *autoSupportConfig*: Retain the link:../support/autosupport.html[AutoSupport] default values unless you need to configure a proxy:
 * For `proxyURL`, set the URL of the proxy with the port that will be used for AutoSupport bundle transfer.
 
@@ -296,9 +295,9 @@ kind: AstraDSCluster
     clusterInterface: "data"
     storageInterface: "data"
   # [Optional] Provide a monitoring config to be used to setup/configure a monitoring agent.
- # monitoringConfig:
-   # namespace: "netapp-monitoring"
-   # repo: "[YOUR REGISTRY]"
+ *# monitoringConfig:*
+   *# namespace: "netapp-monitoring"*
+   *# repo: "[YOUR REGISTRY]"*
   autoSupportConfig:
     autoUpload: true
     enabled: true
@@ -341,10 +340,22 @@ NAME                        STATUS    VERSION    SERIAL NUMBER    MVIP       AGE
 astrads-c6220-1011121314   created   2021.10.0   p100000006       10.x.x.x   2m
 ----
 
-== Install the monitoring operator
-(Optional) The monitoring operator is recommended if Astra Data Store monitoring will not be performed in Astra Control Center. You can install the monitoring operator if your Astra Data Store instance is a standalone deployment, uses Cloud Insights to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
+== Configure Astra Data Store monitoring
+You can configure Astra Data Store for Astra Control Center monitoring or for monitoring by another telemetry service.
 
-. If you do not intend to use Astra Control Center to manage the cluster, run this install command:
+=== Configure monitoring for Astra Control Center
+Perform the following step only after Astra Data Store is managed as a backend in Astra Control Center.
+
+. Configure Astra Data Store for monitoring by Astra Control Center:
++
+----
+kubectl astrads monitoring -m netapp-monitoring -r [YOUR REGISTRY] setup
+----
+
+=== Install the monitoring operator
+(Optional) The monitoring operator is recommended only if Astra Data Store monitoring will not be performed in Astra Control Center. You can install the monitoring operator if your Astra Data Store instance is a standalone deployment, uses Cloud Insights to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
+
+. Run this install command:
 +
 ----
 kubectl apply -f ./manifests/monitoring_operator.yaml
