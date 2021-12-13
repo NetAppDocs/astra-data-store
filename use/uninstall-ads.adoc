@@ -101,8 +101,8 @@ Delete the controllers, operators, namespace, and support pods in the cluster.
 . Delete the Astra Data Store installation object:
 +
 ----
-kubectl delete astradsversion astradsversion -n astrads-system
-kubectl get astradsversion -n astrads-system
+kubectl delete AstraDSVersion AstraDSVersion -n astrads-system
+kubectl get AstraDSVersion -n astrads-system
 
 ----
 
