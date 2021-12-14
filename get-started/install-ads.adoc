@@ -90,15 +90,13 @@ docker login [your_registry_path]
 +
 ----
 export REGISTRY=[your_registry_path]
-
 for astraImageFile in $(ls images/*.tar) ; do
-   astraImage=$(docker load --input ${astraImageFile} | sed 's/Loaded image: //')
-   docker tag ${astraImage} ${REGISTRY}/${astraImage}
-   docker push ${REGISTRY}/${astraImage}
+   astraImage=$(docker load --input ${astraImageFile} | sed 's~Loaded image: ~~')
+   astraImageShort=`echo $astraImage | sed 's~.*/~~'`
+   docker tag ${astraImage} ${REGISTRY}/${astraImageShort}
+   docker push ${REGISTRY}/${astraImageShort}
 done
-sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/astradsoperator.yaml
-sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/astradsversion.yaml
-sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/astradscluster.yaml
+sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/*.yaml
 ----
 
 == Install the Astra Data Store operator
