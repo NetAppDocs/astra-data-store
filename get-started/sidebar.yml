@@ -3,10 +3,10 @@ title: Get started
 entries:
   - title: Astra Data Store capabilities
     url: /get-started/capabilities.html
-  - title: Quick start for Astra Data Store
-    url: /get-started/quick-start.html
   - title: Astra Data Store requirements
     url: /get-started/requirements.html
+  - title: Quick start for Astra Data Store
+    url: /get-started/quick-start.html
   - title: Install Astra Data Store
     url: /get-started/install-ads.html
   - title: Set up Astra Data Store components

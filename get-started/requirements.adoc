@@ -60,6 +60,7 @@ a|
 |34GiB
 |N/A
 |===
+NOTE: For the best write performance, you should configure a dedicated high-endurance, low-latency, low-capacity cache device.
 
 Each worker node has the following additional requirements:
 
@@ -67,9 +68,6 @@ Each worker node has the following additional requirements:
 * 1GbE or faster network interface for management network traffic
 * 10GbE or faster network interface for cluster network traffic
 * 10GbE or faster network interface for data network traffic
-
-NOTE: For the best write performance, you should configure a dedicated high-endurance, low-latency, low-capacity cache device.
-
 
 ////
 == Cluster resource requirements and capabilities
