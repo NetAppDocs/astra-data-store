@@ -32,9 +32,9 @@ The Astra Data Store installation process guides you through the following high-
 * <<Install the monitoring operator>>
 
 == Download the Astra Data Store bundle
-. Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store-downloads-tab[NetApp Support Site^] and download the Astra Data Store bundle (`astra-data-store-[version].tar.gz`).
+. Log in to the https://mysupport.netapp.com/site/downloads/evaluation/astra-data-store/download[NetApp Support Site^] and download the Astra Data Store bundle (`astra-data-store-[version].tar.gz`).
 //Need confirmation on tar name.
-. Download the zip of Astra Data Store license file (NLF) from https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^].
+. Download the zip of Astra Data Store license file (NLF) from https://mysupport.netapp.com/site/downloads/evaluation/astra-data-store/download[NetApp Support Site^].
 . (Optional) Use the following command to verify the signature of the bundle:
 +
 ----
