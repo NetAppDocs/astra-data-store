@@ -19,33 +19,25 @@ Astra Data Store preview is Kubernetes-native, shared file software-defined stor
 |4
 |5
 
-|Number of PVs per node
+|Number of persistent volumes per node
 |10
 |N/A
 
-|Total provisioned capacity of PVs per node
+|Total provisioned capacity of persistent volumes per node
 |1TiB
 |N/A
 
-|Volume Size
+|Volume size
 |20MiB
 |1TiB
 
-|Snapshots per Volume
+|Snapshots per volume
 |0
 |256
 
 |Clones per Volume
 |0
 |9
-
-|Number of volumes
-|N/A
-|N * 10 volumes per node (where N is the number of nodes in the cluster)
-
-|Number of data drives
-|N/A
-|14
 |===
 
 == What's next
