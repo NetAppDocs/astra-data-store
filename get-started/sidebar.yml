@@ -1,6 +1,8 @@
 section: get-started
 title: Get started
 entries:
+  - title: Astra Data Store capabilities
+    url: /get-started/capabilities.html
   - title: Quick start for Astra Data Store
     url: /get-started/quick-start.html
   - title: Astra Data Store requirements

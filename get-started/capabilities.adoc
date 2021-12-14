@@ -1,0 +1,53 @@
+---
+sidebar: sidebar
+permalink: get-started/capabilities.html
+keywords: kubernetes cluster, cluster requirements, version requirements, supported versions, apps, supported apps, mariadb, mysql, postgres, kubernetes version, ubuntu, image type, networking
+summary: Get started by verifying support for your environment.
+---
+
+= Astra Data Store preview capabilities
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/get-started/
+
+Astra Data Store preview is Kubernetes-native, shared file software-defined storage (SDS) solution for on-premises data centers that helps customers manage their cloud-native applications. The preview release supports the following capabilities.
+
+|===
+|Resource |Minimum |Maximum
+
+|Number of nodes in Astra Data Store preview cluster
+|4
+|5
+
+|Number of PVs per node
+|10
+|N/A
+
+|Total provisioned capacity of PVs per node
+|1TiB
+|N/A
+
+|Volume Size
+|20MiB
+|1TiB
+
+|Snapshots per Volume
+|0
+|256
+
+|Clones per Volume
+|0
+|9
+
+|Number of volumes
+|N/A
+|N * 10 volumes per node (where N is the number of nodes in the cluster)
+
+|Number of data drives
+|N/A
+|14
+|===
+
+== What's next
+
+Ensure your configuration meets the link:requirements.html[requirements].
