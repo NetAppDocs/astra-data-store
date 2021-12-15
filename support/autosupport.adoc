@@ -61,9 +61,9 @@ kubectl astrasds asup collect -c controlplane custom-asup-name -e debug --namesp
 
 .. Add additional parameters as needed for your system:
 * `--cluster`: This flag is required in a multi-cluster environment.
-* `–-localCollection`: Enables local collection. The default is `false.`
-* `–-forceUpload`: Enables force upload. The default is `false.`
-* `–-retry`: Enables retry. The default is `false.`
+* `--localCollection`: Enables local collection. The default is `false.`
+* `--forceUpload`: Enables force upload. The default is `false.`
+* `--retry`: Enables retry. The default is `false.`
 
 == Configure custom storage AutoSupport collection
 You can create a custom AutoSupport collection configuration that reports on storage component events. Most installations already enable periodic event reporting by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store cluster installation]. This procedure describes how to configure an AutoSupport CR that reports based on parameters you select:
@@ -89,23 +89,23 @@ kubectl-astrads asup collect -c storage -e performance example-perf-storage-asup
 ----
 kubectl astrads asup collect -c storage -t 2021-01-01T15:00:00Z -d 24
 ----
-* `–-nodes <nodename>`: Collect a storage ASUP for specified node. For example:
+* `--nodes <nodename>`: Collect a storage ASUP for specified node. For example:
 +
 ----
-kubectl astrads asup collect -c storage –-nodes example1
+kubectl astrads asup collect -c storage --nodes example1
 ----
 
-* `–-nodes nodename1,nodename2,nodename3`: Collect a storage ASUP for specified nodes:
+* `--nodes nodename1,nodename2,nodename3`: Collect a storage ASUP for specified nodes:
 +
 ----
-kubectl astrads asup collect -c storage –-nodes example1,example2,example3
+kubectl astrads asup collect -c storage --nodes example1,example2,example3
 ----
 
 .. Add additional parameters as needed for your system:
 * `--cluster`: This flag is required in a multi-cluster environment.
-* `–-localCollection`: Enables local collection. The default is `false.`
-* `–-forceUpload`: Enables force upload. The default is `false.`
-* `–-retry`: Enables retry. The default is `false.`
+* `--localCollection`: Enables local collection. The default is `false.`
+* `--forceUpload`: Enables force upload. The default is `false.`
+* `--retry`: Enables retry. The default is `false.`
 
 
 == List ASUPs in the system
