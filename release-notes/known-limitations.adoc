@@ -5,7 +5,7 @@ keywords: astra, control center, limitations, known limitations, interoperabilit
 summary: Known limitations identify platforms, devices, or functions that are not supported by this release of the product, or that do not interoperate correctly with it. Review these limitations carefully.
 ---
 
-= Known limitations with this release
+= Known limitations
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/release-notes/
@@ -34,4 +34,4 @@ In the preview release, the link:../get-started/install-ads.html#install-the-ast
 
 == Find more information
 
-* link:../release-notes/known-issues.html[Known issues for this release]
+* link:../release-notes/known-issues.html[Known issues]

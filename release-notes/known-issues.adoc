@@ -5,7 +5,7 @@ keywords: astra, control center, bugs, known issues, problems
 summary: Known issues identify problems that might prevent you from using this release of the product successfully.
 ---
 
-= Known issues with this release
+= Known issues
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/release-notes/
@@ -30,4 +30,4 @@ In addition to creating interfaces on each node with the new name, this change m
 
 == Find more information
 
-* link:../release-notes/known-limitations.html[Known limitations for this release]
+* link:../release-notes/known-limitations.html[Known limitations]
