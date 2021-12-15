@@ -311,7 +311,7 @@ The minimum memory requirement per node is 32GB.
 ////
 
 == Licensing
-Astra Data Store preview requires an Astra Data Store preview license for full functionality. Obtain a preview license from the https://mysupport.netapp.com/site/downloads/evaluation/astra-data-store[NetApp Support Site^].
+Astra Data Store preview requires an Astra Data Store preview license for full functionality. Sign up https://www.netapp.com/cloud-services/astra/data-store-form/[here] to obtain the Astra Data Store preview license.
 
 == What's next
 
