@@ -20,8 +20,8 @@ Astra Data Store preview is Kubernetes-native, shared file software-defined stor
 |5
 
 |Number of persistent volumes per node
-|10
 |N/A
+|10 or 40 in four-node cluster
 
 |Total provisioned capacity of persistent volumes per node
 |1TiB

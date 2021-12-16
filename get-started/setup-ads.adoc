@@ -260,7 +260,7 @@ rolebinding.rbac.authorization.k8s.io/snapshot-controller-leaderelection created
 . Verify that the CRD YAML files are applied:
 +
 ----
-k get crd | grep volumesnapshot
+kubectl get crd | grep volumesnapshot
 ----
 +
 Sample response:
@@ -275,7 +275,7 @@ volumesnapshots.snapshot.storage.k8s.io               2021-08-04T22:06:17Z
 . Verify that the snapshot controller files are applied:
 +
 ----
-k get pods -n kube-system | grep snapshot
+kubectl get pods -n kube-system | grep snapshot
 ----
 +
 Sample response:

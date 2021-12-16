@@ -258,12 +258,12 @@ vim ./manifests/astradscluster.yaml
 +
 NOTE: An example follows these steps.
 
-.. (Required) *Metadata*: In `metadata`, change the `name` string to the name of your cluster. This must be the same cluster name use when you <<Apply the Astra Data Store license,apply the license>>.
+.. (Required) *Metadata*: In `metadata`, change the `name` string to the name of your cluster. This must be the same cluster name you use when you <<Apply the Astra Data Store license,apply the license>>.
 .. (Required) *Spec*: Change the following required values in `spec`:
 * Change the `mvip` string to the IP address of a floating management IP that is routable from any worker node in the cluster.
 * In `adsDataNetworks`, list floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume.
 * In `adsDataNetworks`, specify the netmask used by the data network.
-//ADD adsNetworkInterfaces step? Need to add managementInterface for host. Specify a specific interface for cluster and storage.
+* In `adsNetworkInterfaces`, replace the `mgmt` and `data` values with the names of your node interfaces for management, cluster, and storage.
 .. (Optional) *monitoringConfig*: If you want to configure a <<Install the monitoring operator,monitoring operator>> (optional if you are not using Astra Control Center for monitoring), remove the commenting from the section, add the namespace in which the agent CR (monitoring operator resource) is applied (default is `netapp-monitoring`), and add the repo path for your registry (`your_registry_path`) that you used in previous steps.
 .. (Optional) *autoSupportConfig*: Retain the link:../support/autosupport.html[AutoSupport] default values unless you need to configure a proxy:
 * For `proxyURL`, set the URL of the proxy with the port that will be used for AutoSupport bundle transfer.
@@ -324,13 +324,41 @@ kind: AstraDSCluster
 kubectl apply -f ./manifests/astradscluster.yaml
 ----
 
+. Wait a few minutes for the cluster creation operation to complete and then verify that the pods are running:
++
+----
+kubectl get pods -n astrads-system
+----
++
+Sample response:
++
+----
+NAME READY STATUS RESTARTS AGE
+astrads-cluster-controller-7c67cc7f7b-2jww2 1/1 Running 0 7h31m
+astrads-deployment-support-788b859c65-2qjkn 3/3 Running 19 12d
+astrads-ds-astrads-cluster-1ab0dbc-j9jzc 1/1 Running 0 5d2h
+astrads-ds-astrads-cluster-1ab0dbc-k9wp8 1/1 Running 0 5d1h
+astrads-ds-astrads-cluster-1ab0dbc-pwk42 1/1 Running 0 5d2h
+astrads-ds-astrads-cluster-1ab0dbc-qhvc6 1/1 Running 0 8h
+astrads-ds-nodeinfo-astradsversion-gcmj8 1/1 Running 1 12d
+astrads-ds-nodeinfo-astradsversion-j826x 1/1 Running 3 12d
+astrads-ds-nodeinfo-astradsversion-vdthh 1/1 Running 3 12d
+astrads-ds-nodeinfo-astradsversion-xwgsf 1/1 Running 0 12d
+astrads-ds-support-828vw 2/2 Running 2 5d2h
+astrads-ds-support-cfzts 2/2 Running 0 8h
+astrads-ds-support-nzkkr 2/2 Running 15 7h49m
+astrads-ds-support-xxbnp 2/2 Running 1 5d2h
+astrads-license-controller-86c69f76bb-s6fb7 1/1 Running 0 8h
+astrads-operator-79ff8fbb6d-vpz9m 1/1 Running 0 8h
+----
+
 . Verify the cluster deployment progress:
 +
 ----
 kubectl get astradscluster -n astrads-system
 ----
 +
-Sample return:
+Sample response:
 +
 ----
 NAME                        STATUS    VERSION    SERIAL NUMBER    MVIP       AGE
