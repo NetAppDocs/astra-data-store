@@ -20,7 +20,7 @@ For additional clarifications, please reach out to astra.feedback@netapp.com
 
 Yes, Astra Data Store preview requires a NetApp license file (NLF).
 
-See link:../get-started/requirements.html[learn about Astra Data Store requirements].
+See link:../get-started/requirements.html#licensing[learn about Astra Data Store requirements].
 
 == Support
 
