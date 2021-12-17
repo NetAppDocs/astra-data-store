@@ -436,6 +436,59 @@ scsi-36000..  c3e197f2... Active         sti-rx2540... cluster-multinodes-21209
 == Replace a drive
 
 When a drive fails in a cluster, the drive must be replaced as soon as possible to ensure data integrity.
+When a drive fails, you will see failed drive information in cluster CR node status, cluster health condition information, and the metrics endpoint.
+
+.Example of `cluster` showing failed drive in nodeStatuses.driveStatuses
+
+----
+$ kubectl get adscl -A -o yaml
+...
+apiVersion: astrads.netapp.io/v1alpha1
+kind: AstraDSCluster
+...
+nodeStatuses:
+  - driveStatuses:
+    - driveID: 31205e51-f592-59e3-b6ec-185fd25888fa
+      driveName: scsi-36000c290ace209465271ed6b8589b494
+      drivesStatus: Failed
+    - driveID: 3b515b09-3e95-5d25-a583-bee531ff3f31
+      driveName: scsi-36000c290ef2632627cb167a03b431a5f
+      drivesStatus: Active
+    - driveID: 0807fa06-35ce-5a46-9c25-f1669def8c8e
+      driveName: scsi-36000c292c8fc037c9f7e97a49e3e2708
+      drivesStatus: Active
+...
+----
+
+.Example of new AstraDSFailedDrive CR
+
+The failed drive CR is created automtically in the cluster with a name corresponding to the UUID of the failed drive.
+
+----
+$ kubectl get adsfd -A -o yaml
+
+...
+apiVersion: astrads.netapp.io/v1alpha1
+kind: AstraDSFailedDrive
+metadata:
+    name: c290a-5000-4652c-9b494
+    namespace: astrads-system
+spec:
+  executeReplace: false
+  replaceWith: ""
+ status:
+   cluster: arda-6e4b4af
+   failedDriveInfo:
+     failureReason: AdminFailed
+     inUse: false
+     name: scsi-36000c290ace209465271ed6b8589b494
+     path: /dev/disk/by-id/scsi-36000c290ace209465271ed6b8589b494
+     present: true
+     serial: 6000c290ace209465271ed6b8589b494
+     node: sti-rx2540-300b.ctl.gdl.englab.netapp.com
+   state: ReadyToReplace
+----
+
 
 .Steps
 
