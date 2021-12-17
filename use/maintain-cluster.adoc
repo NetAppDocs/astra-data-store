@@ -93,7 +93,7 @@ The Maintenance state changes from "Preparing for Maintenance" to "Ready for Mai
 . After the node maintenance is complete, disable maintenance mode:
 +
 ----
-~% ubectl astrads maintenance update maint1 --node-name="nhcitjj1525" --variant=None
+~% kubectl astrads maintenance update maint1 --node-name="nhcitjj1525" --variant=None
 ----
 
 . Ensure that the node is no longer in maintenance mode:
@@ -113,7 +113,7 @@ The node that you are adding should be part of the Kubernetes cluster and should
 .. Edit the astradscluster CR and add the additional dataIP in the ADS Data Networks Addresses field:
 +
 ----
-~% ubectl edit astradscluster <cluster-name> -n astrads-system
+~% kubectl edit astradscluster <cluster-name> -n astrads-system
 
 ADS Data Networks:
     Addresses:  dataIP1, dataIP2, dataIP3, dataIP4, *newdataIP*
@@ -481,5 +481,5 @@ Current status: {FailedDriveInfo:{InUse:false Present:true Name:scsi-36000c2 Fir
 ----
 
 == For more information
-Also see this information.
-* link:../use/kubectl-commands-ads.html[Manage Astra Data Store with kubectl commands].
+
+* link:../use/kubectl-commands-ads.html[Manage Astra Data Store with kubectl commands]
