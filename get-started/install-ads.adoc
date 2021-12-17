@@ -10,12 +10,14 @@ summary: To install Astra Data Store after addressing some environmental prerequ
 :icons: font
 :imagesdir: ../media/get-started/
 
-To install Astra Data Store, download the installation bundle from the NetApp Support Site and perform a series a commands to install it in your environment. You can use this procedure to install Astra Data Store in internet-connected or air-gapped environments.
+To install Astra Data Store, download the installation bundle from the NetApp Support Site and complete installation steps described in this procedure.
 
 .What you'll need
 * link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
 * Access to the NetApp Support Site. https://www.netapp.com/cloud-services/astra/data-store-form/[Register] for a preview if you don’t already have a full-access NetApp Support Site account.
-* Root administrative permissions.
+* A link:../get-started/requirements.html#licensing[NetApp license file (NLF)] for Astra Data Store preview.
+* An active kubeconfig with cluster admin rights for the active context.
+* Internet connectivity. Astra Data Store Preview does not support air-gapped environments. Internet connectivity is needed to reach support.netapp.com either directly or via a proxy.
 
 .About this task
 The Astra Data Store installation process guides you through the following high-level steps:
@@ -23,15 +25,16 @@ The Astra Data Store installation process guides you through the following high-
 * <<Download the Astra Data Store bundle>>
 * <<Unpack the bundle and change directory>>
 * <<Copy the binary and push images to your local registry>>
-* <<Install the monitoring operator>>
 * <<Install the Astra Data Store operator>>
-* <<Edit and apply the Astra Data Store Deployment YAML>>
+* <<Apply the Astra Data Store version YAML>>
 * <<Install the Astra Data Store cluster>>
-* <<Edit and apply the Astra Data Store license>>
+* <<Apply the Astra Data Store license>>
+* <<Configure Astra Data Store monitoring>>
+* <<Install the monitoring operator>>
 
 == Download the Astra Data Store bundle
-. Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store-downloads-tab[NetApp Support Site^] and download the Astra Data Store bundle (`astra-data-store-[version].tar.gz`).
-. Download the zip of Astra Data Store license file (NLF) from https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^].
+. Log in to the https://mysupport.netapp.com/site/downloads/evaluation/astra-data-store/download[NetApp Support Site^] and download the Astra Data Store bundle (`astra-data-store-[version].tar.gz`).
+//Need confirmation on tar name.
 . (Optional) Use the following command to verify the signature of the bundle:
 +
 ----
@@ -52,19 +55,22 @@ tar -vxzf astra-data-store-[version].tar.gz
 cd astra-data-store-[version]
 ----
 
-. Define the path where the kubectl binary is to be installed. For example, `/usr/bin/kubectl` could be the binary path where kubectl is installed.
+. Define the path where the kubectl binary is to be installed.
++
+NOTE: `/usr/bin/kubectl` is used as an example as the binary path. Replace it with your path before running the command.
+
 +
 ----
 which kubectl
-<install_path>
+/usr/bin/kubectl
 ----
 
 == Copy the binary and push images to your local registry
 
-. Copy the kubectl-astrads binary to the standard path where k8s kubectl binaries are installed; for example, `/usr/bin/`. kubectl-astrads is a custom kubectl extension that installs and manages Astra Data Store clusters.
+. Copy the kubectl-astrads binary from the directory you used to extract images to the standard path where k8s kubectl binaries are installed; for example, `/usr/bin/`. kubectl-astrads is a custom kubectl extension that installs and manages Astra Data Store clusters.
 +
 ----
-cp -f kubectl-astrads <path from previous command>
+cp -p ./bin/kubectl-astrads /usr/bin/.
 ----
 
 . Add the files in the Astra Data Store image directory to your local registry.
@@ -77,37 +83,25 @@ NOTE: See a sample script for the automatic loading of images below.
 docker login [your_registry_path]
 ----
 
-.. Load the images into Docker.
-.. Tag the images.
-.. [[substep_image_local_registry_push]]Push the images to your local registry.
+.. Run the script to load the images into Docker, tag the images, and [[substep_image_local_registry_push]]push the images to your local registry:
 
 +
 ----
 export REGISTRY=[your_registry_path]
-for astraImageFile in $(ls images/*.tar)
-  # Load to local cache. And store the name of the loaded image trimming the 'Loaded images: '
-  do astraImage=$(docker load --input ${astraImageFile} | sed 's/Loaded image(s): //')
-  astraImage=$(echo ${astraImage} | sed 's!localhost/!!')
-  # Tag with local image repo.
-  docker tag ${astraImage} ${REGISTRY}/${astraImage}
-  # Push to the local repo.
-  docker push ${REGISTRY}/${astraImage}
+for astraImageFile in $(ls images/*.tar) ; do
+   astraImage=$(docker load --input ${astraImageFile} | sed 's~Loaded image: ~~')
+   astraImageShort=`echo $astraImage | sed 's~.*/~~'`
+   docker tag ${astraImage} ${REGISTRY}/${astraImageShort}
+   docker push ${REGISTRY}/${astraImageShort}
 done
-----
-
-== Install the monitoring operator
-(Optional) The monitoring operator is recommended if Astra Data Store monitoring will not be performed in Astra Control Center. You can install the monitoring operator if your Astra Data Store instance is a standalone deployment, uses Cloud Insights to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
-
-. Run the install command:
-----
-helm3 install /u/samip/p4/netapp-monitoring --generate-name -n default
+sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/*.yaml
 ----
 
 == Install the Astra Data Store operator
 . List the Astra Data Store manifests:
 +
 ----
-ls manifests/
+ls manifests/*yaml
 ----
 +
 Response:
@@ -116,20 +110,65 @@ Response:
 astradscluster.yaml
 astradsoperator.yaml
 astradsversion.yaml
+monitoring_operator.yaml
 ----
 
-. Edit the Astra Data Store operator custom resource definition (CRD) YAML to refer to the local registry (`your_registry_path`) you pushed the images to in a <<substep_image_local_registry_push,previous step>>:
+. Deploy the operator using kubectl apply:
 +
 ----
-sed -i 's/\[your_registry_path\]/docker.repo.customer.com/' astradsoperator.yaml
+kubectl apply -f ./manifests/astradsoperator.yaml
 ----
-
-. Apply the changes to the file:
++
+Response:
 +
 ----
-kubectl apply -f astradsoperator.yaml
+namespace/astrads-system created
+customresourcedefinition.apiextensions.k8s.io/astradsautosupports.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradscloudsnapshots.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsclusters.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsdeployments.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsexportpolicies.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsfaileddrives.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradslicenses.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsnfsoptions.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsnodeinfoes.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsqospolicies.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsvolumefiles.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsvolumes.astrads.netapp.io created
+customresourcedefinition.apiextensions.k8s.io/astradsvolumesnapshots.astrads.netapp.io created
+role.rbac.authorization.k8s.io/astrads-leader-election-role created
+clusterrole.rbac.authorization.k8s.io/astrads-astradscloudsnapshot-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-astradscloudsnapshot-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-astradscluster-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-astradscluster-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-astradslicense-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-astradslicense-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-astradsvolume-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-astradsvolume-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-autosupport-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-autosupport-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-manager-role created
+clusterrole.rbac.authorization.k8s.io/astrads-metrics-reader created
+clusterrole.rbac.authorization.k8s.io/astrads-netappexportpolicy-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-netappexportpolicy-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-netappsdsdeployment-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-netappsdsdeployment-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-netappsdsnfsoption-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-netappsdsnfsoption-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-netappsdsnodeinfo-editor-role created
+clusterrole.rbac.authorization.k8s.io/astrads-netappsdsnodeinfo-viewer-role created
+clusterrole.rbac.authorization.k8s.io/astrads-proxy-role created
+rolebinding.rbac.authorization.k8s.io/astrads-leader-election-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/astrads-manager-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/astrads-proxy-rolebinding created
+configmap/astrads-autosupport-cm created
+configmap/astrads-firetap-cm created
+configmap/astrads-fluent-bit-cm created
+configmap/astrads-kevents-asup created
+configmap/astrads-metrics-cm created
+service/astrads-operator-metrics-service created
+deployment.apps/astrads-operator created
 ----
-
 . Verify that the Astra Data Store operator pod has started and is running:
 +
 ----
@@ -143,150 +182,162 @@ NAME                                READY   STATUS    RESTARTS   AGE
 astrads-operator-5ffb94fbf-7ln4h    1/1     Running   0          17m
 ----
 
-== Edit and apply the Astra Data Store Deployment YAML
-. Edit the Astra Data Store deployment custom resource (CR) file to refer to the local registry (`your_registry_path`) you pushed the images to in a <<substep_image_local_registry_push,previous step>>:
+== Deploy the Astra Data Store version YAML
+
+. Deploy using kubectl apply:
 +
 ----
-sed -i 's/\[your_registry_path\]/docker.repo.customer.com/' astradsversion.yaml
+kubectl apply -f ./manifests/astradsversion.yaml
 ----
 
-. Apply the updated file:
+. Verify that the pods are running:
 +
 ----
-kubectl apply -f astradsversion.yaml
+kubectl get pods -n astrads-system
+----
++
+Response:
++
+----
+NAME                                          READY   STATUS    RESTARTS   AGE
+astrads-cluster-controller-7f6f884645-xxf2n   1/1     Running   0          117s
+astrads-ds-nodeinfo-astradsversion-2jqnk      1/1     Running   0          2m7s
+astrads-ds-nodeinfo-astradsversion-dbk7v      1/1     Running   0          2m7s
+astrads-ds-nodeinfo-astradsversion-rn9tt      1/1     Running   0          2m7s
+astrads-ds-nodeinfo-astradsversion-vsmhv      1/1     Running   0          2m7s
+astrads-license-controller-fb8fd56bc-bxq7j    1/1     Running   0          2m2s
+astrads-operator-5ffb94fbf-7ln4h              1/1     Running   0          2m10s
 ----
 
-== Edit and apply the Astra Data Store license
+== Apply the Astra Data Store license
 
 NOTE: For the Astra Data Store preview release, the license type is limited to preview.
 
-. Apply the NetApp License File (NLF) that you obtained from the NetApp Support Site (NSS). Before you run the command, enter the name of the cluster (`<Astra-Data-Store-cluster-name>`) that you are <<Install the Astra Data Store cluster,going to deploy>> or have already deployed and the path to the license file (`<file_path/file.txt>`):
+. Apply the NetApp License File (NLF) that you obtained when you signed up for the preview. Before you run the command, enter the name of the cluster (`<Astra-Data-Store-cluster-name>`) that you are <<Install the Astra Data Store cluster,going to deploy>> or have already deployed and the path to the license file (`<file_path/file.txt>`):
 +
 ----
 kubectl astrads license add --license-file-path <file_path/file.txt> --ads-cluster-name <Astra-Data-Store-cluster-name> -n astrads-system
 ----
-+
-Response:
-+
-----
-astradslicense.astrads.netapp.io/e900000005 created
-----
 
-. Verify that license has been added:
+. Verify that the license has been added:
 +
 ----
-kubectl get astradslicense -A
+kubectl astrads license list
 ----
 +
 Response:
 +
 ----
-Status:
-  Ads Cluster Name:  astrads-cluster-c62b612
-  Configuration:
-    Cluster Core Count Total:           45
-    Cluster Storage Max Capacity Ti B:  240
-  Last Autosupport:                     2021-10-29T19:19:47Z
-  Last License Validation:              2021-10-29T19:25:13Z
-  License Info:
-    End Date:                  2022-01-23
-    Entitlement Last Updated:  2021-10-26T18:26:14.882845
-    Evaluation:                true
-    Host ID:                   
-      License Serial Number:     p100000006
-      Product:                   Astra Data Store Preview
-      Protocol:                  ADS_DEV_SUBS
+NAME        ADSCLUSTER                  VALID   PRODUCT                     EVALUATION  ENDDATE     VALIDATED
+p100000006  astrads-c6220-1011121314    true    Astra Data Store Preview    true        2022-01-23  2021-11-04T14:38:54Z
 ----
 
 == Install the Astra Data Store cluster
 . Open the YAML file:
 +
 ----
-vim astradscluster.yaml
+vim ./manifests/astradscluster.yaml
 ----
 
 . Edit the following values in the YAML file.
 +
-NOTE: An example follows these steps.
+NOTE: A simplified example of the YAML file follows these steps.
 
-.. (Required) *Metadata*: In `metadata`, change the `name` string to the name of your cluster. This must be the same cluster name use when you <<Edit and apply the Astra Data Store license,apply the license>>.
+.. (Required) *Metadata*: In `metadata`, change the `name` string to the name of your cluster. This must be the same cluster name you use when you <<Apply the Astra Data Store license,apply the license>>.
 .. (Required) *Spec*: Change the following required values in `spec`:
 * Change the `mvip` string to the IP address of a floating management IP that is routable from any worker node in the cluster.
 * In `adsDataNetworks`, list floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume.
 * In `adsDataNetworks`, specify the netmask used by the data network.
-* In `astraOptions`, add the license number (`serialNumber`) from the NLF.
-* In `adsNodeConfig`, enter the per-node CPU core count and memory limits for the FireTap container.
-.. (Required) *monitoringConfig*: For `monitoringConfig`, do one of the following:
-* If you configured a <<Install the monitoring operator,monitoring operator>>, add the the namespace in which the agent CR (monitoring operator resource) is applied (default is `netapp-monitoring`) and the repo path for your registry (`your_registry_path`) that you used in previous steps.
-* If you did not configure a <<Install the monitoring operator,monitoring operator>>, remove or comment out the `monitoringConfig` section.
-.. (Optional) *autoSupportConfig*: Change the following link:../support/autosupport.html[AutoSupport] values or use the default values:
-* For `historyRetentionCount`, enter a limit for the number of ASUPs present in a system at any given time.
-* For `coredumpUpload`, enter `true` if core dumps should be uploaded to backend by default.
-* For `autoUpload`, retain the setting of `true` for the Astra Data Store preview edition.
-* For `destinationURL`, enter the backend URL where ASUPs will be uploaded.
-* In `periodicconfig`, enter the `event` ASUP reporting frequency for each system component.
-.. (Optional) Change the following values or use the default values:
-* In `spec`, enter a limit for how many nodes can be in the deployment (`adsNodeCount`).
-* In `spec`, enter a selector label that filters out nodes for the cluster (`adsNodeSelector`).
-*  In `spec`, provide a key that defines which protection domain a node belongs to (`adsProtectionDomainKey`).
-* In `adsNetworkInterfaces`, enter the management, cluster, and storage interfaces.
-* In `adsNodeConfig`, enter the per-node capacity, name of cache device to be configured for the FireTap container, and drive regex filter to select disks.
+* In `adsNetworkInterfaces`, replace the `mgmt` and `data` values with the network interface names you want to use for management, cluster, and storage. If no names are specified, the node's primary interface will be used for management, cluster, and storage networking.
++
+NOTE: Cluster and storage networks need to be on the same interface.
+
+.. (Optional) *monitoringConfig*: If you want to configure a <<Install the monitoring operator,monitoring operator>> (optional if you are not using Astra Control Center for monitoring), remove the commenting from the section, add the namespace in which the agent CR (monitoring operator resource) is applied (default is `netapp-monitoring`), and add the repo path for your registry (`your_registry_path`) that you used in previous steps.
+.. (Optional) *autoSupportConfig*: Retain the link:../support/autosupport.html[AutoSupport] default values unless you need to configure a proxy:
+* For `proxyURL`, set the URL of the proxy with the port that will be used for AutoSupport bundle transfer.
+
++
+NOTE: Most comments have been removed from the YAML sample below.
 
 +
 [subs=+quotes]
 ----
 apiVersion: astrads.netapp.io/v1alpha1
 kind: AstraDSCluster
-metadata:
-  *name: <name of your cluster>*
+*metadata:*
+  *name: astrads-cluster-name*
   namespace: astrads-system
-spec:
-  *mvip: <management IP address>*
-  adsNodeCount: <optional node limit>
-  adsNodeSelector: <optional selector label for node filtering>
-  adsProtectionDomainKey: <optional key that defines which protection domain a node belongs to>
-  adsDataNetworks:
-    - *addresses: <CSV list of floating IP addresses>*
-      *netmask: <The netmask used by dataNetworks>*
-      gateway:
-  adsNetworkInterfaces:
-    managementInterface: <Management interface>
-    clusterInterface: <Cluster interface>
-    storageInterface: <Storage interface>
-  astraOptions:
-    *serialNumber: <serial number from license file>*
+*spec:*
   adsNodeConfig:
-    *cpu: <per-node cpu core count>*
-    *memory: <per node memory limit>*
-    capacity: <optional limit for per-node raw storage consumption>
-    cacheDevice: <optional name of device to be configured as cache device for FireTap container>
-    drivesFilter: <optional regex filter to select disks>
-  *monitoringConfig:*
-    *namespace: <namespace where applied>*
-    *repo: <your_registry_path>*
+    cpu: 9
+    memory: 34
+  adsNodeCount: 4
+  *mvip: ""*
+  *adsDataNetworks:*
+    *- addresses: ""*
+      *netmask:*
+  adsNetworkInterfaces:
+    managementInterface: "mgmt"
+    clusterInterface: "data"
+    storageInterface: "data"
+  # [Optional] Provide a monitoring config to be used to setup/configure a monitoring agent.
+ *# monitoringConfig:*
+   *# namespace: "netapp-monitoring"*
+   *# repo: "[YOUR REGISTRY]"*
   autoSupportConfig:
-    historyRetentionCount: 10
-    coredumpUpload: false
     autoUpload: true
-    destinationURL: "https://example.com/put/AsupPut"
+    enabled: true
+    coredumpUpload: false
+    historyRetentionCount: 25
+    destinationURL: "https://support.netapp.com/put/AsupPut"
+    # ProxyURL defines the URL of the proxy with port to be used for AutoSupport bundle transfer
+    *# proxyURL:*
     periodic:
       - schedule: "0 0 * * *"
         periodicconfig:
         - component:
+            name: storage
+            event: dailyMonitoring
+          userMessage: Daily Monitoring Storage AutoSupport bundle
+          nodes: all
+        - component:
             name: controlplane
             event: daily
           userMessage: Daily Control Plane AutoSupport bundle
-        - component:
-            name: storage
-            event: dailyMonitoring
-          nodes: all
-          userMessage: Daily Monitoring Storage AutoSupport bundle
 ----
 
-. Apply the updated file:
+. Deploy the cluster using kubectl apply:
 +
 ----
-kubectl apply -f astradscluster.yaml
+kubectl apply -f ./manifests/astradscluster.yaml
+----
+
+. Wait a few minutes for the cluster creation operation to complete and then verify that the pods are running:
++
+----
+kubectl get pods -n astrads-system
+----
++
+Sample response:
++
+----
+NAME READY STATUS RESTARTS AGE
+astrads-cluster-controller-7c67cc7f7b-2jww2 1/1 Running 0 7h31m
+astrads-deployment-support-788b859c65-2qjkn 3/3 Running 19 12d
+astrads-ds-astrads-cluster-1ab0dbc-j9jzc 1/1 Running 0 5d2h
+astrads-ds-astrads-cluster-1ab0dbc-k9wp8 1/1 Running 0 5d1h
+astrads-ds-astrads-cluster-1ab0dbc-pwk42 1/1 Running 0 5d2h
+astrads-ds-astrads-cluster-1ab0dbc-qhvc6 1/1 Running 0 8h
+astrads-ds-nodeinfo-astradsversion-gcmj8 1/1 Running 1 12d
+astrads-ds-nodeinfo-astradsversion-j826x 1/1 Running 3 12d
+astrads-ds-nodeinfo-astradsversion-vdthh 1/1 Running 3 12d
+astrads-ds-nodeinfo-astradsversion-xwgsf 1/1 Running 0 12d
+astrads-ds-support-828vw 2/2 Running 2 5d2h
+astrads-ds-support-cfzts 2/2 Running 0 8h
+astrads-ds-support-nzkkr 2/2 Running 15 7h49m
+astrads-ds-support-xxbnp 2/2 Running 1 5d2h
+astrads-license-controller-86c69f76bb-s6fb7 1/1 Running 0 8h
+astrads-operator-79ff8fbb6d-vpz9m 1/1 Running 0 8h
 ----
 
 . Verify the cluster deployment progress:
@@ -295,12 +346,47 @@ kubectl apply -f astradscluster.yaml
 kubectl get astradscluster -n astrads-system
 ----
 +
-Sample return:
+Sample response:
 +
 ----
-NAME                        STATUS    VERSION                            SERIAL NUMBER   MVIP           AGE
+NAME                        STATUS    VERSION    SERIAL NUMBER    MVIP       AGE
 
-sample-0309d8b   created   sample-9.11.0-6090501   081856669       10.224.8.232   13d
+astrads-c6220-1011121314   created   2021.10.0   p100000006       10.x.x.x   2m
+----
++
+During cluster deployment, the operation status should change from `blank` to `pending` to `created`. To monitor cluser events during depoyment, you can run the following command:
++
+----
+kubectl get events --field-selector involvedObject.kind=AstraDSCluster
+----
++
+You can also run `kubectl describe astradscluster <cluster name> -n astrads-system` to show events describing the process or to check operator logs if the deployment status is not changing.
+
+== Configure Astra Data Store monitoring
+You can configure Astra Data Store for Astra Control Center monitoring or for monitoring by another telemetry service.
+
+=== Configure monitoring for Astra Control Center
+Perform the following step only after Astra Data Store is managed as a backend in Astra Control Center.
+
+. Configure Astra Data Store for monitoring by Astra Control Center:
++
+----
+kubectl astrads monitoring -m netapp-monitoring -r [YOUR REGISTRY] setup
+----
+
+=== Install the monitoring operator
+(Optional) The monitoring operator is recommended only if Astra Data Store monitoring will not be performed in Astra Control Center. You can install the monitoring operator if your Astra Data Store instance is a standalone deployment, uses Cloud Insights to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
+
+. Run this install command:
++
+----
+kubectl apply -f ./manifests/monitoring_operator.yaml
+----
+
+. Configure Astra Data Store for monitoring:
++
+----
+kubectl astrads monitoring -m netapp-monitoring -r [YOUR REGISTRY] setup
 ----
 
 == What's next

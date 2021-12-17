@@ -1,0 +1,35 @@
+---
+sidebar: sidebar
+permalink: release-notes/known-limitations.html
+keywords: astra, control center, limitations, known limitations, interoperability
+summary: Known limitations identify platforms, devices, or functions that are not supported by this release of the product, or that do not interoperate correctly with it. Review these limitations carefully.
+---
+
+= Known limitations
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/release-notes/
+
+Known limitations identify platforms, devices, or functions that are not supported by this release of the product, or that do not interoperate correctly with it. Review these limitations carefully.
+
+== Functionality to remove one or more nodes is not supported
+Although Astra Data Store does not support node removal functionality, it does support failed node removal.
+
+== Functionality to remove one or more drives is not supported
+Although Astra Data Store does not support drive removal functionality, it does support the functionality to replace failed drives.
+
+== Add drive functionality is not supported
+Astra Data Store does not support the functionality to add drives.
+
+== Astra Data Store requires host firewalld to be disabled.
+Enabling firewall-using CNI tools like Calico HostEndpoint has not been validated.
+
+== Upgrade functionality is not provided in this release
+The functionality to upgrade Astra Data Store will be provided in a future release.
+
+== Ubuntu-based bare-metal deployments are only supported with NVMe TLC SSDs
+This also applies to VM deployments with passthrough disks.
+
+== Find more information
+
+* link:../release-notes/known-issues.html[Known issues]

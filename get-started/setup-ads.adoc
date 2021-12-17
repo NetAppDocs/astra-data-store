@@ -15,16 +15,16 @@ After you have installed Astra Data Store and addressed some environmental prere
 * <<Install Astra Trident>>
 * <<Install K8s Snapshot CRDs and Controller>>
 * <<Set up Astra Data Store as storage backend>>
-* <<Create a generic Astra Data Store storage class>>
+* <<Create a default Astra Data Store storage class>>
 
 == Install Astra Trident
 
-To install Trident, download the installation bundle from the NetApp Support Site and perform a series a commands to install Trident in your environment. You can use this procedure to install Trident in internet-connected or air-gapped environments.
+To install Trident, download the installation bundle from the NetApp Support Site and perform a series a commands to install Trident in your environment.
 
 .What you'll need
 * link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
 * Root administrative permissions.
-* If you are installing from an air-gapped environment, download the Trident bundle from the NetApp Support Site.
+* Internet connectivity. Astra Data Store Preview does not support air-gapped environments.
 
 .Steps
 . Create and open a new Trident directory:
@@ -180,21 +180,23 @@ trident-csi-sjksd              1/2     Running   2          32s
 
 K8s snapshot CRDs and controller are required to create PVC snapshots. If you do not already have the CRD and controller installed for your environment, run the following commands to install them.
 
+NOTE: The following command examples assume `/Trident` as the directory; however, the directory you use can be any directory that you used to download the YAML files.
+
 .What you'll need
 * link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
 * Download the link:https://github.com/kubernetes-csi/external-snapshotter/tree/master/deploy/kubernetes/snapshot-controller[Kubernetes snapshot controller YAML files]:
 ** k8s-setup-snapshot-controller.yaml
 ** k8s-rbac-snapshot-controller.yaml
 * Download the link:https://github.com/kubernetes-csi/external-snapshotter/tree/master/client/config/crd[YAML CRDs]:
-** k8svolumesnapshotclasses.yaml
-** k8svolumesnapshotcontents.yaml
-** k8svolumesnapshots.yaml
+** snapshot.storage.k8s.io_volumesnapshotclasses.yaml
+** snapshot.storage.k8s.io_volumesnapshotcontents.yaml
+** snapshot.storage.k8s.io_volumesnapshots.yaml
 
 .Steps
-. Apply k8svolumesnapshotclasses.yaml:
+. Apply snapshot.storage.k8s.io_volumesnapshotclasses.yaml:
 +
 ----
-kubectl apply -f trident/k8svolumesnapshotclasses.yaml
+kubectl apply -f trident/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
 ----
 +
 Response:
@@ -203,10 +205,10 @@ Response:
 customresourcedefinition.apiextensions.k8s.io/volumesnapshotclasses.snapshot.storage.k8s.io created
 ----
 
-. Apply k8svolumesnapshotcontents.yaml:
+. Apply snapshot.storage.k8s.io_volumesnapshotcontents.yaml:
 +
 ----
-kubectl apply -f trident/k8svolumesnapshotcontents.yaml
+kubectl apply -f trident/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
 ----
 +
 Response:
@@ -215,10 +217,10 @@ Response:
 customresourcedefinition.apiextensions.k8s.io/volumesnapshotcontents.snapshot.storage.k8s.io created
 ----
 
-. Apply k8svolumesnapshots.yaml:
+. Apply snapshot.storage.k8s.io_volumesnapshots.yaml:
 +
 ----
-kubectl apply -f trident/k8svolumesnapshots.yaml
+kubectl apply -f trident/snapshot.storage.k8s.io_volumesnapshots.yaml
 ----
 +
 Response:
@@ -258,7 +260,7 @@ rolebinding.rbac.authorization.k8s.io/snapshot-controller-leaderelection created
 . Verify that the CRD YAML files are applied:
 +
 ----
-k get crd | grep volumesnapshot
+kubectl get crd | grep volumesnapshot
 ----
 +
 Sample response:
@@ -273,7 +275,7 @@ volumesnapshots.snapshot.storage.k8s.io               2021-08-04T22:06:17Z
 . Verify that the snapshot controller files are applied:
 +
 ----
-k get pods -n kube-system | grep snapshot
+kubectl get pods -n kube-system | grep snapshot
 ----
 +
 Sample response:
@@ -293,6 +295,7 @@ Configure storage backend parameters in the ads_backend.json file and create the
 ----
 cat ads_backend.json
 ----
+
 . Configure the JSON file:
 .. Change the `"cluster"` value to the cluster name for the Astra Data Store cluster.
 .. Change the `"namespace"` value to the namespace you want to use with volume creation.
@@ -304,7 +307,6 @@ cat ads_backend.json
 //. "defaults" → List of defaults:
 //snapshotPolicy,
 //exportPolicy,
-//unixPermissions,
 //snapshotDir,
 //qosPolicy,
 //size
@@ -340,7 +342,6 @@ cat ads_backend.json
             },
             "defaults": {
                 "qosPolicy": "bronze",
-                "unixPermissions": "0755"
             }
         },
         {
@@ -371,7 +372,7 @@ Sample response:
 +------------------+----------------+--------------------------------------+--------+---------+
 ----
 
-== Create a generic Astra Data Store storage class
+== Create a default Astra Data Store storage class
 
 Create the Trident default storage class and apply it to the storage backend.
 
@@ -410,7 +411,7 @@ Response:
 storageclass.storage.k8s.io/trident-csi created
 ----
 
-. Verify that storage class has been added:
+. Verify that the storage class has been added:
 +
 ----
 kubectl get storageclass -A
@@ -420,7 +421,7 @@ Response:
 +
 ----
 NAME          PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
-trident-csi   csi.trident.netapp.io   Delete          Immediate           true
+trident-csi   csi.trident.netapp.io   Delete          Immediate           true                   6h29m
 ----
 
 . Verify that the Trident backend has been updated with the default storage class parameters:
@@ -452,7 +453,6 @@ items:
       size: 1G
       snapshotDir: "false"
       snapshotPolicy: none
-      unixPermissions: "0777"
     disableDelete: false
     kubeconfig: <ID>
     labels:
@@ -470,7 +470,6 @@ items:
         size: ""
         snapshotDir: ""
         snapshotPolicy: ""
-        unixPermissions: ""
       labels:
         performance: extreme
       region: ""
@@ -482,7 +481,6 @@ items:
         size: ""
         snapshotDir: ""
         snapshotPolicy: ""
-        unixPermissions: "0755"
       labels:
         performance: premium
       region: ""
@@ -494,7 +492,6 @@ items:
         size: ""
         snapshotDir: ""
         snapshotPolicy: ""
-        unixPermissions: ""
       labels:
         performance: standard
       region: ""
