@@ -101,8 +101,8 @@ Delete the controllers, operators, namespace, and support pods in the cluster.
 . Delete the Astra Data Store installation object:
 +
 ----
-~% kubectl delete AstraDSVersion AstraDSVersion -n astrads-system
-~% kubectl get AstraDSVersion -n astrads-system
+~% kubectl delete astradsversion atradsversion -n astrads-system
+~% kubectl get astradsversion -n astrads-system
 
 ----
 
@@ -119,7 +119,7 @@ Delete the controllers, operators, namespace, and support pods in the cluster.
 . Delete remaining artifacts and the operator yaml file:
 +
 ----
-~% kubectl delete -f /.../export/firetap/sds/manifests/netappsdsoperator.yaml
+~% kubectl delete -f ./manifests/astradsoperator.yaml
 ~% kubectl get pods -n astrads-system
 
 ----
