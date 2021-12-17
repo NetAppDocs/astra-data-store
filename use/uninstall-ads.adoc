@@ -31,8 +31,8 @@ The Astra Data Store uninstallation process guides you through the following hig
 == Remove existing workloads and bindings
 Before uninstalling Astra Data Store, you must first remove the following
 
-* All application workloads that use Astra Data Store as the backend storage
-* Trident bindings that use Astra Data Store as a backend.
+* All application workloads that use Astra Data Store as the storage backend
+* Trident bindings that use Astra Data Store as a backend
 
 This ensures that your Kubernetes environment is left in a clean state, which is important if you reinstall.
 
@@ -53,15 +53,15 @@ TIP: If you do not first delete volumes and export policies, the cluster deletio
 . Delete the volumes:
 +
 ----
-kubectl delete astradsvolumes --all -A
-kubectl get astradsvolumes -A
+~% kubectl delete astradsvolumes --all -A
+~% kubectl get astradsvolumes -A
 ----
 
 . Delete the export policies:
 +
 ----
-kubectl delete astradsexportpolicies --all -A
-kubectl get astradsexportpolicies -A
+~% kubectl delete astradsexportpolicies --all -A
+~% kubectl get astradsexportpolicies -A
 
 ----
 
@@ -79,8 +79,8 @@ The uninstaller takes about a minute to finish. Then, the removal of the Astra D
 . Delete the cluster:
 +
 ----
-kubectl delete astradsclusters --all -A
-kubectl get astradsclusters -A
+~% kubectl delete astradsclusters --all -A
+~% kubectl get astradsclusters -A
 ----
 
 === Delete the license
@@ -89,8 +89,8 @@ kubectl get astradsclusters -A
 . Delete the Astra Data Store license:
 +
 ----
-kubectl delete astradslicenses --all -A
-kubectl get astradslicenses -A
+~% kubectl delete astradslicenses --all -A
+~% kubectl get astradslicenses -A
 
 ----
 
@@ -101,26 +101,26 @@ Delete the controllers, operators, namespace, and support pods in the cluster.
 . Delete the Astra Data Store installation object:
 +
 ----
-kubectl delete AstraDSVersion AstraDSVersion -n astrads-system
-kubectl get AstraDSVersion -n astrads-system
+~% kubectl delete AstraDSVersion AstraDSVersion -n astrads-system
+~% kubectl get AstraDSVersion -n astrads-system
 
 ----
 
 . Delete the data store DaemonSets and all Astra Data Store controller resources:
 +
 ----
-kubectl delete ds --all -n astrads-system
-kubectl get ds -n astrads-system
+~% kubectl delete ds --all -n astrads-system
+~% kubectl get ds -n astrads-system
 
-kubectl delete deployments --all -n astrads-system
-kubectl get deployments -n astrads-system
+~% kubectl delete deployments --all -n astrads-system
+~% kubectl get deployments -n astrads-system
 ----
 
 . Delete remaining artifacts and the operator yaml file:
 +
 ----
-kubectl delete -f /.../export/firetap/sds/manifests/netappsdsoperator.yaml
-kubectl get pods -n astrads-system
+~% kubectl delete -f /.../export/firetap/sds/manifests/netappsdsoperator.yaml
+~% kubectl get pods -n astrads-system
 
 ----
 
@@ -129,7 +129,7 @@ kubectl get pods -n astrads-system
 Ensure that the following command returns no result:
 
 ----
-kubectl get ns | grep astrads-system
+~% kubectl get ns | grep astrads-system
 ----
 
 === Ensure containers are not running on worker nodes
