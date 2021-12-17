@@ -7,8 +7,13 @@ entries:
     url: /get-started/requirements.html
   - title: Quick start for Astra Data Store
     url: /get-started/quick-start.html
-  - title: Install Astra Data Store
-    url: /get-started/install-ads.html
+  - title: Installation overview 
+    url: /get-started/install-overview.html
+    entries:
+    - title: Install Astra Data Store
+      url: /get-started/install-ads.html
+    - title: Install Astra Data Store on OpenShift
+      url: /get-started/install-ads-openshift.html
   - title: Set up Astra Data Store components
     url: /get-started/setup-ads.html
   - title: FAQ
