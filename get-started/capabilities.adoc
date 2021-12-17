@@ -5,12 +5,14 @@ keywords: kubernetes cluster, cluster requirements, version requirements, suppor
 summary: Get started by verifying support for your environment.
 ---
 
-= Astra Data Store preview limitations
+= Astra Data Store preview limits
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/get-started/
 
-Astra Data Store is Kubernetes-native, shared file software-defined storage (SDS) solution for on-premises data centers that helps customers manage their cloud-native applications. The preview release has the following resource limitations.
+Astra Data Store is Kubernetes-native, shared file software-defined storage (SDS) solution for on-premises data centers that helps customers manage their cloud-native applications.
+
+The Astra Data Store preview release has the following resource limitations.
 
 |===
 |Resource |Minimum |Maximum
@@ -40,7 +42,7 @@ Astra Data Store is Kubernetes-native, shared file software-defined storage (SDS
 |9
 |===
 
-NOTE: Astra Data Store preview does not support VM workloads. VMware vVol workload support will be available in a future release. 
+NOTE: Astra Data Store preview does not support VM workloads. VMware vVol workload support will be available in a future release.
 
 == What's next
 

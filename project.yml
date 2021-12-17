@@ -24,13 +24,13 @@ homepage:
       links:
         - title: Learn about Astra Data Store
           url: /concepts/intro.html
-        - title: What's in Astra Data Store
+        - title: What's in Astra Data Store preview
           url: /release-notes/whats-new.html
         - title: Try it out
           url: /get-started/install-ads.html#edit-and-apply-the-astra-data-store-license
-        - title: Install Astra Data Store
+        - title: Install Astra Data Store preview
           url: /get-started/install-ads.html
-        - title: Set up Astra Data Store
+        - title: Set up Astra Data Store preview
           url: /get-started/setup-ads.html
     - title: Use Astra Data Store
       links:
