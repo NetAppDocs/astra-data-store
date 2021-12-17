@@ -40,6 +40,8 @@ Astra Data Store is Kubernetes-native, shared file software-defined storage (SDS
 |9
 |===
 
+NOTE: Astra Data Store preview does not support VM workloads. VMware vVol workload support will be available in a future release. 
+
 == What's next
 
 Ensure your configuration meets the link:requirements.html[requirements].

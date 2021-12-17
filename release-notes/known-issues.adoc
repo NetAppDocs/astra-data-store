@@ -12,10 +12,6 @@ summary: Known issues identify problems that might prevent you from using this r
 
 Known issues identify problems that might prevent you from using this release of the product successfully.
 
-== Operator fails to select nodes when optional AdsNodeCount field is not set in cluster CR
-//???
-As a workaround, link:../get-started/install-ads.html#install-the-astra-data-store-cluster[specify the node count value] in the `AdsNodeCount` field in the astradscluster.yaml custom resource (CR).
-
 == Default Calico WireGuard interface name is not recognized by Astra Data Store
 //burt 1442348
 This error causes the pods to crash. As a workaround, change the wireguardInterfaceName setting in Calico’s Felix configuration to specify an interface name without a dot. For example:

@@ -26,19 +26,19 @@ The Astra Data Store installation process guides you through the following high-
 * <<Unpack the bundle and change directory>>
 * <<Copy the binary and push images to your local registry>>
 * <<Install the Astra Data Store operator>>
-* <<Apply the Astra Data Store version YAML>>
+* <<Deploy the Astra Data Store version YAML>>
 * <<Install the Astra Data Store cluster>>
 * <<Apply the Astra Data Store license>>
 * <<Configure Astra Data Store monitoring>>
 * <<Install the monitoring operator>>
 
 == Download the Astra Data Store bundle
-. Log in to the https://mysupport.netapp.com/site/downloads/evaluation/astra-data-store/download[NetApp Support Site^] and download the Astra Data Store bundle (`astra-data-store-[version].tar.gz`).
+. Log in to the https://mysupport.netapp.com/site/downloads/evaluation/astra-data-store/download[NetApp Support Site^] and download the Astra Data Store bundle (`2021.12_astradatastore.tar`).
 //Need confirmation on tar name.
 . (Optional) Use the following command to verify the signature of the bundle:
 +
 ----
-openssl dgst -sha256 -verify astra-data-store[version].pub -signature <astra-data-store[version].sig astra-data-store[version].tar.gz
+openssl dgst -sha256 -verify 2021.12_astradatastore.pub -signature 2021.12_astradatastore.sig 2021.12_astradatastore.tar
 ----
 
 == Unpack the bundle and change directory
@@ -46,13 +46,13 @@ openssl dgst -sha256 -verify astra-data-store[version].pub -signature <astra-dat
 . Extract the images:
 +
 ----
-tar -vxzf astra-data-store-[version].tar.gz
+tar -xvf 2021.12_astradatastore.tar
 ----
 
 . Change to the Astra directory.
 +
 ----
-cd astra-data-store-[version]
+cd 2021.12_astradatastore
 ----
 
 . Define the path where the kubectl binary is to be installed.
@@ -87,6 +87,8 @@ docker login [your_registry_path]
 
 +
 ----
+cat sample_script.sh
+
 export REGISTRY=[your_registry_path]
 for astraImageFile in $(ls images/*.tar) ; do
    astraImage=$(docker load --input ${astraImageFile} | sed 's~Loaded image: ~~')
@@ -95,6 +97,8 @@ for astraImageFile in $(ls images/*.tar) ; do
    docker push ${REGISTRY}/${astraImageShort}
 done
 sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/*.yaml
+
+./sample_script.sh
 ----
 
 == Install the Astra Data Store operator
@@ -107,10 +111,10 @@ ls manifests/*yaml
 Response:
 +
 ----
-astradscluster.yaml
-astradsoperator.yaml
-astradsversion.yaml
-monitoring_operator.yaml
+manifests/astradscluster.yaml
+manifests/astradsoperator.yaml
+manifests/astradsversion.yaml
+manifests/monitoring_operator.yaml
 ----
 
 . Deploy the operator using kubectl apply:
@@ -246,7 +250,7 @@ NOTE: A simplified example of the YAML file follows these steps.
 .. (Required) *Metadata*: In `metadata`, change the `name` string to the name of your cluster. This must be the same cluster name you use when you <<Apply the Astra Data Store license,apply the license>>.
 .. (Required) *Spec*: Change the following required values in `spec`:
 * Change the `mvip` string to the IP address of a floating management IP that is routable from any worker node in the cluster.
-* In `adsDataNetworks`, list floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume.
+* In `adsDataNetworks`, add a comma-separated list of floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume.
 * In `adsDataNetworks`, specify the netmask used by the data network.
 * In `adsNetworkInterfaces`, replace the `mgmt` and `data` values with the network interface names you want to use for management, cluster, and storage. If no names are specified, the node's primary interface will be used for management, cluster, and storage networking.
 +
@@ -357,7 +361,7 @@ astrads-c6220-1011121314   created   2021.10.0   p100000006       10.x.x.x   2m
 During cluster deployment, the operation status should change from `blank` to `pending` to `created`. To monitor cluser events during depoyment, you can run the following command:
 +
 ----
-kubectl get events --field-selector involvedObject.kind=AstraDSCluster
+kubectl get events --field-selector involvedObject.kind=AstraDSCluster -n astrads-system
 ----
 +
 You can also run `kubectl describe astradscluster <cluster name> -n astrads-system` to show events describing the process or to check operator logs if the deployment status is not changing.

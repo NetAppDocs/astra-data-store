@@ -46,7 +46,7 @@ a|
 
 |Drive drive size
 |100GiB
-|N/A
+|4TiB
 
 |Number of optional cache devices
 |1 (8GiB or greater in size)
@@ -189,7 +189,12 @@ NOTE: The cluster network should reside on the same interface as either the mana
 
 Astra Data Store requires one (1) IP address per cluster for MVIP. It needs to be an unused or unconfigured IP address in same subnet as MIP.
 
-In addition, each node can be configured as following:
+In addition, each node can be configured as described in the following table:
+
+NOTE: The following abbreviations are used in this table:
+MIP: Management IP address
+CIP: Cluster IP address
+MVIP: Management virtual IP address
 
 |===
 |Configuration |IP addresses needed
