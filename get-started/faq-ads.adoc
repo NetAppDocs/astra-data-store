@@ -37,11 +37,11 @@ You can monitor Astra Data Store metrics using Cloud Insights. See link:../use/m
 
 You can also monitor logs. See link:../use/configure-endpoints.html[Configure and monitor event logs].
 
-*Can I use Astra Data Store along with ONTAP OR other storage providers in my Kubernetes clusters?*
+*Can I use Astra Data Store along with ONTAP or other storage providers in my Kubernetes clusters?*
 Yes. Astra Data Store can be used along with other storage providers in your application clusters.
 
 *Will Astra Trident be uninstalled if I remove a Kubernetes cluster from Astra Data Store?*
-Astra Trident will not be uninstalled from the cluster if you uninstall Astra Data Store. Astra Trident is a CSI driver, managed separately from Astra Data Store and if required has to be uninstalled separately.
+Astra Trident will not be uninstalled from the cluster if you uninstall Astra Data Store. If you require Astra Trident to be uninstalled, you will have to do it separately.
 
 
 == Licensing
@@ -50,6 +50,10 @@ Astra Trident will not be uninstalled from the cluster if you uninstall Astra Da
 Yes, Astra Data Store preview requires a NetApp license file (NLF).
 
 Learn about link:../get-started/requirements.html[Astra Data Store requirements].
+
+*How long is the Astra Data Store preview license valid?*
+
+The Astra Data Store preview license has a default term of 90-days from the download date.
 
 
 == Installation and use of Astra Data Store preview on a Kubernetes cluster
@@ -68,11 +72,18 @@ Yes. An Astra Data Store preview cluster can be deployed on 4 or 5 worker nodes 
 
 
 *Does Astra Data Store preview support an offline installation from a private registry?*
-Yes. Astra Data Store preview can be installed offline from a local registry. See link:../get-started/install-ads.html[Install Astra Data Store].
+Yes. Astra Data Store preview can be installed offline from a local registry. See link:../get-started/install-ads.html[Install Astra Data Store]. However, Astra Data Store preview requires connectivity (direct or via a proxy) to the NetApp Support backend (support.netapp.com) for continued operations.
 
+*Do I need internet connectivity to use Astra Data Store preview?*
+
+Astra Data Store preview requires connectivity to the NetApp AutoSupport backend to periodically send the mandatory telemetry AutoSupport bundles. This connectivity can direct or via a proxy. If this connectivity is missing or AutoSupport is disabled, the cluster will lock down and new volume creation will be disabled until the periodic bundle uploads are resumed.
 
 *What are the roles and privileges used by Astra Data Store?*
+You need to be a kube admin to deploy the Astra Data Store preview operator.
 
+Astra Data Store preview has a privileged daemonset called `astrads-ds-nodeinfo-astradsversion` for discovering node resources used in selecting nodes.
+
+In addition, the operator will use privileged Kubernetes jobs to install the storage cluster’s containers on the selected worker nodes to build the Astra Data Store preview storage cluster.
 
 *What manifest files do I need to update for Astra Data Store preview installation?*
 From the Astra Data Store bundle you download from the NetApp Support Site, you will get the following manifests:
@@ -111,12 +122,12 @@ See link:../support/get-help.html#generate-support-bundle-to-provide-to-netapp-s
 See link:../get-started/install-ads.html[Install Astra Data Store].
 
 *Can IPv6 addresses be used for management, data and cluster networks?*
-Astra Data Store preview is not supported on IPv6.
+No, Astra Data Store preview only supports IPv4 address. IPv6 support will be added in a future release of Astra Data Store.
 
 *What NFS version is used while provisioning a volume on Astra Data Store preview?*
 By default, Astra Data Store preview supports NFS v4.1 for all volumes provisioned for Kubernetes applications.
 
-*Why do not I get larger persistent volumes even though I have configured Astra Data Store with large capacity drives?*
+*Why can't I get larger persistent volumes even though I have configured Astra Data Store with large capacity drives?*
 Astra Data Store preview limits the maximum capacity provisioned for all volumes on a node to 1 TiB and up to 5 TiB across all nodes in an Astra Data Store preview cluster.
 
 Learn about link:../get-started/requirements.html[Astra Data Store requirements].
