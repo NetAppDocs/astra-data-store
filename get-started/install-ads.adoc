@@ -83,9 +83,7 @@ NOTE: See a sample script for the automatic loading of images below.
 docker login [your_registry_path]
 ----
 
-.. Load the images into Docker.
-.. Tag the images.
-.. [[substep_image_local_registry_push]]Push the images to your local registry.
+.. Run the script to load the images into Docker, tag the images, and [[substep_image_local_registry_push]]push the images to your local registry:
 
 +
 ----
@@ -192,19 +190,6 @@ astrads-operator-5ffb94fbf-7ln4h    1/1     Running   0          17m
 kubectl apply -f ./manifests/astradsversion.yaml
 ----
 
-. Verify that the Astra Data Store version pod has started and is running:
-+
-----
-kubectl get astradsversion -n astrads-system
-----
-+
-Response:
-+
-----
-NAME             AGE
-astradsversion   1m
-----
-
 . Verify that the pods are running:
 +
 ----
@@ -256,14 +241,17 @@ vim ./manifests/astradscluster.yaml
 
 . Edit the following values in the YAML file.
 +
-NOTE: An example follows these steps.
+NOTE: A simplified example of the YAML file follows these steps.
 
 .. (Required) *Metadata*: In `metadata`, change the `name` string to the name of your cluster. This must be the same cluster name you use when you <<Apply the Astra Data Store license,apply the license>>.
 .. (Required) *Spec*: Change the following required values in `spec`:
 * Change the `mvip` string to the IP address of a floating management IP that is routable from any worker node in the cluster.
 * In `adsDataNetworks`, list floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume.
 * In `adsDataNetworks`, specify the netmask used by the data network.
-* In `adsNetworkInterfaces`, replace the `mgmt` and `data` values with the names of your node interfaces for management, cluster, and storage.
+* In `adsNetworkInterfaces`, replace the `mgmt` and `data` values with the network interface names you want to use for management, cluster, and storage. If no names are specified, the node's primary interface will be used for management, cluster, and storage networking.
++
+NOTE: Cluster and storage networks need to be on the same interface.
+
 .. (Optional) *monitoringConfig*: If you want to configure a <<Install the monitoring operator,monitoring operator>> (optional if you are not using Astra Control Center for monitoring), remove the commenting from the section, add the namespace in which the agent CR (monitoring operator resource) is applied (default is `netapp-monitoring`), and add the repo path for your registry (`your_registry_path`) that you used in previous steps.
 .. (Optional) *autoSupportConfig*: Retain the link:../support/autosupport.html[AutoSupport] default values unless you need to configure a proxy:
 * For `proxyURL`, set the URL of the proxy with the port that will be used for AutoSupport bundle transfer.
@@ -365,6 +353,14 @@ NAME                        STATUS    VERSION    SERIAL NUMBER    MVIP       AGE
 
 astrads-c6220-1011121314   created   2021.10.0   p100000006       10.x.x.x   2m
 ----
++
+During cluster deployment, the operation status should change from `blank` to `pending` to `created`. To monitor cluser events during depoyment, you can run the following command:
++
+----
+kubectl get events --field-selector involvedObject.kind=AstraDSCluster
+----
++
+You can also run `kubectl describe astradscluster <cluster name> -n astrads-system` to show events describing the process or to check operator logs if the deployment status is not changing.
 
 == Configure Astra Data Store monitoring
 You can configure Astra Data Store for Astra Control Center monitoring or for monitoring by another telemetry service.

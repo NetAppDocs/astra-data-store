@@ -128,7 +128,7 @@ NOTE: Astra Data Store preview requires Astra Trident version 21.10.1 for storag
 .Storage
 Consider the following storage requirements for Astra Data Store preview clusters:
 
-* Each drive should be either SAS or NVMe TLC SSDs.
+* Each drive should be either SATA or NVMe TLC SSDs.
 * Each drive should have a unique serial number.
 * Each drive should be presented to the Linux host as a block device.
 +
