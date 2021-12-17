@@ -21,16 +21,14 @@ Although Astra Data Store does not support drive removal functionality, it does 
 == Add drive functionality is not supported
 Astra Data Store does not support the functionality to add drives.
 
-== Firewall-enabled configuration is not supported
-Astra Data Store does not support firewall-enabled configurations.
+== Astra Data Store requires host firewalld to be disabled.
+Enabling firewall-using CNI tools like Calico HostEndpoint has not been validated.
 
 == Upgrade functionality is not provided in this release
 The functionality to upgrade Astra Data Store will be provided in a future release.
 
-== AutoSupport periodic settings cannot be disabled in this release
-//CB review
-In the preview release, the link:../get-started/install-ads.html#install-the-astra-data-store-cluster[periodic settings that are used for sending mandatory telemetry AutoSupport bundles] should not be changed. If you disable the sending of periodic AutoSupport bundles, the cluster will be locked down and new volumes cannot be created until periodic settings are enabled again.
-
+== Ubuntu-based bare-metal deployments are only supported with NVMe TLC SSDs
+This also applies to VM deployments with passthrough disks.
 
 == Find more information
 

@@ -17,7 +17,7 @@ We're pleased to announce the 21.12 preview release of Astra Data Store.
 Initial release of Astra Data Store.
 
 * link:../concepts/intro.html[What it is]
-* link:../concepts/architecture.html[Understand architecture and components]
+* link:../concepts/architecture.html[Deployment models and components]
 * link:../get-started/requirements.html[What it takes to get started]
 * link:../get-started/install-ads.html[Install] and link:../get-started/setup-ads.html[setup]
 * link:../use/kubectl-commands-ads.html[Manage and monitor performance]
