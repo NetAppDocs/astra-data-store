@@ -24,13 +24,13 @@ In this example, we use a Helm repository to deploy a MongoDB chart from Bitnami
 .	Add a Helm repo from Bitnami:
 +
 ----
-helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add bitnami https://helm.repo.eng.netapp.com/
 ----
 
 .	Deploy MongoDB:
 +
 ----
-helm install mongodb bitnami/mongodb --namespace=ns-mongodb --create-namespace
+helm install --set persistence.storageClass=trident-csi mongohelm4 mongodb --namespace=ns-mongodb --create-namespace
 ----
 
 .	Check the status of the MongoDB pod:
