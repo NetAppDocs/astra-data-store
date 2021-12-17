@@ -12,7 +12,14 @@ summary: Here are steps to deploy a test application that you can use with Astra
 
 Here are steps to deploy a test application that you can use with Astra Data Store.
 
-In this example, we use a Helm repository from Bitnami.
+In this example, we use a Helm repository to deploy a MongoDB chart from Bitnami.
+
+.What you'll need
+
+* Astra Data Store cluster deployed and configured
+* Trident installation completed
+
+.Steps
 
 .	Add a Helm repo from Bitnami:
 +
@@ -23,7 +30,6 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 .	Deploy MongoDB:
 +
 ----
-helm install <name> bitnami/<chartname> --namespace=<namespace> --create-namespace
 helm install mongodb bitnami/mongodb --namespace=ns-mongodb --create-namespace
 ----
 
@@ -47,21 +53,18 @@ mongodb   Bound    pvc-1133453a-e2f5-48a5  8Gi        RWO          trident-csi  
 .	List the volume by using the kubectl command `get astradsvolume`:
 +
 ----
-kubectl get astradsvolume <volume_name> -n astrads-system
-
 ~% kubectl get astradsvolume pvc-1133453a-e2f5-48a5 -n astrads-system
 NAME                     SIZE        IP            CLUSTER      CREATED
-pvc-1133453a-e2f5-48a5   8830116Ki   10.192.2.36   jaimon-ads   true
+pvc-1133453a-e2f5-48a5   8830116Ki   10.192.2.192   jai-ads      true
 ----
 
-.	List the volume by using the kubectl command `get astradsvolume`:
+.	Describe the volume by using the kubectl command `describe astradsvolume`:
 +
 ----
-kubectl describe  astradsvolume <volume_name>  n astrads-system
 ~% kubectl describe  astradsvolume pvc-1133453a-e2f5-48a5 -n astrads-system
 Name:         pvc-1133453a-e2f5-48a5-a06c-d14b8aa7be07
 Namespace:    astrads-system
-Labels:       astrads.netapp.io/cluster=jaimon-ads
+Labels:       astrads.netapp.io/cluster=jai-ads
               astrads.netapp.io/mip=10.192.1.39
               astrads.netapp.io/volumeUUID=cf33fd38-a451-596c-b656-61b8270d2b5e
               trident.netapp.io/cloud=on-prem
@@ -150,7 +153,7 @@ Metadata:
   Resource Version:  12007115
   UID:               d522ae4f-e793-49ed-bbe0-9112d7f9167b
 Spec:
-  Cluster:                   jaimon-ads
+  Cluster:                   jai-ads
   Display Name:              pvc-1133453a-e2f5-48a5-a06c-d14b8aa7be07
   Export Policy:             pvc-1133453a-e2f5-48a5-a06c-d14b8aa7be07
   No Snap Dir:               true
@@ -161,7 +164,7 @@ Spec:
   Type:                      ReadWrite
   Volume Path:               /pvc-1133453a-e2f5-48a5-a06c-d14b8aa7be07
 Status:
-  Cluster:  jaimon-ads
+  Cluster:  jai-ads
   Conditions:
     Last Transition Time:    2021-12-08T19:35:32Z
     Message:                 Volume is online
@@ -175,10 +178,10 @@ Status:
     Type:                    AstraDSVolumeCreated
   Created:                   true
   Display Name:              pvc-1133453a-e2f5-48a5-a06c-d14b8aa7be07
-  Export Address:            10.192.2.36
+  Export Address:            10.192.2.192
   Export Policy:             pvc-1133453a-e2f5-48a5-a06c-d14b8aa7be07
   Internal Name:             pvc_1133453a_e2f5_48a5_a06c_d14b8aa7be07
-  Mip:                       10.192.1.39
+  Mip:                       10.192.1.192
   Permissions:               777
   Qos Policy:                silver
   Requested Size:            9042036412

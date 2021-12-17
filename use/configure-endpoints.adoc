@@ -26,7 +26,7 @@ If the monitoring option has not been configured on the Astra Data Store cluster
 Enter:
 
 ----
- kubectl astrads monitoring setup -n <NAMESPACE OF AGENT INSTALLED>  -r <DOCKER REPO TO FIND FLUENT/TELEGRAF ETC IMAGES>
+~% kubectl astrads monitoring setup -n <NAMESPACE OF AGENT INSTALLED>  -r <DOCKER REPO TO FIND FLUENT/TELEGRAF ETC IMAGES>
 ----
 
 where:
@@ -45,7 +45,7 @@ To stream EMS events and other pod logs to streams logs to a third-party endpoin
 
 Enter:
 ----
- kubectl astrads monitoring --host <ELASTIC HOST NAME> --port <ELASTIC HOST PORT> es
+~% kubectl astrads monitoring --host <ELASTIC HOST NAME> --port <ELASTIC HOST PORT> es
 ----
 
 NOTE: The Elastic host name can be an IP address.
