@@ -15,7 +15,7 @@ To install Astra Data Store preview, download the installation bundle from the N
 .What you'll need
 * link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
 * Access to the NetApp Support Site. https://www.netapp.com/cloud-services/astra/data-store-form/[Register] for a preview if you don’t already have a full-access NetApp Support Site account.
-* A link:../get-started/requirements.html#licensing[NetApp license file (NLF)] for Astra Data Store preview.
+* A link:../get-started/requirements.html#licensing[NetApp license file (NLF)] for Astra Data Store preview. After you sign up to obtain the Astra Data Store preview license, the license will be sent to you by email.
 * An active kubeconfig with cluster admin rights for the active context.
 * An understanding of link:../get-started/faq-ads.html#installation-and-use-of-astra-data-store-preview-on-a-kubernetes-cluster[the roles and privileges] used by Astra Data Store.
 * Internet connectivity. Astra Data Store Preview does not support air-gapped environments. Internet connectivity is needed to reach support.netapp.com either directly or via a proxy.
@@ -24,14 +24,13 @@ To install Astra Data Store preview, download the installation bundle from the N
 The Astra Data Store installation process guides you through the following high-level steps:
 
 * <<Download the Astra Data Store bundle and extract the images>>
-* <<Unpack the bundle and change directory>>
 * <<Copy the binary and push images to your local registry>>
 * <<Install the Astra Data Store operator>>
 * <<Deploy the Astra Data Store version YAML>>
-* <<Install the Astra Data Store cluster>>
 * <<Apply the Astra Data Store license>>
+* <<Install the Astra Data Store cluster>>
+* <<Understand deployment-related events>>
 * <<Configure Astra Data Store monitoring>>
-* <<Install the monitoring operator>>
 
 == Download the Astra Data Store bundle and extract the images
 . Log in to the https://mysupport.netapp.com/site/downloads/evaluation/astra-data-store/download[NetApp Support Site^] and download the Astra Data Store bundle (`2021.12_astradatastore.tar`).
@@ -234,11 +233,11 @@ NOTE: A simplified example of the YAML file follows these steps.
 .. (Required) *Metadata*: In `metadata`, change the `name` string to the name of your cluster. This must be the same cluster name you use when you <<Apply the Astra Data Store license,apply the license>>.
 .. (Required) *Spec*: Change the following required values in `spec`:
 * Change the `mvip` string to the IP address of a floating management IP that is routable from any worker node in the cluster.
-* In `adsDataNetworks`, add a comma-separated list of floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume. Use one floating IP address per node.
+* In `adsDataNetworks`, add a comma-separated list of floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume. Use one floating IP address per node. There should be at least as many data network IP addresses as there are Astra Data Store nodes. For Astra Data Store preview, this means at least 4 addresses, or 5 if you plan on expanding the cluster to 5 nodes later.
 * In `adsDataNetworks`, specify the netmask used by the data network.
 * In `adsNetworkInterfaces`, replace the `mgmt` and `data` values with the network interface names you want to use for management, cluster, and storage. If no names are specified, the node's primary interface will be used for management, cluster, and storage networking.
 +
-NOTE: Cluster and storage networks need to be on the same interface.
+NOTE: Cluster and storage networks need to be on the same interface. The Astra Data Store management interface should be same as the Kubernetes node’s management interface.
 
 .. (Optional) *monitoringConfig*: If you want to configure a <<Install the monitoring operator,monitoring operator>> (optional if you are not using Astra Control Center for monitoring), remove the commenting from the section, add the namespace in which the agent CR (monitoring operator resource) is applied (default is `netapp-monitoring`), and add the repo path for your registry (`your_registry_path`) that you used in previous steps.
 .. (Optional) *autoSupportConfig*: Retain the link:../support/autosupport.html[AutoSupport] default values unless you need to configure a proxy:
@@ -264,6 +263,11 @@ kind: AstraDSCluster
   *adsDataNetworks:*
     *- addresses: ""*
       *netmask:*
+  # Specify the network interface names to use for management, cluster and storage networks.
+  # If none are specified, the node's primary interface will be used for management, cluster and storage networking.
+  # To move the cluster and storage networks a different interface than management, specify all three interfaces to use here.
+  # The Astra Data Store management interface should be same as the Kubernetes node’s management interface.
+  # NOTE: The cluster and storage networks need to be on the same interface.
   *adsNetworkInterfaces:*
     *managementInterface: "mgmt"*
     *clusterInterface: "data"*
@@ -341,14 +345,44 @@ NAME                        STATUS    VERSION    SERIAL NUMBER    MVIP       AGE
 
 astrads-example-cluster   created   2021.10.0   p100000006       10.x.x.x   10m
 ----
-+
-During cluster deployment, the operation status should change from `blank` to `in progress` to `created`. Cluster deployment will last approximately 8 to 10 minutes. To monitor cluster events during deployment, you can run the following command:
-+
+
+== Understand deployment-related events
+During cluster deployment, the operation status should change from `blank` to `in progress` to `created`. Cluster deployment will last approximately 8 to 10 minutes. To monitor cluster events during deployment, you can run either of the following commands:
+
 ----
 kubectl get events --field-selector involvedObject.kind=AstraDSCluster -n astrads-system
 ----
-+
-You can also run `kubectl describe astradscluster <cluster name> -n astrads-system` to show events describing the process or to check operator logs if the deployment status is not changing.
+
+----
+kubectl describe astradscluster <cluster name> -n astrads-system
+----
+
+The following are key events during deployment:
+
+|===
+|Event message |Meaning
+
+|Successfully selected 4 control plane nodes to join the ADS cluster
+|The Astra Datastore operator identified enough nodes with CPU, memory, storage, and networking to create an Astra Data Store Cluster.
+
+|ADS cluster create in progress
+|The Astra Datastore Cluster controller has started the cluster create operation.
+
+|ADS cluster created
+|The cluster was created successfully.
+|===
+
+If the cluster’s status doesn’t change to `in progress`, check the operator logs for more details on node selection:
+
+----
+kubectl logs -n astrads-system <astrads operator pod name>
+----
+
+If the cluster’s status is stuck at `in progress`, check the cluster controller's logs:
+
+----
+kubectl logs -n astrads-system <astrads cluster controller pod name>
+----
 
 == Configure Astra Data Store monitoring
 You can configure Astra Data Store for Astra Control Center monitoring or for monitoring by another telemetry service.
