@@ -1,0 +1,506 @@
+---
+sidebar: sidebar
+permalink: get-started/install-ads-openshift.html
+keywords: astra, astra data store, install, deploy, openshift, OpenShift
+summary: How to install Astra Data Store with OpenShift
+---
+
+= Install Astra Data Store on OpenShift
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/get-started/
+
+To install Astra Data Store on OpenShift, download the installation bundle from the NetApp Support Site and complete installation steps described in this procedure.
+
+These steps have been validated to work on the following Kubernetes worker node versions:
+
+----
+NAME="Red Hat Enterprise Linux CoreOS"
+VERSION="47.83.202104090345-0"
+VERSION_ID="4.7"
+OPENSHIFT_VERSION="4.7"
+RHEL_VERSION="8.3"
+PRETTY_NAME="Red Hat Enterprise Linux CoreOS 47.83.202104090345-0 (Ootpa)"
+----
+
+.What you'll need
+* link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
+* Access to the NetApp Support Site. https://www.netapp.com/cloud-services/astra/data-store-form/[Register] for a preview if you don’t already have a full-access NetApp Support Site account.
+* An active kubeconfig with cluster admin rights for the active context.
+* Internet connectivity. Astra Data Store Preview does not support air-gapped environments. Internet connectivity is needed to reach support.netapp.com either directly or via a proxy.
+
+== About this task
+The Astra Data Store installation process guides you through the following high-level steps:
+
+* <<Download the Astra Data Store bundle>>
+* <<Unpack the bundle and change directory>>
+* <<Copy the binary and push images to your local registry>>
+
+* <<Create a namespace (OS)>>
+* <<Create a custom SCC to be used by default service account (OS)>>
+* <<Create the required roles and role bindings to be used by default service account to run ADS components (OS)>>
+* <<Install the Astra Data Store operator (OS)>>
+* <<Install the Astra Data Store version YAML (OS)>>
+* <<Install the license (OS)>>
+* <<Install the cluster (OS)>>
+
+* <<Configure Astra Data Store monitoring>>
+* <<Install the monitoring operator>>
+
+
+
+== Download the Astra Data Store bundle
+. Log in to the https://mysupport.netapp.com/site/downloads/evaluation/astra-data-store/download[NetApp Support Site^] and download the Astra Data Store bundle (`astra-data-store-[version].tar.gz`).
+//Need confirmation on tar name.
+. Download the zip of Astra Data Store license file (NLF) from https://mysupport.netapp.com/site/downloads/evaluation/astra-data-store/download[NetApp Support Site^].
+. (Optional) Use the following command to verify the signature of the bundle:
++
+----
+openssl dgst -sha256 -verify astra-data-store[version].pub -signature <astra-data-store[version].sig astra-data-store[version].tar.gz
+----
+
+== Unpack the bundle and change directory
+
+. Extract the images:
++
+----
+tar -vxzf astra-data-store-[version].tar.gz
+----
+
+. Change to the Astra directory.
++
+----
+cd astra-data-store-[version]
+----
+
+. Define the path where the kubectl binary is to be installed.
++
+NOTE: `/usr/bin/kubectl` is used as an example as the binary path. Replace it with your path before running the command.
+
++
+----
+which kubectl
+/usr/bin/kubectl
+----
+
+== Copy the binary and push images to your local registry
+
+. Copy the kubectl-astrads binary from the directory you used to extract images to the standard path where k8s kubectl binaries are installed; for example, `/usr/bin/`. kubectl-astrads is a custom kubectl extension that installs and manages Astra Data Store clusters.
++
+----
+cp -p ./bin/kubectl-astrads /usr/bin/.
+----
+
+. Add the files in the Astra Data Store image directory to your local registry.
++
+NOTE: See a sample script for the automatic loading of images below.
+
+.. Log in to your registry:
++
+----
+docker login [your_registry_path]
+----
+
+.. Load the images into Docker.
+.. Tag the images.
+.. [[substep_image_local_registry_push]]Push the images to your local registry.
+
++
+----
+export REGISTRY=[your_registry_path]
+for astraImageFile in $(ls images/*.tar) ; do
+   astraImage=$(docker load --input ${astraImageFile} | sed 's~Loaded image: ~~')
+   astraImageShort=`echo $astraImage | sed 's~.*/~~'`
+   docker tag ${astraImage} ${REGISTRY}/${astraImageShort}
+   docker push ${REGISTRY}/${astraImageShort}
+done
+sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/*.yaml
+----
+
+== Create a namespace (OS)
+
+Create the namespace in which all Astra Data Store components will be installed.
+
+. Enter:
++
+----
+kubectl create -f ads_namespace.yaml
+----
+
+Response:
+----
+ads_namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    control-plane: operator
+  name: astrads-system
+----
+== Create a custom SCC to be used by default service account (OS)
+
+OpenShift provides security context constraints (SCC) that control the actions that a pod can perform and what it has the ability to access.
+
+By default, the execution of any container will be granted the restricted SCC and only the capabilities defined by that SCC. Because restricted SCC does not provide required permissions to Astra Data Store pods, this procedure provides the default service account higher privileges for ADS to function.
+
+Assign a custom SCC to the default account following these steps.
+
+. Create a custom SCC called `ads-privileged`:
++
+----
+kubectl create -f ads_privileged_scc.yaml
+----
+
+. Display the newly added SCC using the `oc get scc` command:
++
+----
+[root@api ~]# oc get scc
+NAME PRIV CAPS SELINUX RUNASUSER FSGROUP SUPGROUP PRIORITY READONLYROOTFS VOLUMES
+ads-privileged true ["*"] RunAsAny RunAsAny RunAsAny RunAsAny <no value> false ["*"]
+----
+
+=== Example ads_privileged_scc.yaml file
+
+----
+ads_privileged_scc.yaml
+allowHostDirVolumePlugin: true
+allowHostIPC: true
+allowHostNetwork: true
+allowHostPID: true
+allowHostPorts: true
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: true
+allowedCapabilities:
+- '*'
+allowedUnsafeSysctls:
+- '*'
+apiVersion: security.openshift.io/v1
+defaultAddCapabilities: null
+fsGroup:
+  type: RunAsAny
+groups: []
+kind: SecurityContextConstraints
+metadata:
+  annotations:
+    kubernetes.io/description: 'ADS privileged. Grant with caution.'
+    release.openshift.io/create-only: "true"
+  name: ads-privileged
+priority: null
+readOnlyRootFilesystem: false
+requiredDropCapabilities: null
+runAsUser:
+  type: RunAsAny
+seLinuxContext:
+  type: RunAsAny
+seccompProfiles:
+- '*'
+supplementalGroups:
+  type: RunAsAny
+users:
+- system:serviceaccount:astrads-system:default
+volumes:
+- '*'
+----
+
+
+== Create the required roles and role bindings to be used by default service account to run ADS components (OS)
+
+The following yaml definition assigns the default service account in astrads-system namespace various roles (via rolebindings) to manipulate Astra Data Store resources in the astrads.netapp.io API group.
+
+.Steps
+
+. Create the defined roles and role binding:
++
+----
+kubectl create -f oc_role_bindings.yaml
+----
+
+. Once created, review the roles/rolebindings that appear in commands to list roles, cluster roles, and role bindings.
+
+=== Example YAML definition
+
+----
+oc_role_bindings.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: privcrole
+rules:
+- apiGroups:
+  - security.openshift.io
+  resourceNames:
+  - ads-privileged
+  resources:
+  - securitycontextconstraints
+  verbs:
+  - use
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: default-scc-rolebinding
+  namespace: astrads-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: privcrole
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: astrads-system
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ownerref
+  namespace: astrads-system
+rules:
+- apiGroups:
+  - astrads.netapp.io
+  resources:
+  - '*/finalizers'
+  verbs:
+  - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: or-rb
+  namespace: astrads-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: ownerref
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: astrads-system
+----
+
+== Install the Astra Data Store operator (OS)
+
+This step is the same as installing the operator on a standard Kubernetes cluster.
+
+. Deploy the operator using kubectl apply
++
+----
+kubectl apply -f <path-to-your-build>/netappsdsoperator.yaml
+----
+
+== Install the Astra Data Store version YAML (OS)
+
+This step is the same as installing on a standard Kubernetes cluster.
+
+. Deploy using kubectl apply
++
+----
+kubectl create -f <path-to-your-build>/netappsdsdeployment.yaml
+----
+
+== Install the license (OS)
+
+This step is the same as installing on a standard Kubernetes cluster.
+
+NOTE: For the Astra Data Store preview release, the license type is limited to preview.
+
+. Install the license:
++
+----
+kubectl create -f <path-to-your-build>/license.txt
+----
+
+== Install the cluster (OS)
+
+. The Kubernetes config file located at `/var/lib/kubelet/` is in json format on Openshift (vs yaml on standard Kubernetes). Create a corresponding `/var/lib/kubelet/config.yaml` file on each of the worker nodes before initiating the cluster installation.
+
++
+NOTE: If you do not do this, the installer Ansible role will not be able to find `/var/lib/kubelet/config.yaml` on the worker nodes.
+
++
+Complete this procedure on all Kubernetes nodes before cluster yaml is applied. (`cp  /var/lib/kubelet/ config.json  /var/lib/kubelet/ config.yaml`)
+
+. Populate `astradscluster.yaml` with the desired values and `kubectl create` it to initiate firegen pods, which results in a running Astra Data Store cluster.
++
+NOTE: This step is the same as the installation process on a standard Kubernetes cluster.
+
+. Because `selinux` labels are impacted, re-label the following directories on all nodes in the Astra Data Store cluster so that support pods are able to start successfully.
++
+NOTE: Without this step, you will notice the support pods entering CrashLoopBackoff state.
+`chcon -R -t container_file_t /var/opt/netapp/firetap/rootfs/var/asup/notification/firetap/
+chcon -R -t container_file_t /var/netapp/firetap/firegen/persist/`
+
+Astra Data Store is now running on OpenShift.
+
+=== Full cluster state
+
+----
+[root@api ~]# kubectl get all
+NAME READY STATUS RESTARTS AGE
+pod/astrads-cluster-controller-75d56cdfff-6lxpk 1/1 Running 1 8h
+pod/astrads-deployment-support-7b96768f79-94dch 3/3 Running 0 7h8m
+pod/astrads-ds-nodeinfo-astradsversion-2w2h4 1/1 Running 0 8h
+pod/astrads-ds-nodeinfo-astradsversion-l6dcj 1/1 Running 0 8h
+pod/astrads-ds-nodeinfo-astradsversion-n54ts 1/1 Running 0 8h
+pod/astrads-ds-nodeinfo-astradsversion-xtxmx 1/1 Running 0 8h
+pod/astrads-ds-nodeinfo-astradsversion-z8j5q 1/1 Running 0 8h
+pod/astrads-ds-nodeinfo-astradsversion-zcthm 1/1 Running 0 8h
+pod/astrads-ds-ocp-cluster-67kp6 1/1 Running 0 6h38m
+pod/astrads-ds-ocp-cluster-9kbnh 1/1 Running 0 6h39m
+pod/astrads-ds-ocp-cluster-l6gxr 1/1 Running 0 6h39m
+pod/astrads-ds-support-7lk42 2/2 Running 0 5h48m
+pod/astrads-ds-support-82ftr 2/2 Running 0 5h53m
+pod/astrads-ds-support-mv7qr 2/2 Running 0 5h50m
+pod/astrads-license-controller-7bbdc65945-4m6tz 1/1 Running 0 8h
+pod/astrads-operator-55d459d877-l7zll 1/1 Running 0 8h
+
+NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE
+service/astrads-metrics-service ClusterIP 172.30.120.101 <none> 9341/TCP 7h8m
+
+NAME DESIRED CURRENT READY UP-TO-DATE AVAILABLE NODE SELECTOR AGE
+daemonset.apps/astrads-ds-nodeinfo-astradsversion 6 6 6 6 6 <none> 8h
+daemonset.apps/astrads-ds-ocp-cluster 3 3 3 3 3 astrads.netapp.io/cluster=ocp-cluster,astrads.netapp.io/solidfire-firetap-status=active 7h8m
+daemonset.apps/astrads-ds-support 3 3 3 3 3 astrads.netapp.io/cluster=ocp-cluster 7h8m
+
+NAME READY UP-TO-DATE AVAILABLE AGE
+deployment.apps/astrads-cluster-controller 1/1 1 1 8h
+deployment.apps/astrads-deployment-support 1/1 1 1 7h8m
+deployment.apps/astrads-license-controller 1/1 1 1 8h
+deployment.apps/astrads-operator 1/1 1 1 8h
+
+NAME DESIRED CURRENT READY AGE
+replicaset.apps/astrads-cluster-controller-75d56cdfff 1 1 1 8h
+replicaset.apps/astrads-deployment-support-7b96768f79 1 1 1 7h8m
+replicaset.apps/astrads-license-controller-7bbdc65945 1 1 1 8h
+replicaset.apps/astrads-operator-55d459d877 1 1 1 8h
+
+NAME SCHEDULE SUSPEND ACTIVE LAST SCHEDULE AGE
+cronjob.batch/autosupport-zieyo 0 0 * * * True 0 <none> 6h39m
+
+NAME AGE
+astradsnodeinfo.astrads.netapp.io/astraiop-ocp-c1w1 8h
+astradsnodeinfo.astrads.netapp.io/astraiop-ocp-c1w2 8h
+astradsnodeinfo.astrads.netapp.io/astraiop-ocp-c1w3 8h
+astradsnodeinfo.astrads.netapp.io/astraiop-ocp-c1w4 8h
+astradsnodeinfo.astrads.netapp.io/astraiop-ocp-c1w5 8h
+astradsnodeinfo.astrads.netapp.io/astraiop-ocp-c1w6 8h
+
+NAME AGE
+astradsversion.astrads.netapp.io/astradsversion 8h
+
+NAME ADSCLUSTER VALID PRODUCT EVALUATION ENDDATE VALIDATED
+astradslicense.astrads.netapp.io/e000000009 ocp-cluster true Astra Data Store true 2022-02-07 2021-11-24T05:20:13Z
+
+NAME STATUS VERSION SERIAL NUMBER MVIP AGE
+astradscluster.astrads.netapp.io/ocp-cluster created 2021.10.0 e000000009 10.118.133.212 7h9m
+
+NAME AGE
+astradsqospolicy.astrads.netapp.io/bronze 6h32m
+----
+
+
+
+== Configure Astra Data Store monitoring
+You can configure Astra Data Store for Astra Control Center monitoring or for monitoring by another telemetry service.
+
+=== Configure monitoring for Astra Control Center
+Perform the following step only after Astra Data Store is managed as a backend in Astra Control Center.
+
+. Configure Astra Data Store for monitoring by Astra Control Center:
++
+----
+kubectl astrads monitoring -m netapp-monitoring -r [YOUR REGISTRY] setup
+----
+
+=== Install the monitoring operator
+(Optional) The monitoring operator is recommended only if Astra Data Store monitoring will not be performed in Astra Control Center. You can install the monitoring operator if your Astra Data Store instance is a standalone deployment, uses Cloud Insights to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
+
+. Run this install command:
++
+----
+kubectl apply -f ./manifests/monitoring_operator.yaml
+----
+
+. Configure Astra Data Store for monitoring:
++
+----
+kubectl astrads monitoring -m netapp-monitoring -r [YOUR REGISTRY] setup
+----
+
+== Quick reference of all installation commands (OS)
+
+----
+kubectl create -f ads_namespace.yaml
+
+kubectl create -f ads_privileged_scc.yaml
+
+kubectl create -f oc_role_bindings.yaml
+
+kubectl apply -f <path-to-your-build>/netappsdsoperator.yaml
+
+kubectl create -f <path-to-your-build>/netappsdsdeployment.yaml
+
+kubectl create -f <path-to-your-build>/license.txt
+----
+
+
+On Astra Data Store cluster nodes:
+----
+chcon -R -t container_file_t /var/opt/netapp/firetap/rootfs/var/asup/notification/firetap/
+chcon -R -t container_file_t /var/netapp/firetap/firegen/persist/
+----
+
+== Uninstall Astra Data Store on OpenShift (OS)
+The uninstallation on OpenShift is very similar to the uninstallation on standard Kubernetes with a few extra steps.
+
+=== Delete the Astra Data Store cluster
+
+. Enter:
++
+----
+oc delete astradsvolumes --all -A
+oc delete astradsexportpolicies --all -A
+oc delete astradsclusters --all -A
+----
+
+=== Delete the Astra Data Store deployment
+
+. Enter:
++
+----
+oc delete -f netappsdsdeployment.yaml
+----
+
+===  Delete Astra Data Store global (non namespaced) resources
+
+. Enter:
++
+----
+oc delete -f netappsdsoperator.yaml
+----
+
+===  Delete OpenShift specific resources
+
+. Enter:
++
+----
+oc delete -f ads_privileged_scc.yaml
+oc delete -f oc_role_bindings.yaml
+----
++
+NOTE: Ignore resources "not found" errors in this step.
+
+. Remove `/var/lib/kubelet/config.yaml` from all Kubernetes nodes.
+
+===  Delete Astra Data Store system namespace
+
+. Enter:
++
+----
+oc delete astradsversion.astrads.netapp.io/astradsversion -n astrads-system
+oc delete ns astrads-system
+----
+
+== What's next
+
+Complete the deployment by performing link:setup-ads.html[setup tasks].
