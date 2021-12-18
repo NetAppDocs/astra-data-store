@@ -12,7 +12,7 @@ summary: Known issues identify problems that might prevent you from using this r
 
 Known issues identify problems that might prevent you from using this preview release of the product successfully.
 
-== Default Calico WireGuard interface name is not recognized by Astra Data Store
+== Default Calico WireGuard interface name is not recognized by Astra Data Store preview
 //burt 1442348
 This error causes the pods to crash. As a workaround, change the wireguardInterfaceName setting in Calico’s Felix configuration to specify an interface name without a dot. For example:
 
@@ -22,7 +22,7 @@ calicoctl patch felixconfiguration default --type='merge' -p '{"spec":{"wireguar
 
 In addition to creating interfaces on each node with the new name, this change might also leave behind the original wireguard.cali interfaces. Delete these interfaces to prevent this issue from recurring.
 
-== Network interface names with VXLAN configuration and Calico CNI are not recognized by Astra Data Store
+== Network interface names with VXLAN configuration and Calico CNI are not recognized by Astra Data Store preview
 This error causes the pods to crash. As a workaround, disable VXLAN configuration.
 
 == MongoDB deployment with default liveness probe value fails with pods in crash loop
