@@ -14,7 +14,7 @@ This page provides a high-level overview of the steps needed to get started with
 
 Try it out! If you want to try Astra Data Store preview, you can use a 90-day preview license.
 
-Sign up https://www.netapp.com/cloud-services/astra/data-store-form/[here] to obtain the Astra Data Store preview license. The license for the preview will be sent to you by email after you sign up.
+https://www.netapp.com/cloud-services/astra/data-store-form/[Sign up here] to obtain the Astra Data Store preview license. Instructions to download the license will be sent to you after you sign up.
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png[One] Review Kubernetes cluster requirements
 

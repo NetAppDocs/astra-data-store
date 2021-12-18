@@ -15,7 +15,7 @@ To install Astra Data Store preview, download the installation bundle from the N
 .What you'll need
 * link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store preview deployment].
 * Access to the NetApp Support Site. https://www.netapp.com/cloud-services/astra/data-store-form/[Register] for a preview if you don’t already have a full-access NetApp Support Site account.
-* A link:../get-started/requirements.html#licensing[NetApp license file (NLF)] for Astra Data Store preview. After you sign up to obtain the Astra Data Store preview license, the license will be sent to you by email.
+* A link:../get-started/requirements.html#licensing[NetApp license file (NLF)] for Astra Data Store preview. Instructions to download the license will be sent to you after you https://www.netapp.com/cloud-services/astra/data-store-form[sign up].
 * An active kubeconfig with cluster admin rights for the active context.
 * An understanding of link:../get-started/faq-ads.html#installation-and-use-of-astra-data-store-preview-on-a-kubernetes-cluster[the roles and privileges] used by Astra Data Store preview.
 * Internet connectivity. Astra Data Store preview does not support air-gapped environments. Internet connectivity is needed to reach support.netapp.com either directly or via a proxy.
