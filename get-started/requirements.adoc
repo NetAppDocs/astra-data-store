@@ -12,9 +12,9 @@ summary: Get started by verifying support for your environment.
 
 Get started by verifying that your environment meets Astra Data Store preview requirements.
 
-Astra Data Store supports both bare-metal and VM-based deployments. Astra Data Store preview cluster can run on a Kubernetes cluster with four or more worker nodes. Astra Data Store preview software can co-exist with other applications running on the same Kubernetes cluster.
+Astra Data Store preview supports both bare-metal and VM-based deployments. Astra Data Store preview cluster can run on a Kubernetes cluster with four or more worker nodes. Astra Data Store preview software can co-exist with other applications running on the same Kubernetes cluster.
 
-NOTE: Astra Data Store preview only supports provisioning of PVs for Kubernetes workloads using the Astra Trident CSI driver. VM workloads will be supported in a future release of Astra Data Store.
+Astra Data Store preview only supports provisioning of PVs for Kubernetes workloads using the Astra Trident CSI driver. VM workloads will be supported in a future release of Astra Data Store.
 
 //POLARIS-458
 ////
@@ -66,7 +66,7 @@ NOTE: For the best write performance, you should configure a dedicated high-endu
 
 Each worker node has the following additional requirements:
 
-* 100GiB or greater free space on host disk (boot) for Astra Data Store log files to be stored.
+* 100GiB or greater free space on host disk (boot) for Astra Data Store preview log files to be stored.
 * At least one 10GbE or faster network interface for cluster, data, and management traffic. Optionally, an additional 1GbE or faster interface can be used to separate out management traffic.
 
 ////
@@ -112,18 +112,18 @@ Astra Data Store preview software is validated on the following hardware platfor
 .Storage
 Astra Data Store preview has been validated with the following drive types:
 
-* Bare-metal or passthrough VM deployments with SATA or NVMe TLC SSDs.
-* VM-based deployments are validated with virtual disks and passthrough drives.
-* VM deployments with virtual disks using SATA, SAS, or NVMe TLC SSD-based datastores.
+* *Bare-metal deployments*: Astra Data Store preview installed on a Kubernetes cluster directly on a Linux cluster without any hypervisor.
+** SATA or NVMe TLC SSDs.
+* *VM-based deployments*: Astra Data Store preview installed on a Kubernetes cluster on Linux VMs hosted on an ESXi cluster.
+** SATA, SAS, or NVMe TLC SSD-based datastores.
+** Drives presented as virtual disks or passthrough drives.
 
 NOTE: If your host uses SSDs behind a hardware RAID controller, configure the hardware RAID controller to use "passthrough" mode.
 
 NOTE: Each drive should have a unique serial number. Add the attribute `disk.enableuuid=TRUE` in the virtual machine advanced settings during VM creation.
 
-.Hypervisor in software
-Astra Data Store is validated with VMware-based VM deployments with ESXi 7.0.  KVM-based deployments are not supported by Astra Data Store preview.
-
 .Software
+* Hypervisor: Astra Data Store preview is validated with VMware-based VM deployments with ESXi 7.0. KVM-based deployments are not supported by Astra Data Store preview.
 * Astra Data Store preview has been validated on the following host operating systems:
 ** Red Hat Enterprise Linux 8.4
 ** Red Hat Enterprise Linux 8.2
@@ -187,7 +187,7 @@ NOTE: The cluster network should reside on the same interface as either the mana
 ** One IPv4 address (free/spare/unconfigured) for the volume's export address of each node. This address is configured on the data network interface during Astra Data Store preview cluster installation.
 ////
 
-Astra Data Store requires one (1) IP address per cluster for MVIP. It needs to be an unused or unconfigured IP address in same subnet as MIP. The Astra Data Store management interface should be same as the Kubernetes node’s management interface.
+Astra Data Store preview requires one (1) IP address per cluster for MVIP. It needs to be an unused or unconfigured IP address in same subnet as MIP. The Astra Data Store management interface should be same as the Kubernetes node’s management interface.
 
 In addition, each node can be configured as described in the following table:
 
@@ -218,11 +218,11 @@ NOTE: You should omit the data network gateway field in the cluster Custom Resou
 
 NOTE: No VLAN tags are used in these configurations.
 
-== CSI Driver
-Astra Data Store requires the application Kubernetes clusters to be running Astra Trident 21.10.1. Astra Data Store can be configured as a link:../get-started/setup-ads.html#set-up-astra-data-store-as-storage-backend[storage backend] with Trident to provision persistent volumes.
+== CSI driver
+Astra Data Store preview requires the application Kubernetes clusters to be running Astra Trident 21.10.1. Astra Data Store preview can be configured as a link:../get-started/setup-ads.html#set-up-astra-data-store-as-storage-backend[storage backend] with Astra Trident to provision persistent volumes.
 
 == CNI configuration
-Astra Data Store has been validated with Calico and Weave Net CNIs.
+Astra Data Store preview has been validated with Calico and Weave Net CNIs.
 
 These CNIs require the host firewall (firewalld) to be disabled.
 
@@ -323,7 +323,7 @@ The minimum memory requirement per node is 32GB.
 ////
 
 == Licensing
-Astra Data Store preview requires an Astra Data Store preview license for full functionality. Sign up https://www.netapp.com/cloud-services/astra/data-store-form/[here] to obtain the Astra Data Store preview license. The license for the preview will be sent to you by email after you sign up.
+Astra Data Store preview requires an Astra Data Store preview license for full functionality. https://www.netapp.com/cloud-services/astra/data-store-form/[Sign up here] to obtain the Astra Data Store preview license. Instructions to download the license will be sent to you after you sign up.
 
 == AutoSupport configuration
 //CB review

@@ -13,27 +13,27 @@ summary: After you have installed Astra Data Store and addressed some environmen
 After you have installed Astra Data Store preview and addressed some environmental prerequisites, you'll install Astra Trident, configure K8s snapshot capabilities, set up the storage backend, and create a default storage class:
 
 * <<Install Astra Trident>>
-* <<Install K8s Snapshot CRDs and Controller>>
+* <<Install Kubernetes snapshot CRDs and Controller>>
 * <<Set up Astra Data Store as storage backend>>
 * <<Create a default Astra Data Store storage class>>
 
 == Install Astra Trident
 
-For the Astra Data Store preview, you'll need to install Trident 2.10.1. You can install Trident using one of the following options:
+For the Astra Data Store preview, you'll need to install Astra Trident 21.10.1. You can install Astra Trident using one of the following options:
 
-* https://github.com/NetAppDocs/trident/blob/main/trident-get-started/kubernetes-deploy-tridentctl.adoc[Install Trident using tridentctl].
-* https://github.com/NetAppDocs/trident/blob/main/trident-get-started/kubernetes-deploy-operator.adoc[Install Trident using Trident operator].
+* https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-tridentctl.html[Install Astra Trident using tridentctl^].
+* https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-operator.html[Install Astra Trident using Trident operator^].
 +
 NOTE: You can deploy the Trident operator either manually or using Helm.
 
-== Install K8s Snapshot CRDs and Controller
+== Install Kubernetes snapshot CRDs and Controller
 
-K8s snapshot CRDs and controller are required to create PVC snapshots. If you do not already have the CRD and controller installed for your environment, run the following commands to install them.
+Kubernetes snapshot CRDs and controller are required to create PVC snapshots. If you do not already have the CRD and controller installed for your environment, run the following commands to install them.
 
-NOTE: The following command examples assume `/Trident` as the directory; however, the directory you use can be any directory that you used to download the YAML files.
+NOTE: The following command examples assume `/trident` as the directory; however, the directory you use can be any directory that you used to download the YAML files.
 
 .What you'll need
-* link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
+* link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store preview deployment].
 * Download the link:https://github.com/kubernetes-csi/external-snapshotter/tree/master/deploy/kubernetes/snapshot-controller[Kubernetes snapshot controller YAML files]:
 ** k8s-setup-snapshot-controller.yaml
 ** k8s-rbac-snapshot-controller.yaml
@@ -224,7 +224,7 @@ Sample response:
 
 == Create a default Astra Data Store storage class
 
-Create the Trident default storage class and apply it to the storage backend.
+Create the Astra Trident default storage class and apply it to the storage backend.
 
 .Steps
 . Create the trident-csi storage class:
@@ -274,7 +274,7 @@ NAME          PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWV
 trident-csi   csi.trident.netapp.io   Delete          Immediate           true                   6h29m
 ----
 
-. Verify that the Trident backend has been updated with the default storage class parameters:
+. Verify that the Astra Trident backend has been updated with the default storage class parameters:
 +
 ----
 tridentctl get backend -n trident -o yaml

@@ -12,7 +12,7 @@ summary: Known issues identify problems that might prevent you from using this r
 
 Known issues identify problems that might prevent you from using this preview release of the product successfully.
 
-== Default Calico WireGuard interface name is not recognized by Astra Data Store
+== Default Calico WireGuard interface name is not recognized by Astra Data Store preview
 //burt 1442348
 This error causes the pods to crash. As a workaround, change the wireguardInterfaceName setting in Calico’s Felix configuration to specify an interface name without a dot. For example:
 
@@ -22,12 +22,23 @@ calicoctl patch felixconfiguration default --type='merge' -p '{"spec":{"wireguar
 
 In addition to creating interfaces on each node with the new name, this change might also leave behind the original wireguard.cali interfaces. Delete these interfaces to prevent this issue from recurring.
 
-== Network interface names with VXLAN configuration and Calico CNI are not recognized by Astra Data Store
+== Network interface names with VXLAN configuration and Calico CNI are not recognized by Astra Data Store preview
 This error causes the pods to crash. As a workaround, disable VXLAN configuration.
 
 == MongoDB deployment with default liveness probe value fails with pods in crash loop
 As a workaround, set the liveness probe initialDelaySeconds to 600 seconds in the MongoDB deployment spec.
 
+== Installation of monitoring operator fails on upstream Kubernetes 1.22
+//Praveen from final review
+The Astra Data Store monitoring operator uses deprecated API version that is not compatible with upstream k8s 1.22 version.
+
+== Astra Data Store preview monitoring with Cloud Insights is not available for Kubernetes 1.22 deployments
+The monitoring operator uses an API version that is not compatible with Kubernetes 1.22.
+
+== lockd reconnect shows "double SYN" or immediate 3-way teardown after successful 3-way handshake
+This is a known issue with RHEL7.x to RHEL8.2: https://access.redhat.com/solutions/4148851. Use RHEL8.3 or later as a workaround.
+
+Switch to RHEL8.3+
 == Find more information
 
 * link:../release-notes/known-limitations.html[Known limitations]
