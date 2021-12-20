@@ -10,110 +10,145 @@ summary: You can maintain the cluster by using kubectl commands with Astra Data 
 :icons: font
 :imagesdir: ../media/use/
 
-You can manage the cluster by using kubectl commands with Astra Data Store.
+You can manage the cluster by using kubectl commands with Astra Data Store preview.
 
 * <<Place a node in maintenance mode>>
 * <<Add a node>>
 * <<Replace a node>>
 * <<Replace a drive>>
 
+== What you'll need
+
+* System with kubectl and kubectl-astrads plugin installed. See link:../get-started/install-ads.html[Install Astra Data Store preview].
+
+
 == Place a node in maintenance mode
 
 When you need to perform host maintenance or package upgrades, you should place the node in maintenance mode.
 
-NOTE: The node must already be part of the Astra Data Store cluster.
+NOTE: The node must already be part of the Astra Data Store preview cluster.
 
-When a node is in maintenance mode, you cannot add a node.
+When a node is in maintenance mode, you cannot add a node to the cluster. In this example, we will place nhcitjj1525 into mainteance mode.
 
 .Steps
 
 . Display the node details:
 +
 ----
- kubectl get nodes
+~% kubectl get nodes
+>> Show the output of 'kubectl get nodes'.
+
+ [root@scs000039783-1 ~]# kubectl get nodes
+ NAME             STATUS   ROLES                  AGE     VERSION
+ nhcitjj1525      Ready    <none>                 3d18h   v1.20.0
+ nhcitjj1526      Ready    <none>                 3d18h   v1.20.0
+ nhcitjj1527      Ready    <none>                 3d18h   v1.20.0
+ nhcitjj1528      Ready    <none>                 3d18h   v1.20.0
+ scs000039783-1   Ready    control-plane,master   3d18h   v1.20.0
 ----
 
-. Enable maintenance mode:
+. Ensure that the node is not already in maintenance mode:
 +
 ----
-kubectl astrads maintenance list
-NAME    NODE NAME       IN MAINTENANCE  MAINTENANCE STATE       MAINTENANCE VARIANT
-
- kubectl astrads maintenance create node4 --node-name="nhcitjj1525" --variant=Node
+~% kubectl astrads maintenance list
+NAME    NODE NAME  IN MAINTENANCE  MAINTENANCE STATE       MAINTENANCE VARIANT
+kubectl astrads    maintenance     create node4 --node-name="nhcitjj1525" --variant=Node
 
 Maintenance mode astrads-system/node4 created
+----
 
-kubectl astrads nodes list
+. Enable maintenance mode.
++
+----
+~% kubectl astrads maintenance create <cr-name> --node-name=<<node-name>> --variant=Node
+~% kubectl astrads maintenance create maint1 --node-name="nhcitjj1525" --variant=Node
+Maintenance mode astrads-system/maint1 created
+----
+
+. List the nodes.
++
+----
+~% kubectl astrads nodes list
 NODE NAME       NODE STATUS     CLUSTER NAME
 nhcitjj1525     Added           ftap-astra-012
 nhcitjj1527     Added           ftap-astra-012
 nhcitjj1526     Added           ftap-astra-012
 nhcitjj1528     Added           ftap-astra-012
 ...
+----
 
-kubectl astrads maintenance list
+. Check the status of the maintenance mode:
++
+----
+~% kubectl astrads maintenance list
 NAME    NODE NAME       IN MAINTENANCE  MAINTENANCE STATE       MAINTENANCE VARIANT
 node4   nhcitjj1525     true            ReadyForMaintenance     Node
 ----
 
+
 +
-The In Maintenance mode starts as "False" and changes to "True" and the Maintenance state changes from "Preparing for Maintenance" to "Ready for Maintenance."
+The In Maintenance mode starts as "False" and changes to "True."
+The Maintenance state changes from "Preparing for Maintenance" to "Ready for Maintenance."
+
+. After the node maintenance is complete, disable maintenance mode:
++
+----
+~% kubectl astrads maintenance update maint1 --node-name="nhcitjj1525" --variant=None
+----
+
+. Ensure that the node is no longer in maintenance mode:
++
+----
+~% kubectl astrads maintenance list
+----
+
 
 
 == Add a node
 
+The node that you are adding should be part of the Kubernetes cluster and should have a configuration that is similar to the other nodes in the cluster.
+
+.Steps
 .	If the new node’s dataIP is not already part of the ADSCluster CR, do the following:
 .. Edit the astradscluster CR and add the additional dataIP in the ADS Data Networks Addresses field:
 +
 ----
-Kubectl edit astradscluster <cluster-name> -n astrads-system
+~% kubectl edit astradscluster <cluster-name> -n astrads-system
 
 ADS Data Networks:
     Addresses:  dataIP1, dataIP2, dataIP3, dataIP4, *newdataIP*
 ----
 
-.. Save the file.
-.. Add the cluster:
+.. Save the CR file.
+.. Add the node to the Astra Data Store preview cluster:
 +
 ----
-kubectl astrads nodes add –cluster <cluster-name>
+~% kubectl astrads nodes add –cluster <cluster-name>
 ----
 
 .	Otherwise, just add the nodes:
 +
 ----
-kubectl astrads nodes add –cluster <cluster-name>
+~% kubectl astrads nodes add –cluster <cluster-name>
 ----
 
 . Verify that the node has been added:
 +
 ----
-kubectl astrads nodes list
+~% kubectl astrads nodes list
 ----
 
 
 == Replace a node
 
-Use kubectl commands with Astra Data Store to replace a failed node in a cluster.
+Use kubectl commands with Astra Data Store preview to replace a failed node in a cluster.
 
 .Steps
-
-. List the pods in the `astrads-system` namespace (our example uses a 1x5 configuration with 4 nodes in the cluster):
-+
-----
-kubectl get pods -n astrads-system
-NAME                                 READY  STATUS    RESTARTS   AGE
-astrads-cluster-controller...        1/1    Running   1          20h
-astrads-deployment-support...        3/3    Running   0          20h
-astrads-ds-cluster-multinodes-21209.  /1    Running   0          20h
-----
-
-
 
 . List all the nodes:
 +
 ----
-kubectl astrads nodes list
+~% kubectl astrads nodes list
 NODE NAME           NODE STATUS    CLUSTER NAME
 sti-rx2540-534d..   Added       cluster-multinodes-21209
 sti-rx2540-535d...  Added       cluster-multinodes-21209
@@ -123,7 +158,7 @@ sti-rx2540-535d...  Added       cluster-multinodes-21209
 . Describe the cluster:
 +
 ----
-kubectl astrads clusters list
+~% kubectl astrads clusters list
 CLUSTER NAME               CLUSTER STATUS  NODE COUNT
 cluster-multinodes-21209   created         4
 ----
@@ -131,7 +166,8 @@ cluster-multinodes-21209   created         4
 . Verify that the Node HA is marked as "False" on the failed node:
 +
 ----
-kubectl describe astradscluster -n astrads-system
+~% kubectl describe astradscluster -n astrads-system
+
 Name:         cluster-multinodes-21209
 Namespace:    astrads-system
 Labels:       <none>
@@ -139,202 +175,24 @@ Annotations:  kubectl.kubernetes.io/last-applied-configuration:
                 {"apiVersion":"astrads.netapp.io/v1alpha1","kind":"AstraDSCluster","metadata":{"annotations":{},"name":"cluster-multinodes-21209","namespa...
 API Version:  astrads.netapp.io/v1alpha1
 Kind:         AstraDSCluster
-Metadata:
-  Creation Timestamp:  2021-10-19T09:12:03Z
-  Finalizers:
-    astrads.netapp.io/astradscluster-finalizer
-  Generation:  1
-  Managed Fields:
-    API Version:  astrads.netapp.io/v1alpha1
-    Fields Type:  FieldsV1
-    fieldsV1:
-      f:metadata:
-        f:annotations:
-        ...
 
-    Manager:      autosupport-controller
-    Operation:    Update
-    Time:         2021-10-19T09:12:36Z
-    API Version:  astrads.netapp.io/v1alpha1
-    Fields Type:  FieldsV1
-    fieldsV1:
-      f:metadata:
-        f:finalizers:
-          ...
-
-    Manager:      operator
-    Operation:    Update
-    Time:         2021-10-19T09:13:18Z
-    API Version:  astrads.netapp.io/v1alpha1
-    Fields Type:  FieldsV1
-
-    Manager:      cluster-controller
-    Operation:    Update
-    Time:         2021-10-20T09:46:31Z
-    API Version:  astrads.netapp.io/v1alpha1
-    Fields Type:  FieldsV1
-
-    Manager:      license-controller
-    Operation:    Update
-    Time:         2021-10-20T09:46:52Z
-
-  Resource Version:  217898
-  UID:               97ae6f6f-004d-4490-8a90-2dcdc01b9d8f
-Spec:
-  Ads Data Networks:
-    Addresses:  ...
-    Netmask:    255.255.252.0
-  Ads Network Interfaces:
-    Cluster Interface:     data
-    Management Interface:  mgmt
-    Storage Interface:     data
-  Ads Node Config:
-    Capacity:       600
-    Cpu:            9
-    Drives Filter:  .*
-    Memory:         34
-  Ads Node Count:   4
-  Auto Support Config:
-    Auto Upload:              true
-    Coredump Upload:          false
-    Destination URL:          ...
-    Enabled:                  true
-    History Retention Count:  25
-    Periodic:
-      Periodicconfig:
-        Component:
-          Event:           dailyMonitoring
-          Name:            storage
-        Force Upload:      false
-        Local Collection:  false
-        Nodes:             all
-        Priority:          notice
-        Retry:             false
-        User Message:      Daily Monitoring Storage AutoSupport bundle
-        Component:
-          Event:           daily
-          Name:            controlplane
-        Force Upload:      false
-        Local Collection:  false
-        Priority:          notice
-        Retry:             false
-        User Message:      Daily Control Plane AutoSupport bundle
-      Schedule:            0 0 * * *
-  Monitoring Config:
-    Namespace:  netapp-monitoring
-    Repo:       docker.repo.eng.netapp.com/global/astra
-  Mvip:         172.21.111.111
-Status:
-  Ads Data Addresses:
-    Address:       ...
-    Current Node:  1
-    Uuid:          ...
-...
-  Autosupport:
-    Periodicmap:
-      Autosupport - Zieyo:
-        Periodicconfig:
-          Component:
-            Event:           dailyMonitoring
-            Name:            storage
-          Force Upload:      false
-          Local Collection:  false
-          Nodes:             all
-          Priority:          notice
-          Retry:             false
-          User Message:      Daily Monitoring Storage AutoSupport bundle
-          Component:
-            Event:           daily
-            Name:            controlplane
-          Force Upload:      false
-          Local Collection:  false
-          Priority:          notice
-          Retry:             false
-          User Message:      Daily Control Plane AutoSupport bundle
-        Schedule:            0 0 * * *
-  Cluster Status:            created
-  Cluster UUID:              cd7c9a27-74b2-4c74-b565-cb816fe55fdd
-  Conditions:
-    Last Transition Time:  2021-10-19T09:12:04Z
-    Last Update Time:      2021-10-19T09:12:04Z
-    Message:               ADS Cluster configured properly for license
-    Reason:                LicenseNormal
-    Status:                False
-    Type:                  LicenseExceeded
-    Last Transition Time:  2021-10-19T09:12:10Z
-    Last Update Time:      2021-10-20T09:46:52Z
-    Message:               License has no restrictions present
-    Status:                False
-    Type:                  RestrictedLicense
-    Last Transition Time:  2021-10-19T09:12:10Z
-    Last Update Time:      2021-10-20T09:46:52Z
-    Message:               License Valid
-    Status:                True
-    Type:                  ValidLicense
-    Last Transition Time:  2021-10-19T09:12:10Z
-    Last Update Time:      2021-10-20T09:46:52Z
-    Status:                True
-    Type:                  LastLicenseTransitionAttemptSuccessful
-    Last Transition Time:  2021-10-20T09:27:35Z
-    Last Update Time:      2021-10-20T09:45:32Z
-    Message:               Firetap Cluster is unhealthy
-    Reason:                ClusterFaults
-    Status:                False
-    Type:                  FiretapClusterHealthy
-  Desired Versions:
-    Ads:      2021.10.0
-    Firetap:  12.75.0.6167444
-  Ft Cluster Health:
-    Details:
-      Cluster Faults:
-        Code:             NodeOffline
-        Details:          The Distributed Block Store Application cannot communicate with Storage node having node ID 4.
-        Node Id:          4
-        Timestamp:        2021-10-20T09:26:43Z
-        Code:             UnresponsiveService
-        Details:          A master service is not responding.
-        Node Id:          4
-        Timestamp:        2021-10-20T09:28:06Z
-        Code:             UnresponsiveService
-        Details:          A firefly service is not responding.
-        Node Id:          4
-        Timestamp:        2021-10-20T09:28:11Z
-      Syncing:            false
-    Healthy:              false
-  Ft Node Count:          4
-  License Serial Number:  d900000011
-  Node Statuses:
-    Maintenance Status:
-      State:             Disabled
-      Variant:           None
-    Node HA:             true
-    Node ID:             1
-    Node Is Reachable:   true
-    Node Management IP:  172.21.192.251
-    Node Name:           sti-rx2540-534d.ctl.gdl.englab.netapp.com
-    Node Role:           Storage
-    Node UUID:           f0f6d1af-cc71-5613-a4dd-d24456feafaa
-    Node Version:        12.75.0.6167444
-    Status:              Added
- ...
-
-  Resources:
-    Capacity Deployed:  2400
-    Cpu Deployed:       36
-  Versions:
-    Ads:      2021.10.0
-    Firetap:  12.75.0.6167444
-Events:
-  Type     Reason                      Age                     From         Message
-  ----     ------                      ----                    ----         -------
-  Warning  MonitoringConfigSetupError  4m32s (x7390 over 24h)  ADSOperator  Unable to setup monitoring agent for ADS cluster: monitoring CRD not found
+State:               Disabled
+Variant:             None
+Node HA:             false
+Node ID:             4
+Node Is Reachable:   false
+Node Management IP:  172.21.192.192
+Node Name:           sti-rx2540-532d.ctl.gdl.englab.netapp.com
+Node Role:           Storage
+Node UUID:           6f6b88f3-8411-56e5-b1f0-a8e8d0c946db
+Node Version:        12.75.0.6167444
+Status:              Added
 ----
 
 . Modify the Cluster CR to remove the failed node. The node count decrements to 3:
 +
 ----
- # rvi nate_hosts/netappsdscluster.yaml
- # cat nate_hosts/netappsdscluster.yaml t
+ # cat nate_hosts/netappsdscluster.yaml
 apiVersion: astrads.netapp.io/v1alpha1
 kind: AstraDSCluster
 metadata:
@@ -512,24 +370,24 @@ astradscluster.astrads.netapp.io/cluster-multinodes-21209 configured
 . Verify the node is removed from the cluster:
 +
 ----
-kubectl get nodes --show-labels
+~% kubectl get nodes --show-labels
 NAME                                            STATUS   ROLES                 AGE   VERSION   LABELS
 sti-astramaster-237   Ready control-plane,master   24h   v1.20.0
 sti-rx2540-532d       Ready  <none>                24h   v1.20.0
 sti-rx2540-533d       Ready  <none>                24h
 
-kubectl astrads nodes list
+~% kubectl astrads nodes list
 NODE NAME         NODE STATUS     CLUSTER NAME
 sti-rx2540-534d   Added           cluster-multinodes-21209
 sti-rx2540-535d   Added           cluster-multinodes-21209
 sti-rx2540-536d   Added           cluster-multinodes-21209
 
-kubectl get nodes --show-labels
+~% kubectl get nodes --show-labels
 NAME                STATUS   ROLES                  AGE   VERSION   LABELS
 sti-astramaster-237 Ready    control-plane,master   24h
 sti-rx2540-532d     Ready    <none>                 24h
 
-kubectl describe astradscluster -n astrads-system
+~% kubectl describe astradscluster -n astrads-system
 Name:         cluster-multinodes-21209
 Namespace:    astrads-system
 Labels:       <none>
@@ -551,25 +409,25 @@ metadata:
 ----
 +
 ----
-kubectl apply -f nate_hosts/netappsdscluster.yaml
+~% kubectl apply -f nate_hosts/netappsdscluster.yaml
 astradscluster.astrads.netapp.io/cluster-multinodes-21209 configured
 
-kubectl get pods -n astrads-system
+~% kubectl get pods -n astrads-system
 NAME                                READY   STATUS    RESTARTS   AGE
 astrads-cluster-controller...       1/1     Running   1          24h
 astrads-deployment-support...       3/3     Running   0          24h
 astrads-ds-cluster-multinodes-21209 1/1     Running
 
-kubectl astrads nodes list
+~% kubectl astrads nodes list
 NODE NAME                NODE STATUS     CLUSTER NAME
 sti-rx2540-534d...       Added           cluster-multinodes-21209
 sti-rx2540-535d...       Added           cluster-multinodes-21209
 
-kubectl astrads clusters list
+~% kubectl astrads clusters list
 CLUSTER NAME                    CLUSTER STATUS  NODE COUNT
 cluster-multinodes-21209        created         4
 
-kubectl astrads drives list
+~% kubectl astrads drives list
 DRIVE NAME    DRIVE ID    DRIVE STATUS   NODE NAME     CLUSTER NAME
 scsi-36000..  c3e197f2... Active         sti-rx2540... cluster-multinodes-21209
 ----
@@ -578,6 +436,59 @@ scsi-36000..  c3e197f2... Active         sti-rx2540... cluster-multinodes-21209
 == Replace a drive
 
 When a drive fails in a cluster, the drive must be replaced as soon as possible to ensure data integrity.
+When a drive fails, you will see failed drive information in cluster CR node status, cluster health condition information, and the metrics endpoint.
+
+.Example of `cluster` showing failed drive in nodeStatuses.driveStatuses
+
+----
+$ kubectl get adscl -A -o yaml
+...
+apiVersion: astrads.netapp.io/v1alpha1
+kind: AstraDSCluster
+...
+nodeStatuses:
+  - driveStatuses:
+    - driveID: 31205e51-f592-59e3-b6ec-185fd25888fa
+      driveName: scsi-36000c290ace209465271ed6b8589b494
+      drivesStatus: Failed
+    - driveID: 3b515b09-3e95-5d25-a583-bee531ff3f31
+      driveName: scsi-36000c290ef2632627cb167a03b431a5f
+      drivesStatus: Active
+    - driveID: 0807fa06-35ce-5a46-9c25-f1669def8c8e
+      driveName: scsi-36000c292c8fc037c9f7e97a49e3e2708
+      drivesStatus: Active
+...
+----
+
+.Example of new AstraDSFailedDrive CR
+
+The failed drive CR is created automtically in the cluster with a name corresponding to the UUID of the failed drive.
+
+----
+$ kubectl get adsfd -A -o yaml
+
+...
+apiVersion: astrads.netapp.io/v1alpha1
+kind: AstraDSFailedDrive
+metadata:
+    name: c290a-5000-4652c-9b494
+    namespace: astrads-system
+spec:
+  executeReplace: false
+  replaceWith: ""
+ status:
+   cluster: arda-6e4b4af
+   failedDriveInfo:
+     failureReason: AdminFailed
+     inUse: false
+     name: scsi-36000c290ace209465271ed6b8589b494
+     path: /dev/disk/by-id/scsi-36000c290ace209465271ed6b8589b494
+     present: true
+     serial: 6000c290ace209465271ed6b8589b494
+     node: sti-rx2540-300b.ctl.gdl.englab.netapp.com
+   state: ReadyToReplace
+----
+
 
 .Steps
 
@@ -586,11 +497,11 @@ When a drive fails in a cluster, the drive must be replaced as soon as possible 
 To list all drives without filtering possible replacement drives, add `--all` to `show-replacements` command.
 +
 ----
-> kubectl astrads faileddrive list --cluster arda-6e4b4af
+~% kubectl astrads faileddrive list --cluster arda-6e4b4af
 NAME       NODE                             CLUSTER        STATE                AGE
 6000c290   sti-rx2540-300b.lab.netapp.com   ard-6e4b4af    ReadyToReplace       13m
 
-> kubectl astrads faileddrive show-replacements --cluster ard-6e4b4af --name 6000c290
+~%  kubectl astrads faileddrive show-replacements --cluster ard-6e4b4af --name 6000c290
 NAME  IDPATH             SERIAL  PARTITIONCOUNT   MOUNTED   SIZE
 sdh   /scsi-36000c29417  45000c  0                false     100GB
 
@@ -600,14 +511,14 @@ sdh   /scsi-36000c29417  45000c  0                false     100GB
 . Use the `replace` command to replace the drive with the passed serial number. The command completes the replacement or fails if ``--wait` time elapses.
 +
 ----
-> kubectl astrads faileddrive replace --cluster arda-6e4b4af --name 6000c290 --replaceWith 45000c --wait
+~% kubectl astrads faileddrive replace --cluster arda-6e4b4af --name 6000c290 --replaceWith 45000c --wait
 Drive replacement completed successfully
 ----
 
 . If `kubectl astrads faileddrive replace` is executed using an inappropriate `--replaceWith` serial number, an error appears similar to this:
 +
 ----
-> kubectl astrads replacedrive replace --cluster astrads-cluster-f51b10a --name 6000c2927 --replaceWith BAD_SERIAL_NUMBER
+~% kubectl astrads replacedrive replace --cluster astrads-cluster-f51b10a --name 6000c2927 --replaceWith BAD_SERIAL_NUMBER
 
 Drive 6000c2927 replacement started
 Failed drive 6000c2927 has been set to use BAD_SERIAL_NUMBER as a replacement
@@ -619,9 +530,9 @@ Current status: {FailedDriveInfo:{InUse:false Present:true Name:scsi-36000c2 Fir
 . To re-run drive replacement use ``--force` with the previous command:
 +
 ----
-> kubectl astrads replacedrive replace --cluster astrads-cluster-f51b10a --name 6000c2927 --replaceWith VALID_SERIAL_NUMBER --force
+~%  kubectl astrads replacedrive replace --cluster astrads-cluster-f51b10a --name 6000c2927 --replaceWith VALID_SERIAL_NUMBER --force
 ----
 
 == For more information
-Also see this information.
-* link:../use/kubectl-commands-ads.html[Manage Astra Data Store assets with kubectl commands].
+
+* link:../use/kubectl-commands-ads.html[Manage Astra Data Store preview with kubectl commands]

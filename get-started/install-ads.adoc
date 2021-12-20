@@ -5,75 +5,57 @@ keywords: astra, astra data store, install, deploy, download
 summary: To install Astra Data Store after addressing some environmental prerequisites, you'll download the bundle and install following the steps described.
 ---
 
-= Install Astra Data Store
+= Install Astra Data Store preview
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/get-started/
 
-To install Astra Data Store, download the installation bundle from the NetApp Support Site and complete installation steps described in this procedure.
+To install Astra Data Store preview, download the installation bundle from the NetApp Support Site and complete installation steps described in this procedure.
 
 .What you'll need
-* link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
+* link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store preview deployment].
 * Access to the NetApp Support Site. https://www.netapp.com/cloud-services/astra/data-store-form/[Register] for a preview if you don’t already have a full-access NetApp Support Site account.
+* A link:../get-started/requirements.html#licensing[NetApp license file (NLF)] for Astra Data Store preview. Instructions to download the license will be sent to you after you https://www.netapp.com/cloud-services/astra/data-store-form[sign up].
 * An active kubeconfig with cluster admin rights for the active context.
-* Internet connectivity. Astra Data Store Preview does not support air-gapped environments. Internet connectivity is needed to reach support.netapp.com either directly or via a proxy.
+* An understanding of link:../get-started/faq-ads.html#installation-and-use-of-astra-data-store-preview-on-a-kubernetes-cluster[the roles and privileges] used by Astra Data Store preview.
+* Internet connectivity. Astra Data Store preview does not support air-gapped environments. Internet connectivity is needed to reach support.netapp.com either directly or via a proxy.
 
 .About this task
-The Astra Data Store installation process guides you through the following high-level steps:
+The Astra Data Store preview installation process guides you through the following high-level steps:
 
-* <<Download the Astra Data Store bundle>>
-* <<Unpack the bundle and change directory>>
+* <<Download the Astra Data Store preview bundle and extract the images>>
 * <<Copy the binary and push images to your local registry>>
-* <<Install the Astra Data Store operator>>
-* <<Apply the Astra Data Store version YAML>>
-* <<Install the Astra Data Store cluster>>
-* <<Apply the Astra Data Store license>>
-* <<Configure Astra Data Store monitoring>>
-* <<Install the monitoring operator>>
+* <<Install the Astra Data Store preview operator>>
+* <<Deploy the Astra Data Store preview version YAML>>
+* <<Apply the Astra Data Store preview license>>
+* <<Install the Astra Data Store preview cluster>>
+* <<Understand deployment-related events>>
+* <<Configure Astra Data Store preview monitoring>>
 
-== Download the Astra Data Store bundle
-. Log in to the https://mysupport.netapp.com/site/downloads/evaluation/astra-data-store/download[NetApp Support Site^] and download the Astra Data Store bundle (`astra-data-store-[version].tar.gz`).
+== Download the Astra Data Store preview bundle and extract the images
+. Log in to the https://mysupport.netapp.com/site/downloads/evaluation/astra-data-store/download[NetApp Support Site^] and download the Astra Data Store preview bundle (`2021.12_astradatastore.tar`).
 //Need confirmation on tar name.
-. Download the zip of Astra Data Store license file (NLF) from https://mysupport.netapp.com/site/downloads/evaluation/astra-data-store/download[NetApp Support Site^].
 . (Optional) Use the following command to verify the signature of the bundle:
 +
 ----
-openssl dgst -sha256 -verify astra-data-store[version].pub -signature <astra-data-store[version].sig astra-data-store[version].tar.gz
+openssl dgst -sha256 -verify 2021.12_astradatastore.pub -signature 2021.12_astradatastore.sig 2021.12_astradatastore.tar
 ----
-
-== Unpack the bundle and change directory
 
 . Extract the images:
 +
 ----
-tar -vxzf astra-data-store-[version].tar.gz
-----
-
-. Change to the Astra directory.
-+
-----
-cd astra-data-store-[version]
-----
-
-. Define the path where the kubectl binary is to be installed.
-+
-NOTE: `/usr/bin/kubectl` is used as an example as the binary path. Replace it with your path before running the command.
-
-+
-----
-which kubectl
-/usr/bin/kubectl
+tar -xvf 2021.12_astradatastore.tar
 ----
 
 == Copy the binary and push images to your local registry
 
-. Copy the kubectl-astrads binary from the directory you used to extract images to the standard path where k8s kubectl binaries are installed; for example, `/usr/bin/`. kubectl-astrads is a custom kubectl extension that installs and manages Astra Data Store clusters.
+. Copy the kubectl-astrads binary from the directory you used to extract images to the standard path where k8s kubectl binaries are installed; for example, `/usr/bin/`. kubectl-astrads is a custom kubectl extension that installs and manages Astra Data Store preview clusters.
 +
 ----
 cp -p ./bin/kubectl-astrads /usr/bin/.
 ----
 
-. Add the files in the Astra Data Store image directory to your local registry.
+. Add the files in the Astra Data Store preview image directory to your local registry.
 +
 NOTE: See a sample script for the automatic loading of images below.
 
@@ -83,13 +65,16 @@ NOTE: See a sample script for the automatic loading of images below.
 docker login [your_registry_path]
 ----
 
-.. Load the images into Docker.
-.. Tag the images.
-.. [[substep_image_local_registry_push]]Push the images to your local registry.
+.. Set an environment variable to the registry path where you want to push the Astra Data Store preview images; for example, `repo.company.com`.
++
+----
+export REGISTRY=repo.company.com/astrads
+----
+
+.. Run the script to load the images into Docker, tag the images, and [[substep_image_local_registry_push]]push the images to your local registry:
 
 +
 ----
-export REGISTRY=[your_registry_path]
 for astraImageFile in $(ls images/*.tar) ; do
    astraImage=$(docker load --input ${astraImageFile} | sed 's~Loaded image: ~~')
    astraImageShort=`echo $astraImage | sed 's~.*/~~'`
@@ -99,8 +84,8 @@ done
 sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/*.yaml
 ----
 
-== Install the Astra Data Store operator
-. List the Astra Data Store manifests:
+== Install the Astra Data Store preview operator
+. List the Astra Data Store preview manifests:
 +
 ----
 ls manifests/*yaml
@@ -109,10 +94,10 @@ ls manifests/*yaml
 Response:
 +
 ----
-astradscluster.yaml
-astradsoperator.yaml
-astradsversion.yaml
-monitoring_operator.yaml
+manifests/astradscluster.yaml
+manifests/astradsoperator.yaml
+manifests/astradsversion.yaml
+manifests/monitoring_operator.yaml
 ----
 
 . Deploy the operator using kubectl apply:
@@ -184,25 +169,12 @@ NAME                                READY   STATUS    RESTARTS   AGE
 astrads-operator-5ffb94fbf-7ln4h    1/1     Running   0          17m
 ----
 
-== Deploy the Astra Data Store version YAML
+== Deploy the Astra Data Store preview version YAML
 
 . Deploy using kubectl apply:
 +
 ----
 kubectl apply -f ./manifests/astradsversion.yaml
-----
-
-. Verify that the Astra Data Store version pod has started and is running:
-+
-----
-kubectl get astradsversion -n astrads-system
-----
-+
-Response:
-+
-----
-NAME             AGE
-astradsversion   1m
 ----
 
 . Verify that the pods are running:
@@ -224,11 +196,9 @@ astrads-license-controller-fb8fd56bc-bxq7j    1/1     Running   0          2m2s
 astrads-operator-5ffb94fbf-7ln4h              1/1     Running   0          2m10s
 ----
 
-== Apply the Astra Data Store license
+== Apply the Astra Data Store preview license
 
-NOTE: For the Astra Data Store preview release, the license type is limited to preview.
-
-. Apply the NetApp License File (NLF) that you obtained from the NetApp Support Site (NSS). Before you run the command, enter the name of the cluster (`<Astra-Data-Store-cluster-name>`) that you are <<Install the Astra Data Store cluster,going to deploy>> or have already deployed and the path to the license file (`<file_path/file.txt>`):
+. Apply the NetApp License File (NLF) that you obtained when you signed up for the preview. Before you run the command, enter the name of the cluster (`<Astra-Data-Store-cluster-name>`) that you are <<Install the Astra Data Store preview cluster,going to deploy>> or have already deployed and the path to the license file (`<file_path/file.txt>`):
 +
 ----
 kubectl astrads license add --license-file-path <file_path/file.txt> --ads-cluster-name <Astra-Data-Store-cluster-name> -n astrads-system
@@ -244,10 +214,10 @@ Response:
 +
 ----
 NAME        ADSCLUSTER                  VALID   PRODUCT                     EVALUATION  ENDDATE     VALIDATED
-p100000006  astrads-c6220-1011121314    true    Astra Data Store Preview    true        2022-01-23  2021-11-04T14:38:54Z
+p100000006  astrads-example-cluster    true    Astra Data Store Preview    true        2022-01-23  2021-11-04T14:38:54Z
 ----
 
-== Install the Astra Data Store cluster
+== Install the Astra Data Store preview cluster
 . Open the YAML file:
 +
 ----
@@ -256,14 +226,17 @@ vim ./manifests/astradscluster.yaml
 
 . Edit the following values in the YAML file.
 +
-NOTE: An example follows these steps.
+NOTE: A simplified example of the YAML file follows these steps.
 
-.. (Required) *Metadata*: In `metadata`, change the `name` string to the name of your cluster. This must be the same cluster name you use when you <<Apply the Astra Data Store license,apply the license>>.
+.. (Required) *Metadata*: In `metadata`, change the `name` string to the name of your cluster. This must be the same cluster name you use when you <<Apply the Astra Data Store preview license,apply the license>>.
 .. (Required) *Spec*: Change the following required values in `spec`:
 * Change the `mvip` string to the IP address of a floating management IP that is routable from any worker node in the cluster.
-* In `adsDataNetworks`, list floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume.
+* In `adsDataNetworks`, add a comma-separated list of floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume. Use one floating IP address per node. There should be at least as many data network IP addresses as there are Astra Data Store preview nodes. For Astra Data Store preview, this means at least 4 addresses, or 5 if you plan on expanding the cluster to 5 nodes later.
 * In `adsDataNetworks`, specify the netmask used by the data network.
-* In `adsNetworkInterfaces`, replace the `mgmt` and `data` values with the names of your node interfaces for management, cluster, and storage.
+* In `adsNetworkInterfaces`, replace the `mgmt` and `data` values with the network interface names you want to use for management, cluster, and storage. If no names are specified, the node's primary interface will be used for management, cluster, and storage networking.
++
+NOTE: Cluster and storage networks need to be on the same interface. The Astra Data Store preview management interface should be same as the Kubernetes node’s management interface.
+
 .. (Optional) *monitoringConfig*: If you want to configure a <<Install the monitoring operator,monitoring operator>> (optional if you are not using Astra Control Center for monitoring), remove the commenting from the section, add the namespace in which the agent CR (monitoring operator resource) is applied (default is `netapp-monitoring`), and add the repo path for your registry (`your_registry_path`) that you used in previous steps.
 .. (Optional) *autoSupportConfig*: Retain the link:../support/autosupport.html[AutoSupport] default values unless you need to configure a proxy:
 * For `proxyURL`, set the URL of the proxy with the port that will be used for AutoSupport bundle transfer.
@@ -288,10 +261,15 @@ kind: AstraDSCluster
   *adsDataNetworks:*
     *- addresses: ""*
       *netmask:*
-  adsNetworkInterfaces:
-    managementInterface: "mgmt"
-    clusterInterface: "data"
-    storageInterface: "data"
+  # Specify the network interface names to use for management, cluster and storage networks.
+  # If none are specified, the node's primary interface will be used for management, cluster and storage networking.
+  # To move the cluster and storage networks a different interface than management, specify all three interfaces to use here.
+  # The Astra Data Store management interface should be same as the Kubernetes node’s management interface.
+  # NOTE: The cluster and storage networks need to be on the same interface.
+  *adsNetworkInterfaces:*
+    *managementInterface: "mgmt"*
+    *clusterInterface: "data"*
+    *storageInterface: "data"*
   # [Optional] Provide a monitoring config to be used to setup/configure a monitoring agent.
  *# monitoringConfig:*
    *# namespace: "netapp-monitoring"*
@@ -318,7 +296,7 @@ kind: AstraDSCluster
           userMessage: Daily Control Plane AutoSupport bundle
 ----
 
-. Deploy the cluster using kubectl apply:
+. Deploy the cluster using `kubectl apply`:
 +
 ----
 kubectl apply -f ./manifests/astradscluster.yaml
@@ -363,23 +341,61 @@ Sample response:
 ----
 NAME                        STATUS    VERSION    SERIAL NUMBER    MVIP       AGE
 
-astrads-c6220-1011121314   created   2021.10.0   p100000006       10.x.x.x   2m
+astrads-example-cluster   created   2021.10.0   p100000006       10.x.x.x   10m
 ----
 
-== Configure Astra Data Store monitoring
-You can configure Astra Data Store for Astra Control Center monitoring or for monitoring by another telemetry service.
+== Understand deployment-related events
+During cluster deployment, the operation status should change from `blank` to `in progress` to `created`. Cluster deployment will last approximately 8 to 10 minutes. To monitor cluster events during deployment, you can run either of the following commands:
 
-=== Configure monitoring for Astra Control Center
-Perform the following step only after Astra Data Store is managed as a backend in Astra Control Center.
+----
+kubectl get events --field-selector involvedObject.kind=AstraDSCluster -n astrads-system
+----
 
-. Configure Astra Data Store for monitoring by Astra Control Center:
+----
+kubectl describe astradscluster <cluster name> -n astrads-system
+----
+
+The following are key events during deployment:
+
+|===
+|Event message |Meaning
+
+|Successfully selected 4 control plane nodes to join the ADS cluster
+|The Astra Data Store preview operator identified enough nodes with CPU, memory, storage, and networking to create an Astra Data Store preview cluster.
+
+|ADS cluster create in progress
+|The Astra Data Store preview cluster controller has started the cluster create operation.
+
+|ADS cluster created
+|The cluster was created successfully.
+|===
+
+If the cluster’s status doesn’t change to `in progress`, check the operator logs for more details on node selection:
+
+----
+kubectl logs -n astrads-system <astrads operator pod name>
+----
+
+If the cluster’s status is stuck at `in progress`, check the cluster controller's logs:
+
+----
+kubectl logs -n astrads-system <astrads cluster controller pod name>
+----
+
+== Configure Astra Data Store preview monitoring
+You can configure Astra Data Store preview for Astra Control Center monitoring or for monitoring by another telemetry service.
+
+=== Configure monitoring for Astra Control Center preview
+Perform the following step only after Astra Data Store preview is managed as a backend in Astra Control Center.
+
+. Configure Astra Data Store preview for monitoring by Astra Control Center:
 +
 ----
 kubectl astrads monitoring -m netapp-monitoring -r [YOUR REGISTRY] setup
 ----
 
 === Install the monitoring operator
-(Optional) The monitoring operator is recommended only if Astra Data Store monitoring will not be performed in Astra Control Center. You can install the monitoring operator if your Astra Data Store instance is a standalone deployment, uses Cloud Insights to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
+(Optional) The monitoring operator is recommended only if Astra Data Store preview will not be imported into Astra Control Center. You can install the monitoring operator if your Astra Data Store preview instance is a standalone deployment, uses Cloud Insights to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
 
 . Run this install command:
 +
@@ -387,7 +403,7 @@ kubectl astrads monitoring -m netapp-monitoring -r [YOUR REGISTRY] setup
 kubectl apply -f ./manifests/monitoring_operator.yaml
 ----
 
-. Configure Astra Data Store for monitoring:
+. Configure Astra Data Store preview for monitoring:
 +
 ----
 kubectl astrads monitoring -m netapp-monitoring -r [YOUR REGISTRY] setup

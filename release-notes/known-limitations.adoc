@@ -10,27 +10,22 @@ summary: Known limitations identify platforms, devices, or functions that are no
 :icons: font
 :imagesdir: ../media/release-notes/
 
-Known limitations identify platforms, devices, or functions that are not supported by this release of the product, or that do not interoperate correctly with it. Review these limitations carefully.
+Known limitations identify platforms, devices, or functions that are not supported by this preview release of the product, or that do not interoperate correctly with it. Review these limitations carefully.
 
 == Functionality to remove one or more nodes is not supported
-Although Astra Data Store does not support node removal functionality, it does support failed node removal.
+Astra Data Store preview supports replacing a failed node but does not support node removal functionality.
 
-== Functionality to remove one or more drives is not supported
-Although Astra Data Store does not support drive removal functionality, it does support the functionality to replace failed drives.
+== Functionality to add or remove drives is not supported
+Astra Data Store preview supports replacing a failed drive but does not support adding or removing drives to or from an existing cluster.
 
-== Add drive functionality is not supported
-Astra Data Store does not support the functionality to add drives.
+== Astra Data Store preview functionality is not validated with firewall enabled
+Astra Data Store preview requires host firewalld to be disabled. Enabling firewall using CNI tools like Calico HostEndpoint has not been validated.
 
-== Firewall-enabled configuration is not supported
-Astra Data Store does not support firewall-enabled configurations.
+== Upgrade or patch requires a fresh install
+Astra Data Store preview is not targeted for production workloads.
 
-== Upgrade functionality is not provided in this release
-The functionality to upgrade Astra Data Store will be provided in a future release.
-
-== AutoSupport periodic settings cannot be disabled in this release
-//CB review
-In the preview release, the link:../get-started/install-ads.html#install-the-astra-data-store-cluster[periodic settings that are used for sending mandatory telemetry AutoSupport bundles] should not be changed. If you disable the sending of periodic AutoSupport bundles, the cluster will be locked down and new volumes cannot be created until periodic settings are enabled again.
-
+== Ubuntu-based bare-metal or VM passthrough deployments require NVMe TLC SSDs
+This limitation is not applicable to RHEL, RHCOS, or CentOS-based deployments.
 
 == Find more information
 

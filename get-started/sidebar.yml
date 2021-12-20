@@ -1,20 +1,20 @@
 section: get-started
 title: Get started
 entries:
-  - title: Astra Data Store capabilities
-    url: /get-started/capabilities.html
-  - title: Astra Data Store requirements
+  - title: Astra Data Store preview requirements
     url: /get-started/requirements.html
-  - title: Quick start for Astra Data Store
+  - title: Quick start for Astra Data Store preview
     url: /get-started/quick-start.html
-  - title: Installation overview 
+  - title: Installation overview
     url: /get-started/install-overview.html
     entries:
-    - title: Install Astra Data Store
+    - title: Install Astra Data Store preview
       url: /get-started/install-ads.html
-    - title: Install Astra Data Store on OpenShift
+    - title: Install Astra Data Store preview on OpenShift
       url: /get-started/install-ads-openshift.html
-  - title: Set up Astra Data Store components
+  - title: Set up Astra Data Store preview components
     url: /get-started/setup-ads.html
+  - title: Astra Data Store preview limits
+    url: /get-started/capabilities.html
   - title: FAQ
     url: /get-started/faq-ads.html
