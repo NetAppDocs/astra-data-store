@@ -28,9 +28,6 @@ This error causes the pods to crash. As a workaround, disable VXLAN configuratio
 == MongoDB deployment with default liveness probe value fails with pods in crash loop
 As a workaround, set the liveness probe initialDelaySeconds to 600 seconds in the MongoDB deployment spec.
 
-== lockd reconnect shows "double SYN" or immediate 3-way teardown after successful 3-way handshake
-This is a known issue with RHEL7.x to RHEL8.2: https://access.redhat.com/solutions/4148851. Use RHEL8.3 or later as a workaround.
-
 == Find more information
 
 * link:../release-notes/known-limitations.html[Known limitations]
