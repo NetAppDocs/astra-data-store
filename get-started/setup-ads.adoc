@@ -19,7 +19,7 @@ After you have installed Astra Data Store preview and addressed some environment
 
 == Install Astra Trident
 
-For the Astra Data Store preview, you'll need to install Astra Trident 21.10.1. You can install Astra Trident using one of the following options:
+For Astra Data Store preview, you'll need to install Astra Trident 21.10.1. You can install Astra Trident using one of the following options:
 
 * https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-tridentctl.html[Install Astra Trident using tridentctl^].
 * https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-operator.html[Install Astra Trident using Trident operator^].
