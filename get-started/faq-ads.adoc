@@ -52,7 +52,6 @@ Yes, Astra Data Store preview requires a NetApp license file (NLF).
 Learn about link:../get-started/requirements.html[Astra Data Store requirements].
 
 *How long is the Astra Data Store preview license valid?*
-
 The Astra Data Store preview license has a default term of 90-days from the download date.
 
 
@@ -75,7 +74,6 @@ Yes. An Astra Data Store preview cluster can be deployed on 4 or 5 worker nodes 
 Yes. Astra Data Store preview can be installed offline from a local registry. See link:../get-started/install-ads.html[Install Astra Data Store]. However, Astra Data Store preview requires connectivity (direct or via a proxy) to the NetApp Support backend (support.netapp.com) for continued operations.
 
 *Do I need internet connectivity to use Astra Data Store preview?*
-
 Astra Data Store preview requires connectivity to the NetApp AutoSupport backend to periodically send the mandatory telemetry AutoSupport bundles. This connectivity can direct or via a proxy. If this connectivity is missing or AutoSupport is disabled, the cluster will lock down and new volume creation will be disabled until the periodic bundle uploads are resumed.
 
 *What are the roles and privileges used by Astra Data Store?*
