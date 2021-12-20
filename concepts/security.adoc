@@ -10,9 +10,9 @@ summary: Astra Data Store uses several methods to secure client and administrato
 :icons: font
 :imagesdir: ../media/concepts/
 
-Astra Data Store uses several methods to secure client and administrator access to storage, protect communication and data, and protect against viruses.
+Astra Data Store preview uses several methods to secure client and administrator access to storage, protect communication and data, and protect against viruses.
 
-Astra Data Store uses the following security methods:
+Astra Data Store preview uses the following security methods:
 
 * Communication encryption using mutual transport layer security (mTLS)
 * Role-based access control governs access to features

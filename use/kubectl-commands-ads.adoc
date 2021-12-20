@@ -5,12 +5,12 @@ keywords: astra, astra data store, astra datastore, kubectl
 summary: You can use kubectl commands directly with Astra Data Store.
 ---
 
-= Manage Astra Data Store with kubectl commands
+= Manage Astra Data Store preview with kubectl commands
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/get-started/
 
-You can manage Astra Data Store assets by using kubectl commands and by using the Kubernetes API extension.
+You can manage Astra Data Store preview assets by using kubectl commands and by using the Kubernetes API extension.
 
 To see how to deploy a sample app, see link:../use/deploy-apps.html[Deploy a test application].
 
@@ -23,16 +23,16 @@ For the following cluster maintenance information, see link:../use/maintain-clus
 
 == What you'll needed
 
-* Astra Data Store kubectl plugin installed link:../get-started/install-ads.html[Install Astra Data Store]
+* Astra Data Store preview kubectl plugin installed link:../get-started/install-ads.html[Install Astra Data Store preview]
 
-== List of Astra Data Store Kubernetes custom API resources
-You can use kubectl commands inside of Kubernetes to interact with and observe the state of your Astra Data Store cluster.
+== List of Astra Data Store preview Kubernetes custom API resources
+You can use kubectl commands inside of Kubernetes to interact with and observe the state of your Astra Data Store preview cluster.
 
-Each item listed from the `api-resources` command represents a Kubernetes custom resource definition (CRD) that Astra Data Store uses internally to manage your cluster.
+Each item listed from the `api-resources` command represents a Kubernetes custom resource definition (CRD) that Astra Data Store preview uses internally to manage your cluster.
 
-This list is particularly helpful to get shortnames of each Astra Data Store object to reduce your typing, as shown later.
+This list is particularly helpful to get shortnames of each Astra Data Store preview object to reduce your typing, as shown later.
 
-. Display a list of Astra Data Store Kubernetes custom API resources:
+. Display a list of Astra Data Store preview Kubernetes custom API resources:
 +
 ----
 kubectl api-resources --api-group astrads.netapp.io
@@ -52,7 +52,7 @@ astradsfaileddrives     adsfd      astrads.netapp.io  true        AstraDSFailedD
 astradsnodemanagements  adsnm      astrads.netapp.io  true        AstraDSNodeManagement
 ----
 
-. To get all the current Astra Data Store objects in your Kubernetes cluster, use the `kubectl get ads -A` command:
+. To get all the current Astra Data Store preview objects in your Kubernetes cluster, use the `kubectl get ads -A` command:
 +
 ----
 bash-4.2$ kubectl get ads -A
@@ -109,7 +109,7 @@ astrads-system   test2345   21Gi   172.25.138.111   astrads-cluster-9f1c99f   tr
 The `kubectl astrads` command includes an `-h` switch that provides usage and flag documentation for your convenience.
 
 
-. Show help for all commands in the Astra Data Store kubectl extension:
+. Show help for all commands in the Astra Data Store preview kubectl extension:
 +
 ----
 bash-4.2$ kubectl astrads -h
