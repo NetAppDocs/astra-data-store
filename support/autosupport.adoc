@@ -143,6 +143,7 @@ kubectl astrasds asup list --namespace=astrads-system
 ----
 +
 You should see output similar to the following:
++
 ----
 NAMESPACE      NAME                                                SEQUENCE NUMBER EVENT                           SIZE    STATE       LOCAL COLLECTION
 
