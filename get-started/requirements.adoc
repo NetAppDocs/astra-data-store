@@ -133,9 +133,7 @@ NOTE: Each drive should have a unique serial number. Add the attribute `disk.e
 ** Ubuntu 20.04
 * Astra Data Store preview has been validated with the following Kubernetes distributions:
 ** Red Hat OpenShift 4.7
-** Red Hat OpenShift 4.6
 ** Google Anthos 1.7
-** Kubernetes 1.22
 ** Kubernetes 1.21
 ** Kubernetes 1.20
 
