@@ -10,7 +10,7 @@ summary: You can maintain the cluster by using kubectl commands with Astra Data 
 :icons: font
 :imagesdir: ../media/use/
 
-You can manage the cluster by using kubectl commands with Astra Data Store.
+You can manage the cluster by using kubectl commands with Astra Data Store preview.
 
 * <<Place a node in maintenance mode>>
 * <<Add a node>>
@@ -19,14 +19,14 @@ You can manage the cluster by using kubectl commands with Astra Data Store.
 
 == What you'll need
 
-* System with kubectl and kubectl-astrads plugin installed. See link:../get-started/install-ads.html[Install Astra Data Store].
+* System with kubectl and kubectl-astrads plugin installed. See link:../get-started/install-ads.html[Install Astra Data Store preview].
 
 
 == Place a node in maintenance mode
 
 When you need to perform host maintenance or package upgrades, you should place the node in maintenance mode.
 
-NOTE: The node must already be part of the Astra Data Store cluster.
+NOTE: The node must already be part of the Astra Data Store preview cluster.
 
 When a node is in maintenance mode, you cannot add a node to the cluster. In this example, we will place nhcitjj1525 into mainteance mode.
 
@@ -120,7 +120,7 @@ ADS Data Networks:
 ----
 
 .. Save the CR file.
-.. Add the node to the Astra Data Store cluster:
+.. Add the node to the Astra Data Store preview cluster:
 +
 ----
 ~% kubectl astrads nodes add –cluster <cluster-name>
@@ -141,7 +141,7 @@ ADS Data Networks:
 
 == Replace a node
 
-Use kubectl commands with Astra Data Store to replace a failed node in a cluster.
+Use kubectl commands with Astra Data Store preview to replace a failed node in a cluster.
 
 .Steps
 
@@ -535,4 +535,4 @@ Current status: {FailedDriveInfo:{InUse:false Present:true Name:scsi-36000c2 Fir
 
 == For more information
 
-* link:../use/kubectl-commands-ads.html[Manage Astra Data Store with kubectl commands]
+* link:../use/kubectl-commands-ads.html[Manage Astra Data Store preview with kubectl commands]

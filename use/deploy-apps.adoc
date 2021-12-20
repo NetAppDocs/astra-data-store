@@ -10,13 +10,13 @@ summary: Here are steps to deploy a test application that you can use with Astra
 :icons: font
 :imagesdir: ../media/use/
 
-Here are steps to deploy a test application that you can use with Astra Data Store.
+Here are steps to deploy a test application that you can use with Astra Data Store preview.
 
 In this example, we use a Helm repository to deploy a MongoDB chart from Bitnami.
 
 .What you'll need
 
-* Astra Data Store cluster deployed and configured
+* Astra Data Store preview cluster deployed and configured
 * Trident installation completed
 
 .Steps

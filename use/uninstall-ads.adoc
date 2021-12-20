@@ -5,23 +5,23 @@ keywords: astra, astra data store, astra datastore, uninstall
 summary: To uninstall Astra Data Store, you will remove workloads, bindings, volumes, export policies, clusters, license, deployment environment, and namespace.
 ---
 
-= Uninstall Astra Data Store
+= Uninstall Astra Data Store preview
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/use/
 
-To uninstall Astra Data Store, you will remove workloads, bindings, volumes, export policies, clusters, license, deployment environment, and the Astra Data Store namespace.
+To uninstall Astra Data Store preview, you will remove workloads, bindings, volumes, export policies, clusters, license, deployment environment, and the Astra Data Store preview namespace.
 
 
 .What you'll need
 * Root administrative permissions
 
 .About this task
-The Astra Data Store uninstallation process guides you through the following high-level steps:
+The Astra Data Store preview uninstallation process guides you through the following high-level steps:
 
 * <<Remove existing workloads and bindings>>
 * <<Delete the volumes and export policies>>
-* <<Delete the Astra Data Store cluster>>
+* <<Delete the Astra Data Store preview cluster>>
 * <<Delete the license>>
 * <<Delete the astrads installation>>
 * <<Validate the removal of the astrads-system namespace>>
@@ -29,23 +29,23 @@ The Astra Data Store uninstallation process guides you through the following hig
 
 
 == Remove existing workloads and bindings
-Before uninstalling Astra Data Store, you must first remove the following
+Before uninstalling Astra Data Store preview, you must first remove the following
 
-* All application workloads that use Astra Data Store as the storage backend
-* Trident bindings that use Astra Data Store as a backend
+* All application workloads that use Astra Data Store preview as the storage backend
+* Trident bindings that use Astra Data Store preview as a backend
 
 This ensures that your Kubernetes environment is left in a clean state, which is important if you reinstall.
 
 
-== Uninstall the Astra Data Store cluster and control plane
+== Uninstall the Astra Data Store preview cluster and control plane
 
-Follow the steps below to uninstall Astra Data Store manually.
+Follow the steps below to uninstall Astra Data Store preview manually.
 
 === Delete the volumes and export policies
 
-Before deleting the cluster, you should delete the Astra Data Store volumes and export policy.
+Before deleting the cluster, you should delete the Astra Data Store preview volumes and export policy.
 
-TIP: If you do not first delete volumes and export policies, the cluster deletion process pauses until the Astra Data Store volumes objects are deleted. It is more efficient to remove those items before starting to delete the cluster.
+TIP: If you do not first delete volumes and export policies, the cluster deletion process pauses until the Astra Data Store preview volumes objects are deleted. It is more efficient to remove those items before starting to delete the cluster.
 
 .Steps
 
@@ -66,15 +66,15 @@ TIP: If you do not first delete volumes and export policies, the cluster deletio
 ----
 
 
-=== Delete the Astra Data Store cluster
+=== Delete the Astra Data Store preview cluster
 
-Deleting the cluster deletes only the Astra Data Store cluster object custom resource (CR) along with cluster-scoped resources.
+Deleting the cluster deletes only the Astra Data Store preview cluster object custom resource (CR) along with cluster-scoped resources.
 
 NOTE: The operator, nodeinfo pods, and the cluster controller (which are Kubernetes-scoped resources) remain even after the cluster is deleted.
 
 Deleting the cluster also uninstalls the underlying operating system from the nodes, which will stop the `firetap` and `netwd` services.
 
-The uninstaller takes about a minute to finish. Then, the removal of the Astra Data Store cluster-scoped resources starts.
+The uninstaller takes about a minute to finish. Then, the removal of the Astra Data Store preview cluster-scoped resources starts.
 
 . Delete the cluster:
 +
@@ -86,7 +86,7 @@ The uninstaller takes about a minute to finish. Then, the removal of the Astra D
 === Delete the license
 
 . ssh to each worker node in the cluster and validate that `firetap` or `netwd` are not running in the worker nodes.
-. Delete the Astra Data Store license:
+. Delete the Astra Data Store preview license:
 +
 ----
 ~% kubectl delete astradslicenses --all -A
@@ -94,11 +94,11 @@ The uninstaller takes about a minute to finish. Then, the removal of the Astra D
 
 ----
 
-=== Delete the Astra Data Store installation
+=== Delete the Astra Data Store preview installation
 
 Delete the controllers, operators, namespace, and support pods in the cluster.
 
-. Delete the Astra Data Store installation object:
+. Delete the Astra Data Store preview installation object:
 +
 ----
 ~% kubectl delete astradsversion atradsversion -n astrads-system
@@ -106,7 +106,7 @@ Delete the controllers, operators, namespace, and support pods in the cluster.
 
 ----
 
-. Delete the data store DaemonSets and all Astra Data Store controller resources:
+. Delete the data store DaemonSets and all Astra Data Store preview controller resources:
 +
 ----
 ~% kubectl delete ds --all -n astrads-system
