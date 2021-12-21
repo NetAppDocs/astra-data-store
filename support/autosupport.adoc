@@ -136,7 +136,7 @@ If a service crashes, an AutoSupport (ASUP) message is created along with a file
 
 .Steps
 
-. Use the following `kubectl` commands to view the ASUP message:
+. Use the following `kubectl` commands to view the ASUP message: 
 +
 ----
 kubectl astrasds asup list --namespace=astrads-system
