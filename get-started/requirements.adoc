@@ -220,7 +220,12 @@ NOTE: No VLAN tags are used in these configurations.
 Astra Data Store preview requires the application Kubernetes clusters to be running Astra Trident 21.10.1. Astra Data Store preview can be configured as a link:../get-started/setup-ads.html#set-up-astra-data-store-as-storage-backend[storage backend] with Astra Trident to provision persistent volumes.
 
 == CNI configuration
-Astra Data Store preview has been validated with Calico and Weave Net CNIs.
+
+Astra Data Store preview has been validated with the following CNIs:
+
+* Calico and Weave Net CNIs for vanilla Kubernetes clusters
+* OpenShift SDN for Red Hat OpenShift Container Platform (OCP)
+* Cilium for Google Anthos
 
 These CNIs require the host firewall (firewalld) to be disabled.
 

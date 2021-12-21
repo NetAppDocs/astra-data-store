@@ -44,6 +44,9 @@ The Astra Data Store preview release has the following resource limits.
 
 NOTE: Astra Data Store preview does not support VM workloads. VMware vVol workload support will be available in a future release.
 
+
+NOTE: Astra Data Store preview is performance throttled and should not be used for performance characterization.
+
 == What's next
 
 Ensure your configuration meets the link:requirements.html[requirements].
