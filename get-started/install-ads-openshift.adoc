@@ -648,62 +648,50 @@ kubectl astrads monitoring -m netapp-monitoring -r [YOUR REGISTRY] setup
 == Set up iptables
 //ocp
 
-OpenShift SDN  (default CNI plugin for OpenShift) doesn't masquerade the traffic from the host loopback interface (127.0.0.1/localhost) to the HostPorts.
+OpenShift SDN  (default CNI plugin for OpenShift) does not masquerade the traffic from the host loopback interface (127.0.0.1/localhost) to the HostPorts.
 
-The Astra Data Store preview cluster requires addition of a NAT rule for forwarding traffic from localhost to cluster service port (9920).
+The Astra Data Store preview cluster requires the addition of a NAT rule for forwarding traffic from the localhost to the cluster service port (9920).
 
 .Steps
 
-. Note the chain used for hostport 9920.
+. Note the line number for the current `KUBE-HOSTPORTS` rule in the OUTPUT chain for the NAT table.
++
+In the example below `KUBE-HOSTPORTS` is at position 4.
 +
 ----
-sudo iptables -t nat -L KUBE-HOSTPORTS
-Chain KUBE-HOSTPORTS (2 references)
-target prot opt source destination
-KUBE-HP-6AYWWGPCDSHS2K25 tcp -- anywhere anywhere /* k8s_astrads-ds-ocp-cluster-stg8k_astrads-system_6ae5a9fb-1942-4a2d-9901-c27658925218_0_ hostport 9920 */tcp dpt:9920
+$ sudo iptables -t nat -L OUTPUT --line-numbers
+Chain OUTPUT (policy ACCEPT)
+num target prot opt source destination
+1 KUBE-SERVICES all -- anywhere anywhere /* kubernetes service portals */
+2 KUBE-PORTALS-HOST all -- anywhere anywhere /* handle ClusterIPs; NOTE: this must be before the NodePort rules */
+3 KUBE-NODEPORT-HOST all -- anywhere anywhere ADDRTYPE match dst-type LOCAL /* handle service NodePorts; NOTE: this must be the last rule in the chain */
+4 KUBE-HOSTPORTS all -- anywhere anywhere /* kube hostport portals */ ADDRTYPE match dst-type LOCAL
 ----
 
 
-. Find the rules within the chain and the position to insert the new rule. The new rule should be inserted  after the existing `KUBE-MARK-MASQ` rule.
-+
-In the below example, `KUBE-MARK-MASQ` is the first entry. You should insert the new rule at position 2.
-+
-----
-$ sudo iptables -t nat -L KUBE-HP-6AYWWGPCDSHS2K25
-Chain KUBE-HP-6AYWWGPCDSHS2K25 (1 references)
-target prot opt source destination
-KUBE-MARK-MASQ all -- 10.128.4.2 anywhere /* k8s_astrads-ds-ocp-cluster-stg8k_astrads-system_6ae5a9fb-1942-4a2d-9901-c27658925218_0_ hostport 9920 */
-DNAT tcp -- anywhere anywhere /* k8s_astrads-ds-ocp-cluster-stg8k_astrads-system_6ae5a9fb-1942-4a2d-9901-c27658925218_0_ hostport 9920 */ tcp to:10.128.4.2:9920
-----
-
-. Add a new rule to the chain at position noted in the above step.
-+
-----
-$ sudo iptables -t nat -I KUBE-HP-6AYWWGPCDSHS2K25 2 -s 127.0.0.1 -j KUBE-MARK-MASQ
-Chain KUBE-HP-6AYWWGPCDSHS2K25 (1 references)
-
-----
-
-. Verify the newly added rule is immediately below the existing the `KUBE-MARK-MASQ` rule.
-+
-----
-$ sudo iptables -t nat -L KUBE-HP-6AYWWGPCDSHS2K25
-Chain KUBE-HP-6AYWWGPCDSHS2K25 (1 references)
-target prot opt source destination
-KUBE-MARK-MASQ all -- 10.128.4.2 anywhere /* k8s_astrads-ds-ocp-cluster-stg8k_astrads-system_6ae5a9fb-1942-4a2d-9901-c27658925218_0_ hostport 9920 */
-KUBE-MARK-MASQ all -- localhost anywhere
-DNAT tcp -- anywhere anywhere /* k8s_astrads-ds-ocp-cluster-stg8k_astrads-system_6ae5a9fb-1942-4a2d-9901-c27658925218_0_ hostport 9920 */ tcp to:10.128.4.2:9920
-----
-
-. Persist the rule across pod restarts.
+. Add a new rule to the NAT table, right above the `KUBE-HOSTPORTS` entry.
 +
 ----
 $ sudo iptables -t nat -I OUTPUT 4 -s 127.0.0.1 -j KUBE-MARK-MASQ -p tcp --dport 9920
 ----
 
+. Verify that the newly added rule is added to the NAT table just above the `KUBE-HOSTPORTS` rule.
++
+----
+$ sudo iptables -t nat -L OUTPUT --line-numbers
+Chain OUTPUT (policy ACCEPT)
+num target prot opt source destination
+1 KUBE-SERVICES all -- anywhere anywhere /* kubernetes service portals */
+2 KUBE-PORTALS-HOST all -- anywhere anywhere /* handle ClusterIPs; NOTE: this must be before the NodePort rules */
+3 KUBE-NODEPORT-HOST all -- anywhere anywhere ADDRTYPE match dst-type LOCAL /* handle service NodePorts; NOTE: this must be the last rule in the chain */
+4 KUBE-MARK-MASQ tcp -- localhost anywhere tcp dpt:9920
+5 KUBE-HOSTPORTS all -- anywhere anywhere /* kube hostport portals */ ADDRTYPE match dst-type LOCAL
+----
+
+
 NOTE: Perform the steps on all the nodes in the Astra Data Store preview cluster.
 
-NOTE: Repeat  these steps if the Astra Data Store preview cluster node restarts.
+NOTE: Repeat these steps if the Astra Data Store preview cluster node restarts.
 
 
 == What's next
