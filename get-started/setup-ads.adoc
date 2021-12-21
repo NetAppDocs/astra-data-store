@@ -35,8 +35,8 @@ NOTE: The following command examples assume `/trident` as the directory; however
 .What you'll need
 * link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store preview deployment].
 * Download the link:https://github.com/kubernetes-csi/external-snapshotter/tree/master/deploy/kubernetes/snapshot-controller[Kubernetes snapshot controller YAML files]:
-** k8s-setup-snapshot-controller.yaml
-** k8s-rbac-snapshot-controller.yaml
+** setup-snapshot-controller.yaml
+** rbac-snapshot-controller.yaml
 * Download the link:https://github.com/kubernetes-csi/external-snapshotter/tree/master/client/config/crd[YAML CRDs]:
 ** snapshot.storage.k8s.io_volumesnapshotclasses.yaml
 ** snapshot.storage.k8s.io_volumesnapshotcontents.yaml
@@ -79,10 +79,10 @@ Response:
 customresourcedefinition.apiextensions.k8s.io/volumesnapshots.snapshot.storage.k8s.io created
 ----
 
-. Apply k8s-setup-snapshot-controller.yaml:
+. Apply setup-snapshot-controller.yaml:
 +
 ----
-kubectl apply -f trident/k8s-setup-snapshot-controller.yaml
+kubectl apply -f trident/setup-snapshot-controller.yaml
 ----
 +
 Response:
@@ -91,10 +91,10 @@ Response:
 deployment.apps/snapshot-controller created
 ----
 
-. Apply k8s-setup-snapshot-controller.yaml:
+. Apply rbac-snapshot-controller.yaml:
 +
 ----
-kubectl apply -f trident/k8s-rbac-snapshot-controller.yaml
+kubectl apply -f trident/rbac-snapshot-controller.yaml
 ----
 +
 Response:
@@ -140,10 +140,10 @@ snapshot-controller-7f58886ff4-tmrd9                                    1/1     
 Configure storage backend parameters in the ads_backend.json file and create the Astra Data Store storage backend.
 
 .Steps
-. Open `ads_backend.json` in a secure terminal:
+. Create `ads_backend.json` using a secure terminal:
 +
 ----
-cat ads_backend.json
+vi ads_backend.json
 ----
 
 . Configure the JSON file:
@@ -151,9 +151,22 @@ cat ads_backend.json
 .. Change the `"namespace"` value to the namespace you want to use with volume creation.
 .. Change the `"autoExportPolicy"` value to `true` unless you set up an exportpolicy CR instead for this backend.
 .. Populate the `"autoExportCIDRs"` list with IP addresses you want to grant access. Use `0.0.0.0/0` to allow all.
-//"kubeconfig" → Convert .kube/config yaml file to json without spaces(minimize), then base64 it and use the base64 output
-//python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=None)' < kubeconfig_filepath > kubeconf.json
-//cat kubeconf.json | base64 | tr -d '\n'
+.. For the `"kubeconfig"` value, do the following:
+... Convert and minimize the .kube/config YAML file to JSON format without spaces:
++
+Example conversion:
++
+----
+python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=None)' < kubeconfig_filepath > kubeconf.json
+----
+
+... Encode as base64 and use the base64 output for the `"kubeconfig"` value:
++
+Example encoding:
+----
+cat kubeconf.json | base64 | tr -d '\n'
+----
+
 //. "defaults" → List of defaults:
 //snapshotPolicy,
 //exportPolicy,
@@ -171,7 +184,7 @@ cat ads_backend.json
     *"namespace": "astrads-system",*
     *"autoExportPolicy": true,*
     *"autoExportCIDRs": ["0.0.0.0/0"],*
-    "kubeconfig": "<ID>",
+    *"kubeconfig": "<ID>",*
     "debugTraceFlags": {"method": true, "api": true},
     "labels": {"cloud": "on-prem", "creator": "trident-dev"},
     "defaults": {
@@ -228,10 +241,10 @@ Create the Astra Trident default storage class and apply it to the storage backe
 
 .Steps
 . Create the trident-csi storage class:
-.. Run the following command:
+.. Create ads_sc_generic.yaml:
 +
 ----
-cat ads_sc_generic.yaml
+vi ads_sc_generic.yaml
 ----
 +
 Response:

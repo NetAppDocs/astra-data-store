@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: support/autosupport.html
 keywords: how to use autosupport, autosupport, asup, logs, asup bundle, support ticket, support bundle
-summary: NetApp provides support for Astra Data Store in a variety of ways. Extensive free self-support options are available 24x7, such as knowledgebase (KB) articles and a Slack channel. Your Astra Data Store account includes remote technical support via web ticketing.
+summary: NetApp provides support for Astra Data Store preview in a variety of ways. Extensive free self-support options are available 24x7, such as knowledgebase (KB) articles and a Slack channel. Your Astra Data Store preview account includes remote technical support via web ticketing.
 ---
 
 = Automatic support monitoring
@@ -10,12 +10,12 @@ summary: NetApp provides support for Astra Data Store in a variety of ways. Exte
 :icons: font
 :imagesdir: ../media/support/
 
-AutoSupport monitors the Astra Data Store system run-time and information and sends messages to NetApp Support. These system components can be monitored, depending on your configuration:
+AutoSupport monitors the Astra Data Store preview system run-time and information and sends messages to NetApp Support. These system components can be monitored, depending on your configuration:
 
 * Control plane
 * Storage
 
-AutoSupport is enabled by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store cluster installation] or after an AutoSupport CR is applied to the cluster. Once enabled, AutoSupport (ASUP) bundles are automatically uploaded to the NetApp Support Site (NSS) or made available for manual downloads.
+AutoSupport is enabled by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store preview cluster installation] or after an AutoSupport CR is applied to the cluster. Once enabled, AutoSupport (ASUP) bundles are automatically uploaded to the NetApp Support Site (NSS) or made available for manual downloads.
 
 .Options
 * <<AutoSupport triggers and scenarios>>
@@ -35,12 +35,12 @@ AutoSupport bundles are triggered in the following ways:
 
 These trigger scenarios generate one of these Autosupport types:
 
-* ControlPlane AutoSupport: A collection of Astra Data Store control plane logs and CRs.
+* ControlPlane AutoSupport: A collection of Astra Data Store preview control plane logs and CRs.
 * Storage AutoSupport: A collection of storage reports and performance data.
 * Core Dump AutoSupport: A collection of system core dumps.
 
 == Configure custom control plane AutoSupport collection
-You can create a custom AutoSupport collection configuration that reports on control plane events. Most installations already enable periodic event reporting by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store cluster installation]. This procedure describes how to configure an AutoSupport CR that reports based on parameters you select:
+You can create a custom AutoSupport collection configuration that reports on control plane events. Most installations already enable periodic event reporting by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store preview cluster installation]. This procedure describes how to configure an AutoSupport CR that reports based on parameters you select:
 
 .Steps
 . Customize the following command to create a control plane collection CR:
@@ -66,7 +66,7 @@ kubectl astrasds asup collect -c controlplane custom-asup-name -e debug --namesp
 * `--retry`: Enables retry. The default is `false.`
 
 == Configure custom storage AutoSupport collection
-You can create a custom AutoSupport collection configuration that reports on storage component events. Most installations already enable periodic event reporting by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store cluster installation]. This procedure describes how to configure an AutoSupport CR that reports based on parameters you select:
+You can create a custom AutoSupport collection configuration that reports on storage component events. Most installations already enable periodic event reporting by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store preview cluster installation]. This procedure describes how to configure an AutoSupport CR that reports based on parameters you select:
 
 .Steps
 . Customize the following command to create a storage collection CR:

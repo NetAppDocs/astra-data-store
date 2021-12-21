@@ -100,7 +100,7 @@ Each node in an Astra Data Store preview cluster has the following capabilities:
 
 //POLARIS-2175
 == Hardware and software requirements
-Astra Data Store preview software is validated on the following hardware platforms, software, and storage configuration. Visit NetApp community support if your Kubernetes cluster configuration is different.
+Astra Data Store preview software is validated on the following hardware platforms, software, and storage configuration. Visit link:../support/get-help-ads.html[NetApp community support] if your Kubernetes cluster configuration is different.
 
 .Hardware platforms
 * HPE DL360

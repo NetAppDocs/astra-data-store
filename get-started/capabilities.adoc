@@ -12,7 +12,7 @@ summary: Get started by verifying support for your environment.
 
 Astra Data Store is Kubernetes-native, shared file software-defined storage (SDS) solution for on-premises data centers that helps customers manage their cloud-native applications.
 
-The Astra Data Store preview release has the following resource limitations.
+The Astra Data Store preview release has the following resource limits.
 
 |===
 |Resource |Minimum |Maximum
