@@ -163,16 +163,17 @@ python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, 
 ... Encode as base64 and use the base64 output for the `"kubeconfig"` value:
 +
 Example encoding:
++
 ----
 cat kubeconf.json | base64 | tr -d '\n'
 ----
-
 //. "defaults" → List of defaults:
 //snapshotPolicy,
 //exportPolicy,
 //snapshotDir,
 //qosPolicy,
 //size
+
 +
 [subs=+quotes]
 ----
