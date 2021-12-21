@@ -132,7 +132,7 @@ You can download locally-collected ASUP bundles using this command. Use `-o <loc
 ----
 
 == Upload a core file
-If a service crashes, an ASUP message is created along with a core dump file. Astra Data Store preview automatically uploads the ASUP message to NetApp Support, but you need to manually upload the core dump file so that it is associated with the ASUP message.
+If a service crashes, an AutoSupport (ASUP) message is created along with a file containing relevant memory contents at the time of the crash (known as a core file). Astra Data Store preview automatically uploads the ASUP message to NetApp Support, but you need to manually upload the core file so that it is associated with the ASUP message.
 
 .Steps
 
@@ -149,11 +149,14 @@ NAMESPACE      NAME                                                SEQUENCE NUMB
 
 astrads-system  storage-coredump-20211216t140851311961680               1              coredump                197848373       compressed      astrads-ds-support-sxxn7:/var/firetap/firegen/persist/core.firestorm.2630_1639665426.gz
 ----
-. Use the following `kubectl` commands to download the core dump file from the ASUP message. Use the `-o` option to specify a destination directory for the downloaded file.
+. Use the following `kubectl` commands to download the core file from the ASUP message. Use the `-o` option to specify a destination directory for the downloaded file.
 +
 ----
 kubectl astrads asup download storage-coredump-20211216t140851311961680 -o <absolute_path_to_destination_directory>
 ----
++
+NOTE: In rare cases, you might not be able to download the core file because other core files have taken its place. If this is the case, the command returns the error `Cannot stat: No such file or directory`.
+
 . Open a web browser and browse to the https://upload.netapp.com/sg[NetApp Authenticated File Upload tool^], entering your NetApp Support credentials if you are not already logged in.
 . Select the *I don't have a case number* check box.
 . In the *Closest Region* menu, select the closest region to you.
@@ -161,7 +164,6 @@ kubectl astrads asup download storage-coredump-20211216t140851311961680 -o <abso
 . Browse to and select the core file you downloaded earlier.
 +
 The upload begins. When the upload is finished, a success message appears.
-
 
 [discrete]
 == Find more information
