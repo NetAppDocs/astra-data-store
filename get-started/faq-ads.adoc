@@ -23,7 +23,7 @@ Astra Data Store preview release is limited only to applications running on Kube
 
 
 *Does Astra Data Store preview have any dependencies on other NetApp products for its functioning?*
-Yes. Astra Data Store preview requires NetApp CSI driver Astra Trident version 21.10 and above to be deployed on workload Kubernetes clusters. Learn about link:../get-started/requirements.html[Astra Data Store requirements].
+Yes. Astra Data Store preview requires NetApp CSI driver Astra Trident version 21.10.1 and above to be deployed on workload Kubernetes clusters. Learn about link:../get-started/requirements.html[Astra Data Store requirements].
 
 Applications using Astra Data Store preview cluster as a storage backend can use https://docs.netapp.com/us-en/astra-control-center/index.html[Astra Control Center] version 21.12 to leverage application-aware data management capabilities including data protection, disaster recovery and migration of Kubernetes workloads.
 
@@ -71,7 +71,7 @@ Yes. An Astra Data Store preview cluster can be deployed on 4 or 5 worker nodes 
 
 
 *Does Astra Data Store preview support an offline installation from a private registry?*
-Yes. Astra Data Store preview can be installed offline from a local registry. See link:../get-started/install-ads.html[Install Astra Data Store]. However, Astra Data Store preview requires connectivity (direct or via a proxy) to the NetApp Support backend (support.netapp.com) for continued operations.
+Yes. Astra Data Store preview can be installed offline from a local registry. See link:../get-started/install-ads.html[Install Astra Data Store preview]. However, Astra Data Store preview requires connectivity (direct or via a proxy) to the NetApp Support backend (support.netapp.com) for continued operations.
 
 *Do I need internet connectivity to use Astra Data Store preview?*
 Astra Data Store preview requires connectivity to the NetApp AutoSupport backend to periodically send the mandatory telemetry AutoSupport bundles. This connectivity can direct or via a proxy. If this connectivity is missing or AutoSupport is disabled, the cluster will lock down and new volume creation will be disabled until the periodic bundle uploads are resumed.
