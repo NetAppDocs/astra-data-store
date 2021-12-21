@@ -120,9 +120,10 @@ metadata:
 
 == Create a custom SCC
 //ocp
-OpenShift uses security context constraints (SCC) that control the actions that a pod can perform and what it has the ability to access.
+OpenShift uses security context constraints (SCC) that control the actions that a pod can perform.
+By default, the execution of any container will be granted the restricted SCC and only the capabilities defined by that SCC.
 
-By default, the execution of any container will be granted the restricted SCC and only the capabilities defined by that SCC. Restricted SCC does not provide permissions required by Astra Data Store preview pods. Use this procedure to provide the required privileges (listed in the sample) to Astra Data Store preview.
+Restricted SCC does not provide permissions required by Astra Data Store preview cluster pods. Use this procedure to provide the required privileges (listed in the sample) to Astra Data Store preview.
 
 Assign a custom SCC to the default service account for the Astra Data Store preview namespace.
 

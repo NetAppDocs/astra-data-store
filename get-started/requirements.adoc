@@ -225,7 +225,7 @@ Astra Data Store preview has been validated with the following CNIs:
 
 * Calico and Weave Net CNIs for vanilla Kubernetes clusters
 * OpenShift SDN for Red Hat OpenShift Container Platform (OCP)
-* Cilium for Google Anthos Kubernetes
+* Cilium for Google Anthos
 
 These CNIs require the host firewall (firewalld) to be disabled.
 
