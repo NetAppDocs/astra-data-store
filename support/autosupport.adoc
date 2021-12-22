@@ -136,7 +136,7 @@ If a service crashes, an AutoSupport (ASUP) message is created along with a file
 
 .Steps
 
-. Use the following `kubectl` commands to view the ASUP message: 
+. Use the following `kubectl` commands to view the ASUP message:
 +
 ----
 kubectl astrasds asup list --namespace=astrads-system
@@ -155,7 +155,7 @@ astrads-system  storage-coredump-20211216t140851311961680               1       
 kubectl astrads asup download storage-coredump-20211216t140851311961680 -o <absolute_path_to_destination_directory>
 ----
 +
-NOTE: In rare cases, you might not be able to download the core file because other core files have taken its place. If this is the case, the command returns the error `Cannot stat: No such file or directory`.
+NOTE: In rare cases, you might not be able to download the core file because other core files have taken its place. When this happens, the command returns the error `Cannot stat: No such file or directory`. If you see this error, you can link:get-help-ads.html[get help].
 
 . Open a web browser and browse to the https://upload.netapp.com/sg[NetApp Authenticated File Upload tool^], entering your NetApp Support credentials if you are not already logged in.
 . Select the *I don't have a case number* check box.
