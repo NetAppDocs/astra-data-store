@@ -24,7 +24,7 @@ In this example, we use a Helm repository to deploy a MongoDB chart from Bitnami
 .	Add a Helm repo from Bitnami:
 +
 ----
-helm repo add bitnami https://helm.repo.eng.netapp.com/
+helm repo add bitnami https://charts.bitnami.com/bitnami
 ----
 
 .	Deploy MongoDB:
