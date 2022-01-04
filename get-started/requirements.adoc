@@ -16,6 +16,8 @@ Astra Data Store preview supports both bare-metal and VM-based deployments. Astr
 
 Astra Data Store preview only supports provisioning of PVs for Kubernetes workloads using the Astra Trident CSI driver. VM workloads will be supported in a future release of Astra Data Store.
 
+NOTE: If you plan to manage your Astra Data Store preview cluster from Astra Control Center, make sure your Astra Data Store preview cluster meets the https://docs.netapp.com/us-en/astra-control-center/get-started/requirements.html#kubernetes-cluster-general-requirements[requirements for clusters that will be managed by Astra Control Center^] in addition to the requirements outlined here.
+
 //POLARIS-458
 ////
 == Minimum resource requirements for each node
