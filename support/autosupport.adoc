@@ -15,7 +15,7 @@ AutoSupport monitors the Astra Data Store preview system run-time and informatio
 * Control plane
 * Storage
 
-AutoSupport is enabled by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store preview cluster installation] or after an AutoSupport CR is applied to the cluster. Once enabled, AutoSupport (ASUP) bundles are automatically uploaded to the NetApp Support Site (NSS) or made available for manual downloads.
+AutoSupport is enabled by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store preview cluster installation] or after an AutoSupport CR is applied to the cluster. Once enabled, AutoSupport (ASUP) bundles are automatically uploaded to the https://mysupport.netapp.com/site/[NetApp Support Site (NSS)^] or made available for manual downloads.
 
 .Options
 * <<AutoSupport triggers and scenarios>>

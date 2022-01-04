@@ -10,13 +10,13 @@ summary: How to install Astra Data Store with OpenShift
 :icons: font
 :imagesdir: ../media/get-started/
 
-To install Astra Data Store preview on Red Hat OpenShift Container Platform (OCP), download the installation bundle from the NetApp Support Site and complete installation steps described in this procedure.
+To install Astra Data Store preview on Red Hat OpenShift Container Platform (OCP), download the installation bundle from the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and complete installation steps described in this procedure.
 
 
 
 .What you'll need
 * Before you begin installation, link:requirements.html[prepare your environment for Astra Data Store deployment].
-* Access to the NetApp Support Site. https://www.netapp.com/cloud-services/astra/data-store-form/[Register] for a preview if you don’t already have a full-access NetApp Support Site account.
+* Access to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^]. https://www.netapp.com/cloud-services/astra/data-store-form/[Register^] for a preview if you don’t already have a full-access NetApp Support Site account.
 * A link:requirements.html#licensing[NetApp license file] (NLF) for Astra Data Store preview. Instructions to download the license will be sent to you after you sign up.
 * An active kubeconfig with cluster admin rights for the active context.
 * An understanding of the link:faq-ads.html[roles and privileges] used by Astra Data Store preview.
@@ -28,7 +28,6 @@ The Astra Data Store preview installation process guides you through the followi
 
 * <<Download the Astra Data Store preview bundle and extract the images>>
 * <<Copy the binary and push images to your local registry>>
-
 * <<Create a namespace to deploy Astra Data Store preview>>
 * <<Create a custom SCC>>
 * <<Create the roles and role bindings>>
@@ -37,7 +36,6 @@ The Astra Data Store preview installation process guides you through the followi
 * <<Apply the Astra Data Store preview license>>
 * <<Install the Astra Data Store preview cluster>>
 * <<Understand deployment-related events>>
-
 * <<Configure Astra Data Store preview monitoring>>
 * <<Install the monitoring operator>>
 * <<Set up iptables>>
@@ -45,7 +43,7 @@ The Astra Data Store preview installation process guides you through the followi
 
 == Download the Astra Data Store preview bundle and extract the images
 
-. Log in to the https://mysupport.netapp.com/site/[NetApp Support Site] and download the Astra Data Store preview bundle (`2021.12_astradatastore.tar`).
+. Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store preview bundle (`2021.12_astradatastore.tar`).
 . (Optional) Verify the signature of the bundle:
 +
 ----
