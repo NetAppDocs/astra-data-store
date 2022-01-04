@@ -55,12 +55,12 @@ a|
 |N/A
 
 |Number of vCPUs
-|9
-|9
+|10
+|10
 
 |RAM
-|34GiB
-|34GiB
+|35GiB
+|35GiB
 |===
 NOTE: For the best write performance, you should configure a dedicated high-endurance, low-latency, low-capacity cache device.
 
