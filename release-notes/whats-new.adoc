@@ -28,4 +28,4 @@ Initial release of Astra Data Store.
 
 * link:../release-notes/known-issues.html[Known issues]
 * link:../release-notes/known-limitations.html[Known limitations]
-* https://kb.netapp.com/Special:Search?qid=&fpid=230&fpth=&query=netapp+data+store&type=wiki[NetApp Knowledge Base articles]
+* https://kb.netapp.com/Special:Search?qid=&fpid=230&fpth=&query=netapp+data+store&type=wiki[NetApp Knowledge Base articles^]

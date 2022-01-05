@@ -34,10 +34,10 @@ NOTE: The following command examples assume `/trident` as the directory; however
 
 .What you'll need
 * link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store preview deployment].
-* Download the link:https://github.com/kubernetes-csi/external-snapshotter/tree/master/deploy/kubernetes/snapshot-controller[Kubernetes snapshot controller YAML files]:
+* Download the link:https://github.com/kubernetes-csi/external-snapshotter/tree/master/deploy/kubernetes/snapshot-controller[Kubernetes snapshot controller YAML files^]:
 ** setup-snapshot-controller.yaml
 ** rbac-snapshot-controller.yaml
-* Download the link:https://github.com/kubernetes-csi/external-snapshotter/tree/master/client/config/crd[YAML CRDs]:
+* Download the link:https://github.com/kubernetes-csi/external-snapshotter/tree/master/client/config/crd[YAML CRDs^]:
 ** snapshot.storage.k8s.io_volumesnapshotclasses.yaml
 ** snapshot.storage.k8s.io_volumesnapshotcontents.yaml
 ** snapshot.storage.k8s.io_volumesnapshots.yaml
