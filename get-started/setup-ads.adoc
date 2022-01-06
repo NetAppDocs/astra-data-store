@@ -157,8 +157,10 @@ vi ads_backend.json
 Example conversion:
 +
 ----
-python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=None)' < kubeconfig_filepath > kubeconf.json
+python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=None)' < ~/.kube/config > kubeconf.json
 ----
++
+NOTE: Note: the value should always have `==` in the end
 
 ... Encode as base64 and use the base64 output for the `"kubeconfig"` value:
 +
