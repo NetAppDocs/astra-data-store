@@ -220,10 +220,16 @@ cat kubeconf.json | base64 | tr -d '\n'
 }
 ----
 
+. Change to the directory where you downloaded the Trident installer:
++
+----
+cd <trident-installer or path to folder containing tridentctl>
+----
+
 . Create the storage backend:
 +
 ----
-tridentctl create backend -f ads_backend.json -n trident
+./tridentctl create backend -f ads_backend.json -n trident
 ----
 +
 Sample response:
