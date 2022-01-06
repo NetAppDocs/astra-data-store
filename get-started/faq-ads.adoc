@@ -25,7 +25,7 @@ Astra Data Store preview release is limited only to applications running on Kube
 *Does Astra Data Store preview have any dependencies on other NetApp products for its functioning?*
 Yes. Astra Data Store preview requires NetApp CSI driver Astra Trident version 21.10.1 and above to be deployed on workload Kubernetes clusters. Learn about link:../get-started/requirements.html[Astra Data Store requirements].
 
-Applications using Astra Data Store preview cluster as a storage backend can use https://docs.netapp.com/us-en/astra-control-center/index.html[Astra Control Center] version 21.12 to leverage application-aware data management capabilities including data protection, disaster recovery and migration of Kubernetes workloads.
+Applications using Astra Data Store preview cluster as a storage backend can use https://docs.netapp.com/us-en/astra-control-center/index.html[Astra Control Center^] version 21.12 to leverage application-aware data management capabilities including data protection, disaster recovery and migration of Kubernetes workloads.
 
 *How can I manage Astra Data Store preview cluster?*
 You can manage Astra Data Store preview assets by using kubectl commands and by using the Kubernetes API extension.
@@ -84,7 +84,7 @@ Astra Data Store preview has a privileged daemonset called `astrads-ds-nodeinfo-
 In addition, the operator will use privileged Kubernetes jobs to install the storage cluster’s containers on the selected worker nodes to build the Astra Data Store preview storage cluster.
 
 *What manifest files do I need to update for Astra Data Store preview installation?*
-From the Astra Data Store preview bundle you download from the NetApp Support Site, you will get the following manifests:
+From the Astra Data Store preview bundle you download from the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^], you will get the following manifests:
 
 *	astradscluster.yaml
 *	astradsoperator.yaml
@@ -100,7 +100,7 @@ You will need to update the `astradscluster.yaml` manifest with your deployment-
 
 With the Astra Data Store preview, you can access community support using the NetApp Container Slack channel. This channel is monitored by NetApp Support and our Technical Marketing Engineers.
 
-https://netapp.io/slack[NetApp Container Slack channel]
+https://netapp.io/slack[NetApp Container Slack channel^]
 
 The preview release requires that your system is connected to the cloud and integrated into the NetApp Active IQ and AutoSupport tools.
 
@@ -108,7 +108,7 @@ Learn about link:../support/get-help-ads.html[Astra Data Store support operation
 
 
 *How do I raise a support case OR ask clarification on a quick question?*
-To raise a support case or get clarification on a quick question, report your issue or question on the https://netapp.io/slack[NetApp Container Slack channel]. NetApp Support will follow up with you to assist you with resolution on best effort basis.
+To raise a support case or get clarification on a quick question, report your issue or question on the https://netapp.io/slack[NetApp Container Slack channel^]. NetApp Support will follow up with you to assist you with resolution on best effort basis.
 
 *How do I raise a request for a new feature?*
 If you have questions on supported configurations or capabilities, reach out to astra.feedback@netapp.com.

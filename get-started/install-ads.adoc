@@ -10,14 +10,14 @@ summary: To install Astra Data Store after addressing some environmental prerequ
 :icons: font
 :imagesdir: ../media/get-started/
 
-To install Astra Data Store preview, download the installation bundle from the NetApp Support Site and complete installation steps described in this procedure.
+To install Astra Data Store preview, download the installation bundle from the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and complete installation steps described in this procedure.
 
 Alternatively, you can link:install-ads-openshift.html[install Astra Data Store preview on Red Hat OpenShift Container Platform (OCP)].
 
 .What you'll need
 * link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store preview deployment].
-* Access to the NetApp Support Site. https://www.netapp.com/cloud-services/astra/data-store-form/[Register] for a preview if you don’t already have a full-access NetApp Support Site account.
-* A link:../get-started/requirements.html#licensing[NetApp license file (NLF)] for Astra Data Store preview. Instructions to download the license will be sent to you after you https://www.netapp.com/cloud-services/astra/data-store-form[sign up].
+* Access to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^]. https://www.netapp.com/cloud-services/astra/data-store-form/[Register^] for a preview if you don’t already have a full-access NetApp Support Site account.
+* A link:../get-started/requirements.html#licensing[NetApp license file (NLF)] for Astra Data Store preview. Instructions to download the license will be sent to you after you https://www.netapp.com/cloud-services/astra/data-store-form[sign up^].
 * An active kubeconfig with cluster admin rights for the active context.
 * An understanding of link:../get-started/faq-ads.html#installation-and-use-of-astra-data-store-preview-on-a-kubernetes-cluster[the roles and privileges] used by Astra Data Store preview.
 * Internet connectivity. Astra Data Store preview does not support air-gapped environments. Internet connectivity is needed to reach support.netapp.com either directly or via a proxy.
@@ -35,7 +35,7 @@ The Astra Data Store preview installation process guides you through the followi
 * <<Configure Astra Data Store preview monitoring>>
 
 == Download the Astra Data Store preview bundle and extract the images
-. Log in to the https://mysupport.netapp.com/site/downloads/evaluation/astra-data-store/download[NetApp Support Site^] and download the Astra Data Store preview bundle (`2021.12_astradatastore.tar`).
+. Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store preview bundle (`2021.12_astradatastore.tar`).
 //Need confirmation on tar name.
 . (Optional) Use the following command to verify the signature of the bundle:
 +
