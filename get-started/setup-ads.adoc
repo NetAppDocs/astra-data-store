@@ -159,8 +159,6 @@ Example conversion:
 ----
 python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=None)' < ~/.kube/config > kubeconf.json
 ----
-+
-NOTE: Note: the value should always have `==` in the end
 
 ... Encode as base64 and use the base64 output for the `"kubeconfig"` value:
 +
@@ -169,6 +167,9 @@ Example encoding:
 ----
 cat kubeconf.json | base64 | tr -d '\n'
 ----
++
+NOTE: The response value should always have `==` at the end.
+
 //. "defaults" → List of defaults:
 //snapshotPolicy,
 //exportPolicy,
