@@ -170,13 +170,6 @@ cat kubeconf.json | base64 | tr -d '\n'
 +
 NOTE: The response value should always have `==` at the end.
 
-//. "defaults" → List of defaults:
-//snapshotPolicy,
-//exportPolicy,
-//snapshotDir,
-//qosPolicy,
-//size
-
 +
 [subs=+quotes]
 ----
