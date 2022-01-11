@@ -163,7 +163,7 @@ oc delete -f ads_privileged_scc.yaml
 oc delete -f oc_role_bindings.yaml
 ----
 +
-NOTE: Ignore "resources not found errors" in this step. 
+NOTE: Ignore "resources not found errors" in these steps. 
 
 . Remove `/var/lib/kubelet/config.yaml` from all Kubernetes nodes. 
 

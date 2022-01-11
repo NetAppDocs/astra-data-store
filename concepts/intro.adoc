@@ -5,17 +5,17 @@ keywords: introduction, how astra works, how Astra works, what Astra is, astra d
 summary: Astra Data Store is a Kubernetes native shared file service for both container and VM workloads delivering enterprise data management.
 ---
 
-= Intro to Astra Data Store
+= Intro to Astra Data Store preview
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/concepts/
 
-Astra Data Store is Kubernetes-native, shared file software-defined storage (SDS) solution for on-premises data centers that helps customers manage their cloud-native applications. Astra Data Store provides a native shared file service for both container and VM workloads along with NetApp enterprise data management.
+Astra Data Store preview is Kubernetes-native, shared file software-defined storage (SDS) solution for on-premises data centers that helps customers manage their cloud-native applications. Astra Data Store provides a native shared file service for both container and VM workloads along with NetApp enterprise data management.
 
-With Astra Data Store, you can do the following:
+With Astra Data Store preview, you can do the following:
 
-* *Support Kubernetes containerized workloads*: Support containerized workloads with enterprise data management services and tools you are used to.
-* *Use Kubernetes "application-as-a-service" platform for DevOps*: Create elastic, software-defined, self-serve platforms that deliver automated, repeatable services, which removes complexity from developers​.
+* *Support Kubernetes containerized workloads*: With enterprise data management services and tools you are used to.
+* *Use Kubernetes "application-as-a-service" platform for Deremoving*: Create elastic, software-defined, self-serve platforms that deliver automated, repeatable services, removing complexity from developers​.
 
 == Astra product family
 
@@ -35,7 +35,7 @@ See https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family in
 image:astra-product-family.png[Astra product family]
 
 
-== Astra Data Store features
+== Astra Data Store preview features
 
 Astra Data Store provides end-to-end Kubernetes-native storage and data management for your cloud-native applications​ with these features:
 
@@ -59,7 +59,7 @@ Astra Data Store provides end-to-end Kubernetes-native storage and data manage
 ​
 
 
-== Get started with Astra Data Store
+== Get started with Astra Data Store preview 
 
 
 First, link:../get-started/requirements.html[learn about Astra Data Store requirements].

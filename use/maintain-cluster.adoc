@@ -192,7 +192,7 @@ Status:              Added
 . Modify the Cluster CR to remove the failed node. The node count decrements to 3:
 +
 ----
- # cat nate_hosts/netappsdscluster.yaml
+ # cat manifests/astradscluster.yaml
 apiVersion: astrads.netapp.io/v1alpha1
 kind: AstraDSCluster
 metadata:
@@ -275,7 +275,7 @@ spec:
             event: daily
           userMessage: Daily Control Plane AutoSupport bundle
 
-[root@scspr2409016001 42733317_42952507_1x5Node_Astra_DAS-002]# cat nate_hosts/netappsdscluster.yaml
+[root@scspr2409016001 42733317_42952507_1x5Node_Astra_DAS-002]# cat manifests/astradscluster.yaml
 apiVersion: astrads.netapp.io/v1alpha1
 kind: AstraDSCluster
 metadata:
@@ -399,8 +399,8 @@ Metadata:
 . Add a node to the cluster for replacement by modifying the cluster CR. The node count increments to 4. Verify that new node is picked up for addition.
 +
 ----
-rvi nate_hosts/netappsdscluster.yaml
-cat nate_hosts/netappsdscluster.yaml
+rvi manifests/astradscluster.yaml
+cat manifests/astradscluster.yaml
 apiVersion: astrads.netapp.io/v1alpha1
 kind: AstraDSCluster
 metadata:
@@ -409,7 +409,7 @@ metadata:
 ----
 +
 ----
-~% kubectl apply -f nate_hosts/netappsdscluster.yaml
+~% kubectl apply -f manifests/astradscluster.yaml
 astradscluster.astrads.netapp.io/cluster-multinodes-21209 configured
 
 ~% kubectl get pods -n astrads-system

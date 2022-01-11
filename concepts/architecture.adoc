@@ -33,9 +33,9 @@ Astra Control Center supports OpenShift Kubernetes clusters with a Trident stora
 +
 You use Trident to create volumes on Astra Data Store preview.
 
-* *Cloud Insights*:  A NetApp cloud infrastructure monitoring tool, Cloud Insights enables you to monitor performance and utilization for your Kubernetes clusters managed by Astra Control. Cloud Insights correlates storage usage to workloads. When you enable the Cloud Insights connection in Astra Control, telemetry information shows in Astra Control UI pages.
+* *Cloud Insights*:  A NetApp cloud infrastructure monitoring tool, Cloud Insights enables you to monitor performance and utilization for your Kubernetes clusters managed by Astra Control. Cloud Insights correlates storage usage to workloads.
 +
-Cloud Insights displays information about resources in Astra Data Store preview.
+When you enable the Cloud Insights connection in Astra Control, telemetry information shows in Astra Control UI pages. Cloud Insights displays information about resources managed in Astra Data Store preview.
 
 
 == Astra Data Store interfaces
@@ -46,9 +46,9 @@ You can complete tasks using different interfaces:
 
 * *API*: Astra Control Service and Astra Control Center use the same Astra Control API. Using the API, you can perform the same tasks that you would using the UI. You can also retrieve information about Astra Data Store preview with the Astra Control API.
 
-* *kubectl commands*: To work with Astra Data Store preview , you can also use kubectl commands directly.
+* *kubectl commands*: To work with Astra Data Store preview, you can use kubectl commands directly.
 
-* *Kubernetes extension*: Additionally, you can use the Astra Data Store preview  kubernetes API extension.
+* *Kubernetes extension*: Additionally, you can use the Astra Data Store preview kubernetes API extension.
 +
 Custom Resource Definitions (CRDs) are extensions to the kubernetes REST API that are created when the Astra Data Store preview operator is deployed. External entities interact with the CRDs by making calls to the Kubernetes API server. Astra Data Store preview watches for updates to specific CRDs and then makes calls to internal REST APIs.
 
