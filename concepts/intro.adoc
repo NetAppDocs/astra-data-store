@@ -15,7 +15,7 @@ Astra Data Store preview is Kubernetes-native, shared file software-defined stor
 With Astra Data Store preview, you can do the following:
 
 * *Support Kubernetes containerized workloads*: With enterprise data management services and tools you are used to.
-* *Use Kubernetes "application-as-a-service" platform for Deremoving*: Create elastic, software-defined, self-serve platforms that deliver automated, repeatable services, removing complexity from developers​.
+* *Use Kubernetes "application-as-a-service" platform for DevOps*: Create elastic, software-defined, self-serve platforms that deliver automated, repeatable services, removing complexity from developers​.
 
 == Astra product family
 
@@ -59,7 +59,7 @@ Astra Data Store provides end-to-end Kubernetes-native storage and data manage
 ​
 
 
-== Get started with Astra Data Store preview 
+== Get started with Astra Data Store preview
 
 
 First, link:../get-started/requirements.html[learn about Astra Data Store requirements].
