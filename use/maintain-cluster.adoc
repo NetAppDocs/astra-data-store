@@ -363,7 +363,7 @@ spec:
             name: controlplane
             event: daily
           userMessage: Daily Control Plane AutoSupport bundle
- kubectl apply -f nate_hosts/netappsdscluster.yaml
+ kubectl apply -f manifests/astradscluster.yaml
 astradscluster.astrads.netapp.io/cluster-multinodes-21209 configured
 ----
 
