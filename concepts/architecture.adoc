@@ -5,7 +5,7 @@ keywords: astra, astra datastore, architecture, deployment, astra data store, ku
 summary: Astra Data Store can be deployed on a standalone Kubernetes cluster serving persistent volumes to Kubernetes applications running in a separate cluster, on a Kubernetes cluster also hosting other apps on the same node pool, or on a Kubernetes cluster also hosting apps on a different node pool.
 ---
 
-= Astra Data Store deployment models
+= Astra Data Store preview deployment models
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/concepts/
@@ -22,7 +22,7 @@ link:../get-started/requirements.html[Learn more about the Astra Data Store hard
 
 Astra Data Store preview is part of the Astra product family. To get a perspective on the entire Astra family, see https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family introduction^].
 
-== Astra Data Store ecosystem
+== Astra Data Store preview ecosystem
 Astra Data Store preview works with the following:
 
 * *Astra Control Center*: Use Astra Control Center software for application-aware data management of Kubernetes clusters in your on-premise environment. Easily back up Kubernetes apps, migrate data to a different cluster, and instantly create working application clones.
@@ -38,7 +38,7 @@ You use Trident to create volumes on Astra Data Store preview.
 When you enable the Cloud Insights connection in Astra Control, telemetry information shows in Astra Control UI pages. Cloud Insights displays information about resources managed in Astra Data Store preview.
 
 
-== Astra Data Store interfaces
+== Astra Data Store preview interfaces
 
 You can complete tasks using different interfaces:
 

@@ -131,18 +131,25 @@ Available Commands:
 
 Flags:
       --as string                      Username to impersonate for the operation
-      --as-group stringArray           Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
-      --cache-dir string               Default HTTP cache directory (default "/u/arda/.kube/http-cache")
+      --as-group stringArray           Group to impersonate for the operation, this flag can be
+                                         repeated to specify multiple groups.
+      --cache-dir string               Default HTTP cache directory
+                                         (default "/u/arda/.kube/http-cache")
       --certificate-authority string   Path to a cert file for the certificate authority
       --client-certificate string      Path to a client certificate file for TLS
       --client-key string              Path to a client key file for TLS
       --cluster string                 The name of the kubeconfig cluster to use
       --context string                 The name of the kubeconfig context to use
   -h, --help                           help for astrads
-        --insecure-skip-tls-verify       If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+        --insecure-skip-tls-verify       If true, the server's certificate will not be checked
+                                         for validity. This will make your HTTPS connections insecure
         --kubeconfig string              Path to the kubeconfig file to use for CLI requests.
     -n, --namespace string               If present, the namespace scope for this CLI request
-        --request-timeout string         The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests. (default "0")
+        --request-timeout string         The length of time to wait before giving up on a single
+                                         server request. Non-zero values should contain a
+                                         corresponding time unit (e.g. 1s, 2m, 3h).
+                                         A value of zero means don't timeout requests.
+                                         (default "0")
     -s, --server string                  The address and port of the Kubernetes API server
         --token string                   Bearer token for authentication to the API server
         --user string                    The name of the kubeconfig user to use
@@ -179,21 +186,27 @@ Flags:
 
     Flags:
       -c, --component string     Specify the component to collect: [storage , controlplane , vasaprovider, all]
-      -d, --duration int         Duration is the duration in hours from the startTime for collection of AutoSupport.
+      -d, --duration int         Duration is the duration in hours from the startTime for collection
+                                   of AutoSupport.
                                    This should be a positive integer
       -e, --event string         Specify the callhome event to trigger. (default "manual")
-      -f, --forceUpload          Configure an AutoSupport to upload if it is in the compressed state and not
-                                   uploading because it was created with the 'local' option or if automatic
-                                   uploads of AutoSupports is disabled at the cluster level.
+      -f, --forceUpload          Configure an AutoSupport to upload if it is in the compressed state
+                                   and not
+                                   uploading because it was created with the 'local' option or if
+                                   automatic uploads of AutoSupports is disabled
+                                   at the cluster level.
       -h, --help                 help for collect
-      -l, --local                Only collect and compress the autosupport bundle. Do not upload to support.
-                                   Use 'download' to copy the collected bundle after it is in the 'compressed' state
+      -l, --local                Only collect and compress the autosupport bundle. Do not upload
+                                   to support.
+                                   Use 'download' to copy the collected bundle after it is in
+                                   the 'compressed' state
            --nodes string          Specify nodes to collect for storage component. (default "all")
       -t, --startTime string     StartTime is the starting time for collection of AutoSupport.
                                    This should be in the ISO 8601 date time format.
                                    Example format accepted:
                                    2021-01-01T15:20:25Z, 2021-01-01T15:20:25-05:00
-      -u, --usermessage string   UserMessage is the additional message to include in the AutoSupport subject.
+      -u, --usermessage string   UserMessage is the additional message to include in the
+                                   AutoSupport subject.
                                    (default "Manual event trigger from CLI")
 
 ----
