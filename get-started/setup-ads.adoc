@@ -157,7 +157,7 @@ vi ads_backend.json
 Example conversion:
 +
 ----
-python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=None)' < kubeconfig_filepath > kubeconf.json
+python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=None)' < ~/.kube/config > kubeconf.json
 ----
 
 ... Encode as base64 and use the base64 output for the `"kubeconfig"` value:
@@ -167,12 +167,6 @@ Example encoding:
 ----
 cat kubeconf.json | base64 | tr -d '\n'
 ----
-//. "defaults" → List of defaults:
-//snapshotPolicy,
-//exportPolicy,
-//snapshotDir,
-//qosPolicy,
-//size
 
 +
 [subs=+quotes]
@@ -185,7 +179,7 @@ cat kubeconf.json | base64 | tr -d '\n'
     *"namespace": "astrads-system",*
     *"autoExportPolicy": true,*
     *"autoExportCIDRs": ["0.0.0.0/0"],*
-    *"kubeconfig": "<ID>",*
+    *"kubeconfig": "<base64_output_of_kubeconf_json>",*
     "debugTraceFlags": {"method": true, "api": true},
     "labels": {"cloud": "on-prem", "creator": "trident-dev"},
     "defaults": {
@@ -220,10 +214,16 @@ cat kubeconf.json | base64 | tr -d '\n'
 }
 ----
 
+. Change to the directory where you downloaded the Trident installer:
++
+----
+cd <trident-installer or path to folder containing tridentctl>
+----
+
 . Create the storage backend:
 +
 ----
-tridentctl create backend -f ads_backend.json -n trident
+./tridentctl create backend -f ads_backend.json -n trident
 ----
 +
 Sample response:
@@ -242,10 +242,10 @@ Create the Astra Trident default storage class and apply it to the storage backe
 
 .Steps
 . Create the trident-csi storage class:
-.. Create ads_sc_generic.yaml:
+.. Create ads_sc_example.yaml:
 +
 ----
-vi ads_sc_generic.yaml
+vi ads_sc_example.yaml
 ----
 +
 Response:
@@ -266,7 +266,7 @@ mountOptions:
 .. Create trident-csi:
 +
 ----
-kubectl create -f ads_sc_generic.yaml
+kubectl create -f ads_sc_example.yaml
 ----
 +
 Response:
@@ -288,10 +288,16 @@ NAME          PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWV
 trident-csi   csi.trident.netapp.io   Delete          Immediate           true                   6h29m
 ----
 
+. Change to the directory where you downloaded the Trident installer:
++
+----
+cd <trident-installer or path to folder containing tridentctl>
+----
+
 . Verify that the Astra Trident backend has been updated with the default storage class parameters:
 +
 ----
-tridentctl get backend -n trident -o yaml
+./tridentctl get backend -n trident -o yaml
 ----
 +
 Sample response:
