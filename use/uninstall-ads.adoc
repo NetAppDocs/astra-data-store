@@ -23,9 +23,10 @@ The Astra Data Store preview uninstallation process guides you through the follo
 * <<Delete the volumes and export policies>>
 * <<Delete the Astra Data Store preview cluster>>
 * <<Delete the license>>
-* <<Delete the astrads installation>>
+* <<Delete the Astra Data Store preview installation>>
 * <<Validate the removal of the astrads-system namespace>>
 * <<Ensure containers are not running on worker nodes>>
+* <<Delete OpenShift Container Platform resources>>
 
 
 == Remove existing workloads and bindings
@@ -142,6 +143,29 @@ ssh <mynode1>
 # runc list
 ----
 
+== Delete OpenShift Container Platform resources
+
+If you installed Astra Data Store preview on Red Hat OpenShift Container Platform (OCP), you can uninstall OCP security context constraints (SCC) and rolebindings resources.
+
+OpenShift uses security context constraints (SCC) that control the actions that a pod can perform.
+
+After you complete the standard uninstall process, complete these steps.
+
+. Remove SCC resources:
++
+----
+oc delete -f ads_privileged_scc.yaml
+----
+
+. Remove rolebindings resources:
++
+----
+oc delete -f oc_role_bindings.yaml
+----
++
+NOTE: Ignore "resources not found errors" in these steps. 
+
+. Remove `/var/lib/kubelet/config.yaml` from all Kubernetes nodes. 
 
 
 == Manual deletion sample
