@@ -114,7 +114,7 @@ To raise a support case or get clarification on a quick question, report your is
 If you have questions on supported configurations or capabilities, reach out to astra.feedback@netapp.com.
 
 *How do I generate a support log bundle?*
-See link:../support/get-help.html#generate-support-bundle-to-provide-to-netapp-support[Generate support bundle] for instructions on setting up and downloading support log bundles for Astra Data Store preview.
+See link:../support/get-help-ads.html#generate-support-bundle-to-provide-to-netapp-support[Generate support bundle] for instructions on setting up and downloading support log bundles for Astra Data Store preview.
 
 *Astra Data Store preview cannot find my Kubernetes node. How do I fix this?*
 See link:../get-started/install-ads.html[Install Astra Data Store preview].
