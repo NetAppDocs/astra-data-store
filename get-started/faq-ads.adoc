@@ -114,7 +114,7 @@ To raise a support case or get clarification on a quick question, report your is
 If you have questions on supported configurations or capabilities, reach out to astra.feedback@netapp.com.
 
 *How do I generate a support log bundle?*
-See link:../support/get-help.html#generate-support-bundle-to-provide-to-netapp-support[Generate support bundle] for instructions on setting up and downloading support log bundles for Astra Data Store preview.
+See link:../support/get-help-ads.html#generate-support-bundle-to-provide-to-netapp-support[Generate support bundle] for instructions on setting up and downloading support log bundles for Astra Data Store preview.
 
 *Astra Data Store preview cannot find my Kubernetes node. How do I fix this?*
 See link:../get-started/install-ads.html[Install Astra Data Store preview].
@@ -125,7 +125,7 @@ No, Astra Data Store preview only supports IPv4 address. IPv6 support will be ad
 *What NFS version is used while provisioning a volume on Astra Data Store preview?*
 By default, Astra Data Store preview supports NFS v4.1 for all volumes provisioned for Kubernetes applications.
 
-*Why can't I get larger persistent volumes even though I have configured Astra Data Store preview with large capacity drives?*
+*Why can't I get larger persistent volumes even though I have configured Astra Data Store preview with large capacity drives?* 
 Astra Data Store preview limits the maximum capacity provisioned for all volumes on a node to 1 TiB and up to 5 TiB across all nodes in an Astra Data Store preview cluster.
 
 Learn about link:../get-started/requirements.html[Astra Data Store preview requirements].
