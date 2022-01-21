@@ -12,9 +12,9 @@ summary: Get started by verifying support for your environment.
 
 Get started by verifying that your environment meets Astra Data Store preview requirements.
 
-Astra Data Store preview supports both bare-metal and VM-based deployments. Astra Data Store preview cluster can run on a Kubernetes cluster with four or more worker nodes. Astra Data Store preview software can co-exist with other applications running on the same Kubernetes cluster.
+Astra Data Store preview supports both bare-metal and VM-based deployments. The Astra Data Store preview cluster can run on a Kubernetes cluster with four or more worker nodes. Astra Data Store preview software can co-exist with other applications running on the same Kubernetes cluster.
 
-Astra Data Store preview only supports provisioning of PVs for Kubernetes workloads using the Astra Trident CSI driver. VM workloads will be supported in a future release of Astra Data Store.
+Astra Data Store preview supports provisioning only of persistent volumes for Kubernetes workloads using the Astra Trident CSI driver. VM workloads will be supported in a future release of Astra Data Store.
 
 NOTE: If you plan to manage your Astra Data Store preview cluster from Astra Control Center, make sure your Astra Data Store preview cluster meets the https://docs.netapp.com/us-en/astra-control-center/get-started/requirements.html#kubernetes-cluster-general-requirements[requirements for clusters that will be managed by Astra Control Center^] in addition to the requirements outlined here.
 
@@ -35,7 +35,7 @@ These are the minimum resource requirements for each node in an Astra Data Store
 ////
 
 == Kubernetes worker node resource requirements
-These are the minimum resource requirements required to be assigned to the Astra Data Store preview software on each worker node in the Kubernetes cluster:
+These are the resource requirements required to be assigned to the Astra Data Store preview software on each worker node in the Kubernetes cluster:
 
 // use GiB and TiB exclusively
 |===
@@ -187,7 +187,7 @@ NOTE: The cluster network should reside on the same interface as either the mana
 ** One IPv4 address (free/spare/unconfigured) for the volume's export address of each node. This address is configured on the data network interface during Astra Data Store preview cluster installation.
 ////
 
-Astra Data Store preview requires one (1) IP address per cluster for MVIP. It needs to be an unused or unconfigured IP address in same subnet as MIP. The Astra Data Store preview management interface should be same as the Kubernetes node’s management interface.
+Astra Data Store preview requires one IP address per cluster for MVIP. It needs to be an unused or unconfigured IP address in same subnet as MIP. The Astra Data Store preview management interface should be same as the Kubernetes node’s management interface.
 
 In addition, each node can be configured as described in the following table:
 
@@ -209,7 +209,7 @@ a|
 |Two network interfaces per node
 a|
 
-* Three (3) per node:
+* Three per node:
 ** MIP: One (1) pre-configured IP address on management interface per node
 ** CIP: One (1) pre-configured IP address on data interface per node in a different subnet from MIP
 ** Data IP: One (1) unused or unconfigured IP address per node in same subnet as CIP
