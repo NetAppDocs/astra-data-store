@@ -102,7 +102,7 @@ Delete the controllers, operators, namespace, and support pods in the cluster.
 . Delete the Astra Data Store preview installation object:
 +
 ----
-~% kubectl delete astradsversion atradsversion -n astrads-system
+~% kubectl delete astradsversion astradsversion -n astrads-system
 ~% kubectl get astradsversion -n astrads-system
 
 ----
