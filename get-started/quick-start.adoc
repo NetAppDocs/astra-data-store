@@ -21,7 +21,7 @@ https://www.netapp.com/cloud-services/astra/data-store-form/[Sign up here^] to o
 
 [role="quick-margin-list"]
 
-* Clusters must be running in a healthy state, with at least four online worker nodes and one master node.
+* Clusters must be running in a healthy state, with at least four or more worker nodes.
 * Each of the Kubernetes worker nodes that are part of the Astra Data Store preview deployment should have SSDs of the same interface type (SATA, SAS or NVMe) and the same number of drives that are assigned to the Astra Data Store preview cluster.
 * Each SSD should have a unique serial number.
 
@@ -34,10 +34,10 @@ Learn more about link:../get-started/requirements.html[Astra Data Store preview 
 [role="quick-margin-list"]
 * Download Astra Data Store preview from the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^].
 * Install Astra Data Store preview in your local environment.
-
-* Optionally, install the monitoring operator. This enables you to connect to NetApp Cloud Insights so you can display metrics on the health of your system, capacity, and throughput.
 * Apply the Astra Data Store preview license.
 * Install the Astra Data Store preview cluster.
+* Configure Astra Data Store preview monitoring.
+* If you use Red Hat OpenShift, install Astra Data Store preview on Red Hat OpenShift Container Platform (OCP).
 
 
 
@@ -61,7 +61,7 @@ Learn more about the link:../get-started/setup-ads.html[initial setup process].
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png[Four] Use Astra Data Store preview
 
-[role="quick-margin-list"]
+[role="quick-margin-para"]
 After you finish setting up Astra Data Store preview, here's what you might do next:
 
 [role="quick-margin-list"]
