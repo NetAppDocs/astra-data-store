@@ -67,7 +67,7 @@ Astra Data Store preview works with Kubernetes distributions that are compatible
 
 
 *My Kubernetes cluster is larger than 5 worker nodes. Can I install Astra Data Store preview on it?*
-Yes. An Astra Data Store preview cluster can be deployed on 4 or 5 worker nodes in a Kubernetes cluster. You can choose 4 or 5 worker nodes in your Kubernetes cluster on which Astra Data Store preview cluster will be deployed.
+Yes. An Astra Data Store preview cluster can be deployed on 4 worker nodes in a Kubernetes cluster. After deployment, you can grow the cluster to 5 worker nodes. 
 
 
 *Does Astra Data Store preview support an offline installation from a private registry?*
