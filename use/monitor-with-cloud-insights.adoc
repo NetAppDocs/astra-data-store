@@ -23,7 +23,7 @@ image:ci_ui_metrics.png[Cloud Insights showing Astra Data Store metrics]
 You can also display a list of metrics generated in Astra Data Store preview by using the <<Open Metrics API help>>.
 
 
-== Complete Cloud Insight connection prerequisite tasks
+== Complete Cloud Insights connection prerequisite tasks
 
 Prior to connecting Astra Data Store with Cloud Insights, you need to:
 
@@ -227,7 +227,7 @@ The Monitoring Operator will update Telegraf and Fluent Bit to use the new API K
 == Disconnect from Cloud Insights
 To disconnect from Cloud Insights, you will need to delete the Astra Data Store collector from the Cloud Insights UI first. After that is complete, you can remove the Acquisition Unit, Telegraf and Fluent Bit configurations from the Monitoring Operator.
 
-=== Remove the Astra Data Store collector
+=== Remove the Astra Data Store preview collector
 
 . Log in to Cloud Insights.
 . Select *Admin* > *Data Collectors* to access the Data Collectors page.

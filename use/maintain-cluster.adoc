@@ -67,7 +67,7 @@ When you need to perform host maintenance or package upgrades, you should place 
 
 NOTE: The node must already be part of the Astra Data Store preview cluster.
 
-When a node is in maintenance mode, you cannot add a node to the cluster. In this example, we will place nhcitjj1525 into mainteance mode.
+When a node is in maintenance mode, you cannot add a node to the cluster. In this example, we will place node `nhcitjj1525` into mainteance mode.
 
 .Steps
 
@@ -94,13 +94,11 @@ Response:
 ~% kubectl astrads maintenance list
 ----
 +
-Response:
+Response (there are no nodes already in maintenance mode):
 +
 ----
 NAME    NODE NAME  IN MAINTENANCE  MAINTENANCE STATE       MAINTENANCE VARIANT
-kubectl astrads    maintenance     create node4 --node-name="nhcitjj1525" --variant=Node
 
-Maintenance mode astrads-system/node4 created
 ----
 
 . Enable maintenance mode.
@@ -127,9 +125,6 @@ Response:
 ----
 NODE NAME       NODE STATUS     CLUSTER NAME
 nhcitjj1525     Added           ftap-astra-012
-nhcitjj1527     Added           ftap-astra-012
-nhcitjj1526     Added           ftap-astra-012
-nhcitjj1528     Added           ftap-astra-012
 ...
 ----
 
@@ -230,7 +225,7 @@ Node Version:        12.75.0.6167444
 Status:              Added
 ----
 
-. Modify the Cluster CR to remove the failed node. The node count decrements to 3:
+. Modify the astradscluster CR to remove the failed node by decrementing the value of `AdsNode Count' to 3:
 +
 ----
 cat manifests/astradscluster.yaml
@@ -320,104 +315,6 @@ spec:
             name: controlplane
             event: daily
           userMessage: Daily Control Plane AutoSupport bundle
-----
-+
-----
-cat manifests/astradscluster.yaml
-----
-+
-Response:
-+
-----
-apiVersion: astrads.netapp.io/v1alpha1
-kind: AstraDSCluster
-metadata:
-  name: cluster-multinodes-21209
-  namespace: astrads-system
-spec:
-  # ADS Node Configuration per node settings
-  adsNodeConfig:
-    # Specify CPU limit for ADS components
-    # Supported value: 9
-    cpu: 9
-    # Specify Memory Limit in GiB for ADS Components.
-    # Your kubernetes worker nodes need to have at least this much RAM free
-    # for ADS to function correctly
-    # Supported value: 34
-    memory: 34
-    # [Optional] Specify raw storage consumption limit. The operator will only select drives for a node up to this limit
-    capacity: 600
-    # [Optional] Set a cache device if you do not want auto detection e.g. /dev/sdb
-    # cacheDevice: ""
-    # Set this regex filter to select drives for ADS cluster
-    # drivesFilter: ".*"
-
-  # [Optional] Specify node selector labels to select the nodes for creating ADS cluster
-  # adsNodeSelector:
-  #   matchLabels:
-  #     customLabelKey: customLabelValue
-
-  # Specify the number of nodes that should be used for creating ADS cluster
-  adsNodeCount: 3
-
-  # Specify the IP address of a floating management IP routable from any worker node in the cluster
-  mvip: "172..."
-
-  # Comma separated list of floating IP addresses routable from any host where you intend to mount a NetApp Volume
-  # at least one per node must be specified
-  # addresses: 10.0.0.1,10.0.0.2,10.0.0.3,10.0.0.4,10.0.0.5
-  # netmask: 255.255.255.0
-  adsDataNetworks:
-    - addresses: "172..."
-      netmask: 255.255.252.0
-
-  # [Optional] Specify the network interface names for either all or none
-  adsNetworkInterfaces:
-    managementInterface: "mgmt"
-    clusterInterface: "data"
-    storageInterface: "data"
-
-  # [Optional] Provide a k8s label key that defines which protection domain a node belongs to
-  # adsProtectionDomainKey: ""
-
-  # [Optional] Provide a monitoring config to be used to setup/configure a monitoring agent.
-  monitoringConfig:
-   namespace: "netapp-monitoring"
-   repo: "docker.repo.eng.netapp.com/global/astra"
-
-  autoSupportConfig:
-    # AutoUpload defines the flag to enable or disable AutoSupport upload in the cluster (true/false)
-    autoUpload: true
-    # Enabled defines the flag to enable or disable automatic AutoSupport collection.
-    # When set to false, periodic and event driven AutoSupport collection would be disabled.
-    # It is still possible to trigger an AutoSupport manually while AutoSupport is disabled
-    # enabled: true
-    # CoredumpUpload defines the flag to enable or disable the upload of coredumps for this ADS Cluster
-    # coredumpUpload: false
-    # HistoryRetentionCount defines the number of local (not uploaded) AutoSupport Custom Resources to retain in the cluster before deletion
-    historyRetentionCount: 25
-    # DestinationURL defines the endpoint to transfer the AutoSupport bundle collection
-    destinationURL: "https://testbed.netapp.com/put/AsupPut"
-    # ProxyURL defines the URL of the proxy with port to be used for AutoSupport bundle transfer
-    # proxyURL:
-
-    # Periodic defines the config for periodic/scheduled AutoSupport objects
-    periodic:
-      # Schedule defines the Kubernetes Cronjob schedule
-      - schedule: "0 0 * * *"
-        # PeriodicConfig defines the fields needed to create the Periodic AutoSupports
-        periodicconfig:
-        - component:
-            name: storage
-            event: dailyMonitoring
-          userMessage: Daily Monitoring Storage AutoSupport bundle
-          nodes: all
-        - component:
-            name: controlplane
-            event: daily
-          userMessage: Daily Control Plane AutoSupport bundle
- kubectl apply -f manifests/astradscluster.yaml
-astradscluster.astrads.netapp.io/cluster-multinodes-21209 configured
 ----
 
 . Verify the node is removed from the cluster:
@@ -456,8 +353,8 @@ Response:
 +
 ----
 NAME                STATUS   ROLES                  AGE   VERSION   LABELS
-sti-astramaster-237 Ready    control-plane,master   24h
-sti-rx2540-532d     Ready    <none>                 24h
+sti-astramaster-237 Ready    control-plane,master   24h   v1.20.0   beta.kubernetes.io/arch=amd64,
+sti-rx2540-532d     Ready    <none>                 24h   v1.20.0   astrads.netapp.io/node-removal
 ----
 +
 ----

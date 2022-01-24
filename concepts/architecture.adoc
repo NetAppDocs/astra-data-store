@@ -12,7 +12,7 @@ summary: Astra Data Store can be deployed on a standalone Kubernetes cluster ser
 
 Astra Data Store preview manages storage drives directly on the hosts using an application deployed and orchestrated with Kubernetes.
 
-Astra Data Store preview can be installed on bare metal or virtual servers by using one of the following options:
+You can install Astra Data Store preview on bare metal or virtual servers by using one of the following options:
 
 *	Deploy on a standalone dedicated Kubernetes cluster serving persistent volumes to Kubernetes applications running in a separate cluster (standalone cluster).
 *	Deploy on a Kubernetes cluster also hosting other workload applications on the same node pool (converged cluster).
@@ -27,11 +27,11 @@ Astra Data Store preview works with the following:
 
 * *Astra Control Center*: Use Astra Control Center software for application-aware data management of Kubernetes clusters in your on-premise environment. Easily back up Kubernetes apps, migrate data to a different cluster, and instantly create working application clones.
 +
-Astra Control Center supports OpenShift Kubernetes clusters with a Trident storage backend with ONTAP or an Astra Data Store preview storage backend.
+Astra Control Center supports OpenShift Kubernetes clusters with an Astra Trident storage backend with ONTAP or an Astra Data Store preview storage backend.
 
-* *Astra Trident*: As a fully supported open source storage provisioner and orchestrator maintained by NetApp, Trident enables you to create storage volumes for containerized applications managed by Docker and Kubernetes.
+* *Astra Trident*: As a fully supported open source storage provisioner and orchestrator maintained by NetApp, Astra Trident enables you to create storage volumes for containerized applications managed by Docker and Kubernetes.
 +
-You use Trident to create volumes on Astra Data Store preview.
+You use Astra Trident to create volumes on Astra Data Store preview.
 
 * *Cloud Insights*:  A NetApp cloud infrastructure monitoring tool, Cloud Insights enables you to monitor performance and utilization for your Kubernetes clusters managed by Astra Control. Cloud Insights correlates storage usage to workloads.
 +
