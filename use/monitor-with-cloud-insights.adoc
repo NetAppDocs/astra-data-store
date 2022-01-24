@@ -12,7 +12,7 @@ summary: You can monitor Astra Data Store assets using Cloud Insights metrics.
 
 You can monitor Astra Data Store preview metrics using Cloud Insights.
 
-* <<Complete Cloud Insight connection prerequisite tasks>>
+* <<Complete Cloud Insights connection prerequisite tasks>>
 * <<Download and run the installation script>>
 * <<Edit the Cloud Insights connection>>
 * <<Disconnect from Cloud Insights>>
