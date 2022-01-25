@@ -159,7 +159,6 @@ The `Maintenance State` changes from `PreparingForMaintenance` to `ReadyforMaint
 
 
 
-
 == Replace a node
 
 Use kubectl commands with Astra Data Store preview to replace a failed node in a cluster.
@@ -320,11 +319,13 @@ spec:
 +
 ----
 ~% kubectl get nodes --show-labels
+
 ----
 +
 Response:
 +
 ----
+
 NAME                  STATUS   ROLES               AGE   VERSION   LABELS
 sti-astramaster-237   Ready control-plane,master   24h   v1.20.0
 sti-rx2540-532d       Ready  <none>                24h   v1.20.0
@@ -549,6 +550,7 @@ Current status: {FailedDriveInfo:{InUse:false Present:true Name:scsi-36000c2 Fir
 
 
 . To re-run drive replacement use `--force` with the previous command:
+
 +
 ----
 ~%  kubectl astrads replacedrive replace --cluster astrads-cluster-f51b10a --name 6000c2927 --replaceWith VALID_SERIAL_NUMBER --force
