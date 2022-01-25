@@ -3,7 +3,7 @@ title: Use Astra Data Store
 entries:
   - title: Manage Astra Data Store assets
     url: /use/kubectl-commands-ads.html
-  - title: Set up an application
+  - title: Deploy a test application
     url: /use/deploy-apps.html
   - title: Manage the cluster
     url: /use/maintain-cluster.html
