@@ -17,7 +17,7 @@ You can manage the cluster by using kubectl commands with Astra Data Store previ
 * <<Replace a node>>
 * <<Replace a drive>>
 
-== What you'll need
+.What you'll need
 
 * System with kubectl and kubectl-astrads plugin installed. See link:../get-started/install-ads.html[Install Astra Data Store preview].
 
@@ -99,6 +99,7 @@ Response (there are no nodes already in maintenance mode):
 ----
 NAME    NODE NAME  IN MAINTENANCE  MAINTENANCE STATE       MAINTENANCE VARIANT
 
+
 ----
 
 . Enable maintenance mode.
@@ -143,8 +144,8 @@ node4   nhcitjj1525     true            ReadyForMaintenance     Node
 
 
 +
-The In Maintenance mode starts as "False" and changes to "True."
-The Maintenance state changes from "Preparing for Maintenance" to "Ready for Maintenance."
+The `In Maintenance` mode starts as `false` and changes to `true`.
+The `Maintenance State` changes from `PreparingForMaintenance` to `ReadyforMaintenance`.
 
 . After the node maintenance is complete, disable maintenance mode:
 +
@@ -157,7 +158,6 @@ The Maintenance state changes from "Preparing for Maintenance" to "Ready for Mai
 ----
 ~% kubectl astrads maintenance list
 ----
-
 
 
 
@@ -195,7 +195,7 @@ CLUSTER NAME               CLUSTER STATUS  NODE COUNT
 cluster-multinodes-21209   created         4
 ----
 
-. Verify that the Node HA is marked as "False" on the failed node:
+. Verify that `Node HA` is marked as `false` on the failed node:
 +
 ----
 ~% kubectl describe astradscluster -n astrads-system
@@ -321,6 +321,7 @@ spec:
 +
 ----
 ~% kubectl get nodes --show-labels
+
 ----
 +
 Response:
@@ -328,6 +329,7 @@ Response:
 ----
 NAME                                            STATUS   ROLES                 AGE   VERSION   LABELS
 sti-astramaster-237   Ready control-plane,master   24h   v1.20.0
+
 sti-rx2540-532d       Ready  <none>                24h   v1.20.0
 sti-rx2540-533d       Ready  <none>                24h
 ----
@@ -447,7 +449,7 @@ scsi-36000..  c3e197f2... Active         sti-rx2540... cluster-multinodes-21209
 When a drive fails in a cluster, the drive must be replaced as soon as possible to ensure data integrity.
 When a drive fails, you will see failed drive information in cluster CR node status, cluster health condition information, and the metrics endpoint.
 
-.Example of `cluster` showing failed drive in nodeStatuses.driveStatuses
+.Example of cluster showing failed drive in nodeStatuses.driveStatuses
 
 ----
 $ kubectl get adscl -A -o yaml
@@ -530,7 +532,7 @@ NAME  IDPATH             SERIAL  PARTITIONCOUNT   MOUNTED   SIZE
 sdh   /scsi-36000c29417  45000c  0                false     100GB
 ----
 
-. Use the `replace` command to replace the drive with the passed serial number. The command completes the replacement or fails if ``--wait` time elapses.
+. Use the `replace` command to replace the drive with the passed serial number. The command completes the replacement or fails if `--wait` time elapses.
 +
 ----
 ~% kubectl astrads faileddrive replace --cluster arda-6e4b4af --name 6000c290 --replaceWith 45000c --wait
@@ -548,7 +550,9 @@ Drive replacement didn't complete within 25 seconds
 Current status: {FailedDriveInfo:{InUse:false Present:true Name:scsi-36000c2 FiretapUUID:444a5468 Serial:6000c Path:/scsi-36000c FailureReason:AdminFailed Node:sti-b200-0214a.lab.netapp.com} Cluster:astrads-cluster-f51b10a State:ReadyToReplace Conditions:[{Message: "Replacement drive serial specified doesn't exist", Reason: "DriveSelectionFailed", Status: False, Type:' Done"]}
 ----
 
-. To re-run drive replacement, use ``--force` with the previous command:
+
+. To re-run drive replacement use `--force` with the previous command:
+
 +
 ----
 ~%  kubectl astrads replacedrive replace --cluster astrads-cluster-f51b10a --name 6000c2927 --replaceWith VALID_SERIAL_NUMBER --force

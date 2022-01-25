@@ -21,7 +21,9 @@ https://www.netapp.com/cloud-services/astra/data-store-form/[Sign up here^] to o
 
 [role="quick-margin-list"]
 
+
 * Clusters must be running in a healthy state, with at least four or more worker nodes.
+
 * Each of the Kubernetes worker nodes that are part of the Astra Data Store preview deployment should have SSDs of the same interface type (SATA, SAS or NVMe) and the same number of drives that are assigned to the Astra Data Store preview cluster.
 * Each SSD should have a unique serial number.
 
@@ -50,9 +52,9 @@ Learn more about link:../get-started/install-ads.html[installing Astra Data Stor
 [role="quick-margin-list"]
 
 * Install Astra Trident.
-* Install Kubernetes Snapshot custom resource definitions (CRDs) and controller.
+* Install Kubernetes snapshot custom resource definitions (CRDs) and controller.
 * Set up Astra Data Store preview as a storage backend.
-* Create an Astra Data Store preview storage class.
+* Create a default Astra Data Store preview storage class.
 
 
 
