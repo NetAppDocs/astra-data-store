@@ -5,12 +5,13 @@ keywords: astra, astra data store, astra datastore, kubectl
 summary: You can use kubectl commands directly with Astra Data Store.
 ---
 
-= Manage Astra Data Store preview with kubectl commands
+= Manage Astra Data Store preview assets with kubectl commands
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/get-started/
 
 You can manage Astra Data Store preview assets by using kubectl commands and by using the Kubernetes API extension.
+
 
 To learn how to deploy a sample app, see link:../use/deploy-apps.html[Deploy a test application].
 
@@ -36,7 +37,11 @@ This list is particularly helpful to get shortnames of each Astra Data Store pre
 +
 ----
 kubectl api-resources --api-group astrads.netapp.io
-
+----
++
+Response:
++
+----
 NAME                   SHORTNAMES  APIGROUP           NAMESPACED  KIND
 astradsversions         adsve      astrads.netapp.io  true        AstraDSVersion
 astradsclusters         adscl      astrads.netapp.io  true        AstraDSCluster
@@ -55,8 +60,12 @@ astradsnodemanagements  adsnm      astrads.netapp.io  true        AstraDSNodeMan
 . To get all the current Astra Data Store preview objects in your Kubernetes cluster, use the `kubectl get ads -A` command:
 +
 ----
-bash-4.2$ kubectl get ads -A
-
+kubectl get ads -A
+----
++
+Response:
++
+----
 NAMESPACE        NAME                                        AGE
 astrads-system   astradsqospolicy.astrads.netapp.io/bronze   45h
 astrads-system   astradsqospolicy.astrads.netapp.io/gold     45h
@@ -96,7 +105,12 @@ astrads-system   astradslicense.astrads.netapp.io/e0   astrads-cluster-9f1 true 
 . Use one of the short names to show the current state of volumes in the cluster:
 +
 ----
-bash-4.2$ kubectl get adsvo -A
+kubectl get adsvo -A
+----
++
+Response:
++
+----
 NAMESPACE        NAME       SIZE   IP               CLUSTER                   CREATED
 astrads-system   test234    21Gi   172.25.138.109   astrads-cluster-9f1c99f   true
 astrads-system   test2345   21Gi   172.25.138.111   astrads-cluster-9f1c99f   true
@@ -112,7 +126,12 @@ The `kubectl astrads` command includes an `-h` switch that provides usage and fl
 . Show help for all commands in the Astra Data Store preview kubectl extension:
 +
 ----
-bash-4.2$ kubectl astrads -h
+kubectl astrads -h
+----
++
+Response:
++
+----
 A kubectl plugin for inspecting your AstraDS deployment
 
 Usage:
@@ -158,10 +177,12 @@ Flags:
 .  Use `astrads [command] --help` for more information about a command.
 +
 ----
-  # Show help for a specific astrads command
-
-  bash-4.2$ kubectl astrads asup collect --help
-  WARNING: YOU ARE USING A DEV RELEASE
+kubectl astrads asup collect --help
+----
++
+Response:
++
+----
   Collect the autosupport bundle by specifying the component to collect. It will default to manual event.
 
   Usage:
@@ -208,5 +229,4 @@ Flags:
       -u, --usermessage string   UserMessage is the additional message to include in the
                                    AutoSupport subject.
                                    (default "Manual event trigger from CLI")
-
 ----
