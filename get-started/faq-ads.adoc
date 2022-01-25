@@ -23,9 +23,11 @@ Astra Data Store preview release is limited only to applications running on Kube
 
 
 *Does Astra Data Store preview have any dependencies on other NetApp products for its functioning?*
-Yes. Astra Data Store preview requires NetApp CSI driver Astra Trident version 21.10.1 and above to be deployed on workload Kubernetes clusters. See link:../get-started/requirements.html[Astra Data Store requirements].
 
-Applications using Astra Data Store preview cluster as a storage backend can use https://docs.netapp.com/us-en/astra-control-center/index.html[Astra Control Center^] version 21.12 to leverage application-aware data management capabilities including data protection, disaster recovery and migration of Kubernetes workloads.
+Yes. Astra Data Store preview requires NetApp CSI driver Astra Trident version 21.10.1 and later to be deployed on workload Kubernetes clusters. Learn about link:../get-started/requirements.html[Astra Data Store requirements].
+
+
+Applications using Astra Data Store preview cluster as a storage backend can use https://docs.netapp.com/us-en/astra-control-center/index.html[Astra Control Center^] version 21.12 to leverage application-aware data management capabilities, including data protection, disaster recovery, and migration of Kubernetes workloads.
 
 *How can I manage Astra Data Store preview cluster?*
 You can manage Astra Data Store preview assets by using kubectl commands and by using the Kubernetes API extension.
@@ -52,7 +54,7 @@ Yes, Astra Data Store preview requires a NetApp license file (NLF).
 See link:../get-started/requirements.html[Astra Data Store requirements].
 
 *How long is the Astra Data Store preview license valid?*
-The Astra Data Store preview license has a default term of 90-days from the download date.
+The Astra Data Store preview license has a default term of 90 days from the download date.
 
 
 == Installation and use of Astra Data Store preview on a Kubernetes cluster
@@ -63,7 +65,9 @@ Yes. Astra Data Store preview can be installed on a Kubernetes cluster running o
 
 
 *What are the supported versions of Kubernetes for Astra Data Store preview?*
-Astra Data Store preview works with Kubernetes distributions that are compatible with v1.20 and above. However, it is not currently validated with all Kubernetes distributions. See link:../get-started/requirements.html[Astra Data Store preview requirements].
+
+Astra Data Store preview works with Kubernetes distributions that are compatible with v1.20 and later. However, it is not currently validated with all Kubernetes distributions. Learn about link:../get-started/requirements.html[Astra Data Store preview requirements].
+
 
 
 *My Kubernetes cluster is larger than 5 worker nodes. Can I install Astra Data Store preview on it?*
@@ -74,7 +78,7 @@ Yes. An Astra Data Store preview cluster can be deployed on 4 worker nodes in a 
 Yes. Astra Data Store preview can be installed offline from a local registry. See link:../get-started/install-ads.html[Install Astra Data Store preview]. However, Astra Data Store preview requires connectivity (direct or via a proxy) to the NetApp AutoSupport backend (support.netapp.com) for continued operations.
 
 *Do I need internet connectivity to use Astra Data Store preview?*
-Astra Data Store preview requires connectivity to the NetApp AutoSupport backend to periodically send the mandatory telemetry AutoSupport bundles. This connectivity can direct or via a proxy. If this connectivity is missing or AutoSupport is disabled, the cluster will lock down and new volume creation will be disabled until the periodic bundle uploads are resumed.
+Astra Data Store preview requires connectivity to the NetApp AutoSupport backend to periodically send the mandatory telemetry AutoSupport bundles. This connectivity can be direct or via a proxy. If this connectivity is missing or AutoSupport is disabled, the cluster will lock down and new volume creation will be disabled until the periodic bundle uploads are resumed.
 
 *What are the roles and privileges used by Astra Data Store preview?*
 You need to be a kube admin to deploy the Astra Data Store preview operator.
@@ -108,18 +112,18 @@ See link:../support/get-help-ads.html[Astra Data Store support operations].
 
 
 *How do I raise a support case OR ask clarification on a quick question?*
-To raise a support case or get clarification on a quick question, report your issue or question on the https://netapp.io/slack[NetApp Container Slack channel^]. NetApp Support will follow up with you to assist you with resolution on best effort basis.
+To raise a support case or get clarification on a quick question, report your issue or question on the https://netapp.io/slack[NetApp Container Slack channel^]. NetApp Support will follow up with you to assist on a best-effort basis.
 
 *How do I raise a request for a new feature?*
 If you have questions on supported configurations or capabilities, reach out to astra.feedback@netapp.com.
 
 *How do I generate a support log bundle?*
-See link:../support/get-help.html#generate-support-bundle-to-provide-to-netapp-support[Generate support bundle] for instructions on setting up and downloading support log bundles for Astra Data Store preview.
+See link:../support/get-help-ads.html#generate-support-bundle-to-provide-to-netapp-support[Generate support bundle] for instructions on setting up and downloading support log bundles for Astra Data Store preview.
 
 *Astra Data Store preview cannot find my Kubernetes node. How do I fix this?*
 See link:../get-started/install-ads.html[Install Astra Data Store preview].
 
-*Can IPv6 addresses be used for management, data and cluster networks?*
+*Can IPv6 addresses be used for management, data, and cluster networks?*
 No, Astra Data Store preview only supports IPv4 address. IPv6 support will be added in a future release of Astra Data Store preview.
 
 *What NFS version is used while provisioning a volume on Astra Data Store preview?*
