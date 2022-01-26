@@ -10,7 +10,7 @@ summary: After you have installed Astra Data Store and addressed some environmen
 :icons: font
 :imagesdir: ../media/get-started/
 
-After you have installed Astra Data Store preview and addressed some environmental prerequisites, you'll install Astra Trident, configure K8s snapshot capabilities, set up the storage backend, and create a default storage class:
+After you have installed Astra Data Store preview and addressed some environmental prerequisites, you'll install Astra Trident, configure Kubernetes snapshot capabilities, set up the storage backend, and create a default storage class:
 
 * <<Install Astra Trident>>
 * <<Install Kubernetes snapshot CRDs and Controller>>
@@ -28,7 +28,7 @@ NOTE: You can deploy the Trident operator either manually or using Helm.
 
 == Install Kubernetes snapshot CRDs and Controller
 
-Kubernetes snapshot CRDs and controller are required to create PVC snapshots. If you do not already have the CRD and controller installed for your environment, run the following commands to install them.
+Kubernetes snapshot CRDs and controller are required to create persistent volume claim (PVC) snapshots. If you do not already have the CRD and controller installed for your environment, run the following commands to install them.
 
 NOTE: The following command examples assume `/trident` as the directory; however, the directory you use can be any directory that you used to download the YAML files.
 
@@ -232,7 +232,7 @@ Sample response:
 +------------------+----------------+--------------------------------------+--------+---------+
 |       NAME       | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
 +------------------+----------------+--------------------------------------+--------+---------+
-| example-1234584 | astrads-nas    | 2125fa7a-730e-43c8-873b-6012fcc3b527 | online |       0 |
+| example-1234584  | astrads-nas    | 2125fa7a-730e-43c8-873b-6012fcc3b527 | online |       0 |
 +------------------+----------------+--------------------------------------+--------+---------+
 ----
 
