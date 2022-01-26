@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar
 permalink: get-started/install-ads.html
-keywords: astra, astra data store, install, deploy, download
-summary: To install Astra Data Store after addressing some environmental prerequisites, you'll download the bundle and install following the steps described.
+keywords: astra, astra data store, install, deploy, download, openshift, red hat, ocp
+summary: To install Astra Data Store after addressing some environmental prerequisites, you'll download the bundle and install following the steps. How to install Astra Data Store on OpenShift
 ---
 
 = Install Astra Data Store preview
@@ -11,6 +11,9 @@ summary: To install Astra Data Store after addressing some environmental prerequ
 :imagesdir: ../media/get-started/
 
 To install Astra Data Store preview, download the installation bundle from the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and complete installation steps described in this procedure.
+
+To install Astra Data Store preview on the Red Hat OpenShift Container Platform (OCP), download the installation bundle from the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and complete installation steps described in this procedure.
+
 
 Alternatively, you can link:install-ads-openshift.html[install Astra Data Store preview on Red Hat OpenShift Container Platform (OCP)].
 
@@ -29,12 +32,17 @@ The Astra Data Store preview installation process guides you through the followi
 
 * <<Download the Astra Data Store preview bundle and extract the images>>
 * <<Copy the binary and push images to your local registry>>
+* <<Create a namespace to deploy ADS preview (OCP only)>>
+* <<Create a custom SCC (OCP only)>>
+* <<Create the roles and role bindings (OCP only)>>
+* <<Prepare the worker nodes (OCP only)>>
 * <<Install the Astra Data Store preview operator>>
 * <<Deploy the Astra Data Store preview version YAML>>
 * <<Apply the Astra Data Store preview license>>
 * <<Install the Astra Data Store preview cluster>>
 * <<Understand deployment-related events>>
 * <<Configure Astra Data Store preview monitoring>>
+* <<Set up iptables (OCP only)>>
 
 == Download the Astra Data Store preview bundle and extract the images
 . Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store preview bundle (`2021.12_astradatastore.tar`).
@@ -87,6 +95,201 @@ for astraImageFile in $(ls images/*.tar) ; do
 done
 sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/*.yaml
 ----
+
+
+
+
+== Create a namespace to deploy Astra Data Store preview (OCP only)
+
+Create a namespace `astrads-system` in which all Astra Data Store preview components will be installed.
+//ocp
+
+. Create the namespace:
++
+----
+kubectl create -f ads_namespace.yaml
+----
++
+Sample: ads_namespace.yaml
++
+----
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    control-plane: operator
+  name: astrads-system
+----
+
+== Create a custom SCC (OCP only)
+//ocp
+OpenShift uses security context constraints (SCC) that control the actions that a pod can perform.
+By default, the execution of any container will be granted the restricted SCC and only the capabilities defined by that SCC.
+
+Restricted SCC does not provide permissions required by Astra Data Store preview cluster pods. Use this procedure to provide the required privileges (listed in the sample) to Astra Data Store preview.
+
+Assign a custom SCC to the default service account for the Astra Data Store preview namespace.
+
+
+
+.Steps
+. Create a custom SCC:
++
+----
+kubectl create -f ads_privileged_scc.yaml
+----
++
+Sample: ads_privileged_scc.yaml
++
+----
+allowHostDirVolumePlugin: true
+allowHostIPC: true
+allowHostNetwork: true
+allowHostPID: true
+allowHostPorts: true
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: true
+allowedCapabilities:
+- '*'
+allowedUnsafeSysctls:
+- '*'
+apiVersion: security.openshift.io/v1
+defaultAddCapabilities: null
+fsGroup:
+  type: RunAsAny
+groups: []
+kind: SecurityContextConstraints
+metadata:
+  annotations:
+    kubernetes.io/description: 'ADS privileged. Grant with caution.'
+    release.openshift.io/create-only: "true"
+  name: ads-privileged
+priority: null
+readOnlyRootFilesystem: false
+requiredDropCapabilities: null
+runAsUser:
+  type: RunAsAny
+seLinuxContext:
+  type: RunAsAny
+seccompProfiles:
+- '*'
+supplementalGroups:
+  type: RunAsAny
+users:
+- system:serviceaccount:astrads-system:default
+volumes:
+- '*'
+----
+
+
+. Display the newly added SCC using the `oc get scc` command:
++
+----
+# oc get scc/ads-privileged
+NAME             PRIV   CAPS    SELINUX    RUNASUSER   FSGROUP    SUPGROUP   PRIORITY     READONLYROOTFS   VOLUMES
+ads-privileged   true   ["*"]   RunAsAny   RunAsAny    RunAsAny   RunAsAny   <no value>   false            ["*"]
+#
+----
+
+
+
+
+== Create the roles and role bindings (OCP only)
+
+//ocp
+
+Create the required roles and role bindings to be used by the default service account for Astra Data Store preview.
+
+The following yaml definition assigns various roles (via rolebindings) needed by the Astra Data Store preview resources in the `astrads.netapp.io` API group.
+
+
+
+. Create the defined roles and role binding:
++
+----
+kubectl create -f oc_role_bindings.yaml
+----
++
+Sample: oc_role_bindings.yaml
++
+----
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: privcrole
+rules:
+- apiGroups:
+  - security.openshift.io
+  resourceNames:
+  - ads-privileged
+  resources:
+  - securitycontextconstraints
+  verbs:
+  - use
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: default-scc-rolebinding
+  namespace: astrads-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: privcrole
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: astrads-system
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ownerref
+  namespace: astrads-system
+rules:
+- apiGroups:
+  - astrads.netapp.io
+  resources:
+  - '*/finalizers'
+  verbs:
+  - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: or-rb
+  namespace: astrads-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: ownerref
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: astrads-system
+----
+
+== Prepare the worker nodes (OCP only)
+
+//ocp
+
+Prepare the worker nodes for Astra Data Store preview cluster deployment. Perform this procedure on all the worker nodes used by the Astra Data Store preview cluster.
+
+OpenShift uses a json format for the kubelet config file (`/var/lib/kubelet/config.json`). The Astra Data Store preview cluster looks for the yaml format of the `kubelet config` file.
+
+.Steps
+
+. Create `/var/lib/kubelet/config.yaml` file on each of the worker nodes before initiating the cluster installation.
++
+----
+sudo cp /var/lib/kubelet/config.json /var/lib/kubelet/config.yaml`
+----
++
+. Complete this procedure on all Kubernetes nodes before the cluster yaml is applied.
+
+NOTE: If you do not do this, the Astra Data Store preview cluster installation will fail.
+
 
 == Install the Astra Data Store preview operator
 . List the Astra Data Store preview manifests:
@@ -412,6 +615,56 @@ kubectl apply -f ./manifests/monitoring_operator.yaml
 ----
 kubectl astrads monitoring -m netapp-monitoring -r [YOUR REGISTRY] setup
 ----
+
+== Set up iptables (OCP only)
+//ocp
+
+OpenShift SDN  (default CNI plugin for OpenShift) does not masquerade the traffic from the host loopback interface (127.0.0.1/localhost) to the HostPorts.
+
+The Astra Data Store preview cluster requires the addition of a NAT rule for forwarding traffic from the localhost to the cluster service port (9920).
+
+.Steps
+
+. Note the line number for the current `KUBE-HOSTPORTS` rule in the OUTPUT chain for the NAT table.
++
+In the example below `KUBE-HOSTPORTS` is at position 4.
++
+----
+$ sudo iptables -t nat -L OUTPUT --line-numbers
+Chain OUTPUT (policy ACCEPT)
+num target prot opt source destination
+1 KUBE-SERVICES all -- anywhere anywhere /* kubernetes service portals */
+2 KUBE-PORTALS-HOST all -- anywhere anywhere /* handle ClusterIPs; NOTE: this must be before the NodePort rules */
+3 KUBE-NODEPORT-HOST all -- anywhere anywhere ADDRTYPE match dst-type LOCAL /* handle service NodePorts; NOTE: this must be the last rule in the chain */
+4 KUBE-HOSTPORTS all -- anywhere anywhere /* kube hostport portals */ ADDRTYPE match dst-type LOCAL
+----
+
+
+. Add a new rule to the NAT table, right above the `KUBE-HOSTPORTS` entry.
++
+----
+$ sudo iptables -t nat -I OUTPUT 4 -s 127.0.0.1 -j KUBE-MARK-MASQ -p tcp --dport 9920
+----
+
+. Verify that the newly added rule is added to the NAT table just above the `KUBE-HOSTPORTS` rule.
++
+----
+$ sudo iptables -t nat -L OUTPUT --line-numbers
+Chain OUTPUT (policy ACCEPT)
+num target prot opt source destination
+1 KUBE-SERVICES all -- anywhere anywhere /* kubernetes service portals */
+2 KUBE-PORTALS-HOST all -- anywhere anywhere /* handle ClusterIPs; NOTE: this must be before the NodePort rules */
+3 KUBE-NODEPORT-HOST all -- anywhere anywhere ADDRTYPE match dst-type LOCAL /* handle service NodePorts; NOTE: this must be the last rule in the chain */
+4 KUBE-MARK-MASQ tcp -- localhost anywhere tcp dpt:9920
+5 KUBE-HOSTPORTS all -- anywhere anywhere /* kube hostport portals */ ADDRTYPE match dst-type LOCAL
+----
+
+
+NOTE: Perform the steps on all the nodes in the Astra Data Store preview cluster.
+
+NOTE: Repeat these steps if the Astra Data Store preview cluster node restarts.
+
+
 
 == What's next
 
