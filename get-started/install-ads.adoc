@@ -10,12 +10,8 @@ summary: To install Astra Data Store after addressing some environmental prerequ
 :icons: font
 :imagesdir: ../media/get-started/
 
-To install Astra Data Store preview, download the installation bundle from the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and complete installation steps described in this procedure.
+To install Astra Data Store preview either on a Kubernetes cluster or on the Red Hat OpenShift Container Platform (OCP), download the installation bundle from the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and complete installation steps described in this procedure.
 
-To install Astra Data Store preview on the Red Hat OpenShift Container Platform (OCP), download the installation bundle from the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and complete installation steps described in this procedure.
-
-
-Alternatively, you can link:install-ads-openshift.html[install Astra Data Store preview on Red Hat OpenShift Container Platform (OCP)].
 
 video::jz6EuryqYps[youtube]
 
