@@ -23,6 +23,7 @@ AutoSupport is enabled by default during link:../get-started/install-ads.html#in
 * <<Configure custom storage AutoSupport collection>>
 * <<List ASUPs in the system>>
 * <<Download an ASUP Bundle>>
+* <<Upload a core file>>
 
 == AutoSupport triggers and scenarios
 AutoSupport bundles are triggered in the following ways:
