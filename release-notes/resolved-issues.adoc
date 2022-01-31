@@ -1,0 +1,15 @@
+---
+sidebar: sidebar
+permalink: release-notes/resolved-issues.html
+keywords: astra, data store, fixed bugs, fixes, resolved issues
+summary: Resolved issues in this release that might have prevented you from using the product successfully.
+---
+
+= Resolved issues
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/release-notes/
+
+These issues have been corrected in this release of the product.
+
+== Network interface names with VXLAN configuration and Calico CNI are not recognized by Astra Data Store preview

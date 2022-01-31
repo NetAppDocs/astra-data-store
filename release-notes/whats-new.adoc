@@ -5,12 +5,20 @@ keywords: what's new, bugs, bug fixes, new features, enhancements
 summary: NetApp periodically updates Astra Data Store to bring you new features, enhancements, and bug fixes.
 ---
 
-= What's in this release of Astra Data Store
+= What's new in this release of Astra Data Store
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/release-notes/
 
-We're pleased to announce the 21.12 preview release of Astra Data Store.
+We're pleased to announce the 2021.12.1 patch of the preview release of Astra Data Store.
+
+== XX February 2022 (12.21.1)
+
+Patch release of the Astra Data Store preview (21.12).
+
+* Bug fixes to ASUP functionality and other link:../release-notes/resolved-issues.html[resolved issues]
+* Updated AstraDSCluster.yaml `adsNetworkInterfaces` section with comments that indicate values are required.
+* New Astra Data Store uninstall script as an easier alternative to the kubectl command uninstall process.
 
 == 21 December 2021 (21.12)
 
