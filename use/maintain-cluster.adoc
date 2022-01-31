@@ -37,11 +37,11 @@ The node that you are adding should be part of the Kubernetes cluster and should
 Response:
 +
 ----
-ADS Data Networks:
-    Addresses:  dataIP1, dataIP2, dataIP3, dataIP4, *newdataIP*
+adsDataNetworks:
+    -addresses:  dataIP1,dataIP2,dataIP3,dataIP4,*newdataIP*
 ----
 
-.. Save the CR file.
+.. Save the CR.
 .. Add the node to the Astra Data Store preview cluster:
 +
 ----
