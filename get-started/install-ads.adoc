@@ -30,7 +30,7 @@ Some of the steps are needed only for deployment on the Red Hat OpenShift Contai
 
 * <<Download the Astra Data Store preview bundle and extract the images>>
 * <<Copy the binary and push images to your local registry>>
-* <<Create a namespace to deploy ADS preview (OCP only)>>
+* <<Create a namespace to deploy Astra Data Store preview (OCP only)>>
 * <<Create a custom SCC (OCP only)>>
 * <<Create the roles and role bindings (OCP only)>>
 * <<Prepare the worker nodes (OCP only)>>
