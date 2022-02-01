@@ -341,5 +341,5 @@ The link:../get-started/install-ads.html#install-the-astra-data-store-cluster[pe
 View the link:quick-start.html[quick start] overview.
 
 == For more information
-
+ 
 * link:capabilities.html[Astra Data Store preview limits]
