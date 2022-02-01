@@ -47,6 +47,6 @@ NOTE: Astra Data Store preview does not support VM workloads. VMware vVol worklo
 
 NOTE: Astra Data Store preview is performance throttled and should not be used for performance characterization.
 
-== What's next
+//== What's next
 
-Ensure your configuration meets the link:requirements.html[requirements].
+//Ensure your configuration meets the link:requirements.html[requirements].
