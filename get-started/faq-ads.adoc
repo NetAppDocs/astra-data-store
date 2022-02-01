@@ -131,7 +131,7 @@ By default, Astra Data Store preview supports NFS v4.1 for all volumes provision
 *Why can't I get larger persistent volumes even though I have configured Astra Data Store preview with large capacity drives?*
 Astra Data Store preview limits the maximum capacity provisioned for all volumes on a node to 1 TiB and up to 5 TiB across all nodes in an Astra Data Store preview cluster.
 
-See link:../get-started/requirements.html[Astra Data Store preview requirements] and link:capabilities.html[Astra Data Store preview limits].
+See link:../get-started/requirements.html[Astra Data Store preview requirements] and link:capabilities.html[Astra Data Store preview limits]. 
 
 == Upgrading Astra Data Store preview
 *Can I upgrade from Astra Data Store preview release?*
