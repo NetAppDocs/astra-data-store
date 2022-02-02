@@ -199,7 +199,7 @@ cat kubeconf.json | base64 | tr -d '\n'
                 "performance": "premium"
             },
             "defaults": {
-                "qosPolicy": "bronze",
+                "qosPolicy": "bronze"
             }
         },
         {
@@ -260,7 +260,7 @@ reclaimPolicy: Delete
 volumeBindingMode: Immediate
 allowVolumeExpansion: true
 mountOptions:
-  - vers=4
+  - vers=4.1
 ----
 
 .. Create trident-csi:
