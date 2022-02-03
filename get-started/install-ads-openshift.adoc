@@ -38,7 +38,7 @@ The Astra Data Store preview installation process guides you through the followi
 * <<Understand deployment-related events>>
 * <<Configure Astra Data Store preview monitoring>>
 * <<Install the monitoring operator>>
-* <<Set up iptables>>
+
 
 
 == Download the Astra Data Store preview bundle and extract the images
@@ -643,53 +643,6 @@ kubectl astrads monitoring -m netapp-monitoring -r [YOUR REGISTRY] setup
 ----
 
 
-== Set up iptables
-//ocp
-
-OpenShift SDN  (default CNI plugin for OpenShift) does not masquerade the traffic from the host loopback interface (127.0.0.1/localhost) to the HostPorts.
-
-The Astra Data Store preview cluster requires the addition of a NAT rule for forwarding traffic from the localhost to the cluster service port (9920).
-
-.Steps
-
-. Note the line number for the current `KUBE-HOSTPORTS` rule in the OUTPUT chain for the NAT table.
-+
-In the example below `KUBE-HOSTPORTS` is at position 4.
-+
-----
-$ sudo iptables -t nat -L OUTPUT --line-numbers
-Chain OUTPUT (policy ACCEPT)
-num target prot opt source destination
-1 KUBE-SERVICES all -- anywhere anywhere /* kubernetes service portals */
-2 KUBE-PORTALS-HOST all -- anywhere anywhere /* handle ClusterIPs; NOTE: this must be before the NodePort rules */
-3 KUBE-NODEPORT-HOST all -- anywhere anywhere ADDRTYPE match dst-type LOCAL /* handle service NodePorts; NOTE: this must be the last rule in the chain */
-4 KUBE-HOSTPORTS all -- anywhere anywhere /* kube hostport portals */ ADDRTYPE match dst-type LOCAL
-----
-
-
-. Add a new rule to the NAT table, right above the `KUBE-HOSTPORTS` entry.
-+
-----
-$ sudo iptables -t nat -I OUTPUT 4 -s 127.0.0.1 -j KUBE-MARK-MASQ -p tcp --dport 9920
-----
-
-. Verify that the newly added rule is added to the NAT table just above the `KUBE-HOSTPORTS` rule.
-+
-----
-$ sudo iptables -t nat -L OUTPUT --line-numbers
-Chain OUTPUT (policy ACCEPT)
-num target prot opt source destination
-1 KUBE-SERVICES all -- anywhere anywhere /* kubernetes service portals */
-2 KUBE-PORTALS-HOST all -- anywhere anywhere /* handle ClusterIPs; NOTE: this must be before the NodePort rules */
-3 KUBE-NODEPORT-HOST all -- anywhere anywhere ADDRTYPE match dst-type LOCAL /* handle service NodePorts; NOTE: this must be the last rule in the chain */
-4 KUBE-MARK-MASQ tcp -- localhost anywhere tcp dpt:9920
-5 KUBE-HOSTPORTS all -- anywhere anywhere /* kube hostport portals */ ADDRTYPE match dst-type LOCAL
-----
-
-
-NOTE: Perform the steps on all the nodes in the Astra Data Store preview cluster.
-
-NOTE: Repeat these steps if the Astra Data Store preview cluster node restarts.
 
 
 == What's next
