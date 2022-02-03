@@ -33,10 +33,11 @@ Enter:
 where:
 
 * Namespace of agent installed: Enter the namespace for the Monitoring agent, which is the default name of the monitoring-netapp CR for the Monitoring Operator.
-* `-r` is optional.
+* `-r` is optional to set up the Docker registry where the Fluent or Telegraf images are located. By default, the path is set to `docker.repo.eng.netapp.com/global/astra`, which you can change.
 
 == Set up Cloud Insights
 
+To view the logs, setting up Cloud Insights is optional; however, it is helpful to view data using Cloud Insights.
 See link:../use/monitor-with-cloud-insights.html[how to set up NetApp Cloud Insights] for use with Astra Data Store preview.
 
 
