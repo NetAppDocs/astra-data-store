@@ -12,13 +12,13 @@ summary: NetApp periodically updates Astra Data Store to bring you new features,
 
 We're pleased to announce the 2021.12.1 patch of the preview release of Astra Data Store.
 
-== XX February 2022 (12.21.1)
+== 08 February 2022 (2021.12.1)
 
-Patch release of the Astra Data Store preview (21.12).
+Patch release (2021.12.1) for the Astra Data Store preview (21.12).
 
-* Bug fixes to ASUP functionality and other link:../release-notes/resolved-issues.html[resolved issues]
-* Updated AstraDSCluster.yaml `adsNetworkInterfaces` section with comments that indicate values are required.
-* New Astra Data Store uninstall script as an easier alternative to the kubectl command uninstall process.
+* Bug fixes for ASUP functionality and other improvements described in link:../release-notes/resolved-issues.html[resolved issues]
+* Updated AstraDSCluster.yaml `adsNetworkInterfaces` section with improved, more descriptive comments.
+* New Astra Data Store uninstall script now provided as an easier alternative to the kubectl command uninstall process.
 
 == 21 December 2021 (21.12)
 
