@@ -10,7 +10,7 @@ summary: To uninstall Astra Data Store, you will remove workloads, bindings, vol
 :icons: font
 :imagesdir: ../media/use/
 
-To uninstall Astra Data Store preview, you will remove workloads, bindings, volumes, export policies, clusters, license, deployment environment, and the Astra Data Store preview namespace.
+To uninstall Astra Data Store preview and control plane, you will remove workloads, bindings, volumes, export policies, the Astra Data Store cluster, license, deployment environment, and the Astra Data Store preview namespace.
 
 
 .What you'll need
@@ -75,7 +75,6 @@ NOTE: The operator, nodeinfo pods, and the cluster controller (which are Kuberne
 
 Deleting the cluster also uninstalls the underlying operating system from the nodes, which will stop the `firetap` and `netwd` services.
 
-The uninstaller takes about a minute to finish. Then, the removal of the Astra Data Store preview cluster-scoped resources starts.
 
 . Delete the cluster:
 +
@@ -84,9 +83,11 @@ The uninstaller takes about a minute to finish. Then, the removal of the Astra D
 ~% kubectl get astradsclusters -A
 ----
 
+NOTE: The uninstaller takes about a minute to finish. Then, the removal of the Astra Data Store preview cluster-scoped resources starts.
+
 === Delete the license
 
-. ssh to each worker node in the cluster and validate that `firetap` or `netwd` are not running in the worker nodes.
+. ssh to each worker node from the cluster and validate that `firetap` or `netwd` are not running in the worker nodes.
 . Delete the Astra Data Store preview license:
 +
 ----
@@ -102,26 +103,26 @@ Delete the controllers, operators, namespace, and support pods in the cluster.
 . Delete the Astra Data Store preview installation object:
 +
 ----
-~% kubectl delete astradsversion astradsversion -n astrads-system
-~% kubectl get astradsversion -n astrads-system
+kubectl delete astradsversion astradsversion -n astrads-system
+kubectl get astradsversion -n astrads-system
 
 ----
 
 . Delete the data store DaemonSets and all Astra Data Store preview controller resources:
 +
 ----
-~% kubectl delete ds --all -n astrads-system
-~% kubectl get ds -n astrads-system
+kubectl delete ds --all -n astrads-system
+kubectl get ds -n astrads-system
 
-~% kubectl delete deployments --all -n astrads-system
-~% kubectl get deployments -n astrads-system
+kubectl delete deployments --all -n astrads-system
+kubectl get deployments -n astrads-system
 ----
 
 . Delete remaining artifacts and the operator yaml file:
 +
 ----
-~% kubectl delete -f ./manifests/astradsoperator.yaml
-~% kubectl get pods -n astrads-system
+kubectl delete -f ./manifests/astradsoperator.yaml
+kubectl get pods -n astrads-system
 
 ----
 
@@ -130,7 +131,7 @@ Delete the controllers, operators, namespace, and support pods in the cluster.
 Ensure that the following command returns no result:
 
 ----
-~% kubectl get ns | grep astrads-system
+kubectl get ns | grep astrads-system
 ----
 
 === Ensure containers are not running on worker nodes
@@ -163,13 +164,13 @@ oc delete -f ads_privileged_scc.yaml
 oc delete -f oc_role_bindings.yaml
 ----
 +
-NOTE: Ignore "resources not found errors" in these steps. 
+NOTE: Ignore "resources not found" errors in these steps. 
 
 . Remove `/var/lib/kubelet/config.yaml` from all Kubernetes nodes. 
 
 
 == Manual deletion sample
-The following shows a sample of an execution manual uninstallation script.
+The following shows a sample of a manual uninstallation script.
 
 ----
 $ kubectl delete astradsvolumes --all -A
