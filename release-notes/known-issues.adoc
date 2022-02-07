@@ -12,18 +12,16 @@ summary: Known issues identify problems that might prevent you from using this r
 
 Known issues identify problems that might prevent you from using this preview release of the product successfully.
 
-== Default Calico WireGuard interface name is not recognized by Astra Data Store preview
-//burt 1442348
-This error causes the pods to crash. As a workaround, change the wireguardInterfaceName setting in Calico’s Felix configuration to specify an interface name without a dot. For example:
-
-----
-calicoctl patch felixconfiguration default --type='merge' -p '{"spec":{"wireguardInterfaceName":"calico_wg"}}'
-----
-
-In addition to creating interfaces on each node with the new name, this change might also leave behind the original wireguard.cali interfaces. Delete these interfaces to prevent this issue from recurring.
 
 == MongoDB deployment with default liveness probe value fails with pods in crash loop
 As a workaround, set the liveness probe initialDelaySeconds to 600 seconds in the MongoDB deployment spec.
+
+== Uninstall Astra Data Store preview script causes pods to remain in a terminating state
+The Astra Data Store preview uninstall process in Kubernetes v1.20 can occasionally cause pods to remain in a terminating state.
+
+See link:../use/uninstall-ads-manual.html[Uninstall Astra Data Store preview manually without a script] or
+link:../use/uninstall-ads.html[Uninstall Astra Data Store preview automatically with a script].
+
 
 == Find more information
 

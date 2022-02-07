@@ -16,8 +16,10 @@ We're pleased to announce the 2021.12.1 patch of the preview release of Astra Da
 
 Patch release (2021.12.1) for the Astra Data Store preview (21.12).
 
-* Bug fixes for ASUP functionality and other improvements described in link:../release-notes/resolved-issues.html[resolved issues]
-* Updated AstraDSCluster.yaml `adsNetworkInterfaces` section with improved, more descriptive comments.
+* Bug fixes for ASUP functionality and other improvements are included.
+* With this release, Astra Data Store preview supports VXLAN configurations with Calico CNI.
+* Calico WireGuard enabled network configurations are now supported by Astra Data Store preview.
+* Updated AstraDSCluster.yaml `adsNetworkInterfaces` section includes improved, descriptive comments.
 * New Astra Data Store uninstall script now provided as an easier alternative to the kubectl command uninstall process.
 
 == 21 December 2021 (21.12)

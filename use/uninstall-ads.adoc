@@ -21,16 +21,11 @@ Alternatively, you can link:../use/uninstall-ads-manual.html[uninstall Astra Dat
 The Astra Data Store preview uninstallation process guides you through the following high-level steps:
 
 * <<Remove existing workloads and bindings>>
-* <<NEW  Uninstall Trident and cluster workloads that use Astra Data Store preview as a storage backend>>
-* <<NEW Uninstall Astra Data Store cluster>>
-// <<Delete the volumes and export policies>>
-//* <<Delete the Astra Data Store preview cluster>>
-//* <<Delete the license>>
-//* <<Delete the Astra Data Store preview installation>>
+* <<Uninstall Astra Data Store cluster>>
 * <<Validate the removal of the astrads-system namespace>>
-
 * <<Ensure containers are not running on worker nodes>>
 * <<Delete OpenShift Container Platform resources>>
+* <<Troubleshoot the Astra Data Store preview uninstall process>>
 
 
 == Remove existing workloads and bindings
@@ -41,27 +36,31 @@ Before uninstalling Astra Data Store preview, you must first remove the followin
 
 This ensures that your Kubernetes environment is left in a clean state, which is important if you reinstall.
 
-== NEW  Uninstall Trident and cluster workloads that use Astra Data Store preview as a storage backend
-Uninstall Trident.
 
-== NEW Uninstall Astra Data Store cluster
+== Uninstall Astra Data Store cluster
 To uninstall Astra Data Store preview, you can use the `uninstall.sh` script in your Astra Data Store tar file that was downloaded from the NetApp Support Site.
 
-. Locate the `uninstall.sh` in the tar file.
-. Run this script indicating what you want to uninstall:
+. Locate the `uninstall.sh` in the `manifests` directory.
+. Run the following `sed` command:
 +
 ----
-ls
-netapp_operator.yaml uninstall.sh
-sed -i -e “s~ netappsdsoperator.yaml~astradsoperator.yaml~” uninstall.sh
+sed -i -e “s~netappsdsoperator.yaml~astradsoperator.yaml~” uninstall.sh
+----
+
+. Run the following script indicating what you want to uninstall:
++
+----
 ./uninstall.sh
 
 You must run this script with an argument specifying what should be uninstalled
 To uninstall the ADS cluster run ./uninstall.sh cluster
 To uninstall everything run ./uninstall all
 ----
+
+
 . If you want to uninstall just the cluster, enter `uninstall.sh <cluster>`
-. Otherwise, if you want to uninstall everything, enter `uninstall.sh`
++
+Otherwise, if you want to uninstall everything, enter `uninstall.sh`
 
 +
 NOTE: In most cases you will uninstall everything. You might want to uninstall just the cluster if you wanted to redeploy the cluster subsequently.
@@ -74,12 +73,10 @@ Response:
 ./uninstall.sh all
 
 Enter 'erasedata' to confirm you want proceed with the uninstall: erasedata
-
 +----------------------------------------------------+
-| Wed Feb  2 10:14:01 EST 2022                                      |
-| ADS cluster uninstall started                                         |
+| Wed Feb  2 10:14:01 EST 2022                       |
+| ADS cluster uninstall started                      |
 +----------------------------------------------------+
-
 Deleting astradsvolumes
 Deleted astradsvolumes
 Deleting astradsexportpolicies
@@ -92,16 +89,14 @@ Deleting astradslicenses
 Deleted astradslicenses
 
 +----------------------------------------------------+
-| Wed Feb  2 10:15:18 EST 2022                                      |
-| ADS cluster uninstall done                                        |
+| Wed Feb  2 10:15:18 EST 2022                       |
+| ADS cluster uninstall done                         |
 +----------------------------------------------------+
 
 +----------------------------------------------------+
-
-| Wed Feb  2 10:15:18 EST 2022                                     |
-| ADS system uninstall started                                     |
+| Wed Feb  2 10:15:18 EST 2022                       |
+| ADS system uninstall started                       |
 +----------------------------------------------------+
-
 Removing astradsversion
 astradsversion.astrads.netapp.io "astradsversion" deleted
 Removed astradsversion
@@ -179,15 +174,10 @@ configmap "astrads-firetap-cm" deleted
 configmap "astrads-kevents-asup" deleted
 configmap "astrads-metrics-cm" deleted
 secret "astrads-autosupport-certs" deleted
-
 +----------------------------------------------------+
-| Wed Feb  2 10:16:36 EST 2022                                      |
-| ADS system uninstall done                                             |
+| Wed Feb  2 10:16:36 EST 2022                       |                                 
+| ADS system uninstall done                          |
 +----------------------------------------------------+
-
-
-
-
 ----
 
 == Validate the removal of the astrads-system namespace
@@ -231,3 +221,12 @@ oc delete -f oc_role_bindings.yaml
 NOTE: Ignore "resources not found errors" in these steps. 
 
 . Remove `/var/lib/kubelet/config.yaml` from all Kubernetes nodes. 
+
+== Troubleshoot the Astra Data Store preview uninstall process
+The Astra Data Store preview uninstall process in Kubernetes v1.20 can occasionally cause pods to remain in a terminating state.
+
+If this issue occurs, run the following command to force delete all pods in the `astrads-system` namespace:
+
+----
+kubectl delete pods --all  -n astrads-system   --force --grace-period 0
+----

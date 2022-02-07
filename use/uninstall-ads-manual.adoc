@@ -22,12 +22,14 @@ Alternatively, you can link:../use/uninstall-ads.html[uninstall Astra Data Store
 The Astra Data Store preview uninstallation process guides you through the following high-level steps:
 
 * <<Remove existing workloads and bindings>>
-* <<Delete the Astra Data Store preview cluster and control plane>>
+* <<Uninstall the Astra Data Store preview cluster and control plane>>
 * <<Delete the license>>
 * <<Delete the Astra Data Store preview installation>>
 * <<Validate the removal of the astrads-system namespace>>
 * <<Ensure containers are not running on worker nodes>>
 * <<Delete OpenShift Container Platform resources>>
+* <<Troubleshoot the Astra Data Store preview uninstall process>>
+
 
 
 == Remove existing workloads and bindings
@@ -249,4 +251,14 @@ $ kubectl get ns | grep astrads-system
 
 [root@sti-rx2540-535c ~]# runc list
 ID      PID     STATUS    BUNDLE       CREATED    OWNER
+----
+
+
+== Troubleshoot the Astra Data Store preview uninstall process
+The Astra Data Store preview uninstall process in Kubernetes v1.20 can occasionally cause pods to remain in a terminating state.
+
+If this issue occurs, run the following command to force delete all pods in the `astrads-system` namespace:
+
+----
+kubectl delete pods --all  -n astrads-system   --force --grace-period 0
 ----
