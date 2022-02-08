@@ -16,7 +16,7 @@ Known issues identify problems that might prevent you from using this preview re
 == MongoDB deployment with default liveness probe value fails with pods in crash loop
 As a workaround, set the liveness probe initialDelaySeconds to 600 seconds in the MongoDB deployment spec.
 
-== Uninstall Astra Data Store preview script causes pods to remain in a terminating state
+== Astra Data Store preview uninstallation process may cause pods to remain in a terminating state
 The Astra Data Store preview uninstall process in Kubernetes v1.20 can occasionally cause pods to remain in a terminating state.
 
 See link:../use/uninstall-ads-manual.html[Uninstall Astra Data Store preview manually without a script] or
