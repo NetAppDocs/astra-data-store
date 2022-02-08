@@ -237,7 +237,7 @@ NOTE: A simplified example of the YAML file follows these steps.
 * Change the `mvip` string to the IP address of a floating management IP that is routable from any worker node in the cluster.
 * In `adsDataNetworks`, add a comma-separated list of floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume. Use one floating IP address per node. There should be at least as many data network IP addresses as there are Astra Data Store preview nodes. For Astra Data Store preview, this means at least 4 addresses, or 5 if you plan on expanding the cluster to 5 nodes later.
 * In `adsDataNetworks`, specify the netmask used by the data network.
-* In `adsNetworkInterfaces`, replace the `mgmt` and `data` values with the network interface names you want to use for management, cluster, and storage. If no names are specified, the node's primary interface will be used for management, cluster, and storage networking.
+* In `adsNetworkInterfaces`, replace the `<mgmt_interface_name>` and `<cluster_and_storage_interface_name>` values with the network interface names you want to use for management, cluster, and storage. If no names are specified, the node's primary interface will be used for management, cluster, and storage networking.
 +
 NOTE: Cluster and storage networks need to be on the same interface. The Astra Data Store preview management interface should be same as the Kubernetes node’s management interface.
 
@@ -267,13 +267,14 @@ kind: AstraDSCluster
       *netmask:*
   # Specify the network interface names to use for management, cluster and storage networks.
   # If none are specified, the node's primary interface will be used for management, cluster and storage networking.
-  # To move the cluster and storage networks a different interface than management, specify all three interfaces to use here.
-  # The Astra Data Store management interface should be same as the Kubernetes node’s management interface.
+  # To move the cluster and storage networks to a different interface than management, specify all three interfaces to use here.
   # NOTE: The cluster and storage networks need to be on the same interface.
   *adsNetworkInterfaces:*
-    *managementInterface: "mgmt"*
-    *clusterInterface: "data"*
-    *storageInterface: "data"*
+    *managementInterface: "<mgmt_interface_name>"*
+    *clusterInterface: "<cluster_and_storage_interface_name>"*
+    *storageInterface: "<cluster_and_storage_interface_name>"*
+  # [Optional] Provide a k8s label key that defines which protection domain a node belongs to.
+    # adsProtectionDomainKey: ""
   # [Optional] Provide a monitoring config to be used to setup/configure a monitoring agent.
  *# monitoringConfig:*
    *# namespace: "netapp-monitoring"*
