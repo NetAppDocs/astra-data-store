@@ -10,11 +10,12 @@ summary: You can monitor Astra Data Store assets using Prometheus and Grafana.
 :icons: font
 :imagesdir: ../media/use/
 
-You can monitor Astra Data Store preview metrics with Grafana and Prometheus. You can configure Prometheus to gather metrics from the Astra Data Store metrics endpoint, and you can use Grafana to visualize the metrics data.
+// Are these tools installed on the ADS K8s cluster, or a different cluster?  If a different cluster, how do you get them to talk?  What extra config is needed?
+
+You can monitor Astra Data Store preview metrics with Grafana and Prometheus. You can configure Prometheus to gather metrics from the Astra Data Store preview metrics endpoint, and you can use Grafana to visualize the metrics data.
 
 .What you'll need
-Make sure that you have downloaded and installed the Prometheus and Grafana packages on the Astra Data Store cluster.
-
+Make sure that you have downloaded and installed the Prometheus and Grafana packages on the Astra Data Store preview cluster.
 
 == Configure Prometheus
 Astra Data Store preview exposes a metrics service on TCP port 9341. You need to configure Prometheus to collect metrics from this service.
@@ -29,7 +30,6 @@ static_configs:
 - targets: ['astrads-metrics-service.astrads-system:9341']
 ----
 . Start the Prometheus service.
-
 
 == Configure Grafana
 You can configure Grafana to display the metrics collected by Prometheus.
