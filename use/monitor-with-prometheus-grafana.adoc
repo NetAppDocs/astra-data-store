@@ -23,8 +23,9 @@ Make sure that you have downloaded and installed the Prometheus and Grafana pack
 == Configure Prometheus
 Astra Data Store preview exposes a metrics service on TCP port 9341. You need to configure Prometheus to collect metrics from this service.
 
+.Steps
 . Log in to the Astra Data Store preview cluster.
-. Edit the `/usr/local/etc/prometheus.yml` file.
+. Edit the `prometheus.yml` configuration file for your Prometheus installation.
 . Add a service target that points to the Astra Data Store preview service name and its port. For example:
 +
 ----
@@ -37,8 +38,9 @@ static_configs:
 == Configure Grafana
 You can configure Grafana to display the metrics collected by Prometheus.
 
+.Steps
 . Log in to the Astra Data Store preview cluster.
-. Edit the Grafana configuration file `datasources.yaml`.
+. Edit the `datasources.yaml` configuration file for your Grafana installation.
 . Add Prometheus as a data source. For example:
 +
 ----
@@ -54,3 +56,13 @@ datasources:
 ----
 . Start the Grafana service.
 . Follow the instructions in the Grafana documentation to https://grafana.com/docs/grafana/latest/getting-started/getting-started/[get started^].
+
+== Import Grafana dashboard templates
+The bundle file you downloaded to install Astra Data Store preview includes Grafana dashboard template files that you can import from within Grafana. These dashboard templates can help you see the types of metrics that are available from Astra Data Store preview and how you can view them.
+
+.Steps
+. Open the Astra Data Store preview `.tar.gz` bundle.
+. Extract all of the `grafana*.json` files.
+. Import these dashboard template files in to Grafana from the Grafana web UI.
++
+Follow the instructions to https://grafana.com/docs/grafana/latest/dashboards/export-import/[import dashboard template files^].
