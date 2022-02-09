@@ -62,7 +62,6 @@ The bundle file you downloaded to install Astra Data Store preview includes Graf
 
 .Steps
 . Open the Astra Data Store preview `.tar.gz` bundle.
-. Extract all of the `grafana*.json` files.
-. Import these dashboard template files in to Grafana from the Grafana web UI.
-+
-Follow the instructions to https://grafana.com/docs/grafana/latest/dashboards/export-import/[import dashboard template files^].
+. Open the `manifests` directory.
+. Extract the `grafana_cluster.json` and `grafana_volume.json` files.
+. Using the Grafana web UI, https://grafana.com/docs/grafana/latest/dashboards/export-import/[import the dashboard template files in to Grafana^].
