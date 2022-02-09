@@ -44,7 +44,7 @@ To uninstall Astra Data Store preview, you can use the `uninstall.sh` script in 
 . Run the following `sed` command:
 +
 ----
-sed -i -e “s~netappsdsoperator.yaml~astradsoperator.yaml~” uninstall.sh
+sed -i -e 's~netappsdsoperator.yaml~astradsoperator.yaml~' uninstall.sh
 ----
 
 . Run the following script indicating what you want to uninstall:
