@@ -9,6 +9,8 @@ entries:
     url: /use/maintain-cluster.html
   - title: Monitor metrics with Cloud Insights
     url: /use/monitor-with-cloud-insights.html
+  - title: Monitor metrics with Prometheus and Grafana
+    url: /use/monitor-with-prometheus-grafana.html
   - title: Configure and monitor event logs
     url: /use/configure-endpoints.html
   - title: Astra Control Center integration
