@@ -24,7 +24,7 @@ You can monitor Astra Data Store preview metrics with Prometheus and Grafana. Yo
 * Prometheus and Grafana need to be able to communicate with the Astra Data Store preview Kubernetes cluster. If Prometheus and Grafana are not installed on the Astra Data Store preview cluster, you need to make sure they can communicate with the metrics service running on the Astra Data Store preview cluster.
 
 == Configure Prometheus
-Astra Data Store preview exposes a Kubernetes metrics service on TCP port 9341. You need to configure Prometheus to collect metrics from this service.
+Astra Data Store preview exposes a metrics service on TCP port 9341 in the Kubernetes cluster. You need to configure Prometheus to collect metrics from this service.
 
 .Steps
 //. Log in to the Astra Data Store preview cluster.
