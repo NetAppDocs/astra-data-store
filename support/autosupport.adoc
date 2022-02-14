@@ -15,7 +15,7 @@ AutoSupport monitors the Astra Data Store preview system run-time and informatio
 * Control plane
 * Storage
 
-AutoSupport is enabled by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store preview cluster installation] or after an AutoSupport CR is applied to the cluster. Once enabled, AutoSupport (ASUP) bundles are automatically uploaded to the https://mysupport.netapp.com/site/[NetApp Support Site (NSS)^] or made available for manual downloads.
+AutoSupport is enabled by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store preview cluster installation] or after an AutoSupport customer resource (CR) is applied to the cluster. Once enabled, AutoSupport (ASUP) bundles are automatically uploaded to the https://mysupport.netapp.com/site/[NetApp Support Site (NSS)^] or made available for manual downloads.
 
 .Options
 * <<AutoSupport triggers and scenarios>>
@@ -28,17 +28,17 @@ AutoSupport is enabled by default during link:../get-started/install-ads.html#in
 == AutoSupport triggers and scenarios
 AutoSupport bundles are triggered in the following ways:
 
-* Periodically: ASUP Bundles are created at intervals defined in a CR.
-* User Triggered: You can manually create your own ASUPs to look at the log.
-* Coredumps: If there are core dumps on a node, an ASUP is generated, and the core is sent to NetApp for further investigation.
-* Callhome event based: An ASUP is generated from a particular callhome event from the operating system.
-* Kubernetes event based: An ASUP is generated from a particular kubernetes event in the control plane.
+* *Periodically*: ASUP Bundles are created at intervals defined in a CR.
+* *User Triggered*: You can manually create your own ASUPs to look at the log.
+* *Coredumps*: If there are core dumps on a node, an ASUP is generated, and the core is sent to NetApp for further investigation.
+* *Callhome event based*: An ASUP is generated from a particular callhome event from the operating system.
+* *Kubernetes event based*: An ASUP is generated from a particular kubernetes event in the control plane.
 
 These trigger scenarios generate one of these Autosupport types:
 
-* ControlPlane AutoSupport: A collection of Astra Data Store preview control plane logs and CRs.
-* Storage AutoSupport: A collection of storage reports and performance data.
-* Core Dump AutoSupport: A collection of system core dumps.
+* *ControlPlane AutoSupport*: A collection of Astra Data Store preview control plane logs and CRs.
+* *Storage AutoSupport*: A collection of storage reports and performance data.
+* *Core Dump AutoSupport*: A collection of system core dumps.
 
 == Configure custom control plane AutoSupport collection
 You can create a custom AutoSupport collection configuration that reports on control plane events. Most installations already enable periodic event reporting by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store preview cluster installation]. This procedure describes how to configure an AutoSupport CR that reports based on parameters you select:
@@ -52,7 +52,7 @@ kubectl astasds asup collect -c controlplane --namespace=astrads-system
 
 .. Define custom parameters:
 * `<myASUPname>`: The name of the AutoSupport CR to be generated.
-* `-e <event name>`: The event name that triggers collection The event name should be predefined in component.yaml (which is mounted to support controllers).
+* `-e <event name>`: The event name that triggers collection. The event name should be predefined in component.yaml (which is mounted to support controllers).
 +
 Example:
 +
@@ -62,9 +62,9 @@ kubectl astrasds asup collect -c controlplane custom-asup-name -e debug --namesp
 
 .. Add additional parameters as needed for your system:
 * `--cluster`: This flag is required in a multi-cluster environment.
-* `--localCollection`: Enables local collection. The default is `false.`
-* `--forceUpload`: Enables force upload. The default is `false.`
-* `--retry`: Enables retry. The default is `false.`
+* `--localCollection`: Enables local collection. The default is `false`.
+* `--forceUpload`: Enables force upload. The default is `false`.
+* `--retry`: Enables retry. The default is `false`.
 
 == Configure custom storage AutoSupport collection
 You can create a custom AutoSupport collection configuration that reports on storage component events. Most installations already enable periodic event reporting by default during link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store preview cluster installation]. This procedure describes how to configure an AutoSupport CR that reports based on parameters you select:
@@ -78,7 +78,7 @@ kubectl astrasds asup collect -c storage --namespace=astrads-system
 
 .. Define custom parameters:
 * `<myASUPname>`: The name of the AutoSupport CR to be generated.
-* `-e <event name>`: The event name that triggers collection The event name should be predefined in component.yaml (which is mounted to support controllers).
+* `-e <event name>`: The event name that triggers collection. The event name should be predefined in component.yaml (which is mounted to support controllers).
 +
 Example with performance event:
 +
@@ -104,9 +104,9 @@ kubectl astrads asup collect -c storage --nodes example1,example2,example3
 
 .. Add additional parameters as needed for your system:
 * `--cluster`: This flag is required in a multi-cluster environment.
-* `--localCollection`: Enables local collection. The default is `false.`
-* `--forceUpload`: Enables force upload. The default is `false.`
-* `--retry`: Enables retry. The default is `false.`
+* `--localCollection`: Enables local collection. The default is `false`.
+* `--forceUpload`: Enables force upload. The default is `false`.
+* `--retry`: Enables retry. The default is `false`.
 
 
 == List ASUPs in the system

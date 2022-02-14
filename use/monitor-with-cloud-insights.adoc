@@ -28,7 +28,7 @@ You can also display a list of metrics generated in Astra Data Store preview by 
 
 Prior to connecting Astra Data Store with Cloud Insights, you need to complete these tasks:
 
-* link:../get-started/install-ads.html[Install the Astra Data Store Monitoring Operator] that is part of the Astra Data Store preview installation instructions.
+* link:../get-started/install-ads.html#install-the-monitoring-operator[Install the Astra Data Store Monitoring Operator] that is part of the Astra Data Store preview installation instructions.
 * link:../get-started/install-ads.html[Install the kubectl-astrads binary] that is part of the Astra Data Store preview installation instructions.
 * https://docs.netapp.com/us-en/cloudinsights/task_cloud_insights_onboarding_1.html[Create a Cloud Insights account^].
 * Ensure that the following commands are available: `awk, curl, grep` and `jq`

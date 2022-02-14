@@ -39,7 +39,7 @@ The Astra Data Store preview installation process guides you through the followi
 * <<Configure Astra Data Store preview monitoring>>
 * <<Install the monitoring operator>>
 
-
+If you want to enable Astra Data Store preview to work with image registries with secrets, see https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Astra/How_to_enable_Astra_Data_Store_preview_to_work_with_image_registries_with_secret[this KB].
 
 == Download the Astra Data Store preview bundle and extract the images
 
@@ -629,7 +629,7 @@ kubectl astrads monitoring -m netapp-monitoring -r [YOUR REGISTRY] setup
 ----
 
 === Install the monitoring operator
-(Optional) The monitoring operator is recommended only if Astra Data Store preview will not be imported into Astra Control Center. You can install the monitoring operator if your Astra Data Store preview instance is a standalone deployment, uses Cloud Insights to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
+(Optional) The monitoring operator is recommended if Astra Data Store preview will not be imported into Astra Control Center. You can install the monitoring operator if your Astra Data Store preview instance is a standalone deployment, uses Cloud Insights to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
 
 . Run this install command:
 +
