@@ -16,8 +16,8 @@ You can use the Astra Control Center user interface (UI) to perform Astra Data S
 == Set up Astra Control Center for Astra Data Store preview
 To use the Astra Control Center UI for Astra Data Store preview, you need to complete these tasks:
 
-*	link:../get-started/setup_overview.html#add-cluster[Add the underlying Kubernetes cluster where Astra Data Store is installed^].
-*	link:../get-started/setup_overview.html#add-a-storage-backend[Add an Astra Data Store preview storage backend for that cluster].
+*	link:../get-started/setup-ads.html[Add the underlying Kubernetes cluster where Astra Data Store is installed].
+*	link:../get-started/setup-ads.html[Add an Astra Data Store preview storage backend for that cluster].
 +
 NOTE: If you add a storage backend and no Kubernetes clusters with Astra Data Store preview exist, you'll need to first add a cluster.
 
