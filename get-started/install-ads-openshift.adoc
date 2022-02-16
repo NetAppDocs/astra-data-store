@@ -278,7 +278,7 @@ OpenShift uses a json format for the kubelet config file (`/var/lib/kubelet/conf
 . Create `/var/lib/kubelet/config.yaml` file on each of the worker nodes before initiating the cluster installation.
 +
 ----
-sudo cp /var/lib/kubelet/config.json /var/lib/kubelet/config.yaml`
+sudo cp /var/lib/kubelet/config.json /var/lib/kubelet/config.yaml
 ----
 +
 . Complete this procedure on all Kubernetes nodes before the cluster yaml is applied.
