@@ -9,7 +9,7 @@
   <meta property="og:title" content="Install Astra Data Store preview" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://docs.netapp.com/us-en/astra-data-store/get-started/install-ads.html" />
-	<meta property="og:description" content="To install Astra Data Store after addressing some environmental prerequisites, you'll download the bundle and install following the steps described." />
+	<meta property="og:description" content="To install Astra Data Store after addressing some environmental prerequisites, you'll download the bundle and install following the steps. How to install Ast..." />
   <meta property="og:image" content="https://docs.netapp.com/us-en/astra-data-store/images/logo-tophat-social.png" />
   <meta property="og:image:alt" content="NetApp Logo" />
   <meta name="format-detection" content="telephone=no">
@@ -18,8 +18,8 @@
   <meta http-equiv="nss-type" content="Product Documentation"/>
   <meta http-equiv="nss-subtype" content="User Guide"/>
   
-  <meta name="description" content="To install Astra Data Store after addressing some environmental prerequisites, you'll download the bundle and install following the steps described.">
-  <meta name="keywords" content=" astra, astra data store, install, deploy, download">
+  <meta name="description" content="To install Astra Data Store after addressing some environmental prerequisites, you'll download the bundle and install following the steps. How to install Ast...">
+  <meta name="keywords" content=" astra, astra data store, install, deploy, download, openshift, red hat, ocp">
   
   
 
@@ -423,19 +423,6 @@
 
 
 
-
-    
-      <ul class="subfolders" style="display:none;">
-        <li class="pdf-ux-container">
-          <a target="_blank" 
-            
-              href="/us-en/astra-data-store/pdfs/sidebar/Installation_overview.pdf" 
-            
-          >
-            <img src="/us-en/astra-data-store/images/pdf.png" width="16" height="16"/>
-            Installation overview
-          </a>
-          
     <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
   <a target="_blank" href="/us-en/astra-data-store/pdfs/pages/get-started/install-ads.pdf" >
     <img src="/us-en/astra-data-store/images/pdf.png" width="16" height="16"/>
@@ -444,17 +431,6 @@
 </li>
 
 </ul>
-  
-
-
-
-
-
-          
-        </li>
-      </ul>
-    
-
   
 
 
@@ -611,14 +587,9 @@
         Astra Data Store preview requirements
       </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/get-started/quick-start.html">
         Quick start for Astra Data Store preview
-      </a></li><li class="subfolders "><a href="/us-en/astra-data-store/get-started/install-overview.html">
-        <div class="na-navbar-padding"> Installation overview</div>
-      </a>
-      <ul><li class="  active "><a class="na-navbar-padding" href="/us-en/astra-data-store/get-started/install-ads.html">
+      </a></li><li class="  active "><a class="na-navbar-padding" href="/us-en/astra-data-store/get-started/install-ads.html">
         Install Astra Data Store preview
-      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/get-started/install-ads-openshift.html">
-        Install Astra Data Store preview on OpenShift
-      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/get-started/setup-ads.html">
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/get-started/setup-ads.html">
         Set up Astra Data Store preview components
       </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/get-started/capabilities.html">
         Astra Data Store preview limits
@@ -706,7 +677,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-02-22 08:08:16 +0000">02/22/2022</time>
+    <time datetime="2022-02-25 16:22:22 +0000">02/25/2022</time>
     
   
 
@@ -744,10 +715,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>To install Astra Data Store preview, download the installation bundle from the <a href="https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab" target="_blank" rel="noopener">NetApp Support Site</a> and complete installation steps described in this procedure.</p>
-</div>
-<div class="paragraph">
-<p>Alternatively, you can <a href="install-ads-openshift.html">install Astra Data Store preview on Red Hat OpenShift Container Platform (OCP)</a>.</p>
+<p>To install Astra Data Store preview, download the installation bundle from the <a href="https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab" target="_blank" rel="noopener">NetApp Support Site</a> and complete the installation steps described in this procedure.</p>
 </div>
 <div class="videoblock">
 <div class="content">
@@ -779,7 +747,10 @@
 </div>
 <div class="paragraph">
 <div class="title">About this task</div>
-<p>The Astra Data Store preview installation process guides you through the following high-level steps:</p>
+<p>The Astra Data Store preview installation process guides you through the following high-level steps.</p>
+</div>
+<div class="paragraph">
+<p>Some of the steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP) and are designated as OCP only. These steps can be skipped for deployment on non-OCP Kubernetes clusters.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -788,6 +759,18 @@
 </li>
 <li>
 <p><a href="#copy-the-binary-and-push-images-to-your-local-registry">Copy the binary and push images to your local registry</a></p>
+</li>
+<li>
+<p><a href="#ocp-only-create-a-namespace-to-deploy-astra-data-store-preview">OCP only: Create a namespace to deploy Astra Data Store preview</a></p>
+</li>
+<li>
+<p><a href="#ocp-only-create-a-custom-scc">OCP only: Create a custom SCC</a></p>
+</li>
+<li>
+<p><a href="#ocp-only-create-the-roles-and-role-bindings">OCP only: Create the roles and role bindings</a></p>
+</li>
+<li>
+<p><a href="#ocp-only-prepare-the-worker-nodes">OCP only: Prepare the worker nodes</a></p>
 </li>
 <li>
 <p><a href="#install-the-astra-data-store-preview-operator">Install the Astra Data Store preview operator</a></p>
@@ -905,6 +888,246 @@ sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/*.yaml</pre>
 </div>
 </li>
 </ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ocp-only-create-a-namespace-to-deploy-astra-data-store-preview">OCP only: Create a namespace to deploy Astra Data Store preview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Create a namespace <code>astrads-system</code> in which all Astra Data Store preview components will be installed.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create the namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre>kubectl create -f ads_namespace.yaml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sample: ads_namespace.yaml</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    control-plane: operator
+  name: astrads-system</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ocp-only-create-a-custom-scc">OCP only: Create a custom SCC</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>OpenShift uses security context constraints (SCC) that control the actions that a pod can perform.<br>
+By default, the execution of any container will be granted the restricted SCC and only the capabilities defined by that SCC.</p>
+</div>
+<div class="paragraph">
+<p>Restricted SCC does not provide permissions required by Astra Data Store preview cluster pods. Use this procedure to provide the required privileges (listed in the sample) to Astra Data Store preview.</p>
+</div>
+<div class="paragraph">
+<p>Assign a custom SCC to the default service account for the Astra Data Store preview namespace.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Create a custom SCC:</p>
+<div class="listingblock">
+<div class="content">
+<pre>kubectl create -f ads_privileged_scc.yaml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sample: ads_privileged_scc.yaml</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>allowHostDirVolumePlugin: true
+allowHostIPC: true
+allowHostNetwork: true
+allowHostPID: true
+allowHostPorts: true
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: true
+allowedCapabilities:
+- '*'
+allowedUnsafeSysctls:
+- '*'
+apiVersion: security.openshift.io/v1
+defaultAddCapabilities: null
+fsGroup:
+  type: RunAsAny
+groups: []
+kind: SecurityContextConstraints
+metadata:
+  annotations:
+    kubernetes.io/description: 'ADS privileged. Grant with caution.'
+    release.openshift.io/create-only: "true"
+  name: ads-privileged
+priority: null
+readOnlyRootFilesystem: false
+requiredDropCapabilities: null
+runAsUser:
+  type: RunAsAny
+seLinuxContext:
+  type: RunAsAny
+seccompProfiles:
+- '*'
+supplementalGroups:
+  type: RunAsAny
+users:
+- system:serviceaccount:astrads-system:default
+volumes:
+- '*'</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Display the newly added SCC using the <code>oc get scc</code> command:</p>
+<div class="listingblock">
+<div class="content">
+<pre># oc get scc/ads-privileged
+NAME             PRIV   CAPS    SELINUX    RUNASUSER   FSGROUP    SUPGROUP   PRIORITY     READONLYROOTFS   VOLUMES
+ads-privileged   true   ["*"]   RunAsAny   RunAsAny    RunAsAny   RunAsAny   &lt;no value&gt;   false            ["*"]
+#</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ocp-only-create-the-roles-and-role-bindings">OCP only: Create the roles and role bindings</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Create the required roles and role bindings to be used by the default service account for Astra Data Store preview.</p>
+</div>
+<div class="paragraph">
+<p>The following yaml definition assigns various roles (via rolebindings) needed by the Astra Data Store preview resources in the <code>astrads.netapp.io</code> API group.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create the defined roles and role binding:</p>
+<div class="listingblock">
+<div class="content">
+<pre>kubectl create -f oc_role_bindings.yaml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sample: oc_role_bindings.yaml</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: privcrole
+rules:
+- apiGroups:
+  - security.openshift.io
+  resourceNames:
+  - ads-privileged
+  resources:
+  - securitycontextconstraints
+  verbs:
+  - use
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: default-scc-rolebinding
+  namespace: astrads-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: privcrole
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: astrads-system
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ownerref
+  namespace: astrads-system
+rules:
+- apiGroups:
+  - astrads.netapp.io
+  resources:
+  - '*/finalizers'
+  verbs:
+  - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: or-rb
+  namespace: astrads-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: ownerref
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: astrads-system</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ocp-only-prepare-the-worker-nodes">OCP only: Prepare the worker nodes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Prepare the worker nodes for Astra Data Store preview cluster deployment. Perform this procedure on all the worker nodes used by the Astra Data Store preview cluster.</p>
+</div>
+<div class="paragraph">
+<p>OpenShift uses a json format for the kubelet config file (<code>/var/lib/kubelet/config.json</code>). The Astra Data Store preview cluster looks for the yaml format of the <code>kubelet config</code> file.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Create <code>/var/lib/kubelet/config.yaml</code> file on each of the worker nodes before initiating the cluster installation.</p>
+<div class="listingblock">
+<div class="content">
+<pre>sudo cp /var/lib/kubelet/config.json /var/lib/kubelet/config.yaml`</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Complete this procedure on all Kubernetes worker nodes before the cluster yaml is applied.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-data-store/images/note.svg" alt="Note">
+</td>
+<td class="content">
+If you do not do this, the Astra Data Store preview cluster installation will fail.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -1237,6 +1460,31 @@ kind: AstraDSCluster
 <div class="content">
 <pre>kubectl apply -f ./manifests/astradscluster.yaml</pre>
 </div>
+</div>
+</li>
+<li>
+<p>(OCP only) If SELinux is enabled, re-label the <code>selinux</code> context for the following directories on the nodes in the Astra Data Store preview cluster.</p>
+<div class="listingblock">
+<div class="content">
+<pre>sudo chcon -R -t container_file_t /var/opt/netapp/firetap/rootfs/var/asup/notification/firetap/</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sudo chcon -R -t container_file_t /var/netapp/firetap/firegen/persist/</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-data-store/images/note.svg" alt="Note">
+</td>
+<td class="content">
+This step is needed because <code>selinux</code> prevents these directories from being writable, causing the support pods to enter a <code>CrashLoopBackoff</code> state. This step needs to be performed on all the nodes in the Astra Data Store preview cluster.
+</td>
+</tr>
+</table>
 </div>
 </li>
 <li>
