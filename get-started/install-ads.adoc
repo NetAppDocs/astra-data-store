@@ -45,18 +45,18 @@ Some of the steps are needed only for deployment on the Red Hat OpenShift Contai
 If you want to enable Astra Data Store preview to work with image registries with secrets, see https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Astra/How_to_enable_Astra_Data_Store_preview_to_work_with_image_registries_with_secret[this KB].
 
 == Download the Astra Data Store preview bundle and extract the images
-. Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store preview bundle (`2021.12_astradatastore.tar`).
+. Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store preview bundle (`2021.12.01_ads.tar`).
 //Need confirmation on tar name.
 . (Optional) Use the following command to verify the signature of the bundle:
 +
 ----
-openssl dgst -sha256 -verify 2021.12_astradatastore.pub -signature 2021.12_astradatastore.sig 2021.12_astradatastore.tar
+openssl dgst -sha256 -verify 2021.12_ads.pub -signature 2021.12_ads.sig 2021.12.01_ads.tar
 ----
 
 . Extract the images:
 +
 ----
-tar -xvf 2021.12_astradatastore.tar
+tar -xvf 2021.12.01_ads.tar
 ----
 
 == Copy the binary and push images to your local registry
@@ -620,7 +620,7 @@ Perform the following step only after Astra Data Store preview is managed as a b
 . Configure Astra Data Store preview for monitoring by Astra Control Center:
 +
 ----
-kubectl astrads monitoring -m netapp-monitoring -r [YOUR REGISTRY] setup
+kubectl astrads monitoring -n netapp-monitoring -r [YOUR REGISTRY] setup
 ----
 
 === Install the monitoring operator
@@ -635,7 +635,7 @@ kubectl apply -f ./manifests/monitoring_operator.yaml
 . Configure Astra Data Store preview for monitoring:
 +
 ----
-kubectl astrads monitoring -m netapp-monitoring -r [YOUR REGISTRY] setup
+kubectl astrads monitoring -n netapp-monitoring -r [YOUR REGISTRY] setup
 ----
 
 
