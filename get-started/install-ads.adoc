@@ -31,10 +31,10 @@ Some of the steps are needed only for deployment on the Red Hat OpenShift Contai
 
 * <<Download the Astra Data Store preview bundle and extract the images>>
 * <<Copy the binary and push images to your local registry>>
-* <<Create a namespace to deploy Astra Data Store preview (OCP only)>>
-* <<Create a custom SCC (OCP only)>>
-* <<Create the roles and role bindings (OCP only)>>
-* <<Prepare the worker nodes (OCP only)>>
+* <<OCP only: Create a namespace to deploy Astra Data Store preview>>
+* <<OCP only: Create a custom SCC>>
+* <<OCP only: Create the roles and role bindings>>
+* <<OCP only: Prepare the worker nodes>>
 * <<Install the Astra Data Store preview operator>>
 * <<Deploy the Astra Data Store preview version YAML>>
 * <<Apply the Astra Data Store preview license>>
@@ -99,7 +99,7 @@ sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/*.yaml
 
 
 
-== Create a namespace to deploy Astra Data Store preview (OCP only)
+== OCP only: Create a namespace to deploy Astra Data Store preview
 
 Create a namespace `astrads-system` in which all Astra Data Store preview components will be installed.
 //ocp
@@ -121,7 +121,7 @@ metadata:
   name: astrads-system
 ----
 
-== Create a custom SCC (OCP only)
+== OCP only: Create a custom SCC
 //ocp
 OpenShift uses security context constraints (SCC) that control the actions that a pod can perform.
 By default, the execution of any container will be granted the restricted SCC and only the capabilities defined by that SCC.
@@ -194,7 +194,7 @@ ads-privileged   true   ["*"]   RunAsAny   RunAsAny    RunAsAny   RunAsAny   <no
 
 
 
-== Create the roles and role bindings (OCP only)
+== OCP only: Create the roles and role bindings
 
 //ocp
 
@@ -270,7 +270,7 @@ subjects:
   namespace: astrads-system
 ----
 
-== Prepare the worker nodes (OCP only)
+== OCP only: Prepare the worker nodes
 
 //ocp
 
