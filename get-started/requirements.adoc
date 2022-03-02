@@ -115,9 +115,9 @@ Astra Data Store preview software is validated on the following hardware platfor
 Astra Data Store preview has been validated with the following drive types:
 
 * *Bare-metal deployments*: Astra Data Store preview installed on a Kubernetes cluster directly on a Linux cluster without any hypervisor
-** NVMe TLC SSDs
+** SATA or NVMe TLC SSDs
 * *VM-based deployments*: Astra Data Store preview installed on a Kubernetes cluster on Linux VMs hosted on an ESXi cluster
-** SAS or NVMe TLC SSD-based datastores
+** SATA, SAS, or NVMe TLC SSD-based datastores
 ** Drives presented as virtual disks or passthrough drives
 
 NOTE: If your host uses SSDs behind a hardware RAID controller, configure the hardware RAID controller to use "passthrough" mode.
