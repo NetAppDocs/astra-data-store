@@ -26,15 +26,9 @@ video::jz6EuryqYps[youtube]
 .About this task
 The Astra Data Store preview installation process guides you through the following high-level steps.
 
-Some of the steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP) and are designated as OCP only. These steps can be skipped for deployment on non-OCP Kubernetes clusters.
-
-
 * <<Download the Astra Data Store preview bundle and extract the images>>
 * <<Copy the binary and push images to your local registry>>
-* <<OCP only: Create a namespace to deploy Astra Data Store preview>>
-* <<OCP only: Create a custom SCC>>
-* <<OCP only: Create the roles and role bindings>>
-* <<OCP only: Prepare the worker nodes>>
+* <<OpenShift procedures>>
 * <<Install the Astra Data Store preview operator>>
 * <<Deploy the Astra Data Store preview version YAML>>
 * <<Apply the Astra Data Store preview license>>
@@ -96,15 +90,16 @@ done
 sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/*.yaml
 ----
 
+== OpenShift procedures
 
-*The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP) and are designated as OCP only. These steps can be skipped for deployment on non-OCP Kubernetes clusters.*
-
-
+The following procedures are needed only for deployment on the Red Hat OpenShift Container Platform (OCP). These procedures can be skipped for deployment on non-OCP Kubernetes clusters.
 
 // Start snippet: collapsible block (open on page load)
-.OCP only: Create a namespace to deploy Astra Data Store preview
+.Details
 [%collapsible]
 ====
+
+.Create a namespace to deploy Astra Data Store preview
 
 Create a namespace `astrads-system` in which all Astra Data Store preview components will be installed.
 //ocp
@@ -126,16 +121,7 @@ metadata:
   name: astrads-system
 ----
 
-====
-// End snippet
-
-// Start snippet: collapsible block (open on page load)
-.OCP only: Create a custom SCC
-[%collapsible]
-====
-
-
-
+.Create a custom SCC
 //ocp
 OpenShift uses security context constraints (SCC) that control the actions that a pod can perform.
 By default, the execution of any container will be granted the restricted SCC and only the capabilities defined by that SCC.
@@ -145,8 +131,6 @@ Restricted SCC does not provide permissions required by Astra Data Store preview
 Assign a custom SCC to the default service account for the Astra Data Store preview namespace.
 
 
-
-.Steps
 . Create a custom SCC:
 +
 ----
@@ -205,18 +189,9 @@ ads-privileged   true   ["*"]   RunAsAny   RunAsAny    RunAsAny   RunAsAny   <no
 #
 ----
 
-====
-// End snippet
 
 
-// Start snippet: collapsible block (open on page load)
-.OCP only: Create the roles and role bindings
-[%collapsible]
-====
-
-
-
-
+.Create the roles and role bindings
 //ocp
 
 Create the required roles and role bindings to be used by the default service account for Astra Data Store preview.
@@ -291,24 +266,15 @@ subjects:
   namespace: astrads-system
 ----
 
-====
-// End snippet
 
 
-// Start snippet: collapsible block (open on page load)
-.OCP only: Prepare the worker nodes
-[%collapsible]
-====
-
-
-
+.Prepare the worker nodes
 //ocp
 
 Prepare the worker nodes for Astra Data Store preview cluster deployment. Perform this procedure on all the worker nodes used by the Astra Data Store preview cluster.
 
 OpenShift uses a json format for the kubelet config file (`/var/lib/kubelet/config.json`). The Astra Data Store preview cluster looks for the yaml format of the `kubelet config` file.
 
-.Steps
 
 . Create `/var/lib/kubelet/config.yaml` file on each of the worker nodes before initiating the cluster installation.
 +
