@@ -97,9 +97,14 @@ sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/*.yaml
 ----
 
 
+*The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP) and are designated as OCP only. These steps can be skipped for deployment on non-OCP Kubernetes clusters.*
 
 
-== OCP only: Create a namespace to deploy Astra Data Store preview
+
+// Start snippet: collapsible block (open on page load)
+.== OCP only: Create a namespace to deploy Astra Data Store preview
+[%collapsible%open]
+====
 
 Create a namespace `astrads-system` in which all Astra Data Store preview components will be installed.
 //ocp
@@ -121,7 +126,16 @@ metadata:
   name: astrads-system
 ----
 
-== OCP only: Create a custom SCC
+====
+// End snippet
+
+// Start snippet: collapsible block (open on page load)
+.== OCP only: Create a custom SCC
+[%collapsible%open]
+====
+
+
+
 //ocp
 OpenShift uses security context constraints (SCC) that control the actions that a pod can perform.
 By default, the execution of any container will be granted the restricted SCC and only the capabilities defined by that SCC.
@@ -191,10 +205,17 @@ ads-privileged   true   ["*"]   RunAsAny   RunAsAny    RunAsAny   RunAsAny   <no
 #
 ----
 
+====
+// End snippet
+
+
+// Start snippet: collapsible block (open on page load)
+.== OCP only: Create the roles and role bindings
+[%collapsible%open]
+====
 
 
 
-== OCP only: Create the roles and role bindings
 
 //ocp
 
@@ -270,7 +291,16 @@ subjects:
   namespace: astrads-system
 ----
 
-== OCP only: Prepare the worker nodes
+====
+// End snippet
+
+
+// Start snippet: collapsible block (open on page load)
+.== OCP only: Prepare the worker nodes
+[%collapsible%open]
+====
+
+
 
 //ocp
 
@@ -289,6 +319,10 @@ sudo cp /var/lib/kubelet/config.json /var/lib/kubelet/config.yaml
 . Complete this procedure on all Kubernetes worker nodes before the cluster yaml is applied.
 
 NOTE: If you do not do this, the Astra Data Store preview cluster installation will fail.
+
+====
+// End snippet
+
 
 
 == Install the Astra Data Store preview operator
