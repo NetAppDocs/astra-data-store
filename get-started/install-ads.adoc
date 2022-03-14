@@ -28,7 +28,7 @@ The Astra Data Store preview installation process guides you through the followi
 
 * <<Download the Astra Data Store preview bundle and extract the images>>
 * <<Copy the binary and push images to your local registry>>
-* <<OpenShift procedures>>
+* <<OpenShift procedure>>
 * <<Install the Astra Data Store preview operator>>
 * <<Deploy the Astra Data Store preview version YAML>>
 * <<Apply the Astra Data Store preview license>>
@@ -90,9 +90,9 @@ done
 sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/*.yaml
 ----
 
-== OpenShift procedures
+== OpenShift procedure
 
-The following procedures are needed only for deployment on the Red Hat OpenShift Container Platform (OCP). These procedures can be skipped for deployment on non-OCP Kubernetes clusters.
+The following procedure is needed only for deployment on the Red Hat OpenShift Container Platform (OCP). This procedure can be skipped for deployment on non-OCP Kubernetes clusters.
 
 // Start snippet: collapsible block (open on page load)
 .Details
@@ -102,6 +102,8 @@ The following procedures are needed only for deployment on the Red Hat OpenShift
 .Create a namespace to deploy Astra Data Store preview
 
 Create a namespace `astrads-system` in which all Astra Data Store preview components will be installed.
+
+The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).
 //ocp
 
 . Create the namespace:
@@ -130,6 +132,8 @@ Restricted SCC does not provide permissions required by Astra Data Store preview
 
 Assign a custom SCC to the default service account for the Astra Data Store preview namespace.
 
+
+The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).
 
 . Create a custom SCC:
 +
@@ -199,6 +203,7 @@ Create the required roles and role bindings to be used by the default service ac
 The following yaml definition assigns various roles (via rolebindings) needed by the Astra Data Store preview resources in the `astrads.netapp.io` API group.
 
 
+The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).
 
 . Create the defined roles and role binding:
 +
@@ -275,6 +280,8 @@ Prepare the worker nodes for Astra Data Store preview cluster deployment. Perfor
 
 OpenShift uses a json format for the kubelet config file (`/var/lib/kubelet/config.json`). The Astra Data Store preview cluster looks for the yaml format of the `kubelet config` file.
 
+
+The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).
 
 . Create `/var/lib/kubelet/config.yaml` file on each of the worker nodes before initiating the cluster installation.
 +
