@@ -242,12 +242,12 @@ NOTE: If you use the Calico Container Networking Interface (CNI) networking prov
 
 //POLARIS-654 and POLARIS-450
 == Persistent volume sharing requirements
-Each Astra Data Store preview cluster supports using persistent volumes to address the storage needs of any apps installed on that cluster. Consider the following requirement for persistent volumes in Astra Data Store preview:
+Each Astra Data Store preview cluster supports using persistent volumes to address the storage needs of any apps installed on that cluster. Kubernetes apps access files using persistent volumes shared over NFSv4.1, which requires the AUTH_SYS authentication method.
 
-.Requirements
+//.Requirement
 //* The NFSv4.1 client/server must be installed on Kubernetes clusters.
 //* The nfs-utils package must be installed on worker nodes.
-Kubernetes apps access files using persistent volumes shared over NFSv4.1, which requires the AUTH_SYS authentication method.
+
 
 //.Capabilities
 //* Parallel NFS (pNFS) is not supported.
