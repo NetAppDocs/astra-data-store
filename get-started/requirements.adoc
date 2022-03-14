@@ -115,9 +115,9 @@ Astra Data Store preview software is validated on the following hardware platfor
 Astra Data Store preview has been validated with the following drive types:
 
 * *Bare-metal deployments*: Astra Data Store preview installed on a Kubernetes cluster directly on a Linux cluster without any hypervisor
-** NVMe TLC SSDs
+** SATA or NVMe TLC SSDs
 * *VM-based deployments*: Astra Data Store preview installed on a Kubernetes cluster on Linux VMs hosted on an ESXi cluster
-** SAS or NVMe TLC SSD-based datastores
+** SATA, SAS, or NVMe TLC SSD-based datastores
 ** Drives presented as virtual disks or passthrough drives
 
 NOTE: If your host uses SSDs behind a hardware RAID controller, configure the hardware RAID controller to use "passthrough" mode.
@@ -242,12 +242,12 @@ NOTE: If you use the Calico Container Networking Interface (CNI) networking prov
 
 //POLARIS-654 and POLARIS-450
 == Persistent volume sharing requirements
-Each Astra Data Store preview cluster supports using persistent volumes to address the storage needs of any apps installed on that cluster. Consider the following requirements for persistent volumes in Astra Data Store preview:
+Each Astra Data Store preview cluster supports using persistent volumes to address the storage needs of any apps installed on that cluster. Kubernetes apps access files using persistent volumes shared over NFSv4.1, which requires the AUTH_SYS authentication method.
 
-.Requirements
-* The NFSv4.1 client/server must be installed on Kubernetes clusters.
-* The nfs-utils package must be installed on worker nodes.
-* Kubernetes apps access files using persistent volumes shared over NFSv4.1, which requires the AUTH_SYS authentication method.
+//.Requirement
+//* The NFSv4.1 client/server must be installed on Kubernetes clusters.
+//* The nfs-utils package must be installed on worker nodes.
+
 
 //.Capabilities
 //* Parallel NFS (pNFS) is not supported.

@@ -45,13 +45,13 @@ adsDataNetworks:
 .. Add the node to the Astra Data Store preview cluster:
 +
 ----
-~% kubectl astrads nodes add –cluster <cluster-name>
+~% kubectl astrads nodes add --cluster <cluster-name>
 ----
 
 .	Otherwise, just add the nodes:
 +
 ----
-~% kubectl astrads nodes add –cluster <cluster-name>
+~% kubectl astrads nodes add --cluster <cluster-name>
 ----
 
 . Verify that the node has been added:
