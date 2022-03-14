@@ -1,6 +1,9 @@
 ---
 settings:
   name: Astra Data Store
+  product-family:
+    name: Astra
+    repo: astra-family
   internal:
     pdf_enabled: true
   prod:
