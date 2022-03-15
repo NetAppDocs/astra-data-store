@@ -664,7 +664,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-03-15 16:09:05 +0000">03/15/2022</time>
+    <time datetime="2022-03-15 16:25:16 +0000">03/15/2022</time>
     
   
 
@@ -777,13 +777,13 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Log in to the <a href="https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab" target="_blank" rel="noopener">NetApp Support Site</a> and download the Astra Data Store preview bundle (<code>2021.12_astradatastore.tar</code>).</p>
+<p>Log in to the <a href="https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab" target="_blank" rel="noopener">NetApp Support Site</a> and download the Astra Data Store preview bundle (<code>2021.12.01_ads.tar</code>).</p>
 </li>
 <li>
 <p>(Optional) Use the following command to verify the signature of the bundle:</p>
 <div class="listingblock">
 <div class="content">
-<pre>openssl dgst -sha256 -verify 2021.12_astradatastore.pub -signature 2021.12_astradatastore.sig 2021.12_astradatastore.tar</pre>
+<pre>openssl dgst -sha256 -verify 2021.12_ads.pub -signature 2021.12_ads.sig 2021.12.01_ads.tar</pre>
 </div>
 </div>
 </li>
@@ -791,7 +791,7 @@
 <p>Extract the images:</p>
 <div class="listingblock">
 <div class="content">
-<pre>tar -xvf 2021.12_astradatastore.tar</pre>
+<pre>tar -xvf 2021.12.01_ads.tar</pre>
 </div>
 </div>
 </li>
@@ -1614,7 +1614,7 @@ astrads-example-cluster   created   2021.10.0   p100000006       10.x.x.x   10m<
 <p>Configure Astra Data Store preview for monitoring by Astra Control Center:</p>
 <div class="listingblock">
 <div class="content">
-<pre>kubectl astrads monitoring -m netapp-monitoring -r [YOUR REGISTRY] setup</pre>
+<pre>kubectl astrads monitoring -n netapp-monitoring -r [YOUR REGISTRY] setup</pre>
 </div>
 </div>
 </li>
@@ -1640,7 +1640,7 @@ astrads-example-cluster   created   2021.10.0   p100000006       10.x.x.x   10m<
 <p>Configure Astra Data Store preview for monitoring:</p>
 <div class="listingblock">
 <div class="content">
-<pre>kubectl astrads monitoring -m netapp-monitoring -r [YOUR REGISTRY] setup</pre>
+<pre>kubectl astrads monitoring -n netapp-monitoring -r [YOUR REGISTRY] setup</pre>
 </div>
 </div>
 </li>
