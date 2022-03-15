@@ -664,24 +664,24 @@
 <p class="page-details">
   
     
-    <time datetime="2022-03-14 19:04:35 +0000">03/14/2022</time>
+    <time datetime="2022-03-15 16:09:05 +0000">03/15/2022</time>
     
   
 
 <span>Contributors
-  <a target="_blank" href="https://github.com/netapp-dbagwell">
-    <img  class="avatar avatar-small"
-          alt="netapp-dbagwell"
-          width="20" height="20"
-          src="https://avatars.githubusercontent.com/u/53352450?v=4"
-          style="border-radius: 50%;"/>
-  </a>
-  
   <a target="_blank" href="https://github.com/amgrissino">
     <img  class="avatar avatar-small"
           alt="amgrissino"
           width="20" height="20"
           src="https://avatars.githubusercontent.com/u/36450105?v=4"
+          style="border-radius: 50%;"/>
+  </a>
+  
+  <a target="_blank" href="https://github.com/netapp-dbagwell">
+    <img  class="avatar avatar-small"
+          alt="netapp-dbagwell"
+          width="20" height="20"
+          src="https://avatars.githubusercontent.com/u/53352450?v=4"
           style="border-radius: 50%;"/>
   </a>
   
@@ -735,9 +735,6 @@
 <div class="title">About this task</div>
 <p>The Astra Data Store preview installation process guides you through the following high-level steps.</p>
 </div>
-<div class="paragraph">
-<p>Some of the steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP) and are designated as OCP only. These steps can be skipped for deployment on non-OCP Kubernetes clusters.</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
@@ -747,16 +744,7 @@
 <p><a href="#copy-the-binary-and-push-images-to-your-local-registry">Copy the binary and push images to your local registry</a></p>
 </li>
 <li>
-<p><a href="#ocp-only-create-a-namespace-to-deploy-astra-data-store-preview">OCP only: Create a namespace to deploy Astra Data Store preview</a></p>
-</li>
-<li>
-<p><a href="#ocp-only-create-a-custom-scc">OCP only: Create a custom SCC</a></p>
-</li>
-<li>
-<p><a href="#ocp-only-create-the-roles-and-role-bindings">OCP only: Create the roles and role bindings</a></p>
-</li>
-<li>
-<p><a href="#ocp-only-prepare-the-worker-nodes">OCP only: Prepare the worker nodes</a></p>
+<p><a href="#openshift-procedure">OpenShift procedure</a></p>
 </li>
 <li>
 <p><a href="#install-the-astra-data-store-preview-operator">Install the Astra Data Store preview operator</a></p>
@@ -878,10 +866,20 @@ sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/*.yaml</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="ocp-only-create-a-namespace-to-deploy-astra-data-store-preview">OCP only: Create a namespace to deploy Astra Data Store preview</h2>
+<h2 id="openshift-procedure">OpenShift procedure</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>The following procedure is needed only for deployment on the Red Hat OpenShift Container Platform (OCP). This procedure can be skipped for deployment on non-OCP Kubernetes clusters.</p>
+</div>
+<details>
+<summary class="title">Details</summary>
+<div class="content">
+<div class="paragraph">
+<div class="title">Create a namespace to deploy Astra Data Store preview</div>
 <p>Create a namespace <code>astrads-system</code> in which all Astra Data Store preview components will be installed.</p>
+</div>
+<div class="paragraph">
+<p>The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -908,12 +906,8 @@ metadata:
 </li>
 </ol>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="ocp-only-create-a-custom-scc">OCP only: Create a custom SCC</h2>
-<div class="sectionbody">
 <div class="paragraph">
+<div class="title">Create a custom SCC</div>
 <p>OpenShift uses security context constraints (SCC) that control the actions that a pod can perform.<br>
 By default, the execution of any container will be granted the restricted SCC and only the capabilities defined by that SCC.</p>
 </div>
@@ -923,8 +917,10 @@ By default, the execution of any container will be granted the restricted SCC an
 <div class="paragraph">
 <p>Assign a custom SCC to the default service account for the Astra Data Store preview namespace.</p>
 </div>
+<div class="paragraph">
+<p>The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).</p>
+</div>
 <div class="olist arabic">
-<div class="title">Steps</div>
 <ol class="arabic">
 <li>
 <p>Create a custom SCC:</p>
@@ -991,16 +987,15 @@ ads-privileged   true   ["*"]   RunAsAny   RunAsAny    RunAsAny   RunAsAny   &lt
 </li>
 </ol>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="ocp-only-create-the-roles-and-role-bindings">OCP only: Create the roles and role bindings</h2>
-<div class="sectionbody">
 <div class="paragraph">
+<div class="title">Create the roles and role bindings</div>
 <p>Create the required roles and role bindings to be used by the default service account for Astra Data Store preview.</p>
 </div>
 <div class="paragraph">
 <p>The following yaml definition assigns various roles (via rolebindings) needed by the Astra Data Store preview resources in the <code>astrads.netapp.io</code> API group.</p>
+</div>
+<div class="paragraph">
+<p>The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1076,19 +1071,17 @@ subjects:
 </li>
 </ol>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="ocp-only-prepare-the-worker-nodes">OCP only: Prepare the worker nodes</h2>
-<div class="sectionbody">
 <div class="paragraph">
+<div class="title">Prepare the worker nodes</div>
 <p>Prepare the worker nodes for Astra Data Store preview cluster deployment. Perform this procedure on all the worker nodes used by the Astra Data Store preview cluster.</p>
 </div>
 <div class="paragraph">
 <p>OpenShift uses a json format for the kubelet config file (<code>/var/lib/kubelet/config.json</code>). The Astra Data Store preview cluster looks for the yaml format of the <code>kubelet config</code> file.</p>
 </div>
+<div class="paragraph">
+<p>The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).</p>
+</div>
 <div class="olist arabic">
-<div class="title">Steps</div>
 <ol class="arabic">
 <li>
 <p>Create <code>/var/lib/kubelet/config.yaml</code> file on each of the worker nodes before initiating the cluster installation.</p>
@@ -1115,6 +1108,8 @@ If you do not do this, the Astra Data Store preview cluster installation will fa
 </tr>
 </table>
 </div>
+</div>
+</details>
 </div>
 </div>
 <div class="sect1">
