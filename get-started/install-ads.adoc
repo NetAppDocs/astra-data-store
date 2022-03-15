@@ -271,8 +271,6 @@ subjects:
   namespace: astrads-system
 ----
 
-
-
 .Prepare the worker nodes
 //ocp
 
