@@ -26,15 +26,9 @@ video::jz6EuryqYps[youtube]
 .About this task
 The Astra Data Store preview installation process guides you through the following high-level steps.
 
-Some of the steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP) and are designated as OCP only. These steps can be skipped for deployment on non-OCP Kubernetes clusters.
-
-
 * <<Download the Astra Data Store preview bundle and extract the images>>
 * <<Copy the binary and push images to your local registry>>
-* <<OCP only: Create a namespace to deploy Astra Data Store preview>>
-* <<OCP only: Create a custom SCC>>
-* <<OCP only: Create the roles and role bindings>>
-* <<OCP only: Prepare the worker nodes>>
+* <<OpenShift procedure>>
 * <<Install the Astra Data Store preview operator>>
 * <<Deploy the Astra Data Store preview version YAML>>
 * <<Apply the Astra Data Store preview license>>
@@ -96,12 +90,20 @@ done
 sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/*.yaml
 ----
 
+== OpenShift procedure
 
+The following procedure is needed only for deployment on the Red Hat OpenShift Container Platform (OCP). This procedure can be skipped for deployment on non-OCP Kubernetes clusters.
 
+// Start snippet: collapsible block (open on page load)
+.Details
+[%collapsible]
+====
 
-== OCP only: Create a namespace to deploy Astra Data Store preview
+.Create a namespace to deploy Astra Data Store preview
 
 Create a namespace `astrads-system` in which all Astra Data Store preview components will be installed.
+
+The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).
 //ocp
 
 . Create the namespace:
@@ -121,7 +123,7 @@ metadata:
   name: astrads-system
 ----
 
-== OCP only: Create a custom SCC
+.Create a custom SCC
 //ocp
 OpenShift uses security context constraints (SCC) that control the actions that a pod can perform.
 By default, the execution of any container will be granted the restricted SCC and only the capabilities defined by that SCC.
@@ -131,8 +133,8 @@ Restricted SCC does not provide permissions required by Astra Data Store preview
 Assign a custom SCC to the default service account for the Astra Data Store preview namespace.
 
 
+The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).
 
-.Steps
 . Create a custom SCC:
 +
 ----
@@ -193,9 +195,7 @@ ads-privileged   true   ["*"]   RunAsAny   RunAsAny    RunAsAny   RunAsAny   <no
 
 
 
-
-== OCP only: Create the roles and role bindings
-
+.Create the roles and role bindings
 //ocp
 
 Create the required roles and role bindings to be used by the default service account for Astra Data Store preview.
@@ -203,6 +203,7 @@ Create the required roles and role bindings to be used by the default service ac
 The following yaml definition assigns various roles (via rolebindings) needed by the Astra Data Store preview resources in the `astrads.netapp.io` API group.
 
 
+The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).
 
 . Create the defined roles and role binding:
 +
@@ -270,15 +271,17 @@ subjects:
   namespace: astrads-system
 ----
 
-== OCP only: Prepare the worker nodes
 
+
+.Prepare the worker nodes
 //ocp
 
 Prepare the worker nodes for Astra Data Store preview cluster deployment. Perform this procedure on all the worker nodes used by the Astra Data Store preview cluster.
 
 OpenShift uses a json format for the kubelet config file (`/var/lib/kubelet/config.json`). The Astra Data Store preview cluster looks for the yaml format of the `kubelet config` file.
 
-.Steps
+
+The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).
 
 . Create `/var/lib/kubelet/config.yaml` file on each of the worker nodes before initiating the cluster installation.
 +
@@ -289,6 +292,10 @@ sudo cp /var/lib/kubelet/config.json /var/lib/kubelet/config.yaml
 . Complete this procedure on all Kubernetes worker nodes before the cluster yaml is applied.
 
 NOTE: If you do not do this, the Astra Data Store preview cluster installation will fail.
+
+====
+// End snippet
+
 
 
 == Install the Astra Data Store preview operator
