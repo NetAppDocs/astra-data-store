@@ -52,7 +52,7 @@ kubectl apply -f trident/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
 Response:
 +
 ----
-customresourcedefinition.apiextensions.k8s.io/volumesnapshotclasses.snapshot.storage.k8s.io created
+customresourcedefinition.apiextensions.k8s.io/volumesnapshotclasses.snapshot.storage.k8s.io configured
 ----
 
 . Apply snapshot.storage.k8s.io_volumesnapshotcontents.yaml:
@@ -64,7 +64,7 @@ kubectl apply -f trident/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
 Response:
 +
 ----
-customresourcedefinition.apiextensions.k8s.io/volumesnapshotcontents.snapshot.storage.k8s.io created
+customresourcedefinition.apiextensions.k8s.io/volumesnapshotcontents.snapshot.storage.k8s.io configured
 ----
 
 . Apply snapshot.storage.k8s.io_volumesnapshots.yaml:
@@ -76,7 +76,7 @@ kubectl apply -f trident/snapshot.storage.k8s.io_volumesnapshots.yaml
 Response:
 +
 ----
-customresourcedefinition.apiextensions.k8s.io/volumesnapshots.snapshot.storage.k8s.io created
+customresourcedefinition.apiextensions.k8s.io/volumesnapshots.snapshot.storage.k8s.io configured
 ----
 
 . Apply setup-snapshot-controller.yaml:
@@ -88,7 +88,7 @@ kubectl apply -f trident/setup-snapshot-controller.yaml
 Response:
 +
 ----
-deployment.apps/snapshot-controller created
+deployment.apps/snapshot-controller configured
 ----
 
 . Apply rbac-snapshot-controller.yaml:
@@ -100,11 +100,11 @@ kubectl apply -f trident/rbac-snapshot-controller.yaml
 Response:
 +
 ----
-serviceaccount/snapshot-controller created
-clusterrole.rbac.authorization.k8s.io/snapshot-controller-runner created
-clusterrolebinding.rbac.authorization.k8s.io/snapshot-controller-role created
-role.rbac.authorization.k8s.io/snapshot-controller-leaderelection created
-rolebinding.rbac.authorization.k8s.io/snapshot-controller-leaderelection created
+serviceaccount/snapshot-controller configured
+clusterrole.rbac.authorization.k8s.io/snapshot-controller-runner configured
+clusterrolebinding.rbac.authorization.k8s.io/snapshot-controller-role configured
+role.rbac.authorization.k8s.io/snapshot-controller-leaderelection configured
+rolebinding.rbac.authorization.k8s.io/snapshot-controller-leaderelection configured
 ----
 
 . Verify that the CRD YAML files are applied:
@@ -248,7 +248,7 @@ Create the Astra Trident default storage class and apply it to the storage backe
 vi ads_sc_example.yaml
 ----
 +
-Response:
+Example:
 +
 ----
 apiVersion: storage.k8s.io/v1
