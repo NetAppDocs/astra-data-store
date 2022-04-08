@@ -23,6 +23,7 @@ Astra Data Store preview release is limited only to applications running on Kube
 
 
 *Does Astra Data Store preview have any dependencies on other NetApp products for its functioning?*
+
 Yes. Astra Data Store preview requires NetApp CSI driver Astra Trident version 21.10.1 and later to be deployed on workload Kubernetes clusters. Learn about link:../get-started/requirements.html[Astra Data Store requirements].
 
 

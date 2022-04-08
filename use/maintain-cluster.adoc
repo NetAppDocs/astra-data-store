@@ -98,8 +98,6 @@ Response (there are no nodes already in maintenance mode):
 +
 ----
 NAME    NODE NAME  IN MAINTENANCE  MAINTENANCE STATE       MAINTENANCE VARIANT
-
-
 ----
 
 . Enable maintenance mode.
@@ -327,9 +325,9 @@ spec:
 Response:
 +
 ----
-NAME                                            STATUS   ROLES                 AGE   VERSION   LABELS
-sti-astramaster-237   Ready control-plane,master   24h   v1.20.0
 
+NAME                  STATUS   ROLES               AGE   VERSION   LABELS
+sti-astramaster-237   Ready control-plane,master   24h   v1.20.0
 sti-rx2540-532d       Ready  <none>                24h   v1.20.0
 sti-rx2540-533d       Ready  <none>                24h
 ----
