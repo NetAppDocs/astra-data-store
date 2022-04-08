@@ -10,7 +10,12 @@ summary: NetApp periodically updates Astra Data Store to bring you new features,
 :icons: font
 :imagesdir: ../media/release-notes/
 
-We're pleased to announce the 2021.12.1 patch of the preview release of Astra Data Store.
+We're pleased to announce the 2022.04 release of Astra Data Store.
+
+== 26 April 2022 (2022.04)
+The Astra Data Store 2022.04 release includes these features:
+* TBD
+* TBD
 
 == 08 February 2022 (2021.12.1)
 

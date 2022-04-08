@@ -5,28 +5,28 @@ keywords: astra, astra data store, astra control center
 summary: You can use the Astra Control Center user interface (UI) to perform Astra Data Store tasks.
 ---
 
-= Use Astra Control Center with Astra Data Store preview
+= Use Astra Control Center with Astra Data Store
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/get-started/
 
-You can use the Astra Control Center user interface (UI) to perform Astra Data Store preview tasks.
+You can use the Astra Control Center user interface (UI) to perform Astra Data Store tasks.
 
 
-== Set up Astra Control Center for Astra Data Store preview
-To use the Astra Control Center UI for Astra Data Store preview, you need to complete these tasks:
+== Set up Astra Control Center for Astra Data Store
+To use the Astra Control Center UI for Astra Data Store , you need to complete these tasks:
 
 *	https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-cluster[Add the underlying Kubernetes cluster running Astra Data Store to Astra Control Center].
-*	https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-a-storage-backend[Add Astra Data Store preview as a storage backend to Astra Control Center].
+*	https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-a-storage-backend[Add Astra Data Store as a storage backend to Astra Control Center].
 +
-NOTE: If you add a storage backend and no Kubernetes clusters with Astra Data Store preview exist, you'll need to first add a cluster.
+NOTE: If you add a storage backend and no Kubernetes clusters with Astra Data Store exist, you'll need to first add a cluster.
 
 == What you can do in Astra Control Center
 
-After you set up Astra Control Center for Astra Data Store preview, you can then use the Astra Control Center UI to accomplish these tasks:
+After you set up Astra Control Center for Astra Data Store, you can then use the Astra Control Center UI to accomplish these tasks:
 
-* https://docs.netapp.com/us-en/astra-control-center/use/monitor-protect.html[Monitor the health of your Astra Data Store preview assets using Astra Control Center^].
-* https://docs.netapp.com/us-en/astra-control-center/use/manage-backend.html[Manage the Astra Data Store preview backend storage^].
+* https://docs.netapp.com/us-en/astra-control-center/use/monitor-protect.html[Monitor the health of your Astra Data Store assets using Astra Control Center^].
+* https://docs.netapp.com/us-en/astra-control-center/use/manage-backend.html[Manage the Astra Data Store backend storage^].
 * https://docs.netapp.com/us-en/astra-control-center/use/view-dashboard.html[Monitor nodes, disks, and persistent volume claims (PVCs)^].
 
 == For more information

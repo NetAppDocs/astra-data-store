@@ -1,24 +1,24 @@
 ---
 sidebar: sidebar
 permalink: concepts/security.html
-keywords: how astra works, how Astra security works, what Astra is, astra data store, kubernetes
+keywords: how astra works, how astra security works, what Astra is, astra data store, kubernetes
 summary: Astra Data Store uses several methods to secure client and administrator access to storage, protect communication and data, and protect against viruses.
 ---
 
-= Security in Astra Data Store preview
+= Security in Astra Data Store
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/concepts/
 
-Astra Data Store preview uses several methods to secure client and administrator access to storage, protect communication and data, and protect against viruses.
+Astra Data Store uses several methods to secure client and administrator access to storage, protect communication and data, and protect against viruses.
 
-Astra Data Store preview uses the following security methods:
+Astra Data Store uses the following security methods:
 
 * Communication encryption using mutual transport layer security (mTLS)
 * Role-based access control, which governs access to features
 * Deployment security
 * Certificate management
-* Software encryption at rest including internal key management
+* Software encryption at rest including internal and external key management
 
 
 

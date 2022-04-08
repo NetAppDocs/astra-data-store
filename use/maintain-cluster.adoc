@@ -10,7 +10,7 @@ summary: You can maintain the cluster by using kubectl commands with Astra Data 
 :icons: font
 :imagesdir: ../media/use/
 
-You can manage the cluster by using kubectl commands with Astra Data Store preview.
+You can manage the cluster by using kubectl commands with Astra Data Store.
 
 * <<Add a node>>
 * <<Place a node in maintenance mode>>
@@ -19,7 +19,7 @@ You can manage the cluster by using kubectl commands with Astra Data Store previ
 
 .What you'll need
 
-* System with kubectl and kubectl-astrads plugin installed. See link:../get-started/install-ads.html[Install Astra Data Store preview].
+* System with kubectl and kubectl-astrads plugin installed. See link:../get-started/install-ads.html[Install Astra Data Store].
 
 
 == Add a node
@@ -42,7 +42,7 @@ adsDataNetworks:
 ----
 
 .. Save the CR.
-.. Add the node to the Astra Data Store preview cluster:
+.. Add the node to the Astra Data Store cluster:
 +
 ----
 ~% kubectl astrads nodes add --cluster <cluster-name>
@@ -65,7 +65,7 @@ adsDataNetworks:
 
 When you need to perform host maintenance or package upgrades, you should place the node in maintenance mode.
 
-NOTE: The node must already be part of the Astra Data Store preview cluster.
+NOTE: The node must already be part of the Astra Data Store cluster.
 
 When a node is in maintenance mode, you cannot add a node to the cluster. In this example, we will place node `nhcitjj1525` into mainteance mode.
 
@@ -161,7 +161,7 @@ The `Maintenance State` changes from `PreparingForMaintenance` to `ReadyforMaint
 
 == Replace a node
 
-Use kubectl commands with Astra Data Store preview to replace a failed node in a cluster.
+Use kubectl commands with Astra Data Store to replace a failed node in a cluster.
 
 .Steps
 
@@ -558,4 +558,4 @@ Current status: {FailedDriveInfo:{InUse:false Present:true Name:scsi-36000c2 Fir
 
 == For more information
 
-* link:../use/kubectl-commands-ads.html[Manage Astra Data Store preview assets with kubectl commands]
+* link:../use/kubectl-commands-ads.html[Manage Astra Data Store assets with kubectl commands]
