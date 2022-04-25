@@ -271,26 +271,6 @@ subjects:
   namespace: astrads-system
 ----
 
-.Prepare the worker nodes
-//ocp
-
-Prepare the worker nodes for Astra Data Store preview cluster deployment. Perform this procedure on all the worker nodes used by the Astra Data Store cluster.
-
-OpenShift uses a json format for the kubelet config file (`/var/lib/kubelet/config.json`). The Astra Data Store cluster looks for the yaml format of the `kubelet config` file.
-
-
-The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).
-
-. Create `/var/lib/kubelet/config.yaml` file on each of the worker nodes before initiating the cluster installation.
-+
-----
-sudo cp /var/lib/kubelet/config.json /var/lib/kubelet/config.yaml
-----
-+
-. Complete this procedure on all Kubernetes worker nodes before the cluster yaml is applied.
-
-NOTE: If you do not do this, the Astra Data Store cluster installation will fail.
-
 ====
 // End snippet
 

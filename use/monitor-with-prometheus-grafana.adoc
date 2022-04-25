@@ -18,8 +18,8 @@ You can monitor Astra Data Store metrics with Prometheus and Grafana. You can co
 
 * Make sure that you have downloaded and installed the Prometheus and Grafana packages on the Astra Data Store cluster or a different cluster that can communicate with the Astra Data Store cluster. Follow the instructions in the official documentation to install each tool:
 
-** https://prometheus.io/docs/prometheus/latest/installation/[Install Prometheus^]
-** https://grafana.com/docs/grafana/latest/installation/debian/[Install Grafana^]
+** https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Astra/How_to_deploy_Prometheus_with_Astra_Data_Store[Install Prometheus^]
+** https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Astra/How_to_set_up_Grafana_for_monitoring_Astra_Data_Store_cluster[Install Grafana^]
 
 * Prometheus and Grafana need to be able to communicate with the Astra Data Store Kubernetes cluster. If Prometheus and Grafana are not installed on the Astra Data Store cluster, you need to make sure they can communicate with the metrics service running on the Astra Data Store cluster.
 
