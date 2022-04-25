@@ -707,7 +707,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-03-15 17:57:37 +0000">03/15/2022</time>
+    <time datetime="2022-04-13 16:38:09 +0000">04/13/2022</time>
     
   
 
@@ -1113,43 +1113,6 @@ subjects:
 </div>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<div class="title">Prepare the worker nodes</div>
-<p>Prepare the worker nodes for Astra Data Store preview cluster deployment. Perform this procedure on all the worker nodes used by the Astra Data Store preview cluster.</p>
-</div>
-<div class="paragraph">
-<p>OpenShift uses a json format for the kubelet config file (<code>/var/lib/kubelet/config.json</code>). The Astra Data Store preview cluster looks for the yaml format of the <code>kubelet config</code> file.</p>
-</div>
-<div class="paragraph">
-<p>The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Create <code>/var/lib/kubelet/config.yaml</code> file on each of the worker nodes before initiating the cluster installation.</p>
-<div class="listingblock">
-<div class="content">
-<pre>sudo cp /var/lib/kubelet/config.json /var/lib/kubelet/config.yaml</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Complete this procedure on all Kubernetes worker nodes before the cluster yaml is applied.</p>
-</li>
-</ol>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<img src="/us-en/astra-data-store/images/note.svg" alt="Note">
-</td>
-<td class="content">
-If you do not do this, the Astra Data Store preview cluster installation will fail.
-</td>
-</tr>
-</table>
 </div>
 </div>
 </details>
