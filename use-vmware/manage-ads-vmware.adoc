@@ -1,0 +1,19 @@
+---
+sidebar: sidebar
+permalink: use-vmware/manage-ads-vmware.html
+keywords: astra, astra data store, vsphere, vcenter, esxi
+summary: You can manage the Astra Data Store using VMware applications.
+---
+
+= Manage components of your VMware installation
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/get-started/
+
+You can manage the Astra Data Store in your vSphere environment.
+
+
+== For more information
+
+* https://docs.netapp.com/us-en/astra-control-center/[Astra Control Center documentation^]
+* https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family introduction^]

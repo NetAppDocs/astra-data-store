@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar
 permalink: use-vmware/use-ads-vmware-overview.html
-keywords: astra, vmware, vcenter, astra data store
-summary: You can deploy and manage the Astra Data Store Center using VMware applications.
+keywords: astra, astra data store, astra vcenter plug-in, vmware, vcenter, esxi
+summary: You can use the Astra vCenter Plug-in user interface to perform Astra Data Store tasks.
 ---
 
 = Use Astra Data Store with VMware
@@ -10,9 +10,10 @@ summary: You can deploy and manage the Astra Data Store Center using VMware appl
 :icons: font
 :imagesdir: ../media/get-started/
 
-You can use the Astra Control Center user interface (UI) to perform Astra Data Store tasks.
+You can use the Astra vCenter Plug-in user interface to perform Astra Data Store tasks.
 
 
 == For more information
 
+* https://docs.netapp.com/us-en/astra-control-center/[Astra Control Center documentation^]
 * https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family introduction^]

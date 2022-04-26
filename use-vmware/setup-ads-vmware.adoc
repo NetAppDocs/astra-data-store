@@ -1,0 +1,19 @@
+---
+sidebar: sidebar
+permalink: use-vmware/setup-ads-vmware.html
+keywords: astra, vmware, vcenter, astra data store
+summary: You can deploy and manage the Astra Data Store using the Astra vCenter Plug-in and VMware vSphere-native functionality.
+---
+
+= Set up Astra Data Store with VMware
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/get-started/
+
+You can use deploy Astra Data Store and manage it using the Astra vCenter Plug-in and VMware vSphere-native functionality.
+
+
+== For more information
+
+* https://docs.netapp.com/us-en/astra-control-center/[Astra Control Center documentation^]
+* https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family introduction^]
