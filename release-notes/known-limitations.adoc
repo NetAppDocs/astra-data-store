@@ -17,7 +17,22 @@ Known limitations identify platforms, devices, or functions that are not support
 == Astra Data Store 22.04 release
 This release includes these limitations.
 
-TBD
+The remove nodes functionality is not supported, but the failed nodes removal is supported.
+* The remove drives functionality is not supported, but the failed drives replacement is supported.
+* The add drive functionality is not supported.
+* The firewall enabled configuration is not supported.
+* VMware vVol limitations:
+The following workflows are not supported:
+* VM clone
+* FCDs
+* vVol replication
+* vMotion
+* Multi vCenter and multi VASA Provider configurations are not supported.
+* Single VASA Provider per vCenter configuration is supported.
+* NFS version 4.1 not supported.
+* A single instance of pod for all the services is supported.
+* Storage policy based management is applicable only at the VM level and cannot be modified post
+VM creation
 
 == Astra Data Store preview release
 The preview release included these limitations.
