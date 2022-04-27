@@ -2,7 +2,7 @@ section: use-vmware
 title: Use Astra Data Store with VMware
 entries:
   - title: Astra Data Store with VMware overview
-    -url: /use-vmware/use-ads-vmware-overview.html
+    url: /use-vmware/use-ads-vmware-overview.html
   - title: Astra Data Store with VMware requirements
     url: /use-vmware/ads-vmware-requirements.html
   - title: Set up Astra Data Store with VMware
