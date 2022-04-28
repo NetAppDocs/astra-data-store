@@ -12,6 +12,15 @@ summary: You can manage the Astra Data Store using VMware applications.
 
 You can manage the Astra Data Store in your vSphere environment.
 
+VM Management operations (native vSphere operations)
+Delete/Rename VM
+Edit VM (default storage profile is not supported/only resize)
+Power on/off
+Suspend/Reset
+
+Datastore management
+Mount datastore on additional hosts (yes, part of EAP)
+Delete datastore (yes, part of EAP)
 
 == For more information
 

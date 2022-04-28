@@ -12,6 +12,11 @@ summary: You can protect applications running in Astra Data Store from your vSph
 
 From your vSphere environment, you can protect applications running in Astra Data Store.
 
+Snapshot workflow
+Take snapshot (happens at ADS level)
+Revert and delete (WIP)
+Edit (Eng will check to see)
+
 
 == For more information
 
