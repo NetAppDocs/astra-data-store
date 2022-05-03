@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar
 permalink: concepts/expansion.html
-keywords: how astra works, how Astra expansion works, what Astra is, astra data store, kubernetes
+keywords: how astra works, how astra expansion works, what Astra is, astra data store, kubernetes
 summary: You can expand Astra Data Store clusters.
 ---
 
@@ -10,7 +10,7 @@ summary: You can expand Astra Data Store clusters.
 :icons: font
 :imagesdir: ../media/concepts/
 
-Astra Data Store preview supports nodes of different types and capabilities in a cluster. If you are expanding a cluster, Astra Data Store preview supports adding nodes with any performance capabilities, as long as they are not lower than the least performant node in the cluster. New nodes must have the same storage capacity as existing nodes. All nodes, including new nodes during an expansion, need to at least meet the minimum requirements in link:../get-started/requirements.html[Astra Data Store preview requirements].
+Astra Data Store supports nodes of different types and capabilities in a cluster. If you are expanding a cluster, Astra Data Store supports adding nodes with any performance capabilities, as long as they are not lower than the least performant node in the cluster. New nodes must have the same storage capacity as existing nodes. All nodes, including new nodes during an expansion, need to at least meet the minimum requirements in link:../get-started/requirements.html[Astra Data Store requirements].
 
 == For more information
 

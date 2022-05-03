@@ -5,12 +5,12 @@ keywords: how astra works, how Astra works, what Astra is, astra data store,
 summary: Astra Data Store uses storage efficiency technologies such as thin provisioning, zero-block elimination, compression, and deduplication.
 ---
 
-= Storage efficiency in Astra Data Store preview
+= Storage efficiency in Astra Data Store
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/concepts/
 
-Astra Data Store preview uses storage efficiency technologies based on NetApp ONTAP and SolidFire technologies including:
+Astra Data Store uses storage efficiency technologies based on NetApp ONTAP and SolidFire technologies including:
 
 * *Thin provisioning*: A thin-provisioned volume is one for which storage is not reserved in advance. Instead, storage is allocated dynamically, as it is needed. Free space is released back to the storage system when data in the volume or LUN is deleted.
 * *Zero-block detection and elimination*: ONTAP storage systems with thin provisioning provide the ability to detect areas of a volume that have been zeroed out so they can reclaim that space and use it elsewhere.

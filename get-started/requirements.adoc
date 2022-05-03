@@ -130,7 +130,7 @@ NOTE: If your host uses SSDs behind a hardware RAID controller, configure the ha
 NOTE: Each drive should have a unique serial number. Add the attribute `disk.enableuuid=TRUE` in the virtual machine advanced settings during VM creation.
 
 .Software
-* Hypervisor: Astra Data Store is validated with VMware-based VM deployments with ESXi 7.0. KVM-based deployments are not supported by Astra Data Store .
+* Hypervisor: Astra Data Store is validated with VMware-based VM deployments with ESXi 7.0. KVM-based deployments are not supported by Astra Data Store.
 * Astra Data Store has been validated on the following host operating systems:
 ** Red Hat Enterprise Linux 8.4
 ** Red Hat Enterprise Linux 8.2
@@ -332,7 +332,7 @@ The minimum memory requirement per node is 32GB.
 ////
 
 == Licensing
-Astra Data Store requires an Astra Data Store license for full functionality. https://www.netapp.com/cloud-services/astra/data-store-form/[Sign up here^] to obtain an Astra Data Store license. Instructions to download the license will be sent to you after you sign up.
+Astra Data Store requires an Astra Data Store license for full functionality. https://www.netapp.com/cloud-services/astra/data-store-form/[Sign up here^] to obtain the Astra Data Store license. Instructions to download the license will be sent to you after you sign up.
 
 == AutoSupport configuration
 //CB review
@@ -346,4 +346,4 @@ View the link:quick-start.html[quick start] overview.
 
 == For more information
 
-link:capabilities.html[Astra Data Store preview limits]
+link:capabilities.html[Astra Data Store limits]

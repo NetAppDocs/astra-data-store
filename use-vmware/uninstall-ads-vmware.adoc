@@ -1,0 +1,19 @@
+---
+sidebar: sidebar
+permalink: use-vmware/uninstall-ads-vmware.html
+keywords: astra, astra data store, uninstall, remove, vmware, vcenter, esxi
+summary: You can uninstall Astra Data Store and its related components from your vSphere environment.
+---
+
+= Uninstall Astra Data Store from a VMware-integrated environment
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/get-started/
+
+You can uninstall Astra Data Store and its related components from your vSphere environment.
+
+
+== For more information
+
+* https://docs.netapp.com/us-en/astra-control-center/[Astra Control Center documentation^]
+* https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family introduction^]
