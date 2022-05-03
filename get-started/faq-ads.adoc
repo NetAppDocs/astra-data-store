@@ -48,9 +48,9 @@ Astra Trident will not be uninstalled from the cluster if you uninstall Astra Da
 
 == Licensing
 
-*Does the Astra Data Store preview require a license?*
+*Does Astra Data Store require a license?*
 Yes, Astra Data Store requires a NetApp license file (NLF).
-The Astra Data Store preview release also requires a NetApp license file (NLF).
+//The Astra Data Store preview release also requires a NetApp license file (NLF).
 
 See link:../get-started/requirements.html[Astra Data Store requirements].
 
