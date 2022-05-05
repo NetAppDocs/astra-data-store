@@ -13,6 +13,16 @@ summary: You should verify that your environment meets minimum requirements for 
 After you verify that your environment meets general link:../get-started/requirements.html[Astra Data Store requirements], you should verify that your environment also meets minimum requirements for VMware components.
 
 
+== Astra VMware plugin
+The Astra VMware plugin has the following requirements:
+* VMware vSphere 7 Update 3
+*
+*
+
+== VMware VASA provider
+The VMware VASA provider has the following requirements:
+
+
 == For more information
 
 * https://docs.netapp.com/us-en/astra-control-center/[Astra Control Center documentation^]
