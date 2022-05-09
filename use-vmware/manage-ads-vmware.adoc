@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar
 permalink: use-vmware/manage-ads-vmware.html
-keywords: astra, astra data store, vsphere, vcenter, esxi
+keywords: astra data store, vm, vcenter, datastore, manage
 summary: You can manage the Astra Data Store using VMware applications.
 ---
 

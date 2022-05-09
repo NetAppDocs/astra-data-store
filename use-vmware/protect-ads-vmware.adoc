@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar
 permalink: use-vmware/protect-ads-vmware.html
-keywords: astra, vmware, snapshot, Astra data store, vcenter
+keywords: astra data store, vmware, snapshot, vcenter
 summary: You can protect applications running in Astra Data Store from your VMware vCenter environment.
 ---
 
