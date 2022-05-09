@@ -10,17 +10,17 @@ summary: You can manage the Astra Data Store using VMware applications.
 :icons: font
 :imagesdir: ../media/get-started/
 
-You can manage the Astra Data Store in your vCenter environment using native vCenter operations to manage VMs and Astra Plugin extensions to manage datastores.
+You can manage Astra Data Store in your vCenter environment using native vCenter operations to manage VMs and Astra Plugin extensions to manage datastores.
 
 == VM management operations
 You can manage VMs associated with Astra Data Store using native vSphere operations.
 
-* https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.hostclient.doc/GUID-358BF9C1-333E-4AB4-A1CB-62BEA1C94878.html?hWord=N4IghgNiBcICYFMIIC4IAQDcC2IC+QA[Delete VM]
-* https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-76E73C62-A973-4839-BB67-AC1817908E6D.html[Rename VM]
-* https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-E1D541D1-DF96-467A-89B7-E84F83B2563D.html?hWord=N4IghgNiBcIMYAswDsDmBTABAZwJYC8sA3AWxAF8g[Resize VM]
-* https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.hostclient.doc/GUID-450AF515-09D4-44B6-85B2-EE848B371E58.html?hWord=N4IghgNiBcIAoHsDuBTATgAgMoBcw5QGcMEAzDMDANQEs0cBXSDAWTAGMALGgOxQ14YcnflRZIwafgAkEhHBgDCEGih44QAXyA[Power VM on or off]
-* https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-879FA851-2B24-49E6-B58F-F25D0E923D17.html?hWord=N4IghgNiBcIM4Fc4AcCmA7AJgAgGoFkQBfIA[Suspend VM]
-* https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.hostclient.doc/GUID-450AF515-09D4-44B6-85B2-EE848B371E58.html?hWord=N4IghgNiBcIAoHsDuBTATgAgMoBcw5QGcMEAzDMDANQEs0cBXSDAWTAGMALGgOxQ14YcnflRZIwafgAkEhHBgDCEGih44QAXyA[Reset VM]
+* https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.hostclient.doc/GUID-358BF9C1-333E-4AB4-A1CB-62BEA1C94878.html?hWord=N4IghgNiBcICYFMIIC4IAQDcC2IC+QA[Delete VM^]
+* https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-76E73C62-A973-4839-BB67-AC1817908E6D.html[Rename VM^]
+* https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-E1D541D1-DF96-467A-89B7-E84F83B2563D.html?hWord=N4IghgNiBcIMYAswDsDmBTABAZwJYC8sA3AWxAF8g[Resize VM^]
+* https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.hostclient.doc/GUID-450AF515-09D4-44B6-85B2-EE848B371E58.html?hWord=N4IghgNiBcIAoHsDuBTATgAgMoBcw5QGcMEAzDMDANQEs0cBXSDAWTAGMALGgOxQ14YcnflRZIwafgAkEhHBgDCEGih44QAXyA[Power VM on or off^]
+* https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-879FA851-2B24-49E6-B58F-F25D0E923D17.html?hWord=N4IghgNiBcIM4Fc4AcCmA7AJgAgGoFkQBfIA[Suspend VM^]
+* https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.hostclient.doc/GUID-450AF515-09D4-44B6-85B2-EE848B371E58.html?hWord=N4IghgNiBcIAoHsDuBTATgAgMoBcw5QGcMEAzDMDANQEs0cBXSDAWTAGMALGgOxQ14YcnflRZIwafgAkEhHBgDCEGih44QAXyA[Reset VM^]
 
 == Datastore management
 You can manage datastores associated with Astra Data Store using Astra plugin extensions in vCenter.
@@ -29,7 +29,7 @@ You can manage datastores associated with Astra Data Store using Astra plugin ex
 * <<Delete a datastore>>
 
 === Mount a datastore
-Using the plugin extension in vSphere, you can mount the datastore on one or more additional hosts.
+Using the plugin extension in vCenter, you can mount the datastore on one or more additional hosts.
 
 .Steps
 . Select the datastore for Astra Data Store from your data center inventory in vCenter.
