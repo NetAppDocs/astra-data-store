@@ -12,14 +12,13 @@ summary: You should verify that your environment meets minimum requirements for 
 
 After you verify that your environment meets general link:../get-started/requirements.html[Astra Data Store requirements], you should verify that your environment also meets minimum requirements for VMware components.
 
-
 == Astra VMware plugin
 The Astra VMware plugin has the following requirements:
 
 * VMware vSphere 7 Update 3
 * An Astra Data Store cluster running on a Kubernetes cluster
-* NFSv3 enabled on Astra Data Store cluster
-* An unassigned IP address for ingress traffic
+** NFSv3 enabled on Astra Data Store cluster
+* One unassigned IP address for ingress traffic
 
 NOTE: Astra Data Store does not support NFSv4.x.
 
