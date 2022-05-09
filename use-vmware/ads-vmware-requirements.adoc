@@ -15,13 +15,16 @@ After you verify that your environment meets general link:../get-started/require
 
 == Astra VMware plugin
 The Astra VMware plugin has the following requirements:
-* VMware vSphere 7 Update 3
-*
-*
 
+* VMware vSphere 7 Update 3
+* An Astra Data Store cluster running on a Kubernetes cluster
+* NFSv3 enabled on Astra Data Store cluster
+* An unassigned IP address for ingress traffic
+
+////
 == VMware VASA provider
 The VMware VASA provider has the following requirements:
-
+////
 
 == For more information
 
