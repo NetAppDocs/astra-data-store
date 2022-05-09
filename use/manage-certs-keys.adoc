@@ -29,11 +29,11 @@ kubectl get secret
 The output should be similar to the following:
 +
 ----
-NAME                                               TYPE                             DATA   AGE
-astrads-autosupport-certs                          Opaque                           5      16m
-astrads-cert-astrads-cluster-0008e44               kubernetes.io/tls                4      15m
-astrads-cert-astrads-cluster-controller            kubernetes.io/tls                4      15m
-astrads-cert-sti-node-prod-lab-org-com             kubernetes.io/tls                4      15m
+NAME                                   TYPE                             DATA   AGE
+astrads-autosupport-certs              Opaque                           5      16m
+astrads-cert-cluster-0008e44           kubernetes.io/tls                4      15m
+astrads-cert-cluster-controller        kubernetes.io/tls                4      15m
+astrads-cert-node-prod-org             kubernetes.io/tls                4      15m
 ----
 . Note the cluster CA certificate in the output.
 . Revoke the cluster CA certificate. For example:
@@ -59,11 +59,11 @@ kubectl get secret
 The output should be similar to the following:
 +
 ----
-NAME                                               TYPE                             DATA   AGE
-astrads-autosupport-certs                          Opaque                           5      16m
-astrads-cert-astrads-cluster-0008e44               kubernetes.io/tls                4      15m
-astrads-cert-astrads-cluster-controller            kubernetes.io/tls                4      15m
-astrads-cert-sti-node-prod-lab-org-com             kubernetes.io/tls                4      15m
+NAME                                   TYPE                             DATA   AGE
+astrads-autosupport-certs              Opaque                           5      16m
+astrads-cert-cluster-0008e44           kubernetes.io/tls                4      15m
+astrads-cert-cluster-controller        kubernetes.io/tls                4      15m
+astrads-cert-node-prod-org             kubernetes.io/tls                4      15m
 ----
 . Note the controller certificate in the output.
 . Revoke the controller certificate. For example:
@@ -89,11 +89,11 @@ kubectl get secret
 The output should be similar to the following:
 +
 ----
-NAME                                               TYPE                             DATA   AGE
-astrads-autosupport-certs                          Opaque                           5      16m
-astrads-cert-astrads-cluster-0008e44               kubernetes.io/tls                4      15m
-astrads-cert-astrads-cluster-controller            kubernetes.io/tls                4      15m
-astrads-cert-sti-node-prod-lab-org-com             kubernetes.io/tls                4      15m
+NAME                                   TYPE                             DATA   AGE
+astrads-autosupport-certs              Opaque                           5      16m
+astrads-cert-cluster-0008e44           kubernetes.io/tls                4      15m
+astrads-cert-cluster-controller        kubernetes.io/tls                4      15m
+astrads-cert-node-prod-org             kubernetes.io/tls                4      15m
 ----
 . Note the node certificate in the output.
 . Revoke the node certificate. For example:
