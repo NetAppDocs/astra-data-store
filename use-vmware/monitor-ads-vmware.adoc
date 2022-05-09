@@ -1,0 +1,19 @@
+---
+sidebar: sidebar
+permalink: use-vmware/monitor-ads-vmware.html
+keywords: astra, astra data store, vmware, vcenter, esxi
+summary: You can monitor Astra Data Store performance using the vCenter plug-in.
+---
+
+= Monitor components of your VMware installation
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/get-started/
+
+You can use the Astra vCenter plug-in to monitor components of your Astra Data Store installation.
+
+
+== For more information
+
+* https://docs.netapp.com/us-en/astra-control-center/[Astra Control Center documentation^]
+* https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family introduction^]

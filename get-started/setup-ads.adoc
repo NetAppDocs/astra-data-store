@@ -5,12 +5,12 @@ keywords: astra, astra data store, setup, trident, backend
 summary: After you have installed Astra Data Store and addressed some environmental prerequisites, you'll install or update Astra Trident, configure K8s snapshot capabilities, set up the storage backend, and create a default storage class.
 ---
 
-= Set up Astra Data Store preview components
+= Set up Astra Data Store components
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/get-started/
 
-After you have installed Astra Data Store preview and addressed some environmental prerequisites, you'll install Astra Trident, configure Kubernetes snapshot capabilities, set up the storage backend, and create a default storage class:
+After you have installed Astra Data Store and addressed some environmental prerequisites, you'll install Astra Trident, configure Kubernetes snapshot capabilities, set up the storage backend, and create a default storage class:
 
 * <<Install Astra Trident>>
 * <<Install Kubernetes snapshot CRDs and Controller>>
@@ -19,7 +19,7 @@ After you have installed Astra Data Store preview and addressed some environment
 
 == Install Astra Trident
 
-For Astra Data Store preview, you'll need to install Astra Trident 21.10.1. You can install Astra Trident using one of the following options:
+For Astra Data Store, you'll need to install Astra Trident 21.10.1. You can install Astra Trident using one of the following options:
 
 * https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-tridentctl.html[Install Astra Trident using tridentctl^].
 * https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-operator.html[Install Astra Trident using Trident operator^].
@@ -33,7 +33,7 @@ Kubernetes snapshot CRDs and controller are required to create persistent volume
 NOTE: The following command examples assume `/trident` as the directory; however, the directory you use can be any directory that you used to download the YAML files.
 
 .What you'll need
-* link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store preview deployment].
+* link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
 * Download the link:https://github.com/kubernetes-csi/external-snapshotter/tree/master/deploy/kubernetes/snapshot-controller[Kubernetes snapshot controller YAML files^]:
 ** setup-snapshot-controller.yaml
 ** rbac-snapshot-controller.yaml

@@ -1,0 +1,19 @@
+---
+sidebar: sidebar
+permalink: use-vmware/ads-vmware-requirements.html
+keywords: astra, astra data store, requirements, vmware, vcenter, esxi
+summary: You should verify that your environment meets minimum requirements for using Astra Data Store with the VMware components.
+---
+
+= Astra Data Store with VMware requirements
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/get-started/
+
+After you verify that your environment meets general link:../get-started/requirements.html[Astra Data Store requirements], you should verify that your environment also meets minimum requirements for VMware components.
+
+
+== For more information
+
+* https://docs.netapp.com/us-en/astra-control-center/[Astra Control Center documentation^]
+* https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family introduction^]

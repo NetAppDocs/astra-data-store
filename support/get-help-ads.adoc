@@ -10,9 +10,9 @@ summary: NetApp provides support for Astra Data Store in a variety of ways. Free
 :icons: font
 :imagesdir: ../media/support/
 
-NetApp provides support for Astra Data Store preview in a variety of ways. Free self-service support options are available 24x7, such as knowledgebase (KB) articles and a Slack channel.
+NetApp provides support for Astra Data Store in a variety of ways. Free self-service support options are available 24x7, such as knowledgebase (KB) articles and a Slack channel.
 
-IMPORTANT: You can get community technical support for Astra Data Store preview. Case creation using the https://mysupport.netapp.com/site/[NetApp Support Site (NSS)^] is not available for the preview release. You can get in touch with Support via the feedback option or use the Slack channel for self service.
+IMPORTANT: You can get community technical support for Astra Data Store. Case creation using the https://mysupport.netapp.com/site/[NetApp Support Site (NSS)^] is not available for this release. You can get in touch with Support via the feedback option or use the Slack channel for self service.
 
 
 == Self-service support options
@@ -21,7 +21,7 @@ These options are available for free 24x7:
 
 * https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Astra[Knowledge base (login required)^]
 +
-Search for articles, FAQs, or Break Fix information related to Astra Data Store preview.
+Search for articles, FAQs, or Break Fix information related to Astra Data Store.
 
 * Documentation
 +

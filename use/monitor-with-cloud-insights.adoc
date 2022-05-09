@@ -10,7 +10,7 @@ summary: You can monitor Astra Data Store assets using Cloud Insights metrics.
 :icons: font
 :imagesdir: ../media/use/
 
-You can monitor Astra Data Store preview metrics using Cloud Insights.
+You can monitor Astra Data Store metrics using Cloud Insights.
 
 * <<Complete Cloud Insights connection prerequisite tasks>>
 * <<Acquisition Unit storage>>
@@ -18,25 +18,25 @@ You can monitor Astra Data Store preview metrics using Cloud Insights.
 * <<Edit the Cloud Insights connection>>
 * <<Disconnect from Cloud Insights>>
 
-Here are some sample Astra Data Store preview metrics displayed in Cloud Insights:
+Here are some sample Astra Data Store metrics displayed in Cloud Insights:
 image:ci_ui_metrics.png[Cloud Insights showing Astra Data Store metrics]
 
-You can also display a list of metrics generated in Astra Data Store preview by using the <<Open Metrics API help>>.
+You can also display a list of metrics generated in Astra Data Store by using the <<Open Metrics API help>>.
 
 
 == Complete Cloud Insights connection prerequisite tasks
 
 Prior to connecting Astra Data Store with Cloud Insights, you need to complete these tasks:
 
-* link:../get-started/install-ads.html#install-the-monitoring-operator[Install the Astra Data Store Monitoring Operator] that is part of the Astra Data Store preview installation instructions.
-* link:../get-started/install-ads.html[Install the kubectl-astrads binary] that is part of the Astra Data Store preview installation instructions.
+* link:../get-started/install-ads.html#install-the-monitoring-operator[Install the Astra Data Store Monitoring Operator] that is part of the Astra Data Store installation instructions.
+* link:../get-started/install-ads.html[Install the kubectl-astrads binary] that is part of the Astra Data Store installation instructions.
 * https://docs.netapp.com/us-en/cloudinsights/task_cloud_insights_onboarding_1.html[Create a Cloud Insights account^].
 * Ensure that the following commands are available: `awk, curl, grep` and `jq`
 
 Gather the following information:
 
 * *Cloud Insights API access token* with Read/Write permissions to the categories: Acquisition Unit, Data Collection, Data Ingestion and Log Ingestion. This will be used for the read/write operations, setting up the Acquisition Unit, and setting up data ingest processes.
-* *Kubernetes API server IP address and port*. This is used to monitor the Astra Data Store preview cluster.
+* *Kubernetes API server IP address and port*. This is used to monitor the Astra Data Store cluster.
 * *Kubernetes API token*. This is used to call Kubernetes APIs.
 * *Persistent volume configuration*. Information about how persistent volumes are provisioned.
 
@@ -48,7 +48,7 @@ If your Kubernetes cluster does not have a storage provisioner (such as NetApp T
 
 == Download and run the installation script
 
-Cloud Insights provides a Bash script to enable Astra Data Store preview monitoring via the Monitoring Operator. The install script will install an Acquisition Unit with the Astra Data Store collector, a Telegraf agent, and a Fluent Bit agent.
+Cloud Insights provides a Bash script to enable Astra Data Store monitoring via the Monitoring Operator. The install script will install an Acquisition Unit with the Astra Data Store collector, a Telegraf agent, and a Fluent Bit agent.
 
 The Cloud Insights tenant domain name and selected Cloud Insights API access token will be embedded in the installer script when it is downloaded.
 
@@ -237,7 +237,7 @@ The Monitoring Operator will update Telegraf and Fluent Bit to use the new Cloud
 == Disconnect from Cloud Insights
 To disconnect from Cloud Insights, you will need to delete the Astra Data Store collector from the Cloud Insights UI first. After that is complete, you can remove the Acquisition Unit, Telegraf and Fluent Bit configurations from the Monitoring Operator.
 
-=== Remove the Astra Data Store preview collector
+=== Remove the Astra Data Store collector
 
 . Log in to Cloud Insights.
 . Select *Admin* > *Data Collectors* to access the Data Collectors page.
@@ -283,7 +283,7 @@ The Monitoring Operator updates the Telegraf and Fluent Bit configurations and r
 
 == Open Metrics API help
 
-Here is a list of APIs that you can use to gather metrics from Astra Data Store preview.
+Here is a list of APIs that you can use to gather metrics from Astra Data Store.
 
 * The "HELP" line describes the metric.
 * The "TYPE" line indicates whether the metric is a gauge or a counter.

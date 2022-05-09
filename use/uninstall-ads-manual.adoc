@@ -5,51 +5,51 @@ keywords: astra, astra data store, astra datastore, uninstall
 summary: To uninstall Astra Data Store, you will remove workloads, bindings, volumes, export policies, clusters, license, deployment environment, and namespace.
 ---
 
-= Uninstall Astra Data Store preview without a script
+= Uninstall Astra Data Store without a script
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/use/
 
-To uninstall Astra Data Store preview manually without an automated script, you will remove workloads, bindings, volumes, export policies, clusters, license, deployment environment, and the Astra Data Store preview namespace.
+To uninstall Astra Data Store manually without an automated script, you will remove workloads, bindings, volumes, export policies, clusters, license, deployment environment, and the Astra Data Store namespace.
 
-Alternatively, you can link:../use/uninstall-ads.html[uninstall Astra Data Store preview with a script].
+Alternatively, you can link:../use/uninstall-ads.html[uninstall Astra Data Store with a script].
 
 
 .What you'll need
 * Root administrative permissions
 
 .About this task
-The Astra Data Store preview uninstallation process guides you through the following high-level steps:
+The Astra Data Store uninstallation process guides you through the following high-level steps:
 
 * <<Remove existing workloads and bindings>>
-* <<Uninstall the Astra Data Store preview cluster and control plane>>
+* <<Uninstall the Astra Data Store cluster and control plane>>
 * <<Delete the license>>
-* <<Delete the Astra Data Store preview installation>>
+* <<Delete the Astra Data Store installation>>
 * <<Validate the removal of the astrads-system namespace>>
 * <<Ensure containers are not running on worker nodes>>
 * <<Delete OpenShift Container Platform resources>>
-* <<Troubleshoot the Astra Data Store preview uninstall process>>
+* <<Troubleshoot the Astra Data Store uninstall process>>
 
 
 
 == Remove existing workloads and bindings
-Before uninstalling Astra Data Store preview, you must first remove the following
+Before uninstalling Astra Data Store, you must first remove the following
 
-* All application workloads that use Astra Data Store preview as the storage backend
-* Trident bindings that use Astra Data Store preview as a backend
+* All application workloads that use Astra Data Store as the storage backend
+* Trident bindings that use Astra Data Store as a backend
 
 This ensures that your Kubernetes environment is left in a clean state, which is important if you reinstall.
 
 
-== Uninstall the Astra Data Store preview cluster and control plane
+== Uninstall the Astra Data Store cluster and control plane
 
-Follow the steps below to uninstall Astra Data Store preview manually.
+Follow the steps below to uninstall Astra Data Store manually.
 
 === Delete the volumes and export policies
 
-Before deleting the cluster, you should delete the Astra Data Store preview volumes and export policy.
+Before deleting the cluster, you should delete the Astra Data Store volumes and export policy.
 
-TIP: If you do not first delete volumes and export policies, the cluster deletion process pauses until the Astra Data Store preview volumes objects are deleted. It is more efficient to remove those items before starting to delete the cluster.
+TIP: If you do not first delete volumes and export policies, the cluster deletion process pauses until the Astra Data Store volumes objects are deleted. It is more efficient to remove those items before starting to delete the cluster.
 
 .Steps
 
@@ -70,15 +70,15 @@ TIP: If you do not first delete volumes and export policies, the cluster deletio
 ----
 
 
-=== Delete the Astra Data Store preview cluster
+=== Delete the Astra Data Store cluster
 
-Deleting the cluster deletes only the Astra Data Store preview cluster object custom resource (CR) along with cluster-scoped resources.
+Deleting the cluster deletes only the Astra Data Store cluster object custom resource (CR) along with cluster-scoped resources.
 
 NOTE: The operator, nodeinfo pods, and the cluster controller (which are Kubernetes-scoped resources) remain even after the cluster is deleted.
 
 Deleting the cluster also uninstalls the underlying operating system from the nodes, which will stop the `firetap` and `netwd` services.
 
-The uninstaller takes about a minute to finish. Then, the removal of the Astra Data Store preview cluster-scoped resources starts.
+The uninstaller takes about a minute to finish. Then, the removal of the Astra Data Store cluster-scoped resources starts.
 
 . Delete the cluster:
 +
@@ -90,7 +90,7 @@ The uninstaller takes about a minute to finish. Then, the removal of the Astra D
 == Delete the license
 
 . ssh to each worker node in the cluster and validate that `firetap` or `netwd` are not running in the worker nodes.
-. Delete the Astra Data Store preview license:
+. Delete the Astra Data Store license:
 +
 ----
 ~% kubectl delete astradslicenses --all -A
@@ -98,11 +98,11 @@ The uninstaller takes about a minute to finish. Then, the removal of the Astra D
 
 ----
 
-== Delete the Astra Data Store preview installation
+== Delete the Astra Data Store installation
 
 Delete the controllers, operators, namespace, and support pods in the cluster.
 
-. Delete the Astra Data Store preview installation object:
+. Delete the Astra Data Store installation object:
 +
 ----
 ~% kubectl delete astradsversion astradsversion -n astrads-system
@@ -110,7 +110,7 @@ Delete the controllers, operators, namespace, and support pods in the cluster.
 
 ----
 
-. Delete the data store DaemonSets and all Astra Data Store preview controller resources:
+. Delete the data store DaemonSets and all Astra Data Store controller resources:
 +
 ----
 ~% kubectl delete ds --all -n astrads-system
@@ -148,7 +148,7 @@ ssh <mynode1>
 
 == Delete OpenShift Container Platform resources
 
-If you installed Astra Data Store preview on Red Hat OpenShift Container Platform (OCP), you can uninstall OCP security context constraints (SCC) and rolebindings resources.
+If you installed Astra Data Store on Red Hat OpenShift Container Platform (OCP), you can uninstall OCP security context constraints (SCC) and rolebindings resources.
 
 OpenShift uses security context constraints (SCC) that control the actions that a pod can perform.
 
@@ -254,8 +254,8 @@ ID      PID     STATUS    BUNDLE       CREATED    OWNER
 ----
 
 
-== Troubleshoot the Astra Data Store preview uninstall process
-The Astra Data Store preview uninstall process in Kubernetes v1.20 can occasionally cause pods to remain in a terminating state.
+== Troubleshoot the Astra Data Store uninstall process
+The Astra Data Store uninstall process in Kubernetes v1.20 can occasionally cause pods to remain in a terminating state.
 
 If this issue occurs, run the following command to force delete all pods in the `astrads-system` namespace:
 

@@ -13,13 +13,13 @@ summary: You can use kubectl commands with Astra Data Store to configure endpoin
 
 To monitor Event Management System (EMS) logs, you can do the following high level tasks:
 
-* <<Configure monitoring in the Astra Data Store preview cluster custom resource (CR)>>
+* <<Configure monitoring in the Astra Data Store cluster custom resource (CR)>>
 * <<Set up Cloud Insights>>
 * <<Stream event logs to Elastic>>.
 
-== Configure monitoring in the Astra Data Store preview cluster custom resource (CR)
+== Configure monitoring in the Astra Data Store cluster custom resource (CR)
 
-If the monitoring option has not been configured on the Astra Data Store preview cluster CR, you can set it up using `astrads` extensions.
+If the monitoring option has not been configured on the Astra Data Store cluster CR, you can set it up using `astrads` extensions.
 
 
 
@@ -38,7 +38,7 @@ where:
 == Set up Cloud Insights
 
 To view the logs, setting up Cloud Insights is optional; however, it is helpful to view data using Cloud Insights.
-See link:../use/monitor-with-cloud-insights.html[how to set up NetApp Cloud Insights] for use with Astra Data Store preview.
+See link:../use/monitor-with-cloud-insights.html[how to set up NetApp Cloud Insights] for use with Astra Data Store.
 
 
 
