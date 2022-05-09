@@ -15,8 +15,8 @@ entries:
     url: /use/configure-endpoints.html
   - title: Secure Astra Data Store
     entries:
-      - title: Manage security certificates and keys
-        url: /use/manage-certs-keys.html
+      - title: Manage security certificates
+        url: /use/manage-certificates.html
   - title: Astra Control Center integration
     url: /use/ads-acc-ui.html
   - title: Uninstall Astra Data Store automatically with a script
