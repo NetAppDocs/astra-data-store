@@ -18,7 +18,7 @@ You can manage certificates for Astra Data Store.  This enables you to revoke co
 ////
 
 == Revoke a compromised or expired certificate
-If an Astra Data Store cluster controller, node, or CA certificate is compromised or expires, you can revoke it so that a new certificate is generated automatically. You can revoke and automatically regenerate any Kubernetes certificate at any time.
+If an Astra Data Store cluster controller, node, or CA certificate is compromised or expires, you can revoke it so that a new certificate is generated automatically. You can revoke any Kubernetes certificate at any time.
 
 .Steps
 . Log in to one of the nodes in the Astra Data Store cluster.
@@ -37,15 +37,15 @@ astrads-cert-cluster-0008e44           kubernetes.io/tls                4      1
 astrads-cert-cluster-controller        kubernetes.io/tls                4      15m
 astrads-cert-node-prod-org             kubernetes.io/tls                4      15m
 ----
-. Note the compromised or expired certificate in the output.
-. Revoke the compromised or expired certificate. For example:
+. In the output, note the certificate you need to revoke.
+. Revoke the certificate. For example:
 +
 ----
 kubectl delete secret astrads-cert-cluster-controller
 ----
 
 .Result
-The existing certificate is revoked, and a new certificate is generated in its place automatically.
+The existing certificate is revoked, and a new certificate is automatically generated in its place.
 
 ////
 
