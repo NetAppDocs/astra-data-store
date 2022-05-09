@@ -9,7 +9,7 @@ entries:
     url: /use-vmware/setup-ads-vmware.html
   - title: Monitor components of your VMware installation
     url: /use-vmware/monitor-ads-vmware.html
-  - title: Manage components of your VMware installation
+  - title: Manage Astra Data Store components of your VMware installation
     url: /use-vmware/manage-ads-vmware.html
   - title: Protect components of your VMware installation
     url: /use-vmware/protect-ads-vmware.html
