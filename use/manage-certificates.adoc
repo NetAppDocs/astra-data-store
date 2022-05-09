@@ -1,13 +1,13 @@
 ---
 sidebar: sidebar
 permalink: use/manage-certificates.html
-keywords: astra, astra data store, kubectl
+keywords: astra, astra data store, kubectl, certs, cert, certificate, certificates, revoke, security, secure, expired, compromised, regenerate, generate
 summary: You can manually revoke compromised or expired certificates in Astra Data Store.
 ---
 
 = Manage security certificates
 
-You can manage security keys and certificates to improve the security of your Astra Data Store cluster.
+You can manage certificates to improve the security of your Astra Data Store cluster.
 
 ////
 * <<Manage certificates>>
