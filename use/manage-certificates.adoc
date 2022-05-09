@@ -37,11 +37,11 @@ astrads-cert-cluster-0008e44           kubernetes.io/tls                4      1
 astrads-cert-cluster-controller        kubernetes.io/tls                4      15m
 astrads-cert-node-prod-org             kubernetes.io/tls                4      15m
 ----
-. In the output, note the certificate you need to revoke.
-. Revoke the certificate. For example:
+. In the output, note the name of the certificate you need to revoke.
+. Use the `kubectl` utility to revoke the certificate, replacing `CERTIFICATE_NAME` with the name of the certificate. For example:
 +
 ----
-kubectl delete secret astrads-cert-cluster-controller
+kubectl delete secret CERTIFICATE_NAME
 ----
 
 .Result
