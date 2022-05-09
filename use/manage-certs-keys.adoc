@@ -39,7 +39,7 @@ astrads-cert-node-prod-org             kubernetes.io/tls                4      1
 . Revoke the cluster CA certificate. For example:
 +
 ----
-kubectl delete secret astrads-cert-astrads-cluster-0008e44
+kubectl delete secret astrads-cert-cluster-0008e44
 ----
 
 .Result
@@ -69,7 +69,7 @@ astrads-cert-node-prod-org             kubernetes.io/tls                4      1
 . Revoke the controller certificate. For example:
 +
 ----
-kubectl delete secret astrads-cert-astrads-cluster-controller
+kubectl delete secret astrads-cert-cluster-controller
 ----
 
 .Result
@@ -99,7 +99,7 @@ astrads-cert-node-prod-org             kubernetes.io/tls                4      1
 . Revoke the node certificate. For example:
 +
 ----
-kubectl delete secret astrads-cert-sti-node-prod-lab-org-com
+kubectl delete secret astrads-cert-node-prod-org
 ----
 
 .Result
