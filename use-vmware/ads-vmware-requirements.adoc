@@ -21,7 +21,7 @@ The Astra VMware plugin has the following requirements:
 * NFSv3 enabled on Astra Data Store cluster
 * An unassigned IP address for ingress traffic
 
-NOTE: Astra Data Sotre does not support NFSv4.x.
+NOTE: Astra Data Store does not support NFSv4.x.
 
 ////
 == VMware VASA provider
