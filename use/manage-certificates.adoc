@@ -12,11 +12,12 @@ You can manage security keys and certificates to improve the security of your As
 ////
 * <<Manage certificates>>
 * <<Configure external key management>>
-////
+
 == Manage certificates
 You can manage certificates for Astra Data Store.  This enables you to revoke compromised or expired  certificates, or manually rotate certificates to fit the needs of your organization.
+////
 
-=== Revoke a cluster CA certificate
+== Revoke a compromised or expired certificate
 If an Astra Data Store cluster controller, node, or CA certificate is compromised or expires, you can revoke it so that a new certificate is generated automatically. You can revoke and automatically regenerate any Kubernetes certificate at any time.
 
 .Steps
