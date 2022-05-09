@@ -1,0 +1,31 @@
+---
+sidebar: sidebar
+permalink: use/manage-certs-keys.html
+keywords: astra, astra data store, kubectl
+summary: You can customize how certificates and security keys are handled in Astra Data Store.
+---
+
+= Manage security certificates and keys
+
+You can manage security keys and certificates to improve the security of your Astra Data Store cluster.
+
+* <<Manage certificates>>
+* <<Configure external key management>>
+
+== Manage certificates
+You can manage certificates for Astra Data Store.  This enables you to revoke compromised certificates, or manually rotate them to fit the needs of your organization.
+
+=== Revoke a cluster CA certificate
+If the cluster CA certificate is compromised, you can revoke it so that a new CA certificate is generated automatically.
+
+.Steps
+
+=== Revoke a controller certificate
+If the cluster controller certificate is compromised, you can revoke it so that a new certificate is generated automatically for the controller.
+
+.Steps
+
+=== Revoke a node certificate
+If a cluster node certificate is compromised, you can revoke it so that a new certificate is generated automatically for the node.
+
+.Steps

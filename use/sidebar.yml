@@ -13,6 +13,10 @@ entries:
     url: /use/monitor-with-prometheus-grafana.html
   - title: Configure and monitor event logs
     url: /use/configure-endpoints.html
+  - title: Secure Astra Data Store
+    entries:
+      - title: Manage security certificates and keys
+        url: /use/manage-certs-keys.html
   - title: Astra Control Center integration
     url: /use/ads-acc-ui.html
   - title: Uninstall Astra Data Store preview automatically with a script
