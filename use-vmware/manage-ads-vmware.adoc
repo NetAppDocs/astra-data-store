@@ -39,7 +39,7 @@ Using the plugin extension in vCenter, you can mount the datastore on one or mor
 
 After you initiate the operation, you can follow progress in the `Recent Tasks` panel in vCenter.
 
-== Delete a datastore
+=== Delete a datastore
 Using the plugin extension in vCenter, you can delete a datastore.
 
 .What you'll need
