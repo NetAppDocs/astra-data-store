@@ -11,7 +11,7 @@ summary: You can upgrade Astra Data Store to the latest version.
 :imagesdir: ../media/use/
 
 // DOC-4205
-You can upgrade Astra Data Store to take advantage of the latest features and fixes. You can upgrade Astra Data Store by applying a CR, or by using a `kubectl` utility extension.
+You can upgrade Astra Data Store to take advantage of the latest features and fixes. You can upgrade Astra Data Store by applying a CR, or by using the Astra Data Store `kubectl` extension.
 
 == Upgrade Astra Data Store using a custom resource file
 You can use a custom resource (CR) file to upgrade Astra Data Store.
@@ -28,7 +28,7 @@ You can use a custom resource (CR) file to upgrade Astra Data Store.
 ----
 kubectl apply -f /PATH/TO/FILE/astradsoperator.yaml
 ----
-. Validate the version of the operator image:
+. Validate that correct version of the operator image was installed:
 +
 ----
 kubectl get pods -n astrads-system | grep astrads-operator
@@ -47,6 +47,7 @@ kubectl apply -f /PATH/TO/FILE/astradsversion.yaml
 ----
 
 == Upgrade Astra Data Store using a kubectl extension
+You can use the Astra Data Store `kubectl` extension to upgrade Astra Data Store.
 
 
 .What you'll need
@@ -54,7 +55,32 @@ kubectl apply -f /PATH/TO/FILE/astradsversion.yaml
 
 .Steps
 
-.
-. 
-.
-.
+. Download the Astra Data Store upgrade package from the NetApp Support Site.
+. Extract the upgrade package to a directory on a node in the Astra Data Store cluster.
+. Export the path to the Astra Data Store `kubectl` extension. For example:
++
+----
+export PATH=$PATH:/PATH/TO/PACKAGE/BIN/DIRECTORY/bin
+----
+. Copy the astradsoperator.yaml file to the local directory:
++
+----
+cp /PATH/TO/FILE/astradsoperator.yaml ./
+----
+. Upgrade the operator. For example:
++
+----
+kubectl astrads upgrade ads-operator --repository-url REPOSITORY_URL --operator-yaml astradsoperator.yaml
+----
+. Copy the astradsversion.yaml file to the local directory:
++
+----
+cp /PATH/TO/FILE/astradsversion.yaml ./
+----
+. Begin the Astra Data Store upgrade:
++
+----
+kubectl astrads upgrade ads-version --repository-url REPOSITORY_URL --ads-version-yaml astradsversion.yaml
+----
++
+A message appears notifying you that the upgrade has started, and will take a few minutes to complete.
