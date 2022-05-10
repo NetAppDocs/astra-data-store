@@ -1,0 +1,25 @@
+---
+sidebar: sidebar
+permalink: use/upgrade-ads.html
+keywords: astra, astra data store, kubectl, upgrade
+summary: You can upgrade Astra Data Store to the latest version.
+---
+
+= Upgrade Astra Data Store
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/use/
+
+You can upgrade Astra Data Store to take advantage of the latest features and fixes.
+
+.What you'll need
+
+* Thing 1
+* Thing 2
+
+. Steps
+
+.
+.
+.
+.
