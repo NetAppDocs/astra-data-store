@@ -599,8 +599,10 @@ kubectl logs -n astrads-system <astrads cluster controller pod name>
 == Configure Astra Data Store monitoring
 You can configure Astra Data Store preview for Astra Control Center monitoring or for monitoring by another telemetry service.
 
-=== Configure monitoring for Astra Control Center
-Perform the following step only after Astra Data Store is managed as a backend in Astra Control Center.
+Before setting up monitoring, you will need an active Astra data store cluster in the `astrads-system` namespace.
+
+=== Configure monitoring for Astra Control Center preview
+Perform the following step only after Astra Data Store preview is managed as a backend in Astra Control Center.
 
 . Configure Astra Data Store for monitoring by Astra Control Center:
 +
