@@ -251,16 +251,22 @@ vi ads_sc_example.yaml
 Example:
 +
 ----
+allowVolumeExpansion: true
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: trident-csi
+  creationTimestamp: "2022-05-09T18:05:21Z"
+  name: ads-silver
+  resourceVersion: "3361772"
+  uid: lo023456-da4b-51e3-b430-3aa1e3bg111a
+mountOptions:
+- vers=4
+parameters:
+  backendType: astrads-nas
+  selector: performance=premium
 provisioner: csi.trident.netapp.io
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
-allowVolumeExpansion: true
-mountOptions:
-  - vers=4.1
 ----
 
 .. Create trident-csi:
