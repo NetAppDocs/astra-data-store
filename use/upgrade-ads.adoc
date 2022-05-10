@@ -68,7 +68,7 @@ You can use the Astra Data Store `kubectl` extension to upgrade Astra Data Store
 ----
 export PATH=$PATH:/PATH/TO/PACKAGE/BIN/DIRECTORY/bin
 ----
-. Copy the astradsoperator.yaml file to the local directory:
+. Copy the `astradsoperator.yaml` file to the local directory:
 +
 ----
 cp /PATH/TO/FILE/astradsoperator.yaml ./
@@ -78,7 +78,7 @@ cp /PATH/TO/FILE/astradsoperator.yaml ./
 ----
 kubectl astrads upgrade ads-operator --repository-url REPOSITORY_URL --operator-yaml astradsoperator.yaml
 ----
-. Copy the astradsversion.yaml file to the local directory:
+. Copy the `astradsversion.yaml` file to the local directory:
 +
 ----
 cp /PATH/TO/FILE/astradsversion.yaml ./
