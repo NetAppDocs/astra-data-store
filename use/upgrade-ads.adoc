@@ -14,7 +14,7 @@ summary: You can upgrade Astra Data Store to the latest version.
 You can upgrade Astra Data Store to take advantage of the latest features and fixes. You can upgrade Astra Data Store by applying a CR, or by using the Astra Data Store `kubectl` extension.
 
 == Upgrade Astra Data Store using a custom resource file
-You can use a custom resource (CR) file to upgrade Astra Data Store.
+You can use a custom resource (CR) file to upgrade Astra Data Store. Replace arguments in capital letters with the appropriate information for your environment.
 
 .What you'll need
 
@@ -45,9 +45,15 @@ Image:  docker.url.com/astra/operator:dev-6314693
 ----
 kubectl apply -f /PATH/TO/FILE/astradsversion.yaml
 ----
+. Check the upgrade status:
++
+----
+kubectl describe astradsclusters ASTRA_DATA_STORE_CLUSTER_NAME -n astrads-system
+----
+
 
 == Upgrade Astra Data Store using a kubectl extension
-You can use the Astra Data Store `kubectl` extension to upgrade Astra Data Store.
+You can use the Astra Data Store `kubectl` extension to upgrade Astra Data Store. Replace arguments in capital letters with the appropriate information for your environment.
 
 
 .What you'll need
@@ -84,3 +90,8 @@ kubectl astrads upgrade ads-version --repository-url REPOSITORY_URL --ads-versio
 ----
 +
 A message appears notifying you that the upgrade has started, and will take a few minutes to complete.
+. Check the upgrade status:
++
+----
+kubectl describe astradsclusters ASTRA_DATA_STORE_CLUSTER_NAME -n astrads-system
+----
