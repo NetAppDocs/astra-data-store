@@ -10,16 +10,51 @@ summary: You can upgrade Astra Data Store to the latest version.
 :icons: font
 :imagesdir: ../media/use/
 
-You can upgrade Astra Data Store to take advantage of the latest features and fixes.
+// DOC-4205
+You can upgrade Astra Data Store to take advantage of the latest features and fixes. You can upgrade Astra Data Store by applying a CR, or by using a `kubectl` utility extension.
+
+== Upgrade Astra Data Store using a custom resource file
+You can use a custom resource (CR) file to upgrade Astra Data Store.
 
 .What you'll need
 
-* Thing 1
-* Thing 2
 
-. Steps
+.Steps
+
+. Download the Astra Data Store upgrade package from the NetApp Support Site.
+. Extract the upgrade package to a directory on a node in the Astra Data Store cluster.
+. Apply the Astra Data Store operator file from the package. For example:
++
+----
+kubectl apply -f /PATH/TO/FILE/astradsoperator.yaml
+----
+. Validate the version of the operator image:
++
+----
+kubectl get pods -n astrads-system | grep astrads-operator
+kubectl describe pods RESULTING_OUTPUT -n astrads-system | grep Image
+----
++
+The output should be similar to the following:
++
+----
+Image:  docker.url.com/astra/operator:dev-6314693
+----
+. Apply the Astra Data Store version file from the package. For example:
++
+----
+kubectl apply -f /PATH/TO/FILE/astradsversion.yaml
+----
+
+== Upgrade Astra Data Store using a kubectl extension
+
+
+.What you'll need
+
+
+.Steps
 
 .
-.
+. 
 .
 .
