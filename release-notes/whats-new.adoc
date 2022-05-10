@@ -10,16 +10,18 @@ summary: NetApp periodically updates Astra Data Store to bring you new features,
 :icons: font
 :imagesdir: ../media/release-notes/
 
-We're pleased to announce the 2022.05.0 early access release of Astra Data Store.
+We're pleased to announce the 2022.05.0 EAP release of Astra Data Store.
 
-== 26 May 2022 (2022.05.0 Early Access Release)
+== 26 May 2022 (2022.05.0 EAP Release)
 The Astra Data Store 2022.05.0 release includes these features:
-* VMware environment integrations, including VASA provider support.
-* An Astra vCenter Plug-in that can be used to deploy and manage Astra Data Store from your data center in vSphere.
-* Greater node counts, size, and CPU capabilities.
+
+* Security enhancements for keys and certificates.
 * Enhanced cluster management, including cluster capacity scaling and node add and remove functionality.
+* VMware environment integrations:
+** VASA provider support.
+** Astra vCenter Plug-in that can be used to deploy and manage Astra Data Store from your data center in vSphere.
+* Greater node counts, size, and CPU capabilities.
 * Enhanced Quality of Service support.
-* Security enhancement for key and certificate support.
 
 
 == 08 February 2022 (2021.12.1)
