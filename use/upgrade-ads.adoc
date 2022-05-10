@@ -45,7 +45,7 @@ Image:  docker.url.com/astra/operator:dev-6314693
 ----
 kubectl apply -f /PATH/TO/FILE/astradsversion.yaml
 ----
-. Check the upgrade status:
+. Check the status of the upgrade process:
 +
 ----
 kubectl describe astradsclusters ASTRA_DATA_STORE_CLUSTER_NAME -n astrads-system
@@ -90,7 +90,7 @@ kubectl astrads upgrade ads-version --repository-url REPOSITORY_URL --ads-versio
 ----
 +
 A message appears notifying you that the upgrade has started, and will take a few minutes to complete.
-. Check the upgrade status:
+. Check the status of the upgrade process:
 +
 ----
 kubectl describe astradsclusters ASTRA_DATA_STORE_CLUSTER_NAME -n astrads-system
