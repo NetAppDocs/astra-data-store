@@ -17,6 +17,8 @@ entries:
     entries:
       - title: Manage security certificates
         url: /use/manage-certificates.html
+      - title: Manage external keys
+        url: /use/manage-keys.html
   - title: Astra Control Center integration
     url: /use/ads-acc-ui.html
   - title: Uninstall Astra Data Store automatically with a script

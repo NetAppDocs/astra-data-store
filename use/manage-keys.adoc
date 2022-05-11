@@ -1,0 +1,95 @@
+---
+sidebar: sidebar
+permalink: use/manage-keys.html
+keywords: astra, astra data store, kubectl, security, secure, expired, key, ekm, encryption, sear
+summary: You can manually revoke compromised or expired certificates in Astra Data Store.
+---
+
+= Manage external keys
+
+External key management (EKM) provides secure Authentication Key (AK) management in conjunction with an external key server (EKS). The EKS provides secure generation and storage of keys. The Astra Data Store cluster uses the Key Management Interoperability Protocol (KMIP), an OASIS defined standard protocol, to communicate with the EKS.
+
+Astra Data Store supports Software Encryption at Rest (SEAR) by default on the Astra Data Store cluster.
+
+Managing keys involves two custom resource definitions (CRDs):
+
+* *AstraDSKeyProvider*: Configures an external KMIP server, which could be a cluster of servers
+* *AstraDSSEARKeyRotate*: Gets a new key encryption key from the key provider and provides it to Astra Data Store.
+
+You can perform the following tasks related to external key management:
+
+* <<Set up external key management>>
+* <<Change external to internal key management>>
+* <<Rotate keys for security>>
+
+
+
+== Set up external key management
+
+Setting up external key management in Astra Data Store uses `kubectl astrads` commands.
+
+.What you'll need
+
+You will need an SSL certificate on the cluster or KMIP server that allows you to set up external keys, for example, by using OpenSSL.
+
+.Steps
+. Log in to one of the nodes in the Astra Data Store cluster.
+
+. Create the KMIP client certificate secret and store the file on your server by entering the following kubectl extension CR:
++
+----
+kubectl create secret ??
+----
+
+. Create the AstraDSKeyProvider CR by entering the following kubectl command:
++
+----
+kubectl create
+----
+
+. Modify the AstraDSCluster CR to refer to the AstraDSKeyProvider CR by entering the following kubectl command:
++
+----
+kubectl ???
+----
+
+. Pass the certificate to the external key provider by entering the following kubectl extension:
++
+----
+kubectl astrads
+----
+
++
+Include the key provider name and indicate on which cluster you want to create the key.
+
+.
+
+
+== Change external to internal key management
+
+If you are currently using an external key manager, you can change it to an internal key manager.
+
+.Steps
+
+. Change the AstraDSCluster CR by removing the SoftwareEncryptionAtRest configuration.
+
+. (Optional) Delete the previous AstraDSKeyProvider and associated secret.
+
+NOTE: The previous key provider and secret will not be automatically removed.
+
+== Rotate keys for security
+
+Key rotation enhances security. You can configure Astra Data Store to rotate keys automatically every 90 days or you can rotate keys on demand when you want.
+
+You can configure multiple key rotation providers at the same time.  
+
+The key rotation defaults to 90 days, which you can change.
+
+.Steps to configure automatic key rotation
+
+. ???Use the AstraDSSEARKeyRotate CRD. 
+
+
+.Steps to configure on-demand key rotation
+
+. Kubectl astra key rotation???
