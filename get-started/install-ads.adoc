@@ -499,7 +499,7 @@ kubectl apply -f ./manifests/astradscluster.yaml
 ----
 
 
-. (OCP only) If SELinux is enabled, re-label the `selinux` context for the following directories on the nodes in the Astra Data Store cluster.
+. (OCP only) If SELinux is enabled, re-label the `SELinux` context for the following directories on the nodes in the Astra Data Store cluster.
 
 
 +
@@ -512,7 +512,7 @@ sudo chcon -R -t container_file_t /var/netapp/firetap/firegen/persist/
 ----
 
 +
-NOTE: This step is needed because `selinux` prevents these directories from being writable, causing the support pods to enter a `CrashLoopBackoff` state. This step needs to be performed on all the nodes in the Astra Data Store cluster.
+NOTE: This step is needed because `SELinux` prevents these directories from being writable, causing the support pods to enter a `CrashLoopBackoff` state. This step needs to be performed on all the nodes in the Astra Data Store cluster.
 +
 
 
