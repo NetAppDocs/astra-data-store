@@ -13,6 +13,93 @@ summary: You can manage the Astra Data Store using VMware applications.
 You can manage the Astra Data Store in your vSphere environment.
 
 
+== Work with controlled vCenters
+You can work with the managed vCenters in the following ways:
+
+* View and edit vCenter details
+* Unmanage a vCenter
+
+=== View and edit a vCenter in Astra Control Center
+You can determine all the vCenters associated with a cluster.
+
+You can edit the vCenter server, port, and authentication details. You can also regenerate the certificate. (Regenerating the certificate option no longer available in black screen?)
+
+.Steps
+. From the Astra Control Center left navigation page, click *Clusters*.
+. View the list of vCenters.
+. To change vCenter information, select the *Actions* menu and select *Edit*.
+. Change the vCenter server, port, or authentication user name and password.
+. Click *Save*.
+
+
+=== View and edit a vCenter in the Astra plugin
+You might want to view the health of your system and clusters. You can determine how many clusters are managed by looking at the Astra Control Center Dashboard. Editing a vCenter enables you to change the server, user name, password, and port.
+
+TIP: To edit a vCenter, you must have administrative privileges.
+
+.Steps
+. Log in to Astra Control Center.
+. Select *Clusters*.
+. Select the vCenter.
+. Right-click on the *Actions* menu and select *Edit*.
+. Change the information.
+. Select *Save*.
+
+=== Unmanage a vCenter (in ACC)
+If you no longer want Astra Control Center to manage the vCenter, you can unmanage it. This removes and unregisters the vCenter from Astra Control Center.
+
+NOTE: Clusters, storage backends and VMs associated with this vCenter must be removed from the Astra plugin first.
+
+
+.Steps
+. From the Astra Control Center left navigation, select *Clusters*.
+. From the Clusters page, select the vCenter.
++
+TIP: Or, select multiple vCenters and click Unmanage all.
+
+. Right-click the *Actions* menu and select *Unmanage*.
+. In the Unmanage vCenter page, type "unmanage".
+. Select *Yes, unmanage vCenter*.
+
+== Scale up the number of nodes
+Increase the capacity of your storage backend by adding more nodes to the Astra Data Store cluster.
+
+.Steps
+. Access the NetApp Astra plugin for VMware.
+. From the Overview page, select the *Actions* menu at the top.
+. From the Actions menu, select *Scale Up*.
+
+. In the Scale Up page, review the list of eligible nodes, select the nodes, enter the number of nodes and enter IP addresses.
++
+TIP: To scale down the number of nodes, you delete them one at a time. If the node has consumed capacity, you cannot delete it. Go to the Storage backends page, select the Storage Nodes tab, select the node, and using the Actions menu, delete the node.
+
+== Manage the VASA provider
+
+Using the Astra plugin, you can do the following tasks:
+
+* Re-enable the VASA provider - You might do this if the VASA provider is disconnected. The NetApp Astra plugin for VMware requires the VASA provider enabled,
+* Disable the VASA provider
+* Delete the VASA provider
+
+Re-enable the VASA provider
+Before you deployed the NetApp Astra plugin for VMware, the VASA provider had to be enabled. If you need to re-enable the VASA provider for Astra Data Store, you can do so using the NetApp Astra plugin for VMware.
+
+To enable the VASA provider, you need to indicate the type of certificate, either a self-signed or a CA-signed certificate.
+
+Access the NetApp Astra plugin for VMware.
+Do one of the following:
+From the Overview page, select the Actions menu at the top. From the Actions menu, select Enable VASA provider.
+From the left navigation, select Storage Backends, right-click on the storage backend, and select Enable VASA provider.
+
+In the Enable VASA provider page, enter VASA provider name, IP address, user name, and password.
+
+Select Next.
+In the Certificate page, select whether it's a self-signed or CA-signed certificate and enter the certificate information.
+Select Next.
+In the Summary page, review the information.
+Select Enable. (Not sure what the button name is)
+
+
 == For more information
 
 * https://docs.netapp.com/us-en/astra-control-center/[Astra Control Center documentation^]

@@ -5,7 +5,7 @@ keywords: astra, astra data store, astra vcenter plug-in, vmware, vcenter, esxi
 summary: You can use the Astra vCenter Plug-in user interface to perform Astra Data Store tasks.
 ---
 
-= Astra Data Store with VMware overview
+= Learn about Astra Data Store with VMware
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/get-started/
