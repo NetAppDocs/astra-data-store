@@ -4,7 +4,7 @@ permalink: ads-earlier-versions.html
 keywords: astra data store, version, ads, astra
 summary: Documentation for previous versions is available for Astra Data Store.
 ---
-= Earlier versions
+= Earlier versions of Astra Data Store
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/
