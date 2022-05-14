@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: get-started/install-ads.html
 keywords: astra, astra data store, install, deploy, download, openshift, red hat, ocp
-summary: To install Astra Data Store after addressing some environmental prerequisites, you'll download the bundle and install following the steps. How to install Astra Data Store on OpenShift
+summary: To install Astra Data Store after addressing some environmental prerequisites, you'll download the bundle and install following the steps. You can also install Astra Data Store on OpenShift.
 ---
 
 = Install Astra Data Store
@@ -10,8 +10,7 @@ summary: To install Astra Data Store after addressing some environmental prerequ
 :icons: font
 :imagesdir: ../media/get-started/
 
-To install Astra Data Store, download the installation bundle from the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and complete the installation steps described in this procedure.
-
+To install a standalone Astra Data Store, download the installation bundle from the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and complete the installation steps described in this procedure. If you have installed Astra Control Center, you can optionally https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-a-storage-backend[install and deploy Astra Data Store] using the Astra Control Center UI.
 
 video::jz6EuryqYps[youtube]
 
