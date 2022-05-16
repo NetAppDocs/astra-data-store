@@ -113,7 +113,7 @@ If Astra Data Store is not being linked with more than one vCenter, when you rem
 
 Using the Astra Plugin for VMware vSphere, you can manage datastores in the following ways: 
 
-* link:../setup-ads-vmware[Create a datastore] 
+* link:../use-vmware/setup-ads-vmware.html[Create a datastore] 
 * <<Mount a datastore>>
 * <<Delete a datastore>>
 

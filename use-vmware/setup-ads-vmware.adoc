@@ -169,10 +169,7 @@ TIP: You cannot use a storage backend that has an existing datastore.
 == What's next
 Next, you might want to mount the datastore. This is a standard VMware option. See https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.storage.doc/GUID-FAFF509B-0BED-4192-8FB3-E3C130C3924B.html[VMware vSphere documentation on mounting datastores^].
 
-You might also want to do the following tasks:
 
-* link:../monitor-ads-vmware.html[Monitor components of your VMware installation]
-* link:../manage-ads-vmware.html[Manage components of your VMware installation] 
 
 == For more information
 
