@@ -7,7 +7,8 @@ summary: You can manually revoke compromised or expired certificates in Astra Da
 
 = Manage external keys
 
-External key management (EKM) provides secure authentication key management in conjunction with an external key server (EKS). The EKS provides secure generation and storage of keys. The Astra Data Store cluster uses the Key Management Interoperability Protocol (KMIP), an OASIS defined standard protocol, to communicate with the EKS.
+You can use one or more external key management servers to secure the keys that the cluster uses to access encrypted data. An external key management server is a third-party system in your storage environment that serves keys to nodes using the Key Management Interoperability Protocol (KMIP).
+
 
 Astra Data Store supports Software Encryption at Rest (SEAR) by default on the Astra Data Store cluster.
 
