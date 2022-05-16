@@ -13,7 +13,7 @@ summary: You should verify that your environment meets minimum requirements for 
 After you verify that your environment meets general link:../get-started/requirements.html[Astra Data Store requirements], you should verify that your environment also meets minimum requirements for VMware components such as the VMware VASA provider and the Astra VMware plugin.
 
 == VMWare VASA provider requirements
-Astra Data Store operates with the VMWare VASA provider, which has the following requirements:
+Astra Data Store uses the VMWare VASA Provider as an API interface to communicate with storage. Make sure your environment meets the basic https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.storage.doc/GUID-BB4207DB-2DED-4E08-BC6D-DEF6D7357C63.html?hWord=N4IghgNiBcIG5gM5hAXyA[VASA Provider requirements^] as well as the following additional requirements:
 
 * VMware vSphere 7.0 (Update 1 through Update 3 supported)
 * One unassigned IP address for ingress traffic
