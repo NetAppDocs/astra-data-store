@@ -15,5 +15,7 @@ entries:
     url: /use/configure-endpoints.html
   - title: Astra Control Center integration
     url: /use/ads-acc-ui.html
+  - title: Update the Astra Data Store license
+    url: /use/update-ads-license.html
   - title: Uninstall Astra Data Store
     url: /use/uninstall-ads.html
