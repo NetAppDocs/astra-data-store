@@ -15,12 +15,11 @@ We're pleased to announce the 2022.05.0 EAP release of Astra Data Store.
 == 26 May 2022 (2022.05.0 EAP Release)
 The Astra Data Store 2022.05.0 release includes these features:
 
+* Enhanced cluster management, including cluster capacity and CPU scaling and node add and remove functionality.
 * Security enhancements for keys and certificates.
-* Enhanced cluster management, including cluster capacity scaling and node add and remove functionality.
 * VMware environment integrations:
-** VASA provider support.
-** Astra vCenter Plug-in that can be used to deploy and manage Astra Data Store from your data center in vSphere.
-* Greater node counts, size, and CPU capabilities.
+** vVols and Storage Policy Based Management integrations allow vSphere administrators to easily apply storage quality of service.
+** The Astra Plugin for VMware vSphere provides a familiar storage management and monitoring interface that can be used to manage Astra Data Store from vSphere.
 * Enhanced Quality of Service support.
 
 
