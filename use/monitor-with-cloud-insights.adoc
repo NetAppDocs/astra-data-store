@@ -48,13 +48,13 @@ If your Kubernetes cluster does not have a storage provisioner (such as NetApp T
 
 == Download and run the installation script
 
-Cloud Insights provides a Bash script to enable Astra Data Store monitoring via the Monitoring Operator. The install script will install an Acquisition Unit with the Astra Data Store collector, a Telegraf agent, and a Fluent Bit agent.
+Cloud Insights provides a Bash script to enable Astra Data Store monitoring via the Monitoring Operator. The install script will install an Acquisition Unit with the Astra Data Store collector and a Fluent Bit agent.
 
 The Cloud Insights tenant domain name and selected Cloud Insights API access token will be embedded in the installer script when it is downloaded.
 
 Then, metrics will be sent as follows:
 
-* Telegraf will send metrics to the Cloud Insights data lake.
+* The Cloud Insights Acquisition Unit will send metrics to the Cloud Insights data lake.
 * Fluent Bit will send logs to the log ingestion service.
 
 === Display installer script help
@@ -113,7 +113,6 @@ Configuring Cloud Insights monitoring for Astra Data Store . . .
 Configuring monitoring namespace
 ...
 Configuring output sink and Fluent Bit plugins
-Configuring Telegraf plugins
 Configuring Acquisition Unit
 ...
 Acquisition Unit has been installed successfully.
@@ -167,23 +166,6 @@ Below is an example of what the `monitoring-netapp` agent CR will look like afte
     domain-name: bzl9ngz.gst-adsdemo.ci-dev.netapp.com
     name: CI
   serviceAccount: sa-netapp-monitoring
-  telegraf:
-  - name: ads-open-metric
-    outputs:
-    - sink: CI
-    run-mode:
-    - ReplicaSet
-    substitutions:
-    - key: URLS
-      values:
-      - http://astrads-metrics-service.astrads-system.svc.cluster.local:9341
-    - key: METRIC_TYPE
-      value: ads-metric
-    - key: ADS_CATEGORY
-      value: netapp_ads
-    - key: ADS_CLUSTER_NAME
-      value: meg-ads-21-22-28-29-30
-  - name: agent
 status:
   au-pod-status: UP
   au-uuid: eddeccc6-3aa3-4dd2-a98c-220085fae6a9
@@ -232,10 +214,10 @@ The section looks something like this:
 
 . Save and quit the editor window.
 
-The Monitoring Operator will update Telegraf and Fluent Bit to use the new Cloud Insights API access token.
+The Monitoring Operator will update Fluent Bit to use the new Cloud Insights API access token.
 
 == Disconnect from Cloud Insights
-To disconnect from Cloud Insights, you will need to delete the Astra Data Store collector from the Cloud Insights UI first. After that is complete, you can remove the Acquisition Unit, Telegraf and Fluent Bit configurations from the Monitoring Operator.
+To disconnect from Cloud Insights, you will need to delete the Astra Data Store collector from the Cloud Insights UI first. After that is complete, you can remove the Acquisition Unit, Telegraf (if configured) and Fluent Bit configurations from the Monitoring Operator.
 
 === Remove the Astra Data Store collector
 
@@ -246,7 +228,7 @@ To disconnect from Cloud Insights, you will need to delete the Astra Data Store 
 . Select the menu on the right side of the screen, and select *Delete*.
 . Click *Delete* on the confirmation page.
 
-=== Remove the Acquisition Unit, Telegraf and Fluent Bit
+=== Remove the Acquisition Unit, Telegraf (if configured) and Fluent Bit
 
 . Edit the Agent CR:
 +
@@ -256,13 +238,13 @@ kubectl --namespace netapp-monitoring edit agent agent-monitoring-netapp
 
 . Locate the `au`  section and set `isEnabled` to `false`
 . Locate the `fluent-bit` section and remove the plugin named `ads-tail-ci`. If there are no more plugins, you can remove the `fluent-bit` section.
-. Locate the `telegraf`  section and remove the plugin named `ads-open-metric`. If there are no more plugins, you can remove the `telegraf` section.
+. If Telegraf is configured, locate the `telegraf`  section and remove the plugin named `ads-open-metric`. If there are no more plugins, you can remove the `telegraf` section.
 
 . Locate the `output-sink` section and remove the sink named `CI`.
 . Save and quit the editor window.
 
 +
-The Monitoring Operator will update the Telegraf and Fluent Bit configurations and delete the Acquisition Unit pod.
+The Monitoring Operator will update the Telegraf (if configured) and Fluent Bit configurations and delete the Acquisition Unit pod.
 .	If you used local directories for the Acquisition Unit PVs instead of a Storage Provisioner, delete the PVs:
 +
 ----
@@ -278,7 +260,7 @@ Then, delete the actual directories on the node where the Acquisition Unit was r
 ..	Select *Delete*.
 
 
-The Monitoring Operator updates the Telegraf and Fluent Bit configurations and removes the Acquisition Unit.
+The Monitoring Operator updates the Telegraf (if configured) and Fluent Bit configurations and removes the Acquisition Unit.
 
 
 == Open Metrics API help
