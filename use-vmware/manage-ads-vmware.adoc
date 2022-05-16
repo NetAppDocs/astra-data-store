@@ -116,7 +116,7 @@ You can manage Astra Data Store in your vSphere environment using native vCenter
 * <<Mount a datastore>>
 * <<Delete a datastore>>
 
-=== Mount a datastore 
+=== Mount a datastore
 
 Using the Astra Plugin for VMware vSphere, you can mount the datastore on one or more additional hosts.
 
