@@ -617,6 +617,7 @@ If the cluster’s status is stuck at `in progress`, check the cluster controlle
 kubectl logs -n astrads-system <astrads cluster controller pod name>
 ----
 
+
 == What's next
 
 Complete the deployment by performing link:setup-ads.html[setup tasks].
