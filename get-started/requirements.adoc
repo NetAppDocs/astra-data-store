@@ -334,7 +334,7 @@ The minimum memory requirement per node is 32GB.
 // Core license supported in PI-5 EAP, with associated capacity
 // Core and Capacity license supported in PI-6 and onward - Capacity license adds to default capacity of core license
 == Licensing
-Astra Data Store requires an Astra Data Store core license for full functionality, which licenses Astra Data Store usage by CPU core count. Astra Data Store supports 1TiB of cluster capacity for each licensed CPU core.
+Astra Data Store requires an Astra Data Store evaluation core license for full functionality, which licenses Astra Data Store usage by CPU core count. Astra Data Store supports 1TiB of cluster capacity for each licensed CPU core.
 
 https://www.netapp.com/cloud-services/astra/data-store-form/[Sign up here^] to obtain the Astra Data Store license. Instructions to download the license will be sent to you after you sign up.
 

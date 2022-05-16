@@ -10,22 +10,31 @@ summary: You should verify that your environment meets minimum requirements for 
 :icons: font
 :imagesdir: ../media/get-started/
 
-After you verify that your environment meets general link:../get-started/requirements.html[Astra Data Store requirements], you should verify that your environment also meets minimum requirements for VMware components.
+After you verify that your environment meets general link:../get-started/requirements.html[Astra Data Store requirements], you should verify that your environment also meets minimum requirements for VMware components such as the VMware VASA provider and the Astra VMware plugin.
 
-== Astra VMware plugin
+== VMWare VASA provider requirements
+Astra Data Store operates with the VMWare VASA provider, which has the following requirements:
+
+* VMware vSphere 7.0 (Update 1 through Update 3 supported)
+* One unassigned IP address for ingress traffic
+* A licensed Astra Data Store cluster running on a Kubernetes cluster
+
+== Astra VMware plugin requirements
 The Astra VMware plugin has the following requirements:
 
-* VMware vSphere 7 Update 3
-* An Astra Data Store cluster running on a Kubernetes cluster
+* VMware VASA provider installed and configured
+* VMware vSphere 7.0 (Update 1 through Update 3 supported)
+* A licensed Astra Data Store cluster running on a Kubernetes cluster
 ** NFSv3 enabled on Astra Data Store cluster
-* One unassigned IP address for ingress traffic
 
 NOTE: Astra Data Store does not support NFSv4.x.
 
-////
-== VMware VASA provider
-The VMware VASA provider has the following requirements:
-////
+=== Supported browsers
+Astra VMware Plugin supports the latest versions of the following web browsers:
+
+* Mozilla Firefox
+* Microsoft Edge
+* Safari
 
 == For more information
 
