@@ -40,3 +40,4 @@ Astra VMware Plugin supports the latest versions of the following web browsers:
 
 * https://docs.netapp.com/us-en/astra-control-center/[Astra Control Center documentation^]
 * https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family introduction^]
+* link:../get-started/requirements.html[Astra Data Store requirements]
