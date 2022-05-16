@@ -12,30 +12,37 @@ summary: Known limitations identify platforms, devices, or functions that are no
 
 Known limitations identify platforms, devices, or functions that are not supported by this preview release of the product, or that do not interoperate correctly with it. Review these limitations carefully.
 
-
-
-== Astra Data Store 22.04 release
+== Astra Data Store 22.05 Early Access Program (EAP) release
 This release includes these limitations.
 
-TBD
-
-== Astra Data Store preview release
-The preview release included these limitations.
-
 === Functionality to remove one or more nodes is not supported
-Astra Data Store preview supports replacing a failed node but does not support node removal functionality.
+Astra Data Store EAP supports replacing a failed node but does not support node removal functionality.
 
 === Functionality to add or remove drives is not supported
-Astra Data Store preview supports replacing a failed drive but does not support adding or removing drives to or from an existing cluster.
+Astra Data Store EAP supports replacing a failed drive but does not support adding or removing drives to or from an existing cluster.
 
 === Astra Data Store preview functionality is not validated with firewall enabled
-Astra Data Store preview requires host firewalld to be disabled. Enabling firewall using CNI tools like Calico HostEndpoint has not been validated.
+Astra Data Store EAP requires host firewalld to be disabled. Enabling firewall using CNI tools like Calico HostEndpoint has not been validated.
 
 === Upgrade or patch requires a fresh install
-Astra Data Store preview is not targeted for production workloads.
+Astra Data Store EAP is not targeted for production workloads.
 
 === Ubuntu-based bare-metal or VM passthrough deployments require NVMe TLC SSDs
 This limitation is not applicable to RHEL, RHCOS, or CentOS-based deployments.
+
+=== VMware integrations limitations
+The following workflows are not supported:
+
+* VM clone
+* vVol replication
+
+The following functionality is not supported:
+* First Class Disks (FCDs)
+* VMware vMotion
+* Multi-vCenter and multi-VASA Provider configurations are not supported. A single VASA Provider per vCenter configuration is supported.
+* NFSv4.1 is not supported.
+* A single instance of a pod for all the services is supported.
+* Storage policy-based management is applicable only at the VM level and cannot be modified after VM creation.
 
 == Find more information
 

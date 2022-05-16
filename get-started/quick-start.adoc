@@ -38,9 +38,6 @@ Learn more about link:../get-started/requirements.html[Astra Data Store requirem
 * Install Astra Data Store in your local environment.
 * Apply the Astra Data Store license.
 * Install the Astra Data Store cluster.
-* Configure Astra Data Store monitoring.
-* If you use Red Hat OpenShift, install Astra Data Store on Red Hat OpenShift Container Platform (OCP).
-
 
 
 [role="quick-margin-para"]

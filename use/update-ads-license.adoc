@@ -1,0 +1,41 @@
+---
+sidebar: sidebar
+permalink: use/update-ads-license.html
+keywords: astra, astra data store, kubectl
+summary: You can use the command line to update the installed license for Astra Data Store.
+---
+
+= Update the Astra Data Store license
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/use/
+
+You can update the installed evaluation license for Astra Data Store to extend the evaluation period. You can update the license using one of three methods:
+
+* To update the Astra Data Store license using Astra Control Center, see https://docs.netapp.com/us-en/astra-control-center/use/manage-backend.html#update-a-storage-backend-license[Update a storage backend license].
+* To update the Astra Data Store license using the Astra VMware Plugin, see link:../use-vmware/manage-ads-vmware.html[Manage Astra Data Store with VMware].
+* To update the Astra Data Store license using the command line, see <<Update the Astra Data Store license using the command line>>.
+
+== Update the Astra Data Store license using the command line
+You can use the `kubectl` utility to update the Astra Data Store license.
+
+.Steps
+
+. Apply the replacement NetApp License File (NLF) that you obtained from NetApp. Before you run the command, enter the name of the cluster (`<Astra-Data-Store-cluster-name>`) and the path to the license file (`<file_path/file.txt>`):
++
+----
+kubectl astrads license add --license-file-path <file_path/file.txt> --ads-cluster-name <Astra-Data-Store-cluster-name> -n astrads-system
+----
+
+. Verify that the license has been added:
++
+----
+kubectl astrads license list
+----
++
+You should see a response similar to the following:
++
+----
+NAME        ADSCLUSTER                 VALID   PRODUCT             EVALUATION  ENDDATE     VALIDATED
+p100000006  astrads-example-cluster    true    Astra Data Store    true        2023-01-23  2022-04-04T14:38:54Z
+----

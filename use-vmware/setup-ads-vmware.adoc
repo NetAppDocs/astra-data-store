@@ -8,9 +8,167 @@ summary: You can deploy and manage the Astra Data Store using the Astra vCenter 
 = Set up Astra Data Store with VMware
 :hardbreaks:
 :icons: font
-:imagesdir: ../media/get-started/
+:imagesdir: ../media/use-vmware/
 
-You can use deploy Astra Data Store and manage it using the Astra vCenter Plug-in and VMware vSphere-native functionality.
+You can deploy Astra Data Store and manage it using the NetApp Astra Plugin for VMware vSphere.
+
+Setting up Astra Data Store with VMware involves the following tasks:
+
+* <<Activate VMware vSphere services using Astra Control Center>>.
+* <<Add a vCenter using Astra Control Center>>.
+* <<Use an existing storage backend in the Astra Plugin for VMware vSphere>>.
+* <<Create a datastore using the Astra Plugin for VMware vSphere>>.
+
+
+.What you'll need
+Before you set up Astra Data Store with VMware, you'll need to have the following items:
+
+* Astra Control Center must have already been installed and set up.
+* A self-managed Kubernetes cluster must already be managed by Astra Control Center.
+* Astra Data Store must already be licensed and deployed. See link:../get-started/install-ads.html[Install Astra Data Store].
+* NFSv3 must already be enabled.
+
+
+
+== Activate VMware vSphere services using Astra Control Center
+Begin setting up Astra Data Store with VMware by activating vSphere services on Astra Control Center.
+
+NOTE: VMware vSphere services in Astra Control Center are not enabled by default.
+
+
+. Log in to Astra Control Center.
+. From the left navigation, select *Clusters*.
++
+The banner displays a message that VMware vSphere services are not yet enabled.
+
+. Select *Enable VMware vSphere services*.
++
+This action might take a while. After the services are enabled, the *Add vCenter* button is enabled.
+
+
+== Add a vCenter using Astra Control Center
+Add your first vCenter, which registers the Astra Plugin for VMware vSphere.
+
+You must have administrative privileges to add the vCenter to Astra Control Center.
+
+TIP: After the plugin is registered with VMware vSphere, the Astra plugin icon appears in the VMware Shortcuts page.
+
+. Log in to Astra Control Center.
+. From the left navigation, select *Clusters*.
+. Select *Add vCenter*.
+
+. Enter the vCenter server details, vCenter port, and administrative user name and password to provide them to Astra Control Center.
++
+TIP: This enables deployment of the Astra Plugin for this vCenter in the VMware vSphere web client.
+
+
+. Select *Add*.
+
++
+The vCenter appears on the Clusters page and the total number of managed vCenters is updated on the Astra Control Dashboard. This also initiates the Astra Plugin for VMware vSphere deployment.
+
+=== Verify the vCenter addition
+The newly added vCenter appears on the Clusters page and on the Dashboard.
+
+TIP: Both vCenters and Kubernetes clusters appear on the Astra Control Center Dashboard.
+
+. Access Astra Control Center.
+. From the left navigation, select *Clusters*.
+. Verify that the newly managed vCenter appears on the Clusters page.
+. From the left navigation, select *Dashboard*.
+. From the Astra Control Center Dashboard, note the new managed vCenter cluster as part of the *Managed* count.
++
+TIP: The Managed Clusters count includes both vCenters and Kubernetes clusters. If they are not healthy, the Dashboard shows that.
+
+. To view cluster details, click the *Managed* count.
++
+The Clusters page appears.
+
+== Use an existing storage backend in the Astra Plugin for VMware vSphere
+
+After adding a vCenter by using the Astra Control Center UI, add the Astra Data Store storage backend using the Astra Plugin for VMware vSphere.
+
+This process completes the following actions:
+
+* Adds an existing storage backend to the selected vCenter.
+* Registers the VASA provider with the selected vCenter. The VASA provider provides communication between VMware and Astra Data Store.
+* Adds a VASA provider self-signed certificate to the storage backend.
+
+
+NOTE: Astra Data Store should not be shared with multiple vCenters.
+
+
+.Steps
+
+. Access the NetApp Astra Plugin for VMware vSphere.
+. From the left navigation, select *Astra Plugin* or from the Shortcuts page, select the *Astra Plugin* icon.
++
+The Astra Plugin for VMware vSphere Overview page appears in the VMware vSphere client.
+
+. From the Overview page, select *Use existing storage backend*. Or, from the left navigation, select *Storage Backends* > *Add*, and select *Use existing storage backend*.
+
++
+The *Use existing storage backend* wizard appears.
+
+. Select the existing Astra Data Store as the storage backend and select *Next*.
+
+. On the VASA provider page, enter the VASA provider name, IP address (if using a load balancer), user name, and password.
++
+TIP: For the user name, you can use alpha characters, numbers, and the underscore. Do not enter any special characters. The first letter of the user name must begin with an alphabet character.
+
+. Indicate whether you want to deploy a load balancer and enter the IP address, which will be used to access the VASA provider. The IP needs to be an additional routable free IP separate from the node IPs. When the load balancer is enabled, Metallb is deployed in the Astra Data Store Kubernetes cluster and configured to allocate the free IP.
+
++
+If you choose not to deploy a load balancer, it is assumed that the load balancer has already been deployed and configured to allocate IPs for the Kubernetes service of type *Load Balancer*.
+
++
+TIP: At this point in the deployment, the VASA provider is not yet deployed.
+
+. Select *Next*.
+. On the Certificate page, review the certificate information for the self-signed certificate.
+. Select *Next*.
+. Review summary information.
+. Select *Add*.
+
+=== Verify the storage backend in the Astra Plugin for VMware vSphere
+
+After the Astra Data Store storage backend is registered, it appears in the Astra Plugin for VMware vSphere storage backends list.
+
+You can determine the storage backend status (whether it's healthy or not) and the VASA provider status (for example, connected). You can also see the used capacity of each storage backend.
+
+After selecting a storage backend, you can also view licensing information, used and available capacity, data reduction ratio, internal network management IP address, and certificate details (type of certificate and date created).
+
+.Steps
+. In the NetApp Astra Plugin for VMware vSphere, from the left navigation, select *Storage Backends*.
+. Select the Astra Data Store storage backend to see the Summary tab.
+. Review licensing information, used and available capacity, data reduction ratio, IOPS, latency, and status of the VASA provider.
+. Select the other tabs to see information about VMs, datastores, hosts, and storage nodes.
+
+== Create a datastore using the Astra Plugin for VMware vSphere
+
+After adding the storage backend and registering the Astra Plugin for VMware vSphere, you can create a datastore in VMware.
+
+You can add the datastore to a datacenter, compute, or a host cluster.
+
+You can add a vVol datastore type using an NFS protocol.
+
+.Steps
+. Access the Astra Plugin for VMware vSphere.
+. From the plugin menu, select *Create Datastore*.
+
+. Enter the new datastore name, type (vVol), and protocol (NFS).
+. Select *Next*.
+. From the Storage page, select the Astra Data Store storage backend that you just created.
++
+TIP: You cannot use a storage backend that has an existing datastore.
+
+. Select *Next*.
+. From the Summary page, review the information.
+. Select *Create*.
+
+== What's next
+Next, you might want to mount the datastore. This is a standard VMware option. See https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.storage.doc/GUID-FAFF509B-0BED-4192-8FB3-E3C130C3924B.html[VMware vSphere documentation on mounting datastores^].
+
 
 
 == For more information

@@ -10,8 +10,52 @@ summary: You can monitor Astra Data Store performance using the vCenter plug-in.
 :icons: font
 :imagesdir: ../media/get-started/
 
-You can use the Astra vCenter plug-in to monitor components of your Astra Data Store installation.
+You can use the NetApp Astra Plugin for VMware vSphere to monitor components of your Astra Data Store installation. You can monitor the health of your system including the storage backends, VASA providers, VMs, and vVols. You can also view  capacity threshold alerts and vCenter information.
 
+
+== Monitor the health of your system using the Astra Plugin for VMware vSphere Dashboard
+Managing your Astra Data Store with VMware environment involves monitoring the overall health of storage backends and VASA providers.
+
+Using the NetApp Astra Plugin for VMware vSphere Dashboard, you can see the following information:
+
+* Physical used and available capacity of all storage backends in this vCenter. You can hover over information and see more details.
+* Healthy and unhealthy storage backends and their details
+* Latency, IOPS, throughput and capacity utilization for the top 10 VMs.
+
+From the Dashboard, you can perform several additional tasks:
+
+* Monitor capacity threshold alerts
+* Use an existing storage backend. See link:../use-vmware/setup-ads-vmware.html[Set up storage backends].
+* Access the product documentation
+
+
+.Steps to review the Dashboard
+
+. Access the Astra Plugin for VMware vSphere.
+. From the Overview page, review the following sections:
+
+.. *Storage backends* section: You can click on the states of both the storage backends and VASA providers to see details about their status. You can also click to view all storage backends.
+.. *Storage Backend Capacity* section: Review the total physical used and available capacity for the storage backends in the selected vCenter. To change the vCenter server, click the vCenter Server option in the upper right.
+.. *Virtual Machines* section: Review virtual machines having the top 10 capacity utilization.
+
+TIP: You can instead show what you want, for example, the top 10 VMs with high latency, by clicking on the table heading.
+
+
+== Review storage backend threshold settings
+
+Storage backend capacity threshold settings govern when alert notifications appear on all datastores in the storage backend.
+
+The following default thresholds are set when you deploy or add a storage backend by using the Astra Plugin for VMware vSphere:
+
+* 90% full generates a red alert
+* 80% full generates a yellow alert
+
+You can view the level at which the system generates an alert in VMware.
+
+.Steps
+. Access the NetApp Astra Plugin for VMware vSphere.
+. From the left navigation, select *Settings*.
+. Review the settings thresholds.
 
 == For more information
 

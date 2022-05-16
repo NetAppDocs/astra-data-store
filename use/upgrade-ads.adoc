@@ -1,0 +1,107 @@
+---
+sidebar: sidebar
+permalink: use/upgrade-ads.html
+keywords: astra, astra data store, kubectl, upgrade
+summary: You can upgrade Astra Data Store to the latest version.
+---
+
+= Upgrade Astra Data Store
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/use/
+
+// DOC-4205
+You can upgrade Astra Data Store to take advantage of the latest features and fixes. You can upgrade Astra Data Store by applying a CR, or by using the Astra Data Store `kubectl` extension.
+
+== Upgrade Astra Data Store using a custom resource file
+You can use a custom resource (CR) file to upgrade Astra Data Store. Replace arguments in capital letters with the appropriate information for your environment.
+
+.What you'll need
+
+
+.Steps
+
+. Download the Astra Data Store upgrade package from the NetApp Support Site.
+. Extract the upgrade package to a directory on a node in the Astra Data Store cluster.
+. Apply the Astra Data Store operator file from the package. For example:
++
+[source,sh]
+----
+kubectl apply -f /PATH/TO/FILE/astradsoperator.yaml
+----
+. Validate that correct version of the operator image was installed:
++
+[source,sh]
+----
+kubectl get pods -n astrads-system | grep astrads-operator
+kubectl describe pods RESULTING_OUTPUT -n astrads-system | grep Image
+----
++
+The output should be similar to the following:
++
+----
+Image:  docker.url.com/astra/operator:dev-6314693
+----
+. Apply the Astra Data Store version file from the package. For example:
++
+[source,sh]
+----
+kubectl apply -f /PATH/TO/FILE/astradsversion.yaml
+----
+. Check the status of the upgrade process:
++
+[source,sh]
+----
+kubectl describe astradsclusters ASTRA_DATA_STORE_CLUSTER_NAME -n astrads-system
+----
+
+
+== Upgrade Astra Data Store using a kubectl extension
+You can use the Astra Data Store `kubectl` extension to upgrade Astra Data Store. Replace arguments in capital letters with the appropriate information for your environment.
+
+
+.What you'll need
+
+
+.Steps
+
+. Download the Astra Data Store upgrade package from the NetApp Support Site.
+. Extract the upgrade package to a directory on a node in the Astra Data Store cluster.
+. Export the path to the Astra Data Store `kubectl` extension. For example:
++
+[source,sh]
+----
+export PATH=$PATH:/PATH/TO/PACKAGE/BIN/DIRECTORY/bin
+----
+. Copy the `astradsoperator.yaml` file to the local directory:
++
+[source,sh]
+----
+cp /PATH/TO/FILE/astradsoperator.yaml ./
+----
+. Upgrade the operator. For example:
++
+[source,sh]
+----
+kubectl astrads upgrade ads-operator --repository-url REPOSITORY_URL --operator-yaml astradsoperator.yaml
+----
+. Copy the `astradsversion.yaml` file to the local directory:
++
+[source,sh]
+----
+cp /PATH/TO/FILE/astradsversion.yaml ./
+----
+. Begin the Astra Data Store upgrade:
++
+[source,sh]
+----
+kubectl astrads upgrade ads-version --repository-url REPOSITORY_URL --ads-version-yaml astradsversion.yaml
+----
++
+A message appears notifying you that the upgrade has started, and will take a few minutes to complete.
+. Check the status of the upgrade process:
++
+[source,sh]
+----
+kubectl describe astradsclusters ASTRA_DATA_STORE_CLUSTER_NAME -n astrads-system
+----
