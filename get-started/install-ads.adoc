@@ -34,8 +34,6 @@ The Astra Data Store installation process guides you through the following high-
 * <<Install the Astra Data Store cluster>>
 * <<Understand deployment-related events>>
 
-If you want to enable Astra Data Store to work with image registries with secrets, see https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Astra/How_to_enable_Astra_Data_Store_preview_to_work_with_image_registries_with_secret[this KB].
-
 == Download the Astra Data Store bundle and extract the images
 . Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store bundle (`2022.05.0_ads.tar`).
 +
@@ -74,7 +72,7 @@ TIP: Use the `which kubectl` command to find the path where kubectl binaries are
 cp -p ./bin/kubectl-astrads /usr/bin/.
 ----
 
-. Verify binary version is 22.5.0:
+. Verify the binary version is 22.5.0:
 +
 ----
 kubectl-astrads version
@@ -97,7 +95,6 @@ export REGISTRY=repo.company.com/astrads
 ----
 
 .. Run the script to load the images into Docker, tag the images, and [[substep_image_local_registry_push]]push the images to your local registry:
-
 +
 ----
 for astraImageFile in $(ls images/*.tar) ; do
@@ -448,7 +445,7 @@ Response:
 +
 ----
 NAME        ADSCLUSTER                 VALID   PRODUCT                     EVALUATION  ENDDATE     VALIDATED
-p100000006  astrads-example-cluster    true    Astra Data Store Preview    true        2022-01-23  2021-11-04T14:38:54Z
+p100000006  astrads-example-cluster    true    Astra Data Store   true        2022-01-23  2021-11-04T14:38:54Z
 ----
 
 == Install the Astra Data Store cluster
