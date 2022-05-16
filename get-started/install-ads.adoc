@@ -292,6 +292,28 @@ subjects:
 // End snippet
 
 
+== Configure a private image registry
+As optional step for certain environments, you can make configuration changes to pull an image from a private registry that uses secrets.
+
+. Create the `astrads-system` namespace unless you did so already in a previous step:
++
+----
+kubectl create namespace astrads-system
+----
+
+. Create the private registry:
++
+----
+kubectl create secret docker-registry <secret-name> -n astrads-system --docker-server=<registry name> --docker-username= <registry username> --docker-password=<registry user password>
+----
+
+. Add secrets configuration information to the service account:
++
+----
+kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "<secret-name>"}]}' -n astrads-system
+----
++
+NOTE: These change will be applied when you <<Install the Astra Data Store operator,install the Astra Data Store operator>>.
 
 == Install the Astra Data Store operator
 . List the Astra Data Store manifests:
@@ -517,23 +539,6 @@ kind: AstraDSCluster
 ----
 kubectl apply -f ./manifests/astradscluster.yaml
 ----
-
-
-. (OCP only) If SELinux is enabled, re-label the `selinux` context for the following directories on the nodes in the Astra Data Store cluster.
-
-
-+
-----
-sudo chcon -R -t container_file_t /var/opt/netapp/firetap/rootfs/var/asup/notification/firetap/
-----
-+
-----
-sudo chcon -R -t container_file_t /var/netapp/firetap/firegen/persist/
-----
-
-+
-NOTE: This step is needed because `selinux` prevents these directories from being writable, causing the support pods to enter a `CrashLoopBackoff` state. This step needs to be performed on all the nodes in the Astra Data Store cluster.
-+
 
 
 . Wait a few minutes for the cluster creation operation to complete and then verify that the pods are running:

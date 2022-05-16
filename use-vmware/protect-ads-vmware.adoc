@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar
 permalink: use-vmware/protect-ads-vmware.html
-keywords: astra, vmware, vcenter, astra data store, snapshot, backup
-summary: You can protect applications running in Astra Data Store from your vSphere environment.
+keywords: astra data store, vmware, snapshot, vcenter
+summary: You can protect Astra Data Store by making snapshots of its VM from your VMware vCenter environment.
 ---
 
 = Protect components of your VMware installation
@@ -10,8 +10,13 @@ summary: You can protect applications running in Astra Data Store from your vSph
 :icons: font
 :imagesdir: ../media/get-started/
 
-From your vSphere environment, you can protect applications running in Astra Data Store.
+From your VMware vCenter environment, you can protect Astra Data Store by making snapshots of its VM.
 
+The following snapshot workflows are available for the Astra Data Store using native vCenter operations:
+
+* https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-9720B104-9875-4C2C-A878-F1C351A4F3D8.html[Take snapshot of Astra Data Store^]
+* https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-3E1BB630-9223-45E8-A64B-DCB90D450673.html[Revert a snapshot^]
+* https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-542CF191-B8DE-42F1-9CCC-D9030491AE25.html[Delete a snapshot^]
 
 == For more information
 
