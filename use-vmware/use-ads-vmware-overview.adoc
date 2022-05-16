@@ -8,9 +8,18 @@ summary: You can use the Astra vCenter Plug-in user interface to perform Astra D
 = Learn about Astra Data Store with VMware
 :hardbreaks:
 :icons: font
-:imagesdir: ../media/get-started/
+:imagesdir: ../media/use/
 
-You can use the Astra vCenter Plug-in user interface to perform Astra Data Store tasks.
+Astra Data Store is architected for both containerized and virtualized workloads. Integrations with vVols and storage policy-based management enables vSphere administrators to easily apply storage quality of service. The NetApp Astra Plugin for VMware vSphere provides a familiar management and monitoring experience eliminating cumbersome storage tasks.
+
+The Astra Plugin for VMware vSphere offers the following benefits:
+
+* VM granular storage provisioning with full VASA integration
+* Storage policy-based management integration
+* vCenter plugin for vSphere native management
+
+The following image shows the Astra family ecosystem with VMware.
+image:astra-ads-architecture-diagram-v4-vmware.png[Astra architecture diagram and components]
 
 
 == For more information
