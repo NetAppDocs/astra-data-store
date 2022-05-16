@@ -11,16 +11,16 @@ summary: You can manage the Astra Data Store using VMware applications.
 :imagesdir: ../media/get-started/
 
 
-You can manage the following Astra Data Store components in your vSphere environment:
+You can manage the following Astra Data Store components in your vSphere environment and from Astra Control Center:
 
-* <<Work with controlled vCenters>>
+* <<Manage vCenters>>
 * <<View Astra Data Store license details>>
 * <<Manage VMs>>
 * <<Manage the storage backend>>
 * <<Manage datastores>>
 
 
-== Work with controlled vCenters
+== Manage vCenters
 You can work with the managed vCenters in the following ways:
 
 * <<View vCenter details in Astra Control Center>>
@@ -61,7 +61,7 @@ NOTE: Clusters, storage backends and VMs associated with this vCenter must be re
 . From the Astra Control Center left navigation, select *Clusters*.
 . From the Clusters page, select the vCenter.
 +
-TIP: Or, select multiple vCenters and click Unmanage all.
+TIP: Or, select multiple vCenters and click *Unmanage all*.
 
 . Right-click the *Actions* menu and select *Unmanage*.
 . In the Unmanage vCenter page, type "unmanage".
@@ -108,10 +108,9 @@ If Astra Data Store is not being linked with more than one vCenter, when you rem
 . Enter the VASA provider user name and password. 
 . Select *Remove*.
 
-== Manage datastores 
+== Manage datastores
 
-
-Using the Astra Plugin for VMware vSphere, you can manage datastores in the following ways: 
+You can manage Astra Data Store in your vSphere environment using native vCenter operations to manage VMs and Astra Plugin extensions to manage datastores:
 
 * link:../use-vmware/setup-ads-vmware.html[Create a datastore] 
 * <<Mount a datastore>>
@@ -144,11 +143,6 @@ TIP: To delete the datastore, all VMs on the datastore must first be removed.
 . In the Delete Datastore page, confirm the information or take additional suggested actions so that the datastore can be deleted.
 
 . Select *Delete*.
-=======
-You can manage Astra Data Store in your vCenter environment using native vCenter operations to manage VMs and Astra Plugin extensions to manage datastores.
-
-
-
 
 == For more information
 
