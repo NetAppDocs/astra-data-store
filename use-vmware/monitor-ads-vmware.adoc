@@ -25,7 +25,7 @@ Using the NetApp Astra Plugin for VMware vSphere Dashboard, you can see the foll
 From the Dashboard, you can perform several additional tasks:
 
 * Monitor capacity threshold alerts
-* Use an existing storage backend. See link:../use-vmware/setup-ads-vmware[Set up storage backends].
+* Use an existing storage backend. See link:../use-vmware/setup-ads-vmware.html[Set up storage backends].
 * Access the product documentation
 
 
