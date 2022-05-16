@@ -1,7 +1,7 @@
 section: use-vmware
 title: Use Astra Data Store with VMware
 entries:
-  - title: Astra Data Store with VMware overview
+  - title: Learn about Astra Data Store with VMware
     url: /use-vmware/use-ads-vmware-overview.html
   - title: Astra Data Store with VMware requirements
     url: /use-vmware/ads-vmware-requirements.html
@@ -9,7 +9,7 @@ entries:
     url: /use-vmware/setup-ads-vmware.html
   - title: Monitor components of your VMware installation
     url: /use-vmware/monitor-ads-vmware.html
-  - title: Manage components of your VMware installation
+  - title: Manage Astra Data Store components of your VMware installation
     url: /use-vmware/manage-ads-vmware.html
   - title: Protect components of your VMware installation
     url: /use-vmware/protect-ads-vmware.html
