@@ -19,7 +19,7 @@ entries:
         url: /use/manage-certificates.html
   - title: Astra Control Center integration
     url: /use/ads-acc-ui.html
-  - title: Uninstall Astra Data Store automatically with a script
+  - title: Update the Astra Data Store license
+    url: /use/update-ads-license.html
+  - title: Uninstall Astra Data Store
     url: /use/uninstall-ads.html
-  - title: Uninstall Astra Data Store manually without a script
-    url: /use/uninstall-ads-manual.html

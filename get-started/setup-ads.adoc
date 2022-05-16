@@ -16,6 +16,7 @@ After you have installed Astra Data Store and addressed some environmental prere
 * <<Install Kubernetes snapshot CRDs and Controller>>
 * <<Set up Astra Data Store as storage backend>>
 * <<Create a default Astra Data Store storage class>>
+* <<Configure Astra Data Store monitoring>>
 
 == Install Astra Trident
 
@@ -183,12 +184,12 @@ cat kubeconf.json | base64 | tr -d '\n'
     "debugTraceFlags": {"method": true, "api": true},
     "labels": {"cloud": "on-prem", "creator": "trident-dev"},
     "defaults": {
-        "qosPolicy": "bronze"
+        "qosPolicy": "silver"
     },
     "storage": [
         {
             "labels": {
-                "performance": "extreme"
+                "performance": "gold"
             },
             "defaults": {
                 "qosPolicy": "bronze"
@@ -196,7 +197,7 @@ cat kubeconf.json | base64 | tr -d '\n'
         },
         {
             "labels": {
-                "performance": "premium"
+                "performance": "silver"
             },
             "defaults": {
                 "qosPolicy": "bronze"
@@ -204,7 +205,7 @@ cat kubeconf.json | base64 | tr -d '\n'
         },
         {
             "labels": {
-                "performance": "standard"
+                "performance": "bronze"
             },
             "defaults": {
                 "qosPolicy": "bronze"
@@ -251,16 +252,22 @@ vi ads_sc_example.yaml
 Example:
 +
 ----
+allowVolumeExpansion: true
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: trident-csi
+  creationTimestamp: "2022-05-09T18:05:21Z"
+  name: ads-silver
+  resourceVersion: "3361772"
+  uid: lo023456-da4b-51e3-b430-3aa1e3bg111a
+mountOptions:
+- vers=4
+parameters:
+  backendType: astrads-nas
+  selector: performance=premium
 provisioner: csi.trident.netapp.io
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
-allowVolumeExpansion: true
-mountOptions:
-  - vers=4.1
 ----
 
 .. Create trident-csi:
@@ -439,4 +446,23 @@ items:
       *- trident-csi*
       supportedTopologies: null
   volumes: []
+----
+
+== Configure Astra Data Store monitoring
+(Optional) You can configure Astra Data Store for monitoring by another telemetry service. The monitoring operator is recommended if Astra Data Store will not be imported into Astra Control Center. If you are using Astra Control Center for Astra Data Store monitoring, these steps are not required.
+
+You can install the monitoring operator if your Astra Data Store instance is a standalone deployment and uses Cloud Insights to monitor telemetry or streams logs to a third-party endpoint such as Elastic.
+
+Before setting up monitoring, you will need an active Astra data store cluster in the `astrads-system` namespace.
+
+. Run this install command:
++
+----
+kubectl apply -f ./manifests/monitoring_operator.yaml
+----
+
+. Configure Astra Data Store for monitoring:
++
+----
+kubectl astrads monitoring -n netapp-monitoring -r [YOUR REGISTRY] setup
 ----
