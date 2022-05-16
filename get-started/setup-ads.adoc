@@ -16,6 +16,7 @@ After you have installed Astra Data Store and addressed some environmental prere
 * <<Install Kubernetes snapshot CRDs and Controller>>
 * <<Set up Astra Data Store as storage backend>>
 * <<Create a default Astra Data Store storage class>>
+* <<Set up Astra Control Center for Astra Data Store>>
 
 == Install Astra Trident
 
@@ -440,3 +441,12 @@ items:
       supportedTopologies: null
   volumes: []
 ----
+
+
+== Set up Astra Control Center for Astra Data Store
+To use the Astra Control Center UI for Astra Data Store, you need to complete these tasks:
+
+*	https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-cluster[Add the underlying Kubernetes cluster running Astra Data Store to Astra Control Center].
+*	https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-a-storage-backend[Add Astra Data Store as a storage backend to Astra Control Center].
++
+NOTE: If you add a storage backend and no Kubernetes clusters with Astra Data Store exist, you'll need to first add a cluster.

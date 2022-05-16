@@ -55,6 +55,8 @@ Learn more about link:../get-started/install-ads.html[installing Astra Data Stor
 * Install Kubernetes snapshot custom resource definitions (CRDs) and controller.
 * Set up Astra Data Store as a storage backend.
 * Create a default Astra Data Store storage class.
+* Configure Astra Data Store monitoring if not completed already.
+* Set up Astra Control Center for Astra Data Store.
 
 
 

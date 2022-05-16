@@ -1,0 +1,18 @@
+---
+sidebar: sidebar
+permalink: get-started/ads-acc.html
+keywords: astra, astra data store, kubernetes, astra control
+summary: After you set up Astra Control Center for Astra Data Store, you can then use the Astra Control Center UI.
+---
+
+= What's next?
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/
+
+
+After you set up Astra Control Center for Astra Data Store, you can then use the Astra Control Center UI to accomplish these tasks:
+
+* https://docs.netapp.com/us-en/astra-control-center/use/monitor-protect.html[Monitor the health of your Astra Data Store assets using Astra Control Center^].
+* https://docs.netapp.com/us-en/astra-control-center/use/manage-backend.html[Manage the Astra Data Store backend storage^].
+* https://docs.netapp.com/us-en/astra-control-center/use/view-dashboard.html[Monitor nodes, disks, and persistent volume claims (PVCs)^].
