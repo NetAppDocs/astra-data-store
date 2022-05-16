@@ -10,9 +10,78 @@ summary: You can manage the Astra Data Store using VMware applications.
 :icons: font
 :imagesdir: ../media/get-started/
 
-You can manage Astra Data Store in your vCenter environment using native vCenter operations to manage VMs and Astra Plugin extensions to manage datastores.
 
-== VM management operations
+You can manage the following Astra Data Store components in your vSphere environment:
+
+* <<Work with controlled vCenters>>
+* <<View Astra Data Store license details>>
+* <<Manage VMs>>
+* <<Manage the storage backend>>
+* <<Manage datastores>>
+
+
+== Work with controlled vCenters
+You can work with the managed vCenters in the following ways:
+
+* <<View vCenter details in Astra Control Center>>
+* <<View vCenter details in the Astra Plugin for VMware vSphere>>
+* <<Unmanage a vCenter in Astra Control Center>>
+
+=== View vCenter details in Astra Control Center
+You can determine all the vCenters associated with a cluster.
+
+.Steps
+. From the Astra Control Center left navigation, click *Clusters*.
+. View the list of vCenters.
+. Click *Save*.
+
+
+=== View vCenter details in the Astra Plugin for VMware vSphere
+You might want to view the health of your system and clusters. You can determine how many clusters are managed by looking at the Astra Control Center Dashboard.
+
+//Editing a vCenter enables you to change the server, user name, password, and port.
+
+//TIP: To edit a vCenter, you must have administrative privileges.
+
+.Steps
+. Log in to Astra Control Center.
+. Select *Clusters*.
+. Select the vCenter.
+//. Right-click on the *Actions* menu and select *Edit*.
+. View the information.
+//. Select *Save*.
+
+=== Unmanage a vCenter in Astra Control Center
+If you no longer want Astra Control Center to manage the vCenter, you can unmanage it. This removes and unregisters the vCenter from Astra Control Center.
+
+NOTE: Clusters, storage backends and VMs associated with this vCenter must be removed from the Astra Plugin for VMware vSphere first.
+
+
+.Steps
+. From the Astra Control Center left navigation, select *Clusters*.
+. From the Clusters page, select the vCenter.
++
+TIP: Or, select multiple vCenters and click Unmanage all.
+
+. Right-click the *Actions* menu and select *Unmanage*.
+. In the Unmanage vCenter page, type "unmanage".
+. Select *Yes, unmanage vCenter*.
+
+
+== View Astra Data Store license details
+You might want to periodically check the Astra Data Store license details. 
+
+You can check the expiration date, the license number, number of cores allowed, and capacity allowed. 
+
+.Steps
+
+. Access the Astra Plugin for VMware vSphere. 
+. From the left navigation, select *Storage Backends*.  
+. From the Summary tab, click the *License* field to display the details.
+
+
+== Manage VMs
+
 You can manage VMs associated with Astra Data Store using native vSphere operations.
 
 * https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.hostclient.doc/GUID-358BF9C1-333E-4AB4-A1CB-62BEA1C94878.html?hWord=N4IghgNiBcICYFMIIC4IAQDcC2IC+QA[Delete VM^]
@@ -22,34 +91,64 @@ You can manage VMs associated with Astra Data Store using native vSphere operati
 * https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-879FA851-2B24-49E6-B58F-F25D0E923D17.html?hWord=N4IghgNiBcIM4Fc4AcCmA7AJgAgGoFkQBfIA[Suspend VM^]
 * https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.hostclient.doc/GUID-450AF515-09D4-44B6-85B2-EE848B371E58.html?hWord=N4IghgNiBcIAoHsDuBTATgAgMoBcw5QGcMEAzDMDANQEs0cBXSDAWTAGMALGgOxQ14YcnflRZIwafgAkEhHBgDCEGih44QAXyA[Reset VM^]
 
-== Datastore management
-You can manage datastores associated with Astra Data Store using Astra plugin extensions in vCenter.
+== Manage the storage backend
 
+You can remove the storage backend. Removing a storage backend does not destroy it and does not delete the Astra Data Store product itself; it just unregisters the VASA provider from VMware and unlinks the storage backend for that vCenter.
+
+
+NOTE: If the VASA provider is enabled and deployed outside of the vCenter, you can only remove Astra Data Store. If the storage backend is being used as part of a provisioning datastores process, you won't be able to remove the storage backend.
+
+If Astra Data Store is not being linked with more than one vCenter, when you remove it, the VASA provider will be unregistered and uninstalled.  
+
+.Steps
+
+. Access the NetApp Astra Plugin for VMware vSphere. 
+. From the left navigation, select *Storage Backends*. 
+. On the Storage Backends page, click on the storage backend and select *Remove*.
+. Enter the VASA provider user name and password. 
+. Select *Remove*.
+
+== Manage datastores 
+
+
+Using the Astra Plugin for VMware vSphere, you can manage datastores in the following ways: 
+
+* link:../setup-ads-vmware[Create a datastore] 
 * <<Mount a datastore>>
 * <<Delete a datastore>>
 
-=== Mount a datastore
-Using the plugin extension in vCenter, you can mount the datastore on one or more additional hosts.
+=== Mount a datastore 
+
+Using the Astra Plugin for VMware vSphere, you can mount the datastore on one or more additional hosts.
 
 .Steps
-. Select the datastore for Astra Data Store from your data center inventory in vCenter.
-. Right-click the datastore and select *Astra Plugin > Mount Datastore*.
-. From the *Mount datastore on hosts* dialogue box, select the hosts on which you want to mount the datastore.
-. Select *Mount*.
 
-After you initiate the operation, you can follow progress in the `Recent Tasks` panel in vCenter.
+. Select the datastore for Astra Data Store from your data center inventory in vCenter.
+. Right-click the datastore and select *Astra Plugin* > *Mount Datastore*.
+. From the Mount datastore on hosts page, select the hosts on which you want to mount the datastore.
+. Select *Mount*.
+
+After you initiate the operation, you can follow progress in the Recent Tasks panel in the Astra Plugin for VMware vSphere.
 
 === Delete a datastore
-Using the plugin extension in vCenter, you can delete a datastore.
 
-.What you'll need
-To delete the datastore, all VMs on the datastore must first be removed.
+Using the Astra Plugin for VMware vSphere, you can delete a datastore.
+
+TIP: To delete the datastore, all VMs on the datastore must first be removed.
 
 .Steps
-. Select datastore from your data center inventory in vCenter.
-. Right-click the datastore and select *Astra Plugin > Delete Datastore*.
-. In the *Delete Datastore* dialogue box, confirm the information or take additional suggested actions so that the datastore can be deleted.
-. Select *Delete*.
+. Select the datastore from your data center inventory in vCenter.
+
+. Right-click the datastore and select *Astra Plugin* > *Delete Datastore*.
+
+. In the Delete Datastore page, confirm the information or take additional suggested actions so that the datastore can be deleted.
+
+. Select *Delete*.
+=======
+You can manage Astra Data Store in your vCenter environment using native vCenter operations to manage VMs and Astra Plugin extensions to manage datastores.
+
+
+
 
 == For more information
 
