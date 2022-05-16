@@ -31,7 +31,7 @@ The node that you are adding should be part of the Kubernetes cluster and should
 .. Edit the astradscluster CR and add the additional dataIP in the ADS Data Networks Addresses field:
 +
 ----
-~% kubectl edit astradscluster <cluster-name> -n astrads-system
+kubectl edit astradscluster <cluster-name> -n astrads-system
 ----
 +
 Response:
@@ -45,19 +45,19 @@ adsDataNetworks:
 .. Add the node to the Astra Data Store cluster:
 +
 ----
-~% kubectl astrads nodes add --cluster <cluster-name>
+kubectl astrads nodes add --cluster <cluster-name>
 ----
 
 .	Otherwise, just add the nodes:
 +
 ----
-~% kubectl astrads nodes add --cluster <cluster-name>
+kubectl astrads nodes add --cluster <cluster-name>
 ----
 
 . Verify that the node has been added:
 +
 ----
-~% kubectl astrads nodes list
+kubectl astrads nodes list
 ----
 
 
@@ -74,7 +74,7 @@ When a node is in maintenance mode, you cannot add a node to the cluster. In thi
 . Display the node details:
 +
 ----
-~% kubectl get nodes
+kubectl get nodes
 ----
 +
 Response:
@@ -91,7 +91,7 @@ Response:
 . Ensure that the node is not already in maintenance mode:
 +
 ----
-~% kubectl astrads maintenance list
+kubectl astrads maintenance list
 ----
 +
 Response (there are no nodes already in maintenance mode):
@@ -103,20 +103,20 @@ NAME    NODE NAME  IN MAINTENANCE  MAINTENANCE STATE       MAINTENANCE VARIANT
 . Enable maintenance mode.
 +
 ----
-~% kubectl astrads maintenance create <cr-name> --node-name=<<node-name>> --variant=Node
+kubectl astrads maintenance create <cr-name> --node-name=<<node-name>> --variant=Node
 ----
 +
 Sample:
 +
 ----
-~% kubectl astrads maintenance create maint1 --node-name="nhcitjj1525" --variant=Node
+kubectl astrads maintenance create maint1 --node-name="nhcitjj1525" --variant=Node
 Maintenance mode astrads-system/maint1 created
 ----
 
 . List the nodes.
 +
 ----
-~% kubectl astrads nodes list
+kubectl astrads nodes list
 ----
 +
 Response:
@@ -130,7 +130,7 @@ nhcitjj1525     Added           ftap-astra-012
 . Check the status of the maintenance mode:
 +
 ----
-~% kubectl astrads maintenance list
+kubectl astrads maintenance list
 ----
 +
 Response:
@@ -148,13 +148,13 @@ The `Maintenance State` changes from `PreparingForMaintenance` to `ReadyforMaint
 . After the node maintenance is complete, disable maintenance mode:
 +
 ----
-~% kubectl astrads maintenance update maint1 --node-name="nhcitjj1525" --variant=None
+kubectl astrads maintenance update maint1 --node-name="nhcitjj1525" --variant=None
 ----
 
 . Ensure that the node is no longer in maintenance mode:
 +
 ----
-~% kubectl astrads maintenance list
+kubectl astrads maintenance list
 ----
 
 
@@ -168,7 +168,7 @@ Use kubectl commands with Astra Data Store to replace a failed node in a cluster
 . List all the nodes:
 +
 ----
-~% kubectl astrads nodes list
+kubectl astrads nodes list
 ----
 +
 Response:
@@ -183,7 +183,7 @@ sti-rx2540-535d...  Added       cluster-multinodes-21209
 . Describe the cluster:
 +
 ----
-~% kubectl astrads clusters list
+kubectl astrads clusters list
 ----
 +
 Response:
@@ -196,7 +196,7 @@ cluster-multinodes-21209   created         4
 . Verify that `Node HA` is marked as `false` on the failed node:
 +
 ----
-~% kubectl describe astradscluster -n astrads-system
+kubectl describe astradscluster -n astrads-system
 ----
 +
 Response:
@@ -318,7 +318,7 @@ spec:
 . Verify the node is removed from the cluster:
 +
 ----
-~% kubectl get nodes --show-labels
+kubectl get nodes --show-labels
 
 ----
 +
@@ -333,7 +333,7 @@ sti-rx2540-533d       Ready  <none>                24h
 ----
 +
 ----
-~% kubectl astrads nodes list
+kubectl astrads nodes list
 ----
 +
 Response:
@@ -346,7 +346,7 @@ sti-rx2540-536d   Added           cluster-multinodes-21209
 ----
 +
 ----
-~% kubectl get nodes --show-labels
+kubectl get nodes --show-labels
 ----
 +
 Response:
@@ -358,7 +358,7 @@ sti-rx2540-532d     Ready    <none>                 24h   v1.20.0   astrads.neta
 ----
 +
 ----
-~% kubectl describe astradscluster -n astrads-system
+kubectl describe astradscluster -n astrads-system
 ----
 +
 Response:
@@ -385,7 +385,7 @@ metadata:
 ----
 +
 ----
-~% kubectl apply -f manifests/astradscluster.yaml
+kubectl apply -f manifests/astradscluster.yaml
 ----
 +
 Response:
@@ -395,7 +395,7 @@ astradscluster.astrads.netapp.io/cluster-multinodes-21209 configured
 ----
 +
 ----
-~% kubectl get pods -n astrads-system
+kubectl get pods -n astrads-system
 ----
 +
 Response:
@@ -408,7 +408,7 @@ astrads-ds-cluster-multinodes-21209 1/1     Running
 ----
 +
 ----
-~% kubectl astrads nodes list
+kubectl astrads nodes list
 ----
 +
 Response:
@@ -420,7 +420,7 @@ sti-rx2540-535d...       Added           cluster-multinodes-21209
 ----
 +
 ----
-~% kubectl astrads clusters list
+kubectl astrads clusters list
 ----
 +
 Response:
@@ -431,7 +431,7 @@ cluster-multinodes-21209        created         4
 ----
 +
 ----
-~% kubectl astrads drives list
+kubectl astrads drives list
 ----
 +
 Response:
@@ -504,7 +504,7 @@ spec:
 ----
 
 ----
-~% kubectl astrads faileddrive list --cluster arda-6e4b4af
+kubectl astrads faileddrive list --cluster arda-6e4b4af
 ----
 
 Response:
@@ -520,7 +520,7 @@ NAME       NODE                             CLUSTER        STATE                
 To list all drives without filtering possible replacement drives, add `--all` to `show-replacements` command.
 +
 ----
-~%  kubectl astrads faileddrive show-replacements --cluster ard-6e4b4af --name 6000c290
+kubectl astrads faileddrive show-replacements --cluster ard-6e4b4af --name 6000c290
 ----
 +
 Response:
@@ -533,14 +533,14 @@ sdh   /scsi-36000c29417  45000c  0                false     100GB
 . Use the `replace` command to replace the drive with the passed serial number. The command completes the replacement or fails if `--wait` time elapses.
 +
 ----
-~% kubectl astrads faileddrive replace --cluster arda-6e4b4af --name 6000c290 --replaceWith 45000c --wait
+kubectl astrads faileddrive replace --cluster arda-6e4b4af --name 6000c290 --replaceWith 45000c --wait
 Drive replacement completed successfully
 ----
 +
 NOTE: If `kubectl astrads faileddrive replace` is executed using an inappropriate `--replaceWith` serial number, an error appears similar to this:
 +
 ----
-~% kubectl astrads replacedrive replace --cluster astrads-cluster-f51b10a --name 6000c2927 --replaceWith BAD_SERIAL_NUMBER
+kubectl astrads replacedrive replace --cluster astrads-cluster-f51b10a --name 6000c2927 --replaceWith BAD_SERIAL_NUMBER
 Drive 6000c2927 replacement started
 Failed drive 6000c2927 has been set to use BAD_SERIAL_NUMBER as a replacement
 ...
@@ -553,7 +553,7 @@ Current status: {FailedDriveInfo:{InUse:false Present:true Name:scsi-36000c2 Fir
 
 +
 ----
-~%  kubectl astrads replacedrive replace --cluster astrads-cluster-f51b10a --name 6000c2927 --replaceWith VALID_SERIAL_NUMBER --force
+kubectl astrads replacedrive replace --cluster astrads-cluster-f51b10a --name 6000c2927 --replaceWith VALID_SERIAL_NUMBER --force
 ----
 
 == For more information
