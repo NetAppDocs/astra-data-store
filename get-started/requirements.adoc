@@ -14,14 +14,14 @@ Get started by verifying that your environment meets Astra Data Store requiremen
 
 Astra Data Store supports both bare-metal and VM-based deployments. The Astra Data Store cluster can run on a Kubernetes cluster with four or more worker nodes. Astra Data Store software can co-exist with other applications running on the same Kubernetes cluster.
 
-Astra Data Store supports provisioning only of persistent volumes for Kubernetes workloads using the Astra Trident CSI driver. VM workloads will be supported in a future release of Astra Data Store.
+//Astra Data Store supports provisioning only of persistent volumes for Kubernetes workloads using the Astra Trident CSI driver. VM workloads will be supported in a future release of Astra Data Store.
 
 NOTE: If you plan to manage your Astra Data Store cluster from Astra Control Center, make sure your Astra Data Store cluster meets the https://docs.netapp.com/us-en/astra-control-center/get-started/requirements.html#kubernetes-cluster-general-requirements[requirements for clusters that will be managed by Astra Control Center^] in addition to the requirements outlined here.
 
 //POLARIS-458
 ////
 == Minimum resource requirements for each node
-These are the minimum resource requirements for each node in an Astra Data Store preview cluster:
+These are the minimum resource requirements for each node in an Astra Data Store cluster:
 
 //* Minimum number of drives: 2
 * Minimum number of physical CPU cores: 4
@@ -73,7 +73,7 @@ Each worker node has the following additional requirements:
 
 ////
 == Cluster resource requirements and capabilities
-Each Astra Data Store preview cluster has the following minimum requirements and maximum capabilities:
+Each Astra Data Store cluster has the following minimum requirements and maximum capabilities:
 
 |===
 |Resource |Minimum |Maximum
@@ -90,7 +90,7 @@ Each Astra Data Store preview cluster has the following minimum requirements and
 
 ////
 == Maximum capabilities for each node
-Each node in an Astra Data Store preview cluster has the following capabilities:
+Each node in an Astra Data Store cluster has the following capabilities:
 
 
 * Maximum provisioned capacity per node: 1TiB
@@ -105,10 +105,15 @@ Each node in an Astra Data Store preview cluster has the following capabilities:
 Astra Data Store software is validated on the following hardware platforms, software, and storage configuration. Visit link:../support/get-help-ads.html[NetApp community support] if your Kubernetes cluster configuration is different.
 
 .Hardware platforms
-* HPE DL360
-* HPE DL380
+* NetApp H610S
 * Dell R640
 * Dell R740
+* HPE DL360
+* HPE DL380
+* Lenovo SR630
+* Lenovo SR650
+* Lenovo SR635
+* Lenovo SR665
 
 //POLARIS-461
 .Storage
@@ -134,14 +139,13 @@ NOTE: Each drive should have a unique serial number. Add the attribute `disk.e
 ** CentOS 8
 ** Ubuntu 20.04
 * Astra Data Store has been validated with the following Kubernetes distributions:
-** Red Hat OpenShift 4.7
-** Google Anthos 1.7
-** Kubernetes 1.21
-** Kubernetes 1.20
+** Red Hat OpenShift 4.6 through 4.9
+** Google Anthos 1.8 through 1.10
+** Kubernetes 1.20 through 1.23
+** Rancher RKE 1.3.3 with Rancher 2.5 or 2.6
+//** Kubernetes 1.20
 
-NOTE: Astra Data Store requires Astra Trident version 21.10.1 for storage provisioning and orchestration. See the link:setup-ads.html#install-astra-trident[Astra Trident installation instructions].
-
-
+NOTE: Astra Data Store requires Astra Trident version 21.10.1 or 22.01 for storage provisioning and orchestration. See the link:setup-ads.html#install-astra-trident[Astra Trident installation instructions].
 
 == Networking requirements
 
@@ -327,8 +331,12 @@ The minimum memory requirement per node is 32GB.
 
 ////
 
+// Core license supported in PI-5 EAP, with associated capacity
+// Core and Capacity license supported in PI-6 and onward - Capacity license adds to default capacity of core license
 == Licensing
-Astra Data Store requires an Astra Data Store license for full functionality. https://www.netapp.com/cloud-services/astra/data-store-form/[Sign up here^] to obtain the Astra Data Store license. Instructions to download the license will be sent to you after you sign up.
+Astra Data Store requires an Astra Data Store evaluation core license for full functionality, which licenses Astra Data Store usage by CPU core count. Astra Data Store supports 1TiB of cluster capacity for each licensed CPU core.
+
+https://www.netapp.com/cloud-services/astra/data-store-form/[Sign up here^] to obtain the Astra Data Store license. Instructions to download the license will be sent to you after you sign up.
 
 == AutoSupport configuration
 //CB review

@@ -1,14 +1,15 @@
 ---
 sidebar: sidebar
 permalink: use-vmware/manage-ads-vmware.html
-keywords: astra, astra data store, vsphere, vcenter, esxi
+keywords: astra data store, vm, vcenter, datastore, manage
 summary: You can manage the Astra Data Store using VMware applications.
 ---
 
-= Manage components of your VMware installation
+= Manage Astra Data Store components of your VMware installation
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/get-started/
+
 
 You can manage the following Astra Data Store components in your vSphere environment:
 
@@ -143,6 +144,10 @@ TIP: To delete the datastore, all VMs on the datastore must first be removed.
 . In the Delete Datastore page, confirm the information or take additional suggested actions so that the datastore can be deleted.
 
 . Select *Delete*.
+=======
+You can manage Astra Data Store in your vCenter environment using native vCenter operations to manage VMs and Astra Plugin extensions to manage datastores.
+
+
 
 
 == For more information

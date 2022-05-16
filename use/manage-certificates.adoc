@@ -1,0 +1,112 @@
+---
+sidebar: sidebar
+permalink: use/manage-certificates.html
+keywords: astra, astra data store, kubectl, certs, cert, certificate, certificates, revoke, security, secure, expired, compromised, regenerate, generate
+summary: You can manually revoke compromised or expired certificates in Astra Data Store.
+---
+
+= Manage security certificates
+
+You can manage certificates to improve the security of your Astra Data Store cluster.
+
+////
+* <<Manage certificates>>
+* <<Configure external key management>>
+
+== Manage certificates
+You can manage certificates for Astra Data Store.  This enables you to revoke compromised or expired  certificates, or manually rotate certificates to fit the needs of your organization.
+////
+
+== Revoke a compromised or expired certificate
+If an Astra Data Store cluster controller, node, or CA certificate is compromised or expires, you can revoke it so that a new certificate is generated automatically. You can revoke any Kubernetes certificate at any time.
+
+.Steps
+. Log in to one of the nodes in the Astra Data Store cluster.
+. List the existing certificates on the system. For example:
++
+----
+kubectl get secret
+----
++
+The output should be similar to the following:
++
+----
+NAME                                   TYPE                             DATA   AGE
+astrads-autosupport-certs              Opaque                           5      16m
+astrads-cert-cluster-0008e44           kubernetes.io/tls                4      15m
+astrads-cert-cluster-controller        kubernetes.io/tls                4      15m
+astrads-cert-node-prod-org             kubernetes.io/tls                4      15m
+----
+. In the output, note the name of the certificate you need to revoke.
+. Use the `kubectl` utility to revoke the certificate, replacing `CERTIFICATE_NAME` with the name of the certificate. For example:
++
+----
+kubectl delete secret CERTIFICATE_NAME
+----
+
+.Result
+The existing certificate is revoked, and a new certificate is automatically generated in its place.
+
+////
+
+=== Revoke a controller certificate
+If the cluster controller certificate is compromised, you can revoke it so that a new certificate is generated automatically for the controller.
+
+.Steps
+. Log in to the controller node of the Astra Data Store cluster.
+. List the existing certificates on the system. For example:
++
+----
+kubectl get secret
+----
++
+The output should be similar to the following:
++
+----
+NAME                                   TYPE                             DATA   AGE
+astrads-autosupport-certs              Opaque                           5      16m
+astrads-cert-cluster-0008e44           kubernetes.io/tls                4      15m
+astrads-cert-cluster-controller        kubernetes.io/tls                4      15m
+astrads-cert-node-prod-org             kubernetes.io/tls                4      15m
+----
+. Note the controller certificate in the output.
+. Revoke the controller certificate. For example:
++
+----
+kubectl delete secret astrads-cert-cluster-controller
+----
+
+.Result
+The existing controller certificate is revoked, and a new controller certificate is generated automatically.
+
+=== Revoke a node certificate
+If a node certificate is compromised, you can revoke it so that a new certificate is generated automatically for the node.
+
+.Steps
+. Log in to a node of the Astra Data Store cluster.
+. List the existing certificates on the system. For example:
++
+----
+kubectl get secret
+----
++
+The output should be similar to the following:
++
+----
+NAME                                   TYPE                             DATA   AGE
+astrads-autosupport-certs              Opaque                           5      16m
+astrads-cert-cluster-0008e44           kubernetes.io/tls                4      15m
+astrads-cert-cluster-controller        kubernetes.io/tls                4      15m
+astrads-cert-node-prod-org             kubernetes.io/tls                4      15m
+----
+. Note the node certificate in the output.
+. Revoke the node certificate. For example:
++
+----
+kubectl delete secret astrads-cert-node-prod-org
+----
+
+.Result
+The existing node certificate is revoked, and a new node certificate is generated automatically.
+
+////
