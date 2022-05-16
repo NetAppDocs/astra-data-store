@@ -7,11 +7,11 @@ summary: You can manually revoke compromised or expired certificates in Astra Da
 
 = Manage external keys
 
-External key management (EKM) provides secure Authentication Key (AK) management in conjunction with an external key server (EKS). The EKS provides secure generation and storage of keys. The Astra Data Store cluster uses the Key Management Interoperability Protocol (KMIP), an OASIS defined standard protocol, to communicate with the EKS.
+External key management (EKM) provides secure authentication key management in conjunction with an external key server (EKS). The EKS provides secure generation and storage of keys. The Astra Data Store cluster uses the Key Management Interoperability Protocol (KMIP), an OASIS defined standard protocol, to communicate with the EKS.
 
 Astra Data Store supports Software Encryption at Rest (SEAR) by default on the Astra Data Store cluster.
 
-Managing keys involves two custom resource definitions (CRDs):
+Managing keys involves the following custom resource definitions (CRDs):
 
 * *AstraDSKeyProvider*: Configures an external KMIP server, which could be a cluster of servers
 * *AstraDSSEARKeyRotate*: Gets a new key encryption key from the key provider and provides it to Astra Data Store.
@@ -30,39 +30,24 @@ Setting up external key management in Astra Data Store uses `kubectl astrads` co
 
 .What you'll need
 
-You will need an SSL certificate on the cluster or KMIP server that allows you to set up external keys, for example, by using OpenSSL.
+You will need an SSL certificate on the cluster or KMIP server that enables you to set up external keys, for example, by using OpenSSL.
 
 .Steps
+. Prepare the certificate for the key provider client. Include the client certificate, client private key, and trust CA bundles.
++
+NOTE: You'll prepare the SSL certificate on the cluster or KMIP server that allows you to set up external keys, for example, by using OpenSSL.
+
 . Log in to one of the nodes in the Astra Data Store cluster.
 
-. Create the KMIP client certificate secret and store the file on your server by entering the following kubectl extension CR:
+. Configure the key provider for the Astra Data Store cluster by entering the following kubectl extension CR:
 +
 ----
-kubectl create secret ??
+kubectl-astrads key-provider certs --key key.pem
+--client-cert client_cert.pem --ca-cert server_ca.pem
+--hostnames=<kmip_server_ip> <key_provider_cr_name>
+--namespace astrads-system --cluster <ads_cluster_name>
 ----
 
-. Create the AstraDSKeyProvider CR by entering the following kubectl command:
-+
-----
-kubectl create
-----
-
-. Modify the AstraDSCluster CR to refer to the AstraDSKeyProvider CR by entering the following kubectl command:
-+
-----
-kubectl ???
-----
-
-. Pass the certificate to the external key provider by entering the following kubectl extension:
-+
-----
-kubectl astrads
-----
-
-+
-Include the key provider name and indicate on which cluster you want to create the key.
-
-.
 
 
 == Change external to internal key management
@@ -77,19 +62,18 @@ If you are currently using an external key manager, you can change it to an inte
 
 NOTE: The previous key provider and secret will not be automatically removed.
 
+
+
 == Rotate keys for security
 
-Key rotation enhances security. You can configure Astra Data Store to rotate keys automatically every 90 days or you can rotate keys on demand when you want.
-
-You can configure multiple key rotation providers at the same time.  
-
-The key rotation defaults to 90 days, which you can change.
-
-.Steps to configure automatic key rotation
-
-. ???Use the AstraDSSEARKeyRotate CRD. 
+Key rotation enhances security. By default, Astra Data Store rotates keys automatically every 90 days. You can change the default setting. Additionally, you can rotate keys on demand when you want.
 
 
-.Steps to configure on-demand key rotation
+.Configure automatic key rotation
 
-. Kubectl astra key rotation???
+. Update the AstraDSSEARKeyRotate parameter in the CRD. 
+
+
+.Configure on-demand key rotation
+
+. Create an ASTRADSEARKeyRotateRequest CR to rotate keys.
