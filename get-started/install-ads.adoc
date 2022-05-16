@@ -468,9 +468,9 @@ kind: AstraDSCluster
   *name: astrads-cluster-name*
   namespace: astrads-system
 *spec:*
-  adsNodeConfig:
-    cpu: 9
-    memory: 34
+  *adsNodeConfig:*
+    *cpu: 9*
+    *memory: 34*
   adsNodeCount: 4
   *mvip: ""*
   *adsDataNetworks:*
