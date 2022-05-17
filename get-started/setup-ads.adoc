@@ -10,7 +10,9 @@ summary: After you have installed Astra Data Store and addressed some environmen
 :icons: font
 :imagesdir: ../media/get-started/
 
-After you have installed Astra Data Store and addressed some environmental prerequisites, you'll install Astra Trident, configure Kubernetes snapshot capabilities, set up the storage backend, and create a default storage class:
+After you have link:../get-started/install-ads.html#install-a-standalone-astra-data-store[installed a standalone Astra Data Store] and addressed some link:../get-started/requirements.html[environmental prerequisites], you'll install Astra Trident, configure Kubernetes snapshot capabilities, set up the storage backend, and create a default storage class:
+
+NOTE: If you are using Astra Control Center to deploy Astra Data Store, you do not need to follow these steps unless you intend to set up <<Configure Astra Data Store monitoring,additional monitoring options>>.
 
 * <<Install Astra Trident>>
 * <<Install Kubernetes snapshot CRDs and Controller>>
@@ -18,7 +20,6 @@ After you have installed Astra Data Store and addressed some environmental prere
 * <<Create a default Astra Data Store storage class>>
 * <<Configure Astra Data Store monitoring>>
 
-If you are using Astra Control Center to deploy Astra Data Store, you do not need to follow these steps unless you intend to setup <<Configure Astra Data Store monitoring,additional monitoring>>.
 
 == Install Astra Trident
 

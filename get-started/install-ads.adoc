@@ -12,11 +12,15 @@ summary: You can install a standalone Astra Data Store for use in a standard Kub
 
 You can install a standalone Astra Data Store for use in a standard Kubernetes environment or deploy it using Astra Control Center if you intend to use Astra Data Store with VMware or manage it using Astra Control.
 
-.Options
+.Installation options
 
-* *Standalone*: To install a standalone Astra Data Store, complete the installation steps described in this procedure.
+* *Standalone*: To install a standalone Astra Data Store, complete the installation steps described in <<Install a standalone Astra Data Store,this procedure>>. Additional installation steps for Red Hat OpenShift Container Platform (OCP) environments are also described.
 
-* *Using Astra Control Center*: If you want to use Astra Data Store with Astra Control Center, you can https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-cluster[first add the underlying Kubernetes cluster running Astra Data Store^] and then https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-a-storage-backend[add Astra Data Store as a storage backend to Astra Control Center^].
+* *Astra Control Center*: To use Astra Data Store with Astra Control Center, complete the installation steps described in <<Install Astra Data Store using Astra Control Center,this procedure>>.
+
+== Install a standalone Astra Data Store
+
+video::jz6EuryqYps[youtube]
 
 .What you'll need for standalone installations
 * link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
@@ -27,8 +31,6 @@ You can install a standalone Astra Data Store for use in a standard Kubernetes e
 * Internet connectivity. Astra Data Store does not support air-gapped environments. Internet connectivity is needed to reach support.netapp.com either directly or via a proxy.
 
 .About this task
-
-video::jz6EuryqYps[youtube]
 
 The Astra Data Store installation process for standard Kubernetes clusters guides you through the following high-level steps.
 
@@ -41,7 +43,7 @@ The Astra Data Store installation process for standard Kubernetes clusters guide
 * <<Install the Astra Data Store cluster>>
 * <<Understand deployment-related events>>
 
-== Download the Astra Data Store bundle and extract the images
+=== Download the Astra Data Store bundle and extract the images
 . Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store bundle (`2022.05.0_ads.tar`).
 +
 NOTE: If you are looking for instructions for earlier versions of the bundle, see link:../acc-earlier-versions.html[documentation for that the version].
@@ -68,7 +70,7 @@ tar -vxzf 2022.05.0_ads.tar
 +
 NOTE: The images will be extracted to a `/images` directory created within the working directory.
 
-== Copy the binary and push images to your local registry
+=== Copy the binary and push images to your local registry
 
 . Copy the kubectl-astrads binary from the directory you used to extract images to the standard path where k8s kubectl binaries are installed (`/usr/bin/` is used as the path in the example below). kubectl-astrads is a custom kubectl extension that installs and manages Astra Data Store clusters.
 +
@@ -113,7 +115,7 @@ done
 sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./manifests/*.yaml
 ----
 
-== OpenShift procedure
+=== OpenShift procedure
 
 Use the following procedure only for deployment on the Red Hat OpenShift Container Platform (OCP). Skip this procedure for deployment on non-OCP Kubernetes clusters.
 
@@ -296,7 +298,7 @@ subjects:
 // End snippet
 
 
-== Configure a private image registry
+=== Configure a private image registry
 As optional step for certain environments, you can make configuration changes to pull an image from a private registry that uses secrets.
 
 . Create the `astrads-system` namespace unless you did so already in a previous step:
@@ -319,7 +321,7 @@ kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "<secret
 +
 NOTE: These change will be applied when you <<Install the Astra Data Store operator,install the Astra Data Store operator>>.
 
-== Install the Astra Data Store operator
+=== Install the Astra Data Store operator
 . List the Astra Data Store manifests:
 +
 ----
@@ -407,7 +409,7 @@ NAME                                READY   STATUS    RESTARTS   AGE
 astrads-operator-5ffb94fbf-7ln4h    1/1     Running   0          17m
 ----
 
-== Deploy the Astra Data Store version YAML
+=== Deploy the Astra Data Store version YAML
 
 . Deploy using kubectl apply:
 +
@@ -434,7 +436,7 @@ astrads-license-controller-fb8fd56bc-bxq7j    1/1     Running   0          2m2s
 astrads-operator-5ffb94fbf-7ln4h              1/1     Running   0          2m10s
 ----
 
-== Apply the Astra Data Store license
+=== Apply the Astra Data Store license
 
 . Apply the NetApp License File (NLF) that you obtained from NetApp. Before you run the command, enter the name of the cluster (`<Astra-Data-Store-cluster-name>`) that you are <<Install the Astra Data Store cluster,going to deploy>> or have already deployed and the path to the license file (`<file_path/file.txt>`):
 +
@@ -455,7 +457,7 @@ NAME        ADSCLUSTER                 VALID   PRODUCT             EVALUATION  E
 p100000006  astrads-example-cluster    true    Astra Data Store    true        2023-01-23  2022-04-04T14:38:54Z
 ----
 
-== Install the Astra Data Store cluster
+=== Install the Astra Data Store cluster
 . Open the YAML file:
 +
 ----
@@ -586,7 +588,7 @@ NAME                        STATUS    VERSION    SERIAL NUMBER    MVIP       AGE
 astrads-example-cluster   created   2022.05.0   p100000006       10.x.x.x   10m
 ----
 
-== Understand deployment-related events
+=== Understand deployment-related events
 During cluster deployment, the operation status should change from `blank` to `in progress` to `created`. Cluster deployment will last approximately 8 to 10 minutes. To monitor cluster events during deployment, you can run either of the following commands:
 
 ----
@@ -624,13 +626,19 @@ If the cluster’s status is stuck at `in progress`, check the cluster controlle
 kubectl logs -n astrads-system <astrads cluster controller pod name>
 ----
 
+== Install Astra Data Store using Astra Control Center
+
+To deploy and use Astra Data Store with Astra Control Center, do the following:
+
+. https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-cluster[Add the underlying Kubernetes cluster running Astra Data Store^]
+. https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-a-storage-backend[Add Astra Data Store as a storage backend to Astra Control Center^].
 
 == What's next
 
-Complete the Astra Data Store standalone deployment on a standard Kubernetes cluster by performing additional link:setup-ads.html[setup tasks].
+* *Standalone*: Complete the Astra Data Store standalone deployment on a standard Kubernetes cluster by performing additional link:setup-ads.html[setup tasks].
 
-If you have used Astra Control Center to deploy Astra Data Store, you do not need to follow these link:setup-ads.html[setup tasks] unless you want to configure any additional monitoring options. After you deploy Astra Data Store, you can use Astra Control Center UI to accomplish these tasks:
+* *Astra Control Center*: If you have used Astra Control Center to deploy Astra Data Store, you do not need to follow these link:setup-ads.html[setup tasks] unless you want to configure any additional monitoring options. After you deploy Astra Data Store, you can use Astra Control Center UI to accomplish these tasks:
 
-* https://docs.netapp.com/us-en/astra-control-center/use/monitor-protect.html[Monitor the health of your Astra Data Store assets^].
-* https://docs.netapp.com/us-en/astra-control-center/use/manage-backend.html[Manage the Astra Data Store backend storage^].
-* https://docs.netapp.com/us-en/astra-control-center/use/view-dashboard.html[Monitor nodes, disks, and persistent volume claims (PVCs)^].
+** https://docs.netapp.com/us-en/astra-control-center/use/monitor-protect.html[Monitor the health of your Astra Data Store assets^].
+** https://docs.netapp.com/us-en/astra-control-center/use/manage-backend.html[Manage the Astra Data Store backend storage^].
+** https://docs.netapp.com/us-en/astra-control-center/use/view-dashboard.html[Monitor nodes, disks, and persistent volume claims (PVCs)^].
