@@ -17,8 +17,8 @@ After you have installed Astra Data Store and addressed some environmental prere
 * <<Set up Astra Data Store as storage backend>>
 * <<Create a default Astra Data Store storage class>>
 * <<Configure Astra Data Store monitoring>>
-* <<Set up Astra Control Center for Astra Data Store>>
 
+If you are using Astra Control Center to deploy Astra Data Store, you do not need to follow these steps unless you intend to setup <<Configure Astra Data Store monitoring,additional monitoring>>.
 
 == Install Astra Trident
 
@@ -452,12 +452,16 @@ items:
 
 
 == Configure Astra Data Store monitoring
-(Optional) You can configure Astra Data Store for monitoring by another telemetry service. The monitoring operator is recommended if Astra Data Store will not be imported into Astra Control Center. If you are using Astra Control Center for Astra Data Store monitoring, these steps are not required.
+(Optional) You can configure Astra Data Store for monitoring by another telemetry service. This procedure is recommended if you are not using Astra Control Center for Astra Data Store monitoring or if you want to extend monitoring to additional endpoints.
 
-You can install the monitoring operator if your Astra Data Store instance is a standalone deployment and uses Cloud Insights to monitor telemetry or streams logs to a third-party endpoint such as Elastic.
+You can install the monitoring operator if your Astra Data Store instance is a standalone deployment, uses Cloud Insights to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
 
+NOTE: For Astra Control Center deployments, the monitoring operator is automatically configured. You can skip the first two commands of the following procedure.
+
+.What you'll need
 Before setting up monitoring, you will need an active Astra data store cluster in the `astrads-system` namespace.
 
+.Steps
 . Run this install command:
 +
 ----
@@ -470,12 +474,8 @@ kubectl apply -f ./manifests/monitoring_operator.yaml
 kubectl astrads monitoring -n netapp-monitoring -r [YOUR REGISTRY] setup
 ----
 
-== Set up Astra Control Center for Astra Data Store
-To use the Astra Control Center UI for Astra Data Store, you need to complete these tasks:
-
-*	https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-cluster[Add the underlying Kubernetes cluster running Astra Data Store to Astra Control Center].
-*	https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-a-storage-backend[Add Astra Data Store as a storage backend to Astra Control Center].
+. Configure Astra Data Store to stream EMS logs to an Elastic endpoint:
 +
-NOTE: If you add a storage backend and no Kubernetes clusters with Astra Data Store exist, you'll need to first add a cluster.
-
-
+----
+kubectl astrads monitoring es --port <portname> --host <hostname>
+----

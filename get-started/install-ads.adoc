@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: get-started/install-ads.html
 keywords: astra, astra data store, install, deploy, download, openshift, red hat, ocp
-summary: To install Astra Data Store after addressing some environmental prerequisites, you'll download the bundle and install following the steps. You can also install Astra Data Store on OpenShift.
+summary: You can install a standalone Astra Data Store for use in a standard Kubernetes environment or deploy it using Astra Control Center if you intend to use Astra Data Store with VMware or manage it using Astra Control. You can also install Astra Data Store on OpenShift.
 ---
 
 = Install Astra Data Store
@@ -10,11 +10,15 @@ summary: To install Astra Data Store after addressing some environmental prerequ
 :icons: font
 :imagesdir: ../media/get-started/
 
-To install a standalone Astra Data Store, download the installation bundle from the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and complete the installation steps described in this procedure. If you have installed Astra Control Center, you can optionally https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-a-storage-backend[install and deploy Astra Data Store] using the Astra Control Center UI.
+You can install a standalone Astra Data Store for use in a standard Kubernetes environment or deploy it using Astra Control Center if you intend to use Astra Data Store with VMware or manage it using Astra Control.
 
-video::jz6EuryqYps[youtube]
+.Options
 
-.What you'll need
+* *Standalone*: To install a standalone Astra Data Store, complete the installation steps described in this procedure.
+
+* *Using Astra Control Center*: If you want to use Astra Data Store with Astra Control Center, you can https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-cluster[first add the underlying Kubernetes cluster running Astra Data Store^] and then https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-a-storage-backend[add Astra Data Store as a storage backend to Astra Control Center^].
+
+.What you'll need for standalone installations
 * link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
 * Access to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^]. https://www.netapp.com/cloud-services/astra/data-store-form/[Register^] for a preview if you don’t already have a full-access NetApp Support Site account.
 * A link:../get-started/requirements.html#licensing[NetApp license file (NLF)] for Astra Data Store. Instructions to download the license will be sent to you after you https://www.netapp.com/cloud-services/astra/data-store-form[sign up^].
@@ -23,7 +27,10 @@ video::jz6EuryqYps[youtube]
 * Internet connectivity. Astra Data Store does not support air-gapped environments. Internet connectivity is needed to reach support.netapp.com either directly or via a proxy.
 
 .About this task
-The Astra Data Store installation process guides you through the following high-level steps.
+
+video::jz6EuryqYps[youtube]
+
+The Astra Data Store installation process for standard Kubernetes clusters guides you through the following high-level steps.
 
 * <<Download the Astra Data Store bundle and extract the images>>
 * <<Copy the binary and push images to your local registry>>
@@ -620,4 +627,10 @@ kubectl logs -n astrads-system <astrads cluster controller pod name>
 
 == What's next
 
-Complete the deployment by performing link:setup-ads.html[setup tasks].
+Complete the Astra Data Store standalone deployment on a standard Kubernetes cluster by performing additional link:setup-ads.html[setup tasks].
+
+If you have used Astra Control Center to deploy Astra Data Store, you do not need to follow these link:setup-ads.html[setup tasks] unless you want to configure any additional monitoring options. After you deploy Astra Data Store, you can use Astra Control Center UI to accomplish these tasks:
+
+* https://docs.netapp.com/us-en/astra-control-center/use/monitor-protect.html[Monitor the health of your Astra Data Store assets^].
+* https://docs.netapp.com/us-en/astra-control-center/use/manage-backend.html[Manage the Astra Data Store backend storage^].
+* https://docs.netapp.com/us-en/astra-control-center/use/view-dashboard.html[Monitor nodes, disks, and persistent volume claims (PVCs)^].
