@@ -150,6 +150,8 @@ After adding the storage backend and registering the Astra Plugin for VMware vSp
 
 You can add the datastore to a datacenter, compute, or a host cluster.
 
+NOTE: You cannot use the same storage backend to create multiple datastores under same datacenter.
+
 You can add a vVol datastore type using an NFS protocol.
 
 .Steps
