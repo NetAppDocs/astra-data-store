@@ -471,8 +471,14 @@ NOTE: A simplified example of the YAML file follows these steps.
 .. (Required) *Metadata*: In `metadata`, change the `name` string to the name of your cluster. This must be the same cluster name you use when you <<Apply the Astra Data Store preview license,apply the license>>.
 .. (Required) *Spec*: Change the following required values in `spec`:
 * Change the `adsNodeConfig` values to those required for your installation, depending on your license and Astra Data Store installation size:
-** Small: 9 CPU and 34 memory
-** Medium: 25 CPU and 96 memory
+** Small: 9 CPU and 38 memory
+** Medium: 23 CPU and 94 memory
+* Remove the commenting around the `adsNodeSelector` section. Add a node label to identify the pool of worker nodes that support this Astra Data Store cluster.
++
+IMPORTANT: The label must be added to each individual node in the cluster that will be used for Astra Data Store deployment prior to the start of deployment or deployment will fail.
+
+//Node labels must be created or deployment will fail per ACC
+* Specify the number of nodes that should be used in the Astra Data Store cluster (between 4-16).
 * Change the `mvip` string to the IP address of a floating management IP that is routable from any worker node in the cluster.
 * In `adsDataNetworks`, add a comma-separated list of floating IP addresses (`addresses`) that are routable from any host where you intend to mount a NetApp volume. Use one floating IP address per node. There should be at least as many data network IP addresses as there are Astra Data Store nodes. For Astra Data Store, this means at least 4 addresses, or 5 if you plan on expanding the cluster to 5 nodes later.
 * In `adsDataNetworks`, specify the netmask used by the data network.
@@ -499,6 +505,10 @@ kind: AstraDSCluster
   *adsNodeConfig:*
     *cpu: 9*
     *memory: 34*
+  # [Optional] Specify node selector labels to select the nodes for creating ADS cluster
+  # adsNodeSelector:
+  #   matchLabels:
+  #     customLabelKey: customLabelValue
   adsNodeCount: 4
   *mvip: ""*
   *adsDataNetworks:*
@@ -524,6 +534,7 @@ kind: AstraDSCluster
     coredumpUpload: false
     historyRetentionCount: 25
     destinationURL: "https://support.netapp.com/put/AsupPut"
+    caseCreationURL: "https://m2m-stage.netapp.com"
     # ProxyURL defines the URL of the proxy with port to be used for AutoSupport bundle transfer
     *# proxyURL:*
     periodic:
