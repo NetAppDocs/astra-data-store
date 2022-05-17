@@ -1,7 +1,7 @@
 section: use
 title: Use Astra Data Store
 entries:
-  - title: Manage Astra Data Store assets
+  - title: Manage Astra Data Store resources
     url: /use/kubectl-commands-ads.html
   - title: Deploy a test application
     url: /use/deploy-apps.html
