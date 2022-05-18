@@ -7,7 +7,8 @@ summary: You can manually revoke compromised or expired certificates in Astra Da
 
 = Manage security certificates
 
-You can manage certificates to improve the security of your Astra Data Store cluster.
+Astra Data Store uses Mutual Transport Layer Security (mTLS) encryption between the cluster's software components. Each Astra Data Store cluster has a self-signed root CA certificate (`astrads-cert-root`) and an intermediate CA certificate (`astrads-cert-<cluster_name>`).
+These certificates are managed by the Astra Data Store operator; the operator automatically renews each certificate 7 days before their expiration date. You can also revoke the certificates manually.
 
 ////
 * <<Manage certificates>>
@@ -17,96 +18,36 @@ You can manage certificates to improve the security of your Astra Data Store clu
 You can manage certificates for Astra Data Store.  This enables you to revoke compromised or expired  certificates, or manually rotate certificates to fit the needs of your organization.
 ////
 
-== Revoke a compromised or expired certificate
-If an Astra Data Store cluster controller, node, or CA certificate is compromised or expires, you can revoke it so that a new certificate is generated automatically. You can revoke any Kubernetes certificate at any time.
+== Revoke a certificate
+If an Astra Data Store controller, node, or CA certificate is compromised, you can revoke it by deleting its mTLS secret. When you do this, the Astra Data Store operator automatically issues a new certificate. You can revoke an Astra Data Store certificate at any time.
+
+NOTE: If you revoke a CA certificate, this will revoke any certificates signed by that CA.
 
 .Steps
-. Log in to one of the nodes in the Astra Data Store cluster.
+. Log in to the controller node in the Astra Data Store cluster.
 . List the existing certificates on the system. For example:
 +
 ----
-kubectl get secret
+kubectl get secrets -n astrads-system | grep astrads-cert
 ----
 +
 The output should be similar to the following:
 +
 ----
-NAME                                   TYPE                             DATA   AGE
-astrads-autosupport-certs              Opaque                           5      16m
-astrads-cert-cluster-0008e44           kubernetes.io/tls                4      15m
-astrads-cert-cluster-controller        kubernetes.io/tls                4      15m
-astrads-cert-node-prod-org             kubernetes.io/tls                4      15m
+astrads-cert-astrads-cluster-controller                   kubernetes.io/tls     4      6d6h
+astrads-cert-astrads-cluster-f23d158                      kubernetes.io/tls     4      6d6h
+astrads-cert-astrads-ds-dms-astrads-cluster-f23d158       kubernetes.io/tls     4      6d6h
+astrads-cert-astrads-ds-support-astrads-cluster-f23d158   kubernetes.io/tls     4      6d6h
+astrads-cert-astrads-support-astrads-cluster-f23d158      kubernetes.io/tls     4      6d6h
+astrads-cert-root                                         kubernetes.io/tls     4      6d6h
+astrads-cert-sti-net-com                                  kubernetes.io/tls     5      6d6h
 ----
 . In the output, note the name of the certificate you need to revoke.
 . Use the `kubectl` utility to revoke the certificate, replacing `CERTIFICATE_NAME` with the name of the certificate. For example:
 +
 ----
-kubectl delete secret CERTIFICATE_NAME
+kubectl delete secret CERTIFICATE_NAME -n astrads-system
 ----
 
 .Result
 The existing certificate is revoked, and a new certificate is automatically generated in its place.
-
-////
-
-=== Revoke a controller certificate
-If the cluster controller certificate is compromised, you can revoke it so that a new certificate is generated automatically for the controller.
-
-.Steps
-. Log in to the controller node of the Astra Data Store cluster.
-. List the existing certificates on the system. For example:
-+
-----
-kubectl get secret
-----
-+
-The output should be similar to the following:
-+
-----
-NAME                                   TYPE                             DATA   AGE
-astrads-autosupport-certs              Opaque                           5      16m
-astrads-cert-cluster-0008e44           kubernetes.io/tls                4      15m
-astrads-cert-cluster-controller        kubernetes.io/tls                4      15m
-astrads-cert-node-prod-org             kubernetes.io/tls                4      15m
-----
-. Note the controller certificate in the output.
-. Revoke the controller certificate. For example:
-+
-----
-kubectl delete secret astrads-cert-cluster-controller
-----
-
-.Result
-The existing controller certificate is revoked, and a new controller certificate is generated automatically.
-
-=== Revoke a node certificate
-If a node certificate is compromised, you can revoke it so that a new certificate is generated automatically for the node.
-
-.Steps
-. Log in to a node of the Astra Data Store cluster.
-. List the existing certificates on the system. For example:
-+
-----
-kubectl get secret
-----
-+
-The output should be similar to the following:
-+
-----
-NAME                                   TYPE                             DATA   AGE
-astrads-autosupport-certs              Opaque                           5      16m
-astrads-cert-cluster-0008e44           kubernetes.io/tls                4      15m
-astrads-cert-cluster-controller        kubernetes.io/tls                4      15m
-astrads-cert-node-prod-org             kubernetes.io/tls                4      15m
-----
-. Note the node certificate in the output.
-. Revoke the node certificate. For example:
-+
-----
-kubectl delete secret astrads-cert-node-prod-org
-----
-
-.Result
-The existing node certificate is revoked, and a new node certificate is generated automatically.
-
-////
