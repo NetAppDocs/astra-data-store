@@ -491,7 +491,7 @@ NOTE: Cluster and storage networks need to be on the same interface. The Astra D
 * For `proxyURL`, set the URL of the proxy with the port that will be used for AutoSupport bundle transfer.
 
 +
-NOTE: Most comments have been removed from the YAML sample below.
+NOTE: For brevity, many comments have been removed from the YAML sample below.
 
 +
 [subs=+quotes]
@@ -504,7 +504,7 @@ kind: AstraDSCluster
 *spec:*
   *adsNodeConfig:*
     *cpu: 9*
-    *memory: 34*
+    *memory: 38*
   # [Optional] Specify node selector labels to select the nodes for creating ADS cluster
   # adsNodeSelector:
   #   matchLabels:

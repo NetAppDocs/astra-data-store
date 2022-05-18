@@ -9,8 +9,7 @@ summary: You can manually revoke compromised or expired certificates in Astra Da
 
 You can use one or more external key management servers to secure the keys that the cluster uses to access encrypted data. An external key management server is a third-party system in your storage environment that serves keys to nodes using the Key Management Interoperability Protocol (KMIP).
 
-
-Astra Data Store supports Software Encryption at Rest (SEAR) by default on the Astra Data Store cluster.
+Astra Data Store supports Software Encryption at Rest (SEAR) by default on the Astra Data Store cluster with an internal key provider.
 
 Managing keys involves the following custom resource definitions (CRDs):
 
@@ -23,8 +22,6 @@ You can perform the following tasks related to external key management:
 * <<Check the software encryption at rest status>>
 * <<Change external to internal key management>>
 * <<Rotate keys for security>>
-
-
 
 == Set up external key management
 
@@ -41,7 +38,7 @@ NOTE: You'll prepare the SSL certificate on the cluster or KMIP server that allo
 
 . Log in to one of the nodes in the Astra Data Store cluster.
 
-. Configure the key provider for the Astra Data Store cluster by entering the following kubectl extension CR:
+. Configure the key provider for the Astra Data Store cluster by entering the following kubectl extension command:
 +
 ----
 kubectl-astrads key-provider certs --key key.pem
