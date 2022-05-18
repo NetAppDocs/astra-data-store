@@ -28,6 +28,8 @@ You can manage the cluster by using kubectl commands with Astra Data Store.
 
 The node that you are adding should be part of the Kubernetes cluster and should have a configuration that is similar to the other nodes in the cluster.
 
+NOTE: To add a node using Astra Control Center, see https://docs.netapp.com/us-en/astra-control-center/use/manage-backend.html[Add nodes to a storage backend cluster^].
+
 .Steps
 .	If the new node’s dataIP is not already part of the ADSCluster CR, do the following:
 .. Edit the astradscluster CR and add the additional dataIP in the ADS Data Networks Addresses field:
