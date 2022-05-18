@@ -40,14 +40,12 @@ homepage:
           url: /get-started/setup-ads.html
     - title: Use Astra Data Store
       links:
-        - title: Manage with kubectl commands
+        - title: Manage Astra Data Store resources 
           url: /use/kubectl-commands-ads.html
         - title: Monitor metrics with Cloud Insights
           url: /use/monitor-with-cloud-insights.html
         - title: Monitor event logs
           url: /use/configure-endpoints.html
-        - title: Astra Control Center integration
-          url: /use/ads-acc-ui.html
     - title: Demos & tutorials
       links:
         - title: Future of Kubernetes
