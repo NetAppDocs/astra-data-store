@@ -234,15 +234,22 @@ Add drive maximum size: 66.7 GiB
 Add drive minimum size: 100.0 GiB
 No suitable drives to add exist.
 ----
-. Add the available drives to the respective nodes. In this example, replace the information in capital letters with the appropriate values for your environment:
+. Do one of the following:
+* If all available drives have the same name, you can add them to the respective nodes simultaneously. In this example, replace the information in capital letters with the appropriate values for your environment:
 +
 [source,sh]
 ----
-kubectl astrads drives adddrive create --cluster=CLUSTER_NAME --name REQUEST_NAME --all
+kubectl astrads drives adddrive create --cluster=CLUSTER_NAME --name REQUEST_NAME --drivesbyname all=DRIVE_NAME
+----
+* If the drives are named differently, you can add them to the respective nodes one at a time (you'll need to repeat this step for each drive you need to add). In this example, replace the information in capital letters with the appropriate values for your environment:
++
+[source,sh]
+----
+kubectl astrads drives adddrive create --cluster=CLUSTER_NAME --name REQUEST_NAME --drivesbyname NODE_NAME=DRIVE_NAME
 ----
 
 .Result
-Astra Data Store creates a request to add all available drives, and a message appears with the result of the request.
+Astra Data Store creates a request to add the drive or drives, and a message appears with the result of the request.
 
 == Replace a node
 
