@@ -165,13 +165,70 @@ kubectl astrads maintenance list
 
 Use kubectl commands with Astra Data Store to add drives to a node in a cluster.
 
+.What you'll need
+
+* One or more drives that you have already added to an Astra Data Store node, which meet the following criteria:
+** Less than
+** No partition table
+** etc
+
 .Steps
 
-. Rescan the nodes for available drives:
+. Describe the cluster:
 +
 ----
-kubectl astrads drives
+kubectl astrads clusters list
 ----
++
+Response:
++
+----
+CLUSTER NAME                    CLUSTER STATUS  NODE COUNT
+cluster-multinodes-21209        created         4
+----
+. Note the cluster name.
+. Show the drives that are available to add to all nodes in the cluster. In this example, replace CLUSTER_NAME with the name of your cluster:
++
+----
+kubectl astrads drives adddrive show-available --cluster=CLUSTER_NAME
+----
++
+Response:
++
+----
+Node: node1.name
+Add drive maximum size: 100.0 GiB
+Add drive minimum size: 100.0 GiB
+NAME IDPATH SERIAL PARTITIONCOUNT SIZE ALREADYINCLUSTER
+sdg /dev/disk/by-id/scsi-3c290e16d52479a9af5eac c290e16d52479a9af5eac 0 100 GiB false
+sdh /dev/disk/by-id/scsi-3c2935798df68355dee0be c2935798df68355dee0be 0 100 GiB false
+
+Node: node2.name
+Add drive maximum size: 66.7 GiB
+Add drive minimum size: 100.0 GiB
+No suitable drives to add exist.
+
+Node: node3.name
+Add drive maximum size: 100.0 GiB
+Add drive minimum size: 100.0 GiB
+NAME IDPATH SERIAL PARTITIONCOUNT SIZE ALREADYINCLUSTER
+sdg /dev/disk/by-id/scsi-3c29ee82992ed7a36fc942 c29ee82992ed7a36fc942 0 100 GiB false
+sdh /dev/disk/by-id/scsi-3c29312aa362469fb3da9c c29312aa362469fb3da9c 0 100 GiB false
+
+Node: node4.name
+Add drive maximum size: 66.7 GiB
+Add drive minimum size: 100.0 GiB
+No suitable drives to add exist.
+----
+. Add the available drives to the respective nodes. In this example, replace the information in capital letters with the appropriate values for your environment:
++
+----
+kubectl astrads drives adddrive create --cluster=CLUSTER_NAME --name REQUEST_NAME --all
+----
+
+.Result
+Astra Data Store creates a request to add all available drives, and a message appears with the result of the request.
+
 
 
 == Replace a node
@@ -179,6 +236,9 @@ kubectl astrads drives
 Use kubectl commands with Astra Data Store to replace a failed node in a cluster.
 
 .Steps
+
+// List all available drives to add
+// Add the drives
 
 . List all the nodes:
 +
