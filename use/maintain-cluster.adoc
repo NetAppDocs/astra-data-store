@@ -1,4 +1,4 @@
----
+R---
 sidebar: sidebar
 permalink: use/maintain-cluster.html
 keywords: astra, astra data store, kubectl
@@ -33,11 +33,11 @@ NOTE: To add a node using Astra Control Center, see https://docs.netapp.com/us-e
 
 .Steps
 .	If the new node’s dataIP is not already part of the ADSCluster CR, do the following:
-.. Edit the astradscluster CR and add the additional dataIP in the ADS Data Networks Addresses field:
+.. Edit the astradscluster CR and add the additional dataIP in the ADS Data Networks Addresses field. Replace the information in capital letters with the appropriate values for your environment:
 +
 [source,sh]
 ----
-kubectl edit astradscluster <cluster-name> -n astrads-system
+kubectl edit astradscluster CLUSTER_NAME -n astrads-system
 ----
 +
 Response:
@@ -48,18 +48,18 @@ adsDataNetworks:
 ----
 
 .. Save the CR.
-.. Add the node to the Astra Data Store cluster:
+.. Add the node to the Astra Data Store cluster. Replace the information in capital letters with the appropriate values for your environment:
 +
 [source,sh]
 ----
-kubectl astrads nodes add --cluster <cluster-name>
+kubectl astrads nodes add --cluster CLUSTER_NAME
 ----
 
-.	Otherwise, just add the nodes:
+.	Otherwise, just add the nodes. Replace the information in capital letters with the appropriate values for your environment:
 +
 [source,sh]
 ----
-kubectl astrads nodes add --cluster <cluster-name>
+kubectl astrads nodes add --cluster CLUSTER_NAME
 ----
 
 . Verify that the node has been added:
@@ -111,7 +111,7 @@ Response (there are no nodes already in maintenance mode):
 NAME    NODE NAME  IN MAINTENANCE  MAINTENANCE STATE       MAINTENANCE VARIANT
 ----
 
-. Enable maintenance mode. In this example, replace the information in capital letters with the appropriate values for your environment:
+. Enable maintenance mode. Replace the information in capital letters with the appropriate values for your environment:
 +
 [source,sh]
 ----
@@ -130,7 +130,7 @@ Response:
 ----
 Maintenance mode astrads-system/maint1 created
 ----
-. List the nodes.
+. List the nodes:
 +
 [source,sh]
 ----
@@ -203,7 +203,7 @@ CLUSTER NAME                    CLUSTER STATUS  NODE COUNT
 cluster-multinodes-21209        created         4
 ----
 . Note the cluster name.
-. Show the drives that are available to add to all nodes in the cluster. In this example, replace CLUSTER_NAME with the name of your cluster:
+. Show the drives that are available to add to all nodes in the cluster. Replace CLUSTER_NAME with the name of your cluster:
 +
 [source,sh]
 ----
@@ -238,13 +238,13 @@ Add drive minimum size: 100.0 GiB
 No suitable drives to add exist.
 ----
 . Do one of the following:
-* If all available drives have the same name, you can add them to the respective nodes simultaneously. In this example, replace the information in capital letters with the appropriate values for your environment:
+* If all available drives have the same name, you can add them to the respective nodes simultaneously. Replace the information in capital letters with the appropriate values for your environment:
 +
 [source,sh]
 ----
 kubectl astrads drives adddrive create --cluster=CLUSTER_NAME --name REQUEST_NAME --drivesbyname all=DRIVE_NAME
 ----
-* If the drives are named differently, you can add them to the respective nodes one at a time (you'll need to repeat this step for each drive you need to add). In this example, replace the information in capital letters with the appropriate values for your environment:
+* If the drives are named differently, you can add them to the respective nodes one at a time (you'll need to repeat this step for each drive you need to add). Replace the information in capital letters with the appropriate values for your environment:
 +
 [source,sh]
 ----
@@ -289,7 +289,7 @@ CLUSTER NAME               CLUSTER STATUS  NODE COUNT
 cluster-multinodes-21209   created         4
 ----
 
-. Mark the node for removal. In this example, replace the information in capital letters with the appropriate values for your environment:
+. Mark the node for removal. Replace the information in capital letters with the appropriate values for your environment:
 +
 [source,sh]
 ----
@@ -302,7 +302,7 @@ Response:
 CLUSTER NAME               CLUSTER STATUS  NODE COUNT
 cluster-multinodes-21209   created         4
 ----
-. Uninstall Astra Data Store from the node. In this example, replace the information in capital letters with the appropriate values for your environment:
+. Uninstall Astra Data Store from the node. Replace the information in capital letters with the appropriate values for your environment:
 +
 [source,sh]
 ----
@@ -338,7 +338,7 @@ Use kubectl commands with Astra Data Store to replace a failed node in a cluster
 
 . Remove the node from Astra Data Store.  See <<Remove a node>>.
 
-. Add a node to the cluster for replacement by using a text editor to modify the cluster CR. In this example, the node count increments to 4.
+. Add a node to the cluster for replacement by using a text editor to modify the cluster CR. In this example, the node count increments to 4:
 +
 ----
 rvi manifests/astradscluster.yaml
@@ -366,7 +366,7 @@ Response:
 ----
 astradscluster.astrads.netapp.io/cluster-multinodes-21209 configured
 ----
-.  Verify that new node is picked up for addition:
+. Verify that new node is picked up for addition:
 +
 [source,sh]
 ----
