@@ -34,7 +34,7 @@ NOTE: To add a node using Astra Control Center, see https://docs.netapp.com/us-e
 .	If the new node’s dataIP is not already part of the Astra Data Store cluster CR, do the following:
 .. Edit the cluster CR and add the additional dataIP in the `adsDataNetworks` *addresses* field. Replace the information in capital letters with the appropriate values for your environment:
 +
-[source]
+[source,kubectl]
 ----
 kubectl edit astradscluster CLUSTER_NAME -n astrads-system
 ----
@@ -49,14 +49,14 @@ adsDataNetworks:
 .. Save the CR.
 .. Add the node to the Astra Data Store cluster. Replace the information in capital letters with the appropriate values for your environment:
 +
-[source]
+[source,kubectl]
 ----
 kubectl astrads nodes add --cluster CLUSTER_NAME
 ----
 
 .	Otherwise, just add the nodes. Replace the information in capital letters with the appropriate values for your environment:
 +
-[source]
+[source,kubectl]
 ----
 kubectl astrads nodes add --cluster CLUSTER_NAME
 ----
