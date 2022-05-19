@@ -123,9 +123,13 @@ For example:
 [source,sh]
 ----
 kubectl astrads maintenance create maint1 --node-name="nhcitjj1525" --variant=Node
+----
++
+Response:
++
+----
 Maintenance mode astrads-system/maint1 created
 ----
-
 . List the nodes.
 +
 [source,sh]
