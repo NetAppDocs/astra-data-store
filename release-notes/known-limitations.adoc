@@ -37,6 +37,7 @@ The following workflows are not supported:
 * vVol replication
 
 The following functionality is not supported:
+
 * First Class Disks (FCDs)
 * VMware vMotion
 * Multi-vCenter and multi-VASA Provider configurations are not supported. A single VASA Provider per vCenter configuration is supported.

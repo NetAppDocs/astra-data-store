@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar
 permalink: get-started/install-ads.html
-keywords: astra, astra data store, install, deploy, download, openshift, red hat, ocp
-summary: You can install a standalone Astra Data Store for use in a standard Kubernetes environment or deploy it using Astra Control Center if you intend to use Astra Data Store with VMware or manage it using Astra Control. You can also install Astra Data Store on OpenShift.
+keywords: astra data store, install, deploy, openshift, astra control center, rancher, anthos
+summary: You can install a standalone Astra Data Store for use in a standard Kubernetes environment, deploy it using Astra Control Center to use Astra Data Store with VMware or manage it using Astra Control, or install Astra Data Store for use in another supported Kubernetes distribution.
 ---
 
 = Install Astra Data Store
@@ -10,7 +10,7 @@ summary: You can install a standalone Astra Data Store for use in a standard Kub
 :icons: font
 :imagesdir: ../media/get-started/
 
-You can install a standalone Astra Data Store for use in a standard Kubernetes environment, deploy it using Astra Control Center if you intend to use Astra Data Store with VMware or manage it using Astra Control, or install Astra Data Store for use in another supported Kubernetes distribution.
+You can install a standalone Astra Data Store for use in a standard Kubernetes environment, deploy it using Astra Control Center to use Astra Data Store with VMware or manage it using Astra Control, or install Astra Data Store for use in another supported Kubernetes distribution.
 
 == Installation options
 
@@ -19,7 +19,7 @@ You can install a standalone Astra Data Store for use in a standard Kubernetes e
 .Details
 [%collapsible]
 ====
-To install a standalone Astra Data Store, complete the installation steps described in <<Install an Astra Data Store,this procedure>>.
+To install a standalone Astra Data Store, complete the installation steps described in <<Install Astra Data Store,this procedure>>.
 ====
 // End snippet
 
@@ -37,7 +37,7 @@ To use Astra Data Store with Astra Control Center, complete the installation ste
 .Details
 [%collapsible]
 ====
-To install Astra Data Store with Red Hat OpenShift Container Platform (OCP) environments, complete the installation steps described in <<Install an Astra Data Store,this procedure>>. Additional installation steps for Red Hat OpenShift Container Platform (OCP) environments are also described.
+To install Astra Data Store with Red Hat OpenShift Container Platform (OCP) environments, complete the installation steps described in <<Install Astra Data Store,this procedure>>. Additional installation steps for Red Hat OpenShift Container Platform (OCP) environments are also described.
 ====
 // End snippet
 
@@ -46,7 +46,7 @@ To install Astra Data Store with Red Hat OpenShift Container Platform (OCP) envi
 .Details
 [%collapsible]
 ====
-To install Astra Data Store with Rancher environments, complete the installation steps described in <<Install an Astra Data Store,this procedure>>, substituting Rancher commands for kubectl commands.
+To install Astra Data Store with Rancher environments, complete the installation steps described in <<Install Astra Data Store,this procedure>>, substituting Rancher commands for kubectl commands.
 ====
 // End snippet
 
@@ -55,7 +55,7 @@ To install Astra Data Store with Rancher environments, complete the installation
 .Details
 [%collapsible]
 ====
-To install Astra Data Store with Anthos, complete the installation steps described in <<Install an Astra Data Store,this procedure>> and add the Astra Data Store cluster to your Anthos environment.
+To install Astra Data Store with Anthos, complete the installation steps described in <<Install Astra Data Store,this procedure>> and add the Astra Data Store cluster to your Anthos environment.
 
 NOTE: For Anthos, Astra Data Store requires portmap chaining to be configured. You can enable portmap chaining mode using a Helm Cilium install by following the instructions in https://docs.cilium.io/en/v1.9/gettingstarted/cni-chaining-portmap/[Cilium documentation]. You can alternatively add `cni-chaining-mode: portmap` to the `cilium-config` configMap and restart Cilium pods to enable portmap chaining.
 
@@ -64,12 +64,12 @@ NOTE: For Anthos, Astra Data Store requires portmap chaining to be configured. Y
 == What you'll need
 
 * link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
-* Access to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^]. https://www.netapp.com/cloud-services/astra/data-store-form/[Register^] for an evaluation if you don’t already have a full-access NetApp Support Site account.
+* Access to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^]. https://www.netapp.com/cloud-services/astra/data-store-form/[Register^] for an evaluation download if you don’t already have a full-access NetApp Support Site account.
 * A link:../get-started/requirements.html#licensing[NetApp license file (NLF)] for Astra Data Store. Instructions to download the license will be sent to you after you https://www.netapp.com/cloud-services/astra/data-store-form[sign up^].
 * An active kubeconfig with cluster admin rights for the active context.
 * An understanding of link:../get-started/faq-ads.html#installation-and-use-of-astra-data-store-on-a-kubernetes-cluster[the roles and privileges] used by Astra Data Store.
 
-== Install an Astra Data Store
+== Install Astra Data Store
 
 video::jz6EuryqYps[youtube]
 
@@ -124,7 +124,7 @@ TIP: Use the `which kubectl` command to find the path where kubectl binaries are
 cp -p .astrads/bin/kubectl-astrads /usr/bin/.
 ----
 
-. Verify the binary version is 22.5.0-X:
+. Verify the binary version is 22.5.0-6360946:
 +
 ----
 kubectl-astrads version
@@ -381,7 +381,6 @@ astrads/manifests/astradsoperator.yaml
 astrads/manifests/vasa_asup_certs.yaml
 astrads/manifests/manifest.yaml
 astrads/manifests/configuration.yaml
-astrads/manifests/manifest.yaml
 ----
 
 . Deploy the operator using kubectl apply:
