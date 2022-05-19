@@ -1,4 +1,4 @@
-R---
+---
 sidebar: sidebar
 permalink: use/maintain-cluster.html
 keywords: astra, astra data store, kubectl
@@ -23,7 +23,6 @@ You can manage the cluster by using kubectl commands with Astra Data Store.
 .What you'll need
 
 * System with kubectl and kubectl-astrads plugin installed. See link:../get-started/install-ads.html[Install Astra Data Store].
-
 
 == Add a node
 
