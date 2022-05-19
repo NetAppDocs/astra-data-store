@@ -32,8 +32,8 @@ The node that you are adding should be part of the Kubernetes cluster and should
 NOTE: To add a node using Astra Control Center, see https://docs.netapp.com/us-en/astra-control-center/use/manage-backend.html[Add nodes to a storage backend cluster^].
 
 .Steps
-.	If the new node’s dataIP is not already part of the cluster CR, do the following:
-.. Edit the astradscluster CR and add the additional dataIP in the `adsDataNetworks` *addresses* field. Replace the information in capital letters with the appropriate values for your environment:
+.	If the new node’s dataIP is not already part of the Astra Data Store cluster CR, do the following:
+.. Edit the cluster CR and add the additional dataIP in the `adsDataNetworks` *addresses* field. Replace the information in capital letters with the appropriate values for your environment:
 +
 [source,sh]
 ----
