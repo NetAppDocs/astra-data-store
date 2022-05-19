@@ -15,6 +15,7 @@ You can manage the cluster by using kubectl commands with Astra Data Store.
 * <<Add a node>>
 * <<Place a node in maintenance mode>>
 * <<Add drives to a node>>
+* <<Remove a node>>
 * <<Replace a node>>
 * <<Replace a drive>>
 
@@ -251,12 +252,91 @@ kubectl astrads drives adddrive create --cluster=CLUSTER_NAME --name REQUEST_NAM
 .Result
 Astra Data Store creates a request to add the drive or drives, and a message appears with the result of the request.
 
+== Remove a node
+Use kubectl commands with Astra Data Store to remove a node in a cluster.
+
+.Steps
+
+. List all the nodes:
++
+[source,sh]
+----
+kubectl astrads nodes list
+----
++
+Response:
++
+----
+NODE NAME           NODE STATUS    CLUSTER NAME
+sti-rx2540-534d..   Added       cluster-multinodes-21209
+sti-rx2540-535d...  Added       cluster-multinodes-21209
+...
+----
+
+. Describe the cluster:
++
+[source,sh]
+----
+kubectl astrads clusters list
+----
++
+Response:
++
+----
+CLUSTER NAME               CLUSTER STATUS  NODE COUNT
+cluster-multinodes-21209   created         4
+----
+
+. Mark the node for removal. In this example, replace the information in capital letters with the appropriate values for your environment:
++
+[source,sh]
+----
+kubectl astrads nodes remove NODE_NAME
+----
++
+Response:
++
+----
+CLUSTER NAME               CLUSTER STATUS  NODE COUNT
+cluster-multinodes-21209   created         4
+----
+. Uninstall Astra Data Store from the node. In this example, replace the information in capital letters with the appropriate values for your environment:
++
+[source,sh]
+----
+kubectl astrads nodes uninstall NODE_NAME --cleanup
+----
+. Verify the node is removed from the cluster:
++
+[source,sh]
+----
+kubectl get nodes --show-labels
+----
++
+Response:
++
+----
+
+NAME                  STATUS   ROLES               AGE   VERSION   LABELS
+sti-astramaster-237   Ready control-plane,master   24h   v1.20.0
+sti-rx2540-532d       Ready  <none>                24h   v1.20.0
+sti-rx2540-533d       Ready  <none>                24h
+----
+
+
+//.Result
+//The node is removed from Astra Data Store.
+
+
 == Replace a node
 
 Use kubectl commands with Astra Data Store to replace a failed node in a cluster.
 
 .Steps
 
+. Remove the node from Astra Data Store.  See <<Remove a node>>.
+
+////
 . List all the nodes:
 +
 [source,sh]
@@ -470,6 +550,7 @@ Kind:         AstraDSCluster
 Metadata:
 ...
 ----
+////
 
 . Add a node to the cluster for replacement by modifying the cluster CR. The node count increments to 4. Verify that new node is picked up for addition.
 +
