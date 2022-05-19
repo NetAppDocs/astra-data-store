@@ -336,6 +336,83 @@ Use kubectl commands with Astra Data Store to replace a failed node in a cluster
 
 . Remove the node from Astra Data Store.  See <<Remove a node>>.
 
+. Add a node to the cluster for replacement by modifying the cluster CR. In this example, the node count increments to 4. Verify that new node is picked up for addition.
++
+----
+rvi manifests/astradscluster.yaml
+cat manifests/astradscluster.yaml
+apiVersion: astrads.netapp.io/v1alpha1
+kind: AstraDSCluster
+metadata:
+  name: cluster-multinodes-21209
+  namespace: astrads-system
+----
++
+[source,sh]
+----
+kubectl apply -f manifests/astradscluster.yaml
+----
++
+Response:
++
+----
+astradscluster.astrads.netapp.io/cluster-multinodes-21209 configured
+----
++
+[source,sh]
+----
+kubectl get pods -n astrads-system
+----
++
+Response:
++
+----
+NAME                                READY   STATUS    RESTARTS   AGE
+astrads-cluster-controller...       1/1     Running   1          24h
+astrads-deployment-support...       3/3     Running   0          24h
+astrads-ds-cluster-multinodes-21209 1/1     Running
+----
++
+[source,sh]
+----
+kubectl astrads nodes list
+----
++
+Response:
++
+----
+NODE NAME                NODE STATUS     CLUSTER NAME
+sti-rx2540-534d...       Added           cluster-multinodes-21209
+sti-rx2540-535d...       Added           cluster-multinodes-21209
+----
++
+[source,sh]
+----
+kubectl astrads clusters list
+----
++
+Response:
++
+----
+CLUSTER NAME                    CLUSTER STATUS  NODE COUNT
+cluster-multinodes-21209        created         4
+----
++
+[source,sh]
+----
+kubectl astrads drives list
+----
++
+Response:
++
+----
+DRIVE NAME    DRIVE ID    DRIVE STATUS   NODE NAME     CLUSTER NAME
+scsi-36000..  c3e197f2... Active         sti-rx2540... cluster-multinodes-21209
+----
+
+
+
+
 ////
 . List all the nodes:
 +
@@ -550,81 +627,9 @@ Kind:         AstraDSCluster
 Metadata:
 ...
 ----
+
 ////
 
-. Add a node to the cluster for replacement by modifying the cluster CR. The node count increments to 4. Verify that new node is picked up for addition.
-+
-----
-rvi manifests/astradscluster.yaml
-cat manifests/astradscluster.yaml
-apiVersion: astrads.netapp.io/v1alpha1
-kind: AstraDSCluster
-metadata:
-  name: cluster-multinodes-21209
-  namespace: astrads-system
-----
-+
-[source,sh]
-----
-kubectl apply -f manifests/astradscluster.yaml
-----
-+
-Response:
-+
-----
-astradscluster.astrads.netapp.io/cluster-multinodes-21209 configured
-----
-+
-[source,sh]
-----
-kubectl get pods -n astrads-system
-----
-+
-Response:
-+
-----
-NAME                                READY   STATUS    RESTARTS   AGE
-astrads-cluster-controller...       1/1     Running   1          24h
-astrads-deployment-support...       3/3     Running   0          24h
-astrads-ds-cluster-multinodes-21209 1/1     Running
-----
-+
-[source,sh]
-----
-kubectl astrads nodes list
-----
-+
-Response:
-+
-----
-NODE NAME                NODE STATUS     CLUSTER NAME
-sti-rx2540-534d...       Added           cluster-multinodes-21209
-sti-rx2540-535d...       Added           cluster-multinodes-21209
-----
-+
-[source,sh]
-----
-kubectl astrads clusters list
-----
-+
-Response:
-+
-----
-CLUSTER NAME                    CLUSTER STATUS  NODE COUNT
-cluster-multinodes-21209        created         4
-----
-+
-[source,sh]
-----
-kubectl astrads drives list
-----
-+
-Response:
-+
-----
-DRIVE NAME    DRIVE ID    DRIVE STATUS   NODE NAME     CLUSTER NAME
-scsi-36000..  c3e197f2... Active         sti-rx2540... cluster-multinodes-21209
-----
 
 
 == Replace a drive
