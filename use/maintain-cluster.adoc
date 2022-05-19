@@ -111,14 +111,14 @@ Response (there are no nodes already in maintenance mode):
 NAME    NODE NAME  IN MAINTENANCE  MAINTENANCE STATE       MAINTENANCE VARIANT
 ----
 
-. Enable maintenance mode.
+. Enable maintenance mode. In this example, replace the information in capital letters with the appropriate values for your environment:
 +
 [source,sh]
 ----
-kubectl astrads maintenance create <cr-name> --node-name=<<node-name>> --variant=Node
+kubectl astrads maintenance create CR_NAME --node-name=NODE_NAME --variant=Node
 ----
 +
-Sample:
+For example:
 +
 [source,sh]
 ----
@@ -154,8 +154,6 @@ Response:
 NAME    NODE NAME       IN MAINTENANCE  MAINTENANCE STATE       MAINTENANCE VARIANT
 node4   nhcitjj1525     true            ReadyForMaintenance     Node
 ----
-
-
 +
 The `In Maintenance` mode starts as `false` and changes to `true`.
 The `Maintenance State` changes from `PreparingForMaintenance` to `ReadyforMaintenance`.
@@ -336,7 +334,7 @@ Use kubectl commands with Astra Data Store to replace a failed node in a cluster
 
 . Remove the node from Astra Data Store.  See <<Remove a node>>.
 
-. Add a node to the cluster for replacement by modifying the cluster CR. In this example, the node count increments to 4. Verify that new node is picked up for addition.
+. Add a node to the cluster for replacement by using a text editor to modify the cluster CR. In this example, the node count increments to 4.
 +
 ----
 rvi manifests/astradscluster.yaml
@@ -346,7 +344,13 @@ kind: AstraDSCluster
 metadata:
   name: cluster-multinodes-21209
   namespace: astrads-system
+spec:
+...
+  # Specify the number of nodes that should be used for creating ADS cluster
+  *adsNodeCount: 4*
+...
 ----
+. Apply the modified cluster CR:
 +
 [source,sh]
 ----
@@ -358,6 +362,22 @@ Response:
 ----
 astradscluster.astrads.netapp.io/cluster-multinodes-21209 configured
 ----
+.  Verify that new node is picked up for addition:
++
+[source,sh]
+----
+kubectl astrads nodes list
+----
++
+Response:
++
+----
+NODE NAME                NODE STATUS     CLUSTER NAME
+sti-rx2540-534d...       Added           cluster-multinodes-21209
+sti-rx2540-535d...       Added           cluster-multinodes-21209
+----
+
+////
 +
 [source,sh]
 ----
@@ -371,19 +391,6 @@ NAME                                READY   STATUS    RESTARTS   AGE
 astrads-cluster-controller...       1/1     Running   1          24h
 astrads-deployment-support...       3/3     Running   0          24h
 astrads-ds-cluster-multinodes-21209 1/1     Running
-----
-+
-[source,sh]
-----
-kubectl astrads nodes list
-----
-+
-Response:
-+
-----
-NODE NAME                NODE STATUS     CLUSTER NAME
-sti-rx2540-534d...       Added           cluster-multinodes-21209
-sti-rx2540-535d...       Added           cluster-multinodes-21209
 ----
 +
 [source,sh]
@@ -409,6 +416,8 @@ Response:
 DRIVE NAME    DRIVE ID    DRIVE STATUS   NODE NAME     CLUSTER NAME
 scsi-36000..  c3e197f2... Active         sti-rx2540... cluster-multinodes-21209
 ----
+
+////
 
 
 
