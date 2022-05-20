@@ -71,7 +71,6 @@ You can use the Astra Data Store `kubectl` extension to upgrade Astra Data Store
 +
 NOTE: If you are looking for instructions for earlier versions of the bundle, see link:../acc-earlier-versions.html[documentation for that the version].
 
-//Need confirmation on tar name.
 . (Optional) Use the following command to verify the signature of the bundle:
 +
 ----
