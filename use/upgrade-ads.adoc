@@ -63,10 +63,89 @@ You can use the Astra Data Store `kubectl` extension to upgrade Astra Data Store
 
 //.What you'll need
 
+=== Download the Astra Data Store bundle and extract the images
+
 .Steps
 
-. Download the Astra Data Store upgrade package from the NetApp Support Site.
-. Extract the upgrade package to a directory on a node in the Astra Data Store cluster.
+. Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store bundle (`2022.05.0_ads.tar`).
++
+NOTE: If you are looking for instructions for earlier versions of the bundle, see link:../acc-earlier-versions.html[documentation for that the version].
+
+//Need confirmation on tar name.
+. (Optional) Use the following command to verify the signature of the bundle:
++
+----
+openssl dgst -sha256 -verify 2022.05.0_ads.pub -signature 2022.05.0_ads.sig 2022.12.01_ads.tar
+----
+
+. Create a directory:
++
+----
+mkdir 2022.05.0_ads
+cd 2022.05.0_ads
+----
+
+. Extract the images:
++
+----
+tar -vxzf <path to tar file>/2022.05.0_ads.tar
+----
++
+NOTE: The images will be extracted to a `astrads/images` directory created within the working directory.
+
+=== Copy the binary and push images to your local registry
+
+.Steps
+
+. Copy the kubectl-astrads binary from the directory you used to extract images to the standard path where k8s kubectl binaries are installed (`/usr/bin/` is used as the path in the example below). kubectl-astrads is a custom kubectl extension that installs and manages Astra Data Store clusters.
++
+TIP: Use the `which kubectl` command to find the path where kubectl binaries are installed.
++
+
+----
+cp -p .astrads/bin/kubectl-astrads /usr/bin/.
+----
+
+. Verify the binary version is 22.5.0-6360946:
++
+----
+kubectl-astrads version
+----
+
+. Add the files in the Astra Data Store image directory to your local registry.
++
+NOTE: See a sample script for the automatic loading of images below.
+
+.. Log in to your registry:
++
+----
+docker login [your_registry_path]
+----
+
+.. Set an environment variable to the registry path where you want to push the Astra Data Store images; for example, `repo.company.com`.
++
+----
+export REGISTRY=repo.company.com/astrads
+----
+
+.. Run the script to load the images into Docker, tag the images, and [[substep_image_local_registry_push]]push the images to your local registry:
++
+----
+for astraImageFile in $(ls astrads/images/*.tar) ; do
+   astraImage=$(docker load --input ${astraImageFile} | sed 's~Loaded image(s): ~~')
+   astraImageShort=`echo $astraImage | sed 's~.*/~~'`
+   docker tag ${astraImage} ${REGISTRY}/${astraImageShort}
+   docker push ${REGISTRY}/${astraImageShort}
+done
+sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./astrads/manifests/*.yaml
+----
+
+=== Perform the upgrade
+
+.Steps
+
+//. Download the Astra Data Store upgrade package from the NetApp Support Site.
+//. Extract the upgrade package to a directory on a node in the Astra Data Store cluster.
 . Export the path to the Astra Data Store `kubectl` extension. For example:
 +
 [source,sh]
@@ -81,7 +160,7 @@ cp /PATH/TO/FILE/astradsoperator.yaml ./
 ----
 . Upgrade the operator. For example:
 +
-[source,sh]
+[source,kubectl]
 ----
 kubectl astrads upgrade ads-operator --repository-url REPOSITORY_URL --operator-yaml astradsoperator.yaml
 ----
@@ -93,7 +172,7 @@ cp /PATH/TO/FILE/astradsversion.yaml ./
 ----
 . Begin the Astra Data Store upgrade:
 +
-[source,sh]
+[source,kubectl]
 ----
 kubectl astrads upgrade ads-version --repository-url REPOSITORY_URL --ads-version-yaml astradsversion.yaml
 ----
@@ -101,7 +180,7 @@ kubectl astrads upgrade ads-version --repository-url REPOSITORY_URL --ads-versio
 A message appears notifying you that the upgrade has started, and will take a few minutes to complete.
 . Check the status of the upgrade process:
 +
-[source,sh]
+[source,kubectl]
 ----
 kubectl describe astradsclusters ASTRA_DATA_STORE_CLUSTER_NAME -n astrads-system
 ----
