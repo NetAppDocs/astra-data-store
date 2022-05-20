@@ -121,7 +121,7 @@ docker login [your_registry_path]
 export REGISTRY=repo.company.com/astrads
 ----
 
-.. Run the following script to load the images into Docker, tag the images, and [[substep_image_local_registry_push]]push the images to your local registry:
+.. Run the following script to load the images into Docker, tag the images, and push the images to your local registry:
 +
 ----
 for astraImageFile in $(ls astrads/images/*.tar) ; do
