@@ -10,7 +10,7 @@ summary: Known limitations identify platforms, devices, or functions that are no
 :icons: font
 :imagesdir: ../media/release-notes/
 
-Known limitations identify platforms, devices, or functions that are not supported by this preview release of the product, or that do not interoperate correctly with it. Review these limitations carefully.
+Known limitations identify platforms, devices, or functions that are not supported by this Early Access Program (EAP) release of the product, or that do not interoperate correctly with it. Review these limitations carefully.
 
 == Astra Data Store 22.05 Early Access Program (EAP) release
 This release includes these limitations.

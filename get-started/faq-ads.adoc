@@ -128,4 +128,4 @@ See link:../get-started/requirements.html[Astra Data Store requirements] and lin
 
 == Upgrading Astra Data Store
 *Can I upgrade from Astra Data Store preview release?*
-No. Astra Data Store 22.04 is not for production workloads and new releases of Astra Data Store software will require a fresh installation.
+Yes. You can upgrade from the Astra Data Store 2021.12.1 patch release.
