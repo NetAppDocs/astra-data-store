@@ -59,7 +59,7 @@ kubectl describe astradsclusters ASTRA_DATA_STORE_CLUSTER_NAME -n astrads-system
 ////
 
 == Upgrade Astra Data Store using kubectl
-You can use the Astra Data Store `kubectl` extension to upgrade Astra Data Store. Replace arguments in capital letters with the appropriate information for your environment.
+You can use the Astra Data Store `kubectl` extension to upgrade Astra Data Store.
 
 //.What you'll need
 
@@ -128,7 +128,7 @@ docker login [your_registry_path]
 export REGISTRY=repo.company.com/astrads
 ----
 
-.. Run the script to load the images into Docker, tag the images, and [[substep_image_local_registry_push]]push the images to your local registry:
+.. Run the following script to load the images into Docker, tag the images, and [[substep_image_local_registry_push]]push the images to your local registry:
 +
 ----
 for astraImageFile in $(ls astrads/images/*.tar) ; do
@@ -146,7 +146,7 @@ sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./astrads/manifests/*.yaml
 
 //. Download the Astra Data Store upgrade package from the NetApp Support Site.
 //. Extract the upgrade package to a directory on a node in the Astra Data Store cluster.
-. Export the path to the Astra Data Store `kubectl` extension. For example:
+. Export the path to the Astra Data Store `kubectl` extension. Replace the file path in capital letters with the appropriate path for your environment. For example:
 +
 [source,sh]
 ----
@@ -158,27 +158,27 @@ export PATH=$PATH:/PATH/TO/PACKAGE/BIN/DIRECTORY/bin
 ----
 cp /PATH/TO/FILE/astradsoperator.yaml ./
 ----
-. Upgrade the operator. For example:
+. Upgrade the operator. Replace arguments in capital letters with the appropriate information for your environment:
 +
 [source,kubectl]
 ----
-kubectl astrads upgrade ads-operator --repository-url REPOSITORY_URL --operator-yaml astradsoperator.yaml
+kubectl-astrads upgrade ads-operator --repository-url REPOSITORY_URL --operator-yaml astradsoperator.yaml
 ----
-. Copy the `astradsversion.yaml` file to the local directory:
-+
-[source,sh]
-----
-cp /PATH/TO/FILE/astradsversion.yaml ./
-----
-. Begin the Astra Data Store upgrade:
+//. Copy the `astradsversion.yaml` file to the local directory:
+//+
+//[source,sh]
+//----
+//cp /PATH/TO/FILE/astradsversion.yaml ./
+//----
+. Begin the Astra Data Store upgrade. Replace arguments in capital letters with the appropriate information for your environment:
 +
 [source,kubectl]
 ----
-kubectl astrads upgrade ads-version --repository-url REPOSITORY_URL --ads-version-yaml astradsversion.yaml
+kubectl-astrads upgrade ads-version --repository-url REPOSITORY_URL --ads-version-yaml ./astrads/manifests/astradsversion.yaml
 ----
 +
 A message appears notifying you that the upgrade has started, and will take a few minutes to complete.
-. Check the status of the upgrade process:
+. Check the status of the upgrade process. Replace arguments in capital letters with the appropriate information for your environment:
 +
 [source,kubectl]
 ----
