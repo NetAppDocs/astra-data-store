@@ -68,8 +68,8 @@ You can use the Astra Data Store `kubectl` extension to upgrade Astra Data Store
 .Steps
 
 . Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store bundle (`2022.05.0_ads.tar`).
-+
-NOTE: If you are looking for instructions for earlier versions of the bundle, see link:../acc-earlier-versions.html[documentation for that the version].
+//+
+//NOTE: If you are looking for instructions for earlier versions of the bundle, see link:../acc-earlier-versions.html[documentation for that the version].
 
 . (Optional) Use the following command to verify the signature of the bundle:
 +
@@ -96,19 +96,13 @@ NOTE: The images will be extracted to a `astrads/images` directory created withi
 
 .Steps
 
-. Copy the kubectl-astrads binary from the directory you used to extract images to the standard path where k8s kubectl binaries are installed (`/usr/bin/` is used as the path in the example below). kubectl-astrads is a custom kubectl extension that installs and manages Astra Data Store clusters.
+. Copy the kubectl-astrads binary from the directory you used to extract images to the standard path where Kubernetes kubectl binaries are installed (`/usr/bin/` is used as the path in the example below). kubectl-astrads is a custom kubectl extension that installs and manages Astra Data Store clusters.
 +
 TIP: Use the `which kubectl` command to find the path where kubectl binaries are installed.
 +
 
 ----
 cp -p .astrads/bin/kubectl-astrads /usr/bin/.
-----
-
-. Verify the binary version is 22.5.0-6360946:
-+
-----
-kubectl-astrads version
 ----
 
 . Add the files in the Astra Data Store image directory to your local registry.
@@ -145,12 +139,13 @@ sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./astrads/manifests/*.yaml
 
 //. Download the Astra Data Store upgrade package from the NetApp Support Site.
 //. Extract the upgrade package to a directory on a node in the Astra Data Store cluster.
-. Export the path to the Astra Data Store `kubectl` extension. Replace the file path in capital letters with the appropriate path for your environment. For example:
-+
-[source,sh]
-----
-export PATH=$PATH:/PATH/TO/PACKAGE/BIN/DIRECTORY/bin
-----
+//. Export the path to the Astra Data Store `kubectl` extension. Replace the file path in capital letters with the appropriate path for your environment. For example:
+//+
+//[source,sh]
+//----
+//export PATH=$PATH:/PATH/TO/PACKAGE/BIN/DIRECTORY/bin
+//----
+
 . Copy the `astradsoperator.yaml` file to the local directory:
 +
 [source,sh]
@@ -177,9 +172,9 @@ kubectl-astrads upgrade ads-version --repository-url REPOSITORY_URL --ads-versio
 ----
 +
 A message appears notifying you that the upgrade has started, and will take a few minutes to complete.
-. Check the status of the upgrade process. Replace arguments in capital letters with the appropriate information for your environment:
-+
-[source,kubectl]
-----
-kubectl describe astradsclusters ASTRA_DATA_STORE_CLUSTER_NAME -n astrads-system
-----
+//. Check the status of the upgrade process. Replace arguments in capital letters with the appropriate information for your environment:
+//+
+//[source,kubectl]
+//----
+//kubectl describe astradsclusters ASTRA_DATA_STORE_CLUSTER_NAME -n astrads-system
+//----
