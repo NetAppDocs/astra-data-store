@@ -56,11 +56,9 @@ To install Astra Data Store with Rancher environments, complete the installation
 [%collapsible]
 ====
 To install Astra Data Store with Anthos, complete the installation steps described in <<Install Astra Data Store,this procedure>> and add the Astra Data Store cluster to your Anthos environment.
-
-NOTE: For Anthos, Astra Data Store requires portmap chaining to be configured. You can enable portmap chaining mode using a Helm Cilium install by following the instructions in https://docs.cilium.io/en/v1.9/gettingstarted/cni-chaining-portmap/[Cilium documentation]. You can alternatively add `cni-chaining-mode: portmap` to the `cilium-config` configMap and restart Cilium pods to enable portmap chaining.
-
 ====
 // End snippet
+
 == What you'll need
 
 * link:requirements.html[Before you begin installation, prepare your environment for Astra Data Store deployment].
