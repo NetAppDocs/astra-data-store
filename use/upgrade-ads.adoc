@@ -11,7 +11,7 @@ summary: You can upgrade Astra Data Store to the latest version.
 :imagesdir: ../media/use/
 
 // DOC-4205
-You can upgrade Astra Data Store to take advantage of the latest features and fixes. You can upgrade Astra Data Store by applying a CR, or by using the Astra Data Store `kubectl` extension.
+You can upgrade Astra Data Store to take advantage of the latest features and fixes. You can upgrade Astra Data Store by using the Astra Data Store `kubectl` extension.
 
 ////
 == Upgrade Astra Data Store using a custom resource file
