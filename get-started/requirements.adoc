@@ -64,6 +64,7 @@ a|
 |38GiB
 |94GiB
 |===
+
 NOTE: For the best write performance, you should configure a dedicated high-endurance, low-latency, low-capacity cache device.
 
 Each worker node has the following additional requirements:
