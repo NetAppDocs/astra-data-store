@@ -10,17 +10,17 @@ summary: You should verify that your environment meets minimum requirements for 
 :icons: font
 :imagesdir: ../media/get-started/
 
-After you verify that your environment meets general link:../get-started/requirements.html[Astra Data Store requirements], you should verify that your environment also meets minimum requirements for VMware components such as the VMware VASA provider and the NetApp Astra Plugin for VMware vCenter.
+After you verify that your environment meets general link:../get-started/requirements.html[Astra Data Store requirements], you should verify that your environment also meets minimum requirements for VMware components such as the VMware VASA provider and the NetApp Astra Plugin for VMware vSphere.
 
-== VMWare VASA provider requirements
+== VMWare vSphere requirements
 Astra Data Store uses the VMWare VASA Provider as an API interface to communicate with storage. Make sure your environment meets the basic https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.storage.doc/GUID-BB4207DB-2DED-4E08-BC6D-DEF6D7357C63.html?hWord=N4IghgNiBcIG5gM5hAXyA[VASA Provider requirements^] as well as the following additional requirements:
 
 * VMware vSphere 7.0 (Update 1 through Update 3 supported)
 * One unassigned IP address for ingress traffic
 * A licensed Astra Data Store cluster running on a Kubernetes cluster
 
-== Astra Plugin for VMware vCenter requirements
-The Astra Plugin for VMware vCenter has the following requirements:
+== NetApp Astra Plugin for VMware vSphere requirements
+The NetApp Astra Plugin for VMware vSphere has the following requirements:
 
 * VMware VASA provider installed and configured
 * VMware vSphere 7.0 (Update 1 through Update 3 supported)
@@ -30,7 +30,7 @@ The Astra Plugin for VMware vCenter has the following requirements:
 //NOTE: Astra Data Store does not support NFSv4.x.
 
 === Supported web browsers
-The Astra Plugin for VMware vCenter supports the latest versions of the following web browsers:
+The NetApp Astra Plugin for VMware vSphere supports the latest versions of the following web browsers:
 
 * Mozilla Firefox
 * Microsoft Edge
