@@ -57,12 +57,12 @@ a|
 |N/A
 
 |Number of vCPUs
-|10
-|10
+|9
+|23
 
 |RAM
-|35GiB
-|35GiB
+|38GiB
+|94GiB
 |===
 NOTE: For the best write performance, you should configure a dedicated high-endurance, low-latency, low-capacity cache device.
 
@@ -117,13 +117,17 @@ Astra Data Store software is validated on the following hardware platforms, soft
 
 //POLARIS-461
 .Storage
-Astra Data Store has been validated with the following drive types:
+Astra Data Store has been validated with SATA, SAS, and NVMe TLC SSDs.
 
+For VM-based deployments, you can use drives presented as virtual disks or passthrough drives.
+
+////
 * *Bare-metal deployments*: Astra Data Store installed on a Kubernetes cluster directly on a Linux cluster without any hypervisor
-** SATA or NVMe TLC SSDs
+**
 * *VM-based deployments*: Astra Data Store installed on a Kubernetes cluster on Linux VMs hosted on an ESXi cluster
 ** SATA, SAS, or NVMe TLC SSD-based datastores
 ** Drives presented as virtual disks or passthrough drives
+////
 
 NOTE: If your host uses SSDs behind a hardware RAID controller, configure the hardware RAID controller to use "passthrough" mode.
 
@@ -223,7 +227,7 @@ NOTE: You should omit the data network gateway field in the cluster Custom Resou
 NOTE: No VLAN tags are used in these configurations.
 
 == Astra Trident
-Astra Data Store requires the application Kubernetes clusters to be running Astra Trident 21.10.1. Astra Data Store can be configured as a link:../get-started/setup-ads.html#set-up-astra-data-store-as-storage-backend[storage backend] with Astra Trident to provision persistent volumes.
+Astra Data Store requires the application Kubernetes clusters to be running Astra Trident 22.01. Astra Data Store can be configured as a link:../get-started/setup-ads.html#set-up-astra-data-store-as-storage-backend[storage backend] with Astra Trident to provision persistent volumes.
 
 == CNI configuration
 
@@ -244,9 +248,11 @@ NOTE: If you use the Calico Container Networking Interface (CNI) networking prov
 //== High availability requirements
 //Astra Data Store requires Element 12.3 or later for high availability to function correctly. High availability makes use of the Element software Protection Domains feature.
 
+////
 //POLARIS-654 and POLARIS-450
 == Persistent volume sharing requirements
 Each Astra Data Store cluster supports using persistent volumes to address the storage needs of any apps installed on that cluster. Kubernetes apps access files using persistent volumes shared over NFSv4.1, which requires the AUTH_SYS authentication method.
+////
 
 //.Requirement
 //* The NFSv4.1 client/server must be installed on Kubernetes clusters.
@@ -334,15 +340,19 @@ The minimum memory requirement per node is 32GB.
 // Core license supported in PI-5 EAP, with associated capacity
 // Core and Capacity license supported in PI-6 and onward - Capacity license adds to default capacity of core license
 == Licensing
-Astra Data Store requires an Astra Data Store evaluation core license for full functionality, which licenses Astra Data Store usage by CPU core count. Astra Data Store supports 1TiB of cluster capacity for each licensed CPU core.
+//Astra Data Store requires an Astra Data Store evaluation core license for full functionality, which licenses Astra Data Store usage by CPU core count. Astra Data Store supports 1TiB of cluster capacity for each licensed CPU core.
+Astra Data Store requires a valid license to enable full functionality.
 
 https://www.netapp.com/cloud-services/astra/data-store-form/[Sign up here^] to obtain the Astra Data Store license. Instructions to download the license will be sent to you after you sign up.
 
+////
 == AutoSupport configuration
 //CB review
 Astra Data Store requires AutoSupport to be enabled and have connectivity to the AutoSupport backend. This may be through direct internet access or proxy configuration.
 
 The link:../get-started/install-ads.html#install-the-astra-data-store-cluster[periodic settings that are used for sending mandatory telemetry AutoSupport bundles] should not be changed. If you disable the sending of periodic AutoSupport bundles, the cluster will be locked down and new volumes cannot be created until periodic settings are enabled again.
+////
+
 
 == What's next
 
