@@ -61,7 +61,7 @@ The Astra Data Store license has a default term of 90 days from the download dat
 == Installation and use of Astra Data Store on a Kubernetes cluster
 
 *Can I install Astra Data Store on a Kubernetes cluster running on bare metal or virtual machines?*
-Yes. Astra Data Store can be installed on a Kubernetes cluster running on bare metal or on VMware vSphere VMs. See link:../get-started/requirements.html[Astra Data Store requirements].
+Yes. Astra Data Store can be installed on a Kubernetes cluster running on bare metal or on vSphere VMs. See link:../get-started/requirements.html[Astra Data Store requirements].
 
 *What are the supported versions of Kubernetes for Astra Data Store?*
 
