@@ -10,7 +10,7 @@ summary: Get started by verifying support for your environment.
 :icons: font
 :imagesdir: ../media/get-started/
 
-Astra Data Store is Kubernetes-native, shared file software-defined storage (SDS) solution for your cloud-native and VMware workloads.
+//Astra Data Store is Kubernetes-native, shared file software-defined storage (SDS) solution for your cloud-native and VMware workloads.
 
 Astra Data Store has the following resource limits during the Early Access Program.
 
