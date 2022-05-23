@@ -13,14 +13,13 @@ summary: You can manage the Astra Data Store using VMware applications.
 
 You can manage the following Astra Data Store components in your vSphere environment and from Astra Control Center:
 
-* <<Manage vCenters>>
-* <<View Astra Data Store license details>>
+* <<Work with managed vCenters>>
 * <<Manage VMs>>
 * <<Manage the storage backend>>
 * <<Manage datastores>>
 
 
-== Manage vCenters
+== Work with managed vCenters
 You can work with the managed vCenters in the following ways:
 
 * <<View vCenter details in Astra Control Center>>
@@ -68,17 +67,6 @@ TIP: Or, select multiple vCenters and click *Unmanage all*.
 . Select *Yes, unmanage vCenter*.
 
 
-== View Astra Data Store license details
-You might want to periodically check the Astra Data Store license details. 
-
-You can check the expiration date, the license number, number of cores allowed, and capacity allowed. 
-
-.Steps
-
-. Access the Astra Plugin for VMware vSphere. 
-. From the left navigation, select *Storage Backends*.  
-. From the Summary tab, click the *License* field to display the details.
-
 
 == Manage VMs
 
@@ -116,7 +104,7 @@ You can manage Astra Data Store in your vSphere environment using native vCenter
 * <<Mount a datastore>>
 * <<Delete a datastore>>
 
-=== Mount a datastore 
+=== Mount a datastore
 
 Using the Astra Plugin for VMware vSphere, you can mount the datastore on one or more additional hosts.
 

@@ -10,9 +10,9 @@ summary: Get started by verifying support for your environment.
 :icons: font
 :imagesdir: ../media/get-started/
 
-Astra Data Store is Kubernetes-native, shared file software-defined storage (SDS) solution for on-premises data centers that helps customers manage their cloud-native applications.
+//Astra Data Store is Kubernetes-native, shared file software-defined storage (SDS) solution for your cloud-native and VMware workloads.
 
-Astra Data Store has the following resource limits.
+Astra Data Store has the following resource limits during the Early Access Program.
 
 //Some of this comes from https://confluence.ngage.netapp.com/display/FIR/Astra+DS+incremental+scale+and+VMware+support
 |===
@@ -28,7 +28,7 @@ Astra Data Store has the following resource limits.
 
 |Total provisioned capacity of persistent volumes per node
 |N/A
-|2TiB
+|46TiB
 
 |Volume size
 |20MiB

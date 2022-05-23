@@ -10,7 +10,9 @@ summary: After you have installed Astra Data Store and addressed some environmen
 :icons: font
 :imagesdir: ../media/get-started/
 
-After you have installed Astra Data Store and addressed some environmental prerequisites, you'll install Astra Trident, configure Kubernetes snapshot capabilities, set up the storage backend, and create a default storage class:
+After you have link:../get-started/install-ads.html#install-a-standalone-astra-data-store[installed a standalone Astra Data Store] and addressed some link:../get-started/requirements.html[environmental prerequisites], you'll install Astra Trident, configure Kubernetes snapshot capabilities, set up the storage backend, and create a default storage class:
+
+NOTE: If you are using Astra Control Center to deploy Astra Data Store, you do not need to follow these steps unless you intend to set up <<Configure Astra Data Store monitoring,additional monitoring options>>.
 
 * <<Install Astra Trident>>
 * <<Install Kubernetes snapshot CRDs and Controller>>
@@ -18,9 +20,10 @@ After you have installed Astra Data Store and addressed some environmental prere
 * <<Create a default Astra Data Store storage class>>
 * <<Configure Astra Data Store monitoring>>
 
+
 == Install Astra Trident
 
-For Astra Data Store, you'll need to install Astra Trident 21.10.1. You can install Astra Trident using one of the following options:
+For Astra Data Store, you'll need to install Astra Trident 21.10.1 or later. You can install Astra Trident using one of the following options:
 
 * https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-tridentctl.html[Install Astra Trident using tridentctl^].
 * https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-operator.html[Install Astra Trident using Trident operator^].
@@ -148,6 +151,9 @@ vi ads_backend.json
 ----
 
 . Configure the JSON file:
++
+NOTE: A sample JSON follows these steps.
+
 .. Change the `"cluster"` value to the cluster name for the Astra Data Store cluster.
 .. Change the `"namespace"` value to the namespace you want to use with volume creation.
 .. Change the `"autoExportPolicy"` value to `true` unless you set up an exportpolicy CR instead for this backend.
@@ -189,23 +195,23 @@ cat kubeconf.json | base64 | tr -d '\n'
     "storage": [
         {
             "labels": {
-                "performance": "gold"
+                "performance": "extreme"
             },
             "defaults": {
-                "qosPolicy": "bronze"
+                "qosPolicy": "gold"
             }
         },
         {
             "labels": {
-                "performance": "silver"
+                "performance": "premium"
             },
             "defaults": {
-                "qosPolicy": "bronze"
+                "qosPolicy": "silver"
             }
         },
         {
             "labels": {
-                "performance": "bronze"
+                "performance": "standard"
             },
             "defaults": {
                 "qosPolicy": "bronze"
@@ -292,7 +298,7 @@ Response:
 +
 ----
 NAME          PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
-trident-csi   csi.trident.netapp.io   Delete          Immediate           true                   6h29m
+ads-silver    csi.trident.netapp.io   Delete          Immediate           true                   6h29m
 ----
 
 . Change to the directory where you downloaded the Trident installer:
@@ -343,7 +349,7 @@ items:
     storage:
     - defaults:
         exportPolicy: ""
-        qosPolicy: bronze
+        qosPolicy: gold
         size: ""
         snapshotDir: ""
         snapshotPolicy: ""
@@ -354,7 +360,7 @@ items:
       zone: ""
     - defaults:
         exportPolicy: ""
-        qosPolicy: bronze
+        qosPolicy: silver
         size: ""
         snapshotDir: ""
         snapshotPolicy: ""
@@ -443,18 +449,23 @@ items:
         snapshots:
           offer: true
       storageClasses:
-      *- trident-csi*
+      *- ads-silver*
       supportedTopologies: null
   volumes: []
 ----
 
+
 == Configure Astra Data Store monitoring
-(Optional) You can configure Astra Data Store for monitoring by another telemetry service. The monitoring operator is recommended if Astra Data Store will not be imported into Astra Control Center. If you are using Astra Control Center for Astra Data Store monitoring, these steps are not required.
+(Optional) You can configure Astra Data Store for monitoring by another telemetry service. This procedure is recommended if you are not using Astra Control Center for Astra Data Store monitoring or if you want to extend monitoring to additional endpoints.
 
-You can install the monitoring operator if your Astra Data Store instance is a standalone deployment and uses Cloud Insights to monitor telemetry or streams logs to a third-party endpoint such as Elastic.
+You can install the monitoring operator if your Astra Data Store instance is a standalone deployment, uses Cloud Insights to monitor telemetry, or streams logs to a third-party endpoint such as Elastic.
 
+NOTE: For Astra Control Center deployments, the monitoring operator is automatically configured. You can skip the first two commands of the following procedure.
+
+.What you'll need
 Before setting up monitoring, you will need an active Astra data store cluster in the `astrads-system` namespace.
 
+.Steps
 . Run this install command:
 +
 ----
@@ -465,4 +476,10 @@ kubectl apply -f ./manifests/monitoring_operator.yaml
 +
 ----
 kubectl astrads monitoring -n netapp-monitoring -r [YOUR REGISTRY] setup
+----
+
+. Configure Astra Data Store to stream EMS logs to an Elastic endpoint:
++
+----
+kubectl astrads monitoring es --port <portname> --host <hostname>
 ----

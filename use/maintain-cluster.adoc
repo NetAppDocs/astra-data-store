@@ -645,8 +645,6 @@ Metadata:
 
 ////
 
-
-
 == Replace a drive
 
 When a drive fails in a cluster, the drive must be replaced as soon as possible to ensure data integrity.
@@ -729,7 +727,7 @@ To list all drives without filtering possible replacement drives, add `--all` to
 +
 [source,kubectl]
 ----
- kubectl astrads faileddrive show-replacements --cluster ard-6e4b4af --name 6000c290
+kubectl astrads faileddrive show-replacements --cluster ard-6e4b4af --name 6000c290
 ----
 +
 Response:
@@ -765,7 +763,7 @@ Current status: {FailedDriveInfo:{InUse:false Present:true Name:scsi-36000c2 Fir
 +
 [source,kubectl]
 ----
- kubectl astrads replacedrive replace --cluster astrads-cluster-f51b10a --name 6000c2927 --replaceWith VALID_SERIAL_NUMBER --force
+kubectl astrads replacedrive replace --cluster astrads-cluster-f51b10a --name 6000c2927 --replaceWith VALID_SERIAL_NUMBER --force
 ----
 
 == For more information

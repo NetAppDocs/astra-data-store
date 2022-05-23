@@ -27,7 +27,7 @@ The Astra Plugin for VMware vCenter has the following requirements:
 * A licensed Astra Data Store cluster running on a Kubernetes cluster
 ** NFSv3 enabled on Astra Data Store cluster
 
-NOTE: Astra Data Store does not support NFSv4.x.
+//NOTE: Astra Data Store does not support NFSv4.x.
 
 === Supported web browsers
 The Astra Plugin for VMware vCenter supports the latest versions of the following web browsers:

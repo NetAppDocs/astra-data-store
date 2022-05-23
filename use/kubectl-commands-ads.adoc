@@ -5,22 +5,23 @@ keywords: astra, astra data store, astra datastore, kubectl
 summary: You can use kubectl commands directly with Astra Data Store.
 ---
 
-= Manage Astra Data Store assets with kubectl commands
+= Manage Astra Data Store resources with kubectl commands
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/get-started/
 
-You can manage Astra Data Store assets by using kubectl commands and by using the Kubernetes API extension.
+You can manage Astra Data Store resources by using kubectl commands and by using the Kubernetes API extension.
 
 
 To learn how to deploy a sample app, see link:../use/deploy-apps.html[Deploy a test application].
 
-For the following cluster maintenance information, see link:../use/maintain-cluster.html[Manage the cluster]:
-
+For cluster maintenance information, see link:../use/maintain-cluster.html[Manage the cluster]:
+////
 * Place a node in maintenance mode
 * Replace a drive
 * Add a node
 * Replace a node
+////
 
 .What you'll need
 
