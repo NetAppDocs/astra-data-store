@@ -179,12 +179,15 @@ kubectl astrads maintenance list
 
 Use kubectl commands with Astra Data Store to add drives to a node in a cluster.
 
+////
 .What you'll need
 
 * One or more drives that you have already added to an Astra Data Store node, which meet the following criteria:
 ** Less than
 ** No partition table
 ** etc
+////
+
 
 .Steps
 
