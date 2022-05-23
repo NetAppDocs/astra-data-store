@@ -17,15 +17,15 @@ Astra Data Store uses the VMWare VASA Provider as an API interface to communicat
 
 * VMware vSphere 7.0 (Update 1 through Update 3 supported)
 * One unassigned IP address for ingress traffic
-* A licensed Astra Data Store cluster running on a Kubernetes cluster
+//* A licensed Astra Data Store cluster running on a Kubernetes cluster
 
 == NetApp Astra Plugin for VMware vSphere requirements
 The NetApp Astra Plugin for VMware vSphere has the following requirements:
 
-* VMware VASA provider installed and configured
-* VMware vSphere 7.0 (Update 1 through Update 3 supported)
+//* VMware VASA provider installed and configured
+//* VMware vSphere 7.0 (Update 1 through Update 3 supported)
 * A licensed Astra Data Store cluster running on a Kubernetes cluster
-** NFSv3 enabled on Astra Data Store cluster
+* NFSv3 enabled on Astra Data Store cluster
 
 //NOTE: Astra Data Store does not support NFSv4.x.
 
