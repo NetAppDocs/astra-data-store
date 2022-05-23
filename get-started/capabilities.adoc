@@ -26,9 +26,9 @@ Astra Data Store has the following resource limits during the Early Access Progr
 |N/A
 |50
 
-|Total provisioned capacity of persistent volumes per node
-|N/A
-|46TiB
+//|Total provisioned capacity of persistent volumes per node
+//|N/A
+//|46TiB
 
 |Volume size
 |20MiB
