@@ -5,7 +5,7 @@ keywords: astra, astra data store, kubectl
 summary: You can maintain the cluster by using kubectl commands with Astra Data Store.
 ---
 
-= Manage the cluster
+= Manage the Astra Data Store cluster
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/use/
