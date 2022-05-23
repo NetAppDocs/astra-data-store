@@ -5,7 +5,7 @@ keywords: astra, astra data store, kubectl
 summary: You can maintain the cluster by using kubectl commands with Astra Data Store.
 ---
 
-= Manage the cluster
+= Manage the Astra Data Store cluster
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/use/
@@ -14,24 +14,29 @@ You can manage the cluster by using kubectl commands with Astra Data Store.
 
 * <<Add a node>>
 * <<Place a node in maintenance mode>>
+* <<Add drives to a node>>
+* <<Remove a node>>
 * <<Replace a node>>
 * <<Replace a drive>>
+
 
 .What you'll need
 
 * System with kubectl and kubectl-astrads plugin installed. See link:../get-started/install-ads.html[Install Astra Data Store].
 
-
 == Add a node
 
 The node that you are adding should be part of the Kubernetes cluster and should have a configuration that is similar to the other nodes in the cluster.
 
+NOTE: To add a node using Astra Control Center, see https://docs.netapp.com/us-en/astra-control-center/use/manage-backend.html[Add nodes to a storage backend cluster^].
+
 .Steps
-.	If the new node’s dataIP is not already part of the ADSCluster CR, do the following:
-.. Edit the astradscluster CR and add the additional dataIP in the ADS Data Networks Addresses field:
+.	If the new node’s dataIP is not already part of the Astra Data Store cluster CR, do the following:
+.. Edit the cluster CR and add the additional dataIP in the `adsDataNetworks` *addresses* field. Replace the information in capital letters with the appropriate values for your environment:
 +
+[source,kubectl]
 ----
-kubectl edit astradscluster <cluster-name> -n astrads-system
+kubectl edit astradscluster CLUSTER_NAME -n astrads-system
 ----
 +
 Response:
@@ -42,20 +47,23 @@ adsDataNetworks:
 ----
 
 .. Save the CR.
-.. Add the node to the Astra Data Store cluster:
+.. Add the node to the Astra Data Store cluster. Replace the information in capital letters with the appropriate values for your environment:
 +
+[source,kubectl]
 ----
-kubectl astrads nodes add --cluster <cluster-name>
+kubectl astrads nodes add --cluster CLUSTER_NAME
 ----
 
-.	Otherwise, just add the nodes:
+.	Otherwise, just add the nodes. Replace the information in capital letters with the appropriate values for your environment:
 +
+[source,kubectl]
 ----
-kubectl astrads nodes add --cluster <cluster-name>
+kubectl astrads nodes add --cluster CLUSTER_NAME
 ----
 
 . Verify that the node has been added:
 +
+[source,kubectl]
 ----
 kubectl astrads nodes list
 ----
@@ -67,12 +75,13 @@ When you need to perform host maintenance or package upgrades, you should place 
 
 NOTE: The node must already be part of the Astra Data Store cluster.
 
-When a node is in maintenance mode, you cannot add a node to the cluster. In this example, we will place node `nhcitjj1525` into mainteance mode.
+When a node is in maintenance mode, you cannot add a node to the cluster. In this example, we will place node `nhcitjj1525` into maintenance mode.
 
 .Steps
 
 . Display the node details:
 +
+[source,kubectl]
 ----
 kubectl get nodes
 ----
@@ -90,6 +99,7 @@ Response:
 
 . Ensure that the node is not already in maintenance mode:
 +
+[source,kubectl]
 ----
 kubectl astrads maintenance list
 ----
@@ -100,21 +110,28 @@ Response (there are no nodes already in maintenance mode):
 NAME    NODE NAME  IN MAINTENANCE  MAINTENANCE STATE       MAINTENANCE VARIANT
 ----
 
-. Enable maintenance mode.
+. Enable maintenance mode. Replace the information in capital letters with the appropriate values for your environment:
 +
+[source,kubectl]
 ----
-kubectl astrads maintenance create <cr-name> --node-name=<<node-name>> --variant=Node
+kubectl astrads maintenance create CR_NAME --node-name=NODE_NAME --variant=Node
 ----
 +
-Sample:
+For example:
 +
+[source,kubectl]
 ----
 kubectl astrads maintenance create maint1 --node-name="nhcitjj1525" --variant=Node
+----
++
+Response:
++
+----
 Maintenance mode astrads-system/maint1 created
 ----
-
-. List the nodes.
+. List the nodes:
 +
+[source,kubectl]
 ----
 kubectl astrads nodes list
 ----
@@ -129,6 +146,7 @@ nhcitjj1525     Added           ftap-astra-012
 
 . Check the status of the maintenance mode:
 +
+[source,kubectl]
 ----
 kubectl astrads maintenance list
 ----
@@ -139,34 +157,113 @@ Response:
 NAME    NODE NAME       IN MAINTENANCE  MAINTENANCE STATE       MAINTENANCE VARIANT
 node4   nhcitjj1525     true            ReadyForMaintenance     Node
 ----
-
-
 +
 The `In Maintenance` mode starts as `false` and changes to `true`.
 The `Maintenance State` changes from `PreparingForMaintenance` to `ReadyforMaintenance`.
 
 . After the node maintenance is complete, disable maintenance mode:
 +
+[source,kubectl]
 ----
 kubectl astrads maintenance update maint1 --node-name="nhcitjj1525" --variant=None
 ----
 
 . Ensure that the node is no longer in maintenance mode:
 +
+[source,kubectl]
 ----
 kubectl astrads maintenance list
 ----
 
+== Add drives to a node
+
+Use kubectl commands with Astra Data Store to add drives to a node in a cluster.
+
+////
+.What you'll need
+
+* One or more drives that you have already added to an Astra Data Store node, which meet the following criteria:
+** Less than
+** No partition table
+** etc
+////
 
 
-== Replace a node
+.Steps
 
-Use kubectl commands with Astra Data Store to replace a failed node in a cluster.
+. Describe the cluster:
++
+[source,kubectl]
+----
+kubectl astrads clusters list
+----
++
+Response:
++
+----
+CLUSTER NAME                    CLUSTER STATUS  NODE COUNT
+cluster-multinodes-21209        created         4
+----
+. Note the cluster name.
+. Show the drives that are available to add to all nodes in the cluster. Replace CLUSTER_NAME with the name of your cluster:
++
+[source,kubectl]
+----
+kubectl astrads drives adddrive show-available --cluster=CLUSTER_NAME
+----
++
+Response:
++
+----
+Node: node1.name
+Add drive maximum size: 100.0 GiB
+Add drive minimum size: 100.0 GiB
+NAME IDPATH SERIAL PARTITIONCOUNT SIZE ALREADYINCLUSTER
+sdg /dev/disk/by-id/scsi-3c290e16d52479a9af5eac c290e16d52479a9af5eac 0 100 GiB false
+sdh /dev/disk/by-id/scsi-3c2935798df68355dee0be c2935798df68355dee0be 0 100 GiB false
+
+Node: node2.name
+Add drive maximum size: 66.7 GiB
+Add drive minimum size: 100.0 GiB
+No suitable drives to add exist.
+
+Node: node3.name
+Add drive maximum size: 100.0 GiB
+Add drive minimum size: 100.0 GiB
+NAME IDPATH SERIAL PARTITIONCOUNT SIZE ALREADYINCLUSTER
+sdg /dev/disk/by-id/scsi-3c29ee82992ed7a36fc942 c29ee82992ed7a36fc942 0 100 GiB false
+sdh /dev/disk/by-id/scsi-3c29312aa362469fb3da9c c29312aa362469fb3da9c 0 100 GiB false
+
+Node: node4.name
+Add drive maximum size: 66.7 GiB
+Add drive minimum size: 100.0 GiB
+No suitable drives to add exist.
+----
+. Do one of the following:
+* If all available drives have the same name, you can add them to the respective nodes simultaneously. Replace the information in capital letters with the appropriate values for your environment:
++
+[source,kubectl]
+----
+kubectl astrads drives adddrive create --cluster=CLUSTER_NAME --name REQUEST_NAME --drivesbyname all=DRIVE_NAME
+----
+* If the drives are named differently, you can add them to the respective nodes one at a time (you'll need to repeat this step for each drive you need to add). Replace the information in capital letters with the appropriate values for your environment:
++
+[source,kubectl]
+----
+kubectl astrads drives adddrive create --cluster=CLUSTER_NAME --name REQUEST_NAME --drivesbyname NODE_NAME=DRIVE_NAME
+----
+
+.Result
+Astra Data Store creates a request to add the drive or drives, and a message appears with the result of the request.
+
+== Remove a node
+Use kubectl commands with Astra Data Store to remove a node in a cluster.
 
 .Steps
 
 . List all the nodes:
 +
+[source,kubectl]
 ----
 kubectl astrads nodes list
 ----
@@ -182,6 +279,175 @@ sti-rx2540-535d...  Added       cluster-multinodes-21209
 
 . Describe the cluster:
 +
+[source,kubectl]
+----
+kubectl astrads clusters list
+----
++
+Response:
++
+----
+CLUSTER NAME               CLUSTER STATUS  NODE COUNT
+cluster-multinodes-21209   created         4
+----
+
+. Mark the node for removal. Replace the information in capital letters with the appropriate values for your environment:
++
+[source,kubectl]
+----
+kubectl astrads nodes remove NODE_NAME
+----
++
+Response:
++
+----
+CLUSTER NAME               CLUSTER STATUS  NODE COUNT
+cluster-multinodes-21209   created         4
+----
+. Uninstall Astra Data Store from the node. Replace the information in capital letters with the appropriate values for your environment:
++
+[source,kubectl]
+----
+kubectl astrads nodes uninstall NODE_NAME --cleanup
+----
+. Verify the node is removed from the cluster:
++
+[source,kubectl]
+----
+kubectl get nodes --show-labels
+----
++
+Response:
++
+----
+
+NAME                  STATUS   ROLES               AGE   VERSION   LABELS
+sti-astramaster-237   Ready control-plane,master   24h   v1.20.0
+sti-rx2540-532d       Ready  <none>                24h   v1.20.0
+sti-rx2540-533d       Ready  <none>                24h
+----
+
+
+//.Result
+//The node is removed from Astra Data Store.
+
+
+== Replace a node
+
+Use kubectl commands with Astra Data Store to replace a failed node in a cluster.
+
+.Steps
+
+. Remove the node from Astra Data Store.  See <<Remove a node>>.
+
+. Add a node to the cluster for replacement by using a text editor to modify the cluster CR. In this example, the node count increments to 4:
++
+----
+rvi manifests/astradscluster.yaml
+cat manifests/astradscluster.yaml
+apiVersion: astrads.netapp.io/v1alpha1
+kind: AstraDSCluster
+metadata:
+  name: cluster-multinodes-21209
+  namespace: astrads-system
+spec:
+...
+  # Specify the number of nodes that should be used for creating ADS cluster
+  *adsNodeCount: 4*
+...
+----
+. Apply the modified cluster CR:
++
+[source,kubectl]
+----
+kubectl apply -f manifests/astradscluster.yaml
+----
++
+Response:
++
+----
+astradscluster.astrads.netapp.io/cluster-multinodes-21209 configured
+----
+. Verify that new node is picked up for addition:
++
+[source,kubectl]
+----
+kubectl astrads nodes list
+----
++
+Response:
++
+----
+NODE NAME                NODE STATUS     CLUSTER NAME
+sti-rx2540-534d...       Added           cluster-multinodes-21209
+sti-rx2540-535d...       Added           cluster-multinodes-21209
+----
+
+////
++
+[source,sh]
+----
+kubectl get pods -n astrads-system
+----
++
+Response:
++
+----
+NAME                                READY   STATUS    RESTARTS   AGE
+astrads-cluster-controller...       1/1     Running   1          24h
+astrads-deployment-support...       3/3     Running   0          24h
+astrads-ds-cluster-multinodes-21209 1/1     Running
+----
++
+[source,sh]
+----
+kubectl astrads clusters list
+----
++
+Response:
++
+----
+CLUSTER NAME                    CLUSTER STATUS  NODE COUNT
+cluster-multinodes-21209        created         4
+----
++
+[source,sh]
+----
+kubectl astrads drives list
+----
++
+Response:
++
+----
+DRIVE NAME    DRIVE ID    DRIVE STATUS   NODE NAME     CLUSTER NAME
+scsi-36000..  c3e197f2... Active         sti-rx2540... cluster-multinodes-21209
+----
+
+////
+
+
+
+
+////
+. List all the nodes:
++
+[source,sh]
+----
+kubectl astrads nodes list
+----
++
+Response:
++
+----
+NODE NAME           NODE STATUS    CLUSTER NAME
+sti-rx2540-534d..   Added       cluster-multinodes-21209
+sti-rx2540-535d...  Added       cluster-multinodes-21209
+...
+----
+
+. Describe the cluster:
++
+[source,sh]
 ----
 kubectl astrads clusters list
 ----
@@ -195,6 +461,7 @@ cluster-multinodes-21209   created         4
 
 . Verify that `Node HA` is marked as `false` on the failed node:
 +
+[source,sh]
 ----
 kubectl describe astradscluster -n astrads-system
 ----
@@ -225,6 +492,7 @@ Status:              Added
 
 . Modify the astradscluster CR to remove the failed node by decrementing the value of `AdsNode Count' to 3:
 +
+[source,sh]
 ----
 cat manifests/astradscluster.yaml
 ----
@@ -317,9 +585,9 @@ spec:
 
 . Verify the node is removed from the cluster:
 +
+[source,sh]
 ----
 kubectl get nodes --show-labels
-
 ----
 +
 Response:
@@ -332,6 +600,7 @@ sti-rx2540-532d       Ready  <none>                24h   v1.20.0
 sti-rx2540-533d       Ready  <none>                24h
 ----
 +
+[source,sh]
 ----
 kubectl astrads nodes list
 ----
@@ -345,6 +614,7 @@ sti-rx2540-535d   Added           cluster-multinodes-21209
 sti-rx2540-536d   Added           cluster-multinodes-21209
 ----
 +
+[source,sh]
 ----
 kubectl get nodes --show-labels
 ----
@@ -357,6 +627,7 @@ sti-astramaster-237 Ready    control-plane,master   24h   v1.20.0   beta.kuberne
 sti-rx2540-532d     Ready    <none>                 24h   v1.20.0   astrads.netapp.io/node-removal
 ----
 +
+[source,sh]
 ----
 kubectl describe astradscluster -n astrads-system
 ----
@@ -372,75 +643,7 @@ Metadata:
 ...
 ----
 
-. Add a node to the cluster for replacement by modifying the cluster CR. The node count increments to 4. Verify that new node is picked up for addition.
-+
-----
-rvi manifests/astradscluster.yaml
-cat manifests/astradscluster.yaml
-apiVersion: astrads.netapp.io/v1alpha1
-kind: AstraDSCluster
-metadata:
-  name: cluster-multinodes-21209
-  namespace: astrads-system
-----
-+
-----
-kubectl apply -f manifests/astradscluster.yaml
-----
-+
-Response:
-+
-----
-astradscluster.astrads.netapp.io/cluster-multinodes-21209 configured
-----
-+
-----
-kubectl get pods -n astrads-system
-----
-+
-Response:
-+
-----
-NAME                                READY   STATUS    RESTARTS   AGE
-astrads-cluster-controller...       1/1     Running   1          24h
-astrads-deployment-support...       3/3     Running   0          24h
-astrads-ds-cluster-multinodes-21209 1/1     Running
-----
-+
-----
-kubectl astrads nodes list
-----
-+
-Response:
-+
-----
-NODE NAME                NODE STATUS     CLUSTER NAME
-sti-rx2540-534d...       Added           cluster-multinodes-21209
-sti-rx2540-535d...       Added           cluster-multinodes-21209
-----
-+
-----
-kubectl astrads clusters list
-----
-+
-Response:
-+
-----
-CLUSTER NAME                    CLUSTER STATUS  NODE COUNT
-cluster-multinodes-21209        created         4
-----
-+
-----
-kubectl astrads drives list
-----
-+
-Response:
-+
-----
-DRIVE NAME    DRIVE ID    DRIVE STATUS   NODE NAME     CLUSTER NAME
-scsi-36000..  c3e197f2... Active         sti-rx2540... cluster-multinodes-21209
-----
-
+////
 
 == Replace a drive
 
@@ -449,8 +652,9 @@ When a drive fails, you will see failed drive information in cluster CR node sta
 
 .Example of cluster showing failed drive in nodeStatuses.driveStatuses
 
+[source,kubectl]
 ----
-$ kubectl get adscl -A -o yaml
+kubectl get adscl -A -o yaml
 ----
 Response:
 ----
@@ -476,8 +680,9 @@ nodeStatuses:
 
 The failed drive CR is created automtically in the cluster with a name corresponding to the UUID of the failed drive.
 
+[source,kubectl]
 ----
-$ kubectl get adsfd -A -o yaml
+kubectl get adsfd -A -o yaml
 ----
 Response:
 ----
@@ -503,6 +708,7 @@ spec:
    state: ReadyToReplace
 ----
 
+[source,kubectl]
 ----
 kubectl astrads faileddrive list --cluster arda-6e4b4af
 ----
@@ -519,6 +725,7 @@ NAME       NODE                             CLUSTER        STATE                
 +
 To list all drives without filtering possible replacement drives, add `--all` to `show-replacements` command.
 +
+[source,kubectl]
 ----
 kubectl astrads faileddrive show-replacements --cluster ard-6e4b4af --name 6000c290
 ----
@@ -532,6 +739,7 @@ sdh   /scsi-36000c29417  45000c  0                false     100GB
 
 . Use the `replace` command to replace the drive with the passed serial number. The command completes the replacement or fails if `--wait` time elapses.
 +
+[source,kubectl]
 ----
 kubectl astrads faileddrive replace --cluster arda-6e4b4af --name 6000c290 --replaceWith 45000c --wait
 Drive replacement completed successfully
@@ -539,6 +747,7 @@ Drive replacement completed successfully
 +
 NOTE: If `kubectl astrads faileddrive replace` is executed using an inappropriate `--replaceWith` serial number, an error appears similar to this:
 +
+[source,kubectl]
 ----
 kubectl astrads replacedrive replace --cluster astrads-cluster-f51b10a --name 6000c2927 --replaceWith BAD_SERIAL_NUMBER
 Drive 6000c2927 replacement started
@@ -552,6 +761,7 @@ Current status: {FailedDriveInfo:{InUse:false Present:true Name:scsi-36000c2 Fir
 . To re-run drive replacement use `--force` with the previous command:
 
 +
+[source,kubectl]
 ----
 kubectl astrads replacedrive replace --cluster astrads-cluster-f51b10a --name 6000c2927 --replaceWith VALID_SERIAL_NUMBER --force
 ----
