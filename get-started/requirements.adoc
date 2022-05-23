@@ -38,13 +38,14 @@ These are the minimum resource requirements for each node in an Astra Data Store
 Astra Data Store software is validated on the following hardware platforms, software, and storage configuration. Visit link:../support/get-help-ads.html[NetApp community support] if your Kubernetes cluster configuration is different.
 
 .Hardware platforms
-//* NetApp H610S
+//* NetApp H610S - not supported as this would void the SF node warranty
 * Dell R640
 * Dell R740
 * HPE DL360
 * HPE DL380
 * Lenovo SR630
 * Lenovo SR650
+// Last two  not validated
 * Lenovo SR635
 * Lenovo SR665
 
