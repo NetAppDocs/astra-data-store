@@ -115,7 +115,8 @@ The Astra Plugin for VMware vSphere Overview page appears in the VMware vSphere 
 TIP: For the user name, you can use alphanumeric characters and the underscore. Do not enter any special characters. The first letter of the user name must begin with an alphabet character.
 
 . Indicate whether you want to deploy a load balancer and enter the IP address, which will be used to access the VASA provider. The IP needs to be an additional routable free IP separate from the node IPs. When the load balancer is enabled, Metallb is deployed in the Astra Data Store Kubernetes cluster and configured to allocate the free IP.
-
++
+NOTE: If you are using a Google Anthos cluster for deployment, choose not to deploy a load balancer as Anthos already runs metallb as a load balancer. The metallb deploy flag should be set to false in VASA provider CR (v1beta1_vasaprovider.yaml).
 +
 If you choose not to deploy a load balancer, it is assumed that the load balancer has already been deployed and configured to allocate IPs for the Kubernetes service of type *Load Balancer*.
 
@@ -129,6 +130,7 @@ TIP: At this point in the deployment, the VASA provider is not yet deployed.
 . Select *Add*.
 +
 This deploys the VASA provider.
+
 
 === Verify the storage backend in the Astra Plugin for VMware vSphere
 

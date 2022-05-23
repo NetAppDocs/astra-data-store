@@ -14,7 +14,7 @@ Astra Data Store is architected for both containerized and virtualized workloads
 
 The Astra Plugin for VMware vSphere offers the following benefits:
 
-* VM granular storage provisioning with full VASA integration
+* VM granular storage provisioning with full vVols and VASA integrations
 * Storage policy-based management integration
 * vCenter plugin for vSphere native management
 
