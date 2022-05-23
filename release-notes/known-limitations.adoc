@@ -10,7 +10,7 @@ summary: Known limitations identify platforms, devices, or functions that are no
 :icons: font
 :imagesdir: ../media/release-notes/
 
-Known limitations identify platforms, devices, or functions that are not supported by this preview release of the product, or that do not interoperate correctly with it. Review these limitations carefully.
+Known limitations identify platforms, devices, or functions that are not supported by this Early Access Program (EAP) release of the product, or that do not interoperate correctly with it. Review these limitations carefully.
 
 == Astra Data Store 22.05 Early Access Program (EAP) release
 This release includes these limitations.
@@ -21,14 +21,14 @@ Astra Data Store EAP supports replacing a failed node but does not support node 
 === Functionality to add or remove drives is not supported
 Astra Data Store EAP supports replacing a failed drive but does not support adding or removing drives to or from an existing cluster.
 
-=== Astra Data Store preview functionality is not validated with firewall enabled
+=== Astra Data Store EAP functionality is not validated with firewall enabled
 Astra Data Store EAP requires host firewalld to be disabled. Enabling firewall using CNI tools like Calico HostEndpoint has not been validated.
-
-=== Upgrade or patch requires a fresh install
-Astra Data Store EAP is not targeted for production workloads.
 
 === Ubuntu-based bare-metal or VM passthrough deployments require NVMe TLC SSDs
 This limitation is not applicable to RHEL, RHCOS, or CentOS-based deployments.
+
+=== Cilium CNI requires portmap chaining with Astra Data Store
+For K8s environments using Cilium in eBPF mode, you can enable portmap chaining mode by adding `cni-chaining-mode: portmap` to the `cilium-config` configMap and restarting Cilium pods.
 
 === VMware integrations limitations
 The following workflows are not supported:

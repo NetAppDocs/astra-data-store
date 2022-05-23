@@ -23,7 +23,7 @@ NOTE: If you are using Astra Control Center to deploy Astra Data Store, you do n
 
 == Install Astra Trident
 
-For Astra Data Store, you'll need to install Astra Trident 21.10.1. You can install Astra Trident using one of the following options:
+For Astra Data Store, you'll need to install Astra Trident 21.10.1 or later. You can install Astra Trident using one of the following options:
 
 * https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-tridentctl.html[Install Astra Trident using tridentctl^].
 * https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-operator.html[Install Astra Trident using Trident operator^].
@@ -151,6 +151,9 @@ vi ads_backend.json
 ----
 
 . Configure the JSON file:
++
+NOTE: A sample JSON follows these steps.
+
 .. Change the `"cluster"` value to the cluster name for the Astra Data Store cluster.
 .. Change the `"namespace"` value to the namespace you want to use with volume creation.
 .. Change the `"autoExportPolicy"` value to `true` unless you set up an exportpolicy CR instead for this backend.
@@ -192,23 +195,23 @@ cat kubeconf.json | base64 | tr -d '\n'
     "storage": [
         {
             "labels": {
-                "performance": "gold"
+                "performance": "extreme"
             },
             "defaults": {
-                "qosPolicy": "bronze"
+                "qosPolicy": "gold"
             }
         },
         {
             "labels": {
-                "performance": "silver"
+                "performance": "premium"
             },
             "defaults": {
-                "qosPolicy": "bronze"
+                "qosPolicy": "silver"
             }
         },
         {
             "labels": {
-                "performance": "bronze"
+                "performance": "standard"
             },
             "defaults": {
                 "qosPolicy": "bronze"
@@ -295,7 +298,7 @@ Response:
 +
 ----
 NAME          PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
-trident-csi   csi.trident.netapp.io   Delete          Immediate           true                   6h29m
+ads-silver    csi.trident.netapp.io   Delete          Immediate           true                   6h29m
 ----
 
 . Change to the directory where you downloaded the Trident installer:
@@ -346,7 +349,7 @@ items:
     storage:
     - defaults:
         exportPolicy: ""
-        qosPolicy: bronze
+        qosPolicy: gold
         size: ""
         snapshotDir: ""
         snapshotPolicy: ""
@@ -357,7 +360,7 @@ items:
       zone: ""
     - defaults:
         exportPolicy: ""
-        qosPolicy: bronze
+        qosPolicy: silver
         size: ""
         snapshotDir: ""
         snapshotPolicy: ""
@@ -446,7 +449,7 @@ items:
         snapshots:
           offer: true
       storageClasses:
-      *- trident-csi*
+      *- ads-silver*
       supportedTopologies: null
   volumes: []
 ----
