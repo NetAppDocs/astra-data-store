@@ -14,7 +14,7 @@ summary: You can manage the Astra Data Store using VMware applications.
 You can manage the following Astra Data Store components in your vSphere environment and from Astra Control Center:
 
 * <<Work with managed vCenters>>
-* <<Manage VMs>>
+* <<Manage VMs from vSphere>>
 * <<Manage the storage backend>>
 * <<Manage datastores>>
 
@@ -68,7 +68,7 @@ TIP: Or, select multiple vCenters and click *Unmanage all*.
 
 
 
-== Manage VMs
+== Manage VMs from vSphere
 
 You can manage VMs associated with Astra Data Store using native vSphere operations.
 

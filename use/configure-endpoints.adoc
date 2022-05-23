@@ -21,13 +21,10 @@ To monitor Event Management System (EMS) logs, you can do the following high lev
 
 If the monitoring option has not been configured on the Astra Data Store cluster CR, you can set it up using `astrads` extensions.
 
-
-
 Enter:
 
 ----
-~% kubectl astrads monitoring setup -n <NAMESPACE OF AGENT INSTALLED>
-   -r <DOCKER REPO TO FIND FLUENT/TELEGRAF ETC IMAGES>
+kubectl astrads monitoring setup -n <NAMESPACE OF AGENT INSTALLED> -r <DOCKER REPO TO FIND FLUENT/TELEGRAF ETC IMAGES>
 ----
 
 where:
@@ -47,7 +44,7 @@ To stream EMS events and other pod logs to a third-party endpoint such as Elasti
 
 Enter:
 ----
-~% kubectl astrads monitoring --host <ELASTIC HOST NAME> --port <ELASTIC HOST PORT> es
+kubectl astrads monitoring --host <ELASTIC HOST NAME> --port <ELASTIC HOST PORT> es
 ----
 
 NOTE: The Elastic host name can be an IP address.

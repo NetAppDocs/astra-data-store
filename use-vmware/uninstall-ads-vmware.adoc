@@ -12,7 +12,7 @@ summary: You can uninstall Astra Data Store and its related components from your
 
 You can uninstall Astra Data Store and its related components from your vSphere environment.
 
-See link:.../use/uninstall-ads.html[these instructions] on uninstalling Astra Data Store.
+See link:../use/uninstall-ads.html[these instructions] on uninstalling Astra Data Store.
 
 == For more information
 

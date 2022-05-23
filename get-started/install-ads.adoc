@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: get-started/install-ads.html
 keywords: astra data store, install, deploy, openshift, astra control center, rancher, anthos
-summary: You can install a standalone Astra Data Store for use in a standard Kubernetes environment, deploy it using Astra Control Center to use Astra Data Store with VMware or manage it using Astra Control, or install Astra Data Store for use in another supported Kubernetes distribution.
+summary: You can install Astra Data Store using Kubernetes-native commands or using the UI in Astra Control Center.
 ---
 
 = Install Astra Data Store
@@ -10,16 +10,16 @@ summary: You can install a standalone Astra Data Store for use in a standard Kub
 :icons: font
 :imagesdir: ../media/get-started/
 
-You can install a standalone Astra Data Store for use in a standard Kubernetes environment, deploy it using Astra Control Center to use Astra Data Store with VMware or manage it using Astra Control, or install Astra Data Store for use in another supported Kubernetes distribution.
+You can install Astra Data Store using Kubernetes-native commands or using the UI in Astra Control Center.
 
 == Installation options
 
-=== As standalone
+=== With Kubernetes-native commands
 // Start snippet: collapsible block (open on page load)
 .Details
 [%collapsible]
 ====
-To install a standalone Astra Data Store, complete the installation steps described in <<Install Astra Data Store,this procedure>>.
+To install Astra Data Store using Kubernetes-native commands, complete the installation steps described in <<Install Astra Data Store,this procedure>>.
 ====
 // End snippet
 
@@ -29,33 +29,6 @@ To install a standalone Astra Data Store, complete the installation steps descri
 [%collapsible]
 ====
 To use Astra Data Store with Astra Control Center, complete the installation steps described in <<Install Astra Data Store using Astra Control Center,this procedure>>.
-====
-// End snippet
-
-=== With Red Hat OpenShift
-// Start snippet: collapsible block (open on page load)
-.Details
-[%collapsible]
-====
-To install Astra Data Store with Red Hat OpenShift Container Platform (OCP) environments, complete the installation steps described in <<Install Astra Data Store,this procedure>>. Additional installation steps for Red Hat OpenShift Container Platform (OCP) environments are also described.
-====
-// End snippet
-
-=== With Rancher RKE
-// Start snippet: collapsible block (open on page load)
-.Details
-[%collapsible]
-====
-To install Astra Data Store with Rancher environments, complete the installation steps described in <<Install Astra Data Store,this procedure>>, substituting Rancher commands for kubectl commands.
-====
-// End snippet
-
-=== With Google Anthos
-// Start snippet: collapsible block (open on page load)
-.Details
-[%collapsible]
-====
-To install Astra Data Store with Anthos, complete the installation steps described in <<Install Astra Data Store,this procedure>> and add the Astra Data Store cluster to your Anthos environment.
 ====
 // End snippet
 
@@ -70,7 +43,7 @@ To install Astra Data Store with Anthos, complete the installation steps describ
 == Install Astra Data Store
 
 //video::jz6EuryqYps[youtube]
-The Astra Data Store installation process for standard Kubernetes clusters guides you through the following high-level steps.
+The Astra Data Store installation process for standard Kubernetes clusters guides you through the following high-level steps. Additional installation steps for Red Hat OpenShift Container Platform (OCP) environments are also described.
 
 * <<Download the Astra Data Store bundle and extract the images>>
 * <<Copy the binary and push images to your local registry>>
@@ -80,6 +53,10 @@ The Astra Data Store installation process for standard Kubernetes clusters guide
 * <<Apply the Astra Data Store license>>
 * <<Install the Astra Data Store cluster>>
 * <<Understand deployment-related events>>
+
+NOTE: To use Astra Data Data Store with Google Anthos, complete these installation steps and add the Astra Data Store cluster to your Anthos environment.
++
+To install Astra Data Store with Rancher RKE environments, complete these installation steps and substitute Rancher commands for kubectl commands.
 
 === Download the Astra Data Store bundle and extract the images
 . Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store bundle (`2022.05.0_ads.tar`).
@@ -705,7 +682,7 @@ To deploy and use Astra Data Store with Astra Control Center, do the following:
 
 == What's next
 
-* *Standalone and third-party distributions*: Complete the Astra Data Store deployment by performing additional link:setup-ads.html[setup tasks].
+* *Kubernetes-native deployments and third-party distributions*: Complete the Astra Data Store deployment by performing additional link:setup-ads.html[setup tasks].
 
 * *Astra Control Center*: If you have used Astra Control Center to deploy Astra Data Store, you do not need to follow these link:../get-started/setup-ads.html#configure-astra-data-store-monitoring[setup tasks] unless you want to configure any additional monitoring options. After you deploy Astra Data Store, you can use Astra Control Center UI to accomplish these tasks:
 
