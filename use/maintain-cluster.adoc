@@ -353,7 +353,7 @@ metadata:
 spec:
 ...
   # Specify the number of nodes that should be used for creating ADS cluster
-  *adsNodeCount: 4*
+  adsNodeCount: 4
 ...
 ----
 . Apply the modified cluster CR:
