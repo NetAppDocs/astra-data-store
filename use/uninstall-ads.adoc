@@ -227,10 +227,10 @@ oc delete -f oc_role_bindings.yaml
 +
 NOTE: Ignore "resources not found" errors in these steps. 
 
-. Remove `/var/lib/kubelet/config.yaml` from all Kubernetes nodes. 
+//. Remove `/var/lib/kubelet/config.yaml` from all Kubernetes nodes. 
 
 === Troubleshoot the Astra Data Store uninstall process
-The Astra Data Store uninstall process in Kubernetes v1.20 can occasionally cause pods to remain in a terminating state.
+The Astra Data Store uninstall process can occasionally cause pods to remain in a terminating state in Kubernetes.
 
 If this issue occurs, run the following command to force delete all pods in the `astrads-system` namespace:
 
@@ -401,7 +401,7 @@ oc delete -f oc_role_bindings.yaml
 +
 NOTE: Ignore "resources not found errors" in these steps. 
 
-. Remove `/var/lib/kubelet/config.yaml` from all Kubernetes nodes. 
+//. Remove `/var/lib/kubelet/config.yaml` from all Kubernetes nodes. 
 
 
 === Manual deletion sample
@@ -488,7 +488,7 @@ ID      PID     STATUS    BUNDLE       CREATED    OWNER
 
 
 === Troubleshoot the Astra Data Store uninstall process
-The Astra Data Store uninstall process in Kubernetes v1.20 can occasionally cause pods to remain in a terminating state.
+The Astra Data Store uninstall process can occasionally cause pods to remain in a terminating state in Kubernetes.
 
 If this issue occurs, run the following command to force delete all pods in the `astrads-system` namespace:
 

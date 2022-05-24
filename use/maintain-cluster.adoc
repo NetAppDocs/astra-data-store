@@ -43,7 +43,7 @@ Response:
 +
 ----
 adsDataNetworks:
-    -addresses:  dataIP1,dataIP2,dataIP3,dataIP4,*newdataIP*
+    -addresses:  dataIP1,dataIP2,dataIP3,dataIP4,NEW_DATA_IP
 ----
 
 .. Save the CR.
@@ -177,17 +177,18 @@ kubectl astrads maintenance list
 
 == Add drives to a node
 
-Use kubectl commands with Astra Data Store to add drives to a node in a cluster.
+Use kubectl commands with Astra Data Store to add physical or virtual drives to a node in an Astra Data Store cluster.
 
-////
 .What you'll need
 
-* One or more drives that you have already added to an Astra Data Store node, which meet the following criteria:
-** Less than
-** No partition table
-** etc
-////
+* One or more drives that meet the following criteria:
+** Already installed in the node (physical drives) or added to the node VM (virtual drives)
+** No partitions on the drive
+** Drive is not currently in use by the cluster
+** Drive raw capacity does not exceed licensed raw capacity in the cluster (For example, with a license granting 2TB of storage per CPU core, a cluster of 10 nodes would have a maximum of 20TB raw drive capacity)
+** Drive is at least the size of other active drives in the node
 
+NOTE: Astra Data Store requires no more than 16 drives per node. If you try to add a 17th drive, the drive add request is denied.
 
 .Steps
 
@@ -277,19 +278,19 @@ sti-rx2540-535d...  Added       cluster-multinodes-21209
 ...
 ----
 
-. Describe the cluster:
-+
-[source,kubectl]
-----
-kubectl astrads clusters list
-----
-+
-Response:
-+
-----
-CLUSTER NAME               CLUSTER STATUS  NODE COUNT
-cluster-multinodes-21209   created         4
-----
+//. Describe the cluster:
+//+
+//[source,kubectl]
+//----
+//kubectl astrads clusters list
+//----
+//+
+//Response:
+//+
+//----
+//CLUSTER NAME               CLUSTER STATUS  NODE COUNT
+//cluster-multinodes-21209   created         4
+//----
 
 . Mark the node for removal. Replace the information in capital letters with the appropriate values for your environment:
 +
@@ -314,7 +315,7 @@ kubectl astrads nodes uninstall NODE_NAME --cleanup
 +
 [source,kubectl]
 ----
-kubectl get nodes --show-labels
+kubectl astrads nodes list
 ----
 +
 Response:
@@ -327,11 +328,10 @@ sti-rx2540-532d       Ready  <none>                24h   v1.20.0
 sti-rx2540-533d       Ready  <none>                24h
 ----
 
+.Result
+The node is removed from Astra Data Store.
 
-//.Result
-//The node is removed from Astra Data Store.
-
-
+////
 == Replace a node
 
 Use kubectl commands with Astra Data Store to replace a failed node in a cluster.
@@ -383,7 +383,7 @@ sti-rx2540-534d...       Added           cluster-multinodes-21209
 sti-rx2540-535d...       Added           cluster-multinodes-21209
 ----
 
-////
+
 +
 [source,sh]
 ----
@@ -423,12 +423,6 @@ DRIVE NAME    DRIVE ID    DRIVE STATUS   NODE NAME     CLUSTER NAME
 scsi-36000..  c3e197f2... Active         sti-rx2540... cluster-multinodes-21209
 ----
 
-////
-
-
-
-
-////
 . List all the nodes:
 +
 [source,sh]
@@ -648,7 +642,7 @@ Metadata:
 == Replace a drive
 
 When a drive fails in a cluster, the drive must be replaced as soon as possible to ensure data integrity.
-When a drive fails, you will see failed drive information in cluster CR node status, cluster health condition information, and the metrics endpoint.
+If a drive fails, you can see information about the failed drive in cluster CR node status, cluster health condition information, and the metrics endpoint. You can use the following example commands to see failed drive information.
 
 .Example of cluster showing failed drive in nodeStatuses.driveStatuses
 
@@ -678,7 +672,7 @@ nodeStatuses:
 
 .Example of new AstraDSFailedDrive CR
 
-The failed drive CR is created automtically in the cluster with a name corresponding to the UUID of the failed drive.
+The failed drive CR is created automatically in the cluster with a name corresponding to the UUID of the failed drive.
 
 [source,kubectl]
 ----

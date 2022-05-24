@@ -9,9 +9,9 @@ summary: You can use one or more external key management servers to secure the k
 
 You can use one or more external key management servers to secure the keys that the cluster uses to access encrypted data. An external key management server is a third-party system in your storage environment that serves keys to nodes using the Key Management Interoperability Protocol (KMIP).
 
-Astra Data Store supports Software Encryption at Rest (SEAR) by default on the Astra Data Store cluster with an internal key provider.
+Astra Data Store supports Software Encryption at Rest (SEAR) on the Astra Data Store cluster with an internal key provider.
 
-NOTE: Astra Data Store includes an internal key provider and is enabled by default when the Astra Data Store cluster is created.
+NOTE: Astra Data Store includes an internal key provider, which is enabled by default when the Astra Data Store cluster is created.
 
 Managing keys involves the following custom resource definitions (CRDs):
 
@@ -61,6 +61,41 @@ kubectl-astrads key-provider certs --key key.pem
 --hostnames=10.235.nnn.nnn hashicorp
 --namespace astrads-system --cluster astrads-cluster-f23d158
 ----
+
+. Configure the Astra Data Store cluster to use an external key manager for SEAR via the AstraDSCluster CR. Display the help.
++
+----
+kubectl-astrads clusters sears -h
+----
++
+Response:
+----
+Configure SEARS in AstraDS cluster
+
+Usage:
+  astrads clusters sears [flags]
+
+Flags:
+  -d, --duration string   Duration for key rotation (default "2160h")
+  -h, --help              help for sears
+
+
+Global Flags:
+      --ads-cluster-name string        Name of the ADS Cluster
+      --ads-cluster-namespace string   Namespace of the ADS Cluster
+      ...
+----
+
+.Example
+The following command configures the Astra Data Store cluster to use `AstraDSKeyProvider hashicorp` as the key manager of SEAR. The command also uses the key rotate time, which has the default value of 90 days (2160 hours).
+
+----
+kubectl-astrads clusters sears -d 500h hashicorp
+--ads-cluster-name=astrads-cluster-f23d158
+--ads-cluster-namespace=astrads-system
+----
+
+
 
 == Check the software encryption at rest status
 You can check the configuration of the software encryption at rest.
