@@ -10,22 +10,13 @@ summary: Known limitations identify platforms, devices, or functions that are no
 :icons: font
 :imagesdir: ../media/release-notes/
 
-Known limitations identify platforms, devices, or functions that are not supported by this Early Access Program (EAP) release of the product, or that do not interoperate correctly with it. Review these limitations carefully.
+Known limitations identify platforms, devices, or functions that are not supported by this Early Access Program (EAP) release of the product or do not interoperate correctly with it.
 
 == Astra Data Store 22.05 Early Access Program (EAP) release
-This release includes these limitations.
-
-=== Functionality to remove one or more nodes is not supported
-Astra Data Store EAP supports replacing a failed node but does not support node removal functionality.
-
-=== Functionality to add or remove drives is not supported
-Astra Data Store EAP supports replacing a failed drive but does not support adding or removing drives to or from an existing cluster.
+This release includes these limitations. Review these limitations carefully.
 
 === Astra Data Store EAP functionality is not validated with firewall enabled
 Astra Data Store EAP requires host firewalld to be disabled. Enabling firewall using CNI tools like Calico HostEndpoint has not been validated.
-
-=== Ubuntu-based bare-metal or VM passthrough deployments require NVMe TLC SSDs
-This limitation is not applicable to RHEL, RHCOS, or CentOS-based deployments.
 
 === Cilium CNI requires portmap chaining with Astra Data Store
 For K8s environments using Cilium in eBPF mode, you can enable portmap chaining mode by adding `cni-chaining-mode: portmap` to the `cilium-config` configMap and restarting Cilium pods.
@@ -33,16 +24,18 @@ For K8s environments using Cilium in eBPF mode, you can enable portmap chaining 
 === VMware integrations limitations
 The following workflows are not supported:
 
-* VM clone
+* VM: Clone, suspend, and snapshot with memory
+* Snapshot and revert of a VM with multiple disks
 * vVol replication
 
 The following functionality is not supported:
 
 * First Class Disks (FCDs)
 * VMware vMotion
+* Compliance alerts and notifications
 * Multi-vCenter and multi-VASA Provider configurations are not supported. A single VASA Provider per vCenter configuration is supported.
 * NFSv4.1 is not supported.
-* A single instance of a pod for all the services is supported.
+* For all services, only a single instance of a pod is supported.
 * Storage policy-based management is applicable only at the VM level and cannot be modified after VM creation.
 
 == Find more information

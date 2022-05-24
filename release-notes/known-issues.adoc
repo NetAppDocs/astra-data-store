@@ -13,15 +13,9 @@ summary: Known issues identify problems that might prevent you from using this r
 Known issues identify problems that might prevent you from using this release of the product successfully.
 
 == Astra Data Store 22.04 release
+This release includes these known issues. Review these known issues carefully.
 
-TBD
-
-== Astra Data Store preview release
-
-=== MongoDB deployment with default liveness probe value fails with pods in crash loop
-As a workaround, set the liveness probe initialDelaySeconds to 600 seconds in the MongoDB deployment spec.
-
-=== Astra Data Store preview uninstallation process might cause pods to remain in a terminating state
+=== Astra Data Store uninstallation process might cause pods to remain in a terminating state
 The Astra Data Store preview uninstall process in Kubernetes v1.20 can occasionally cause pods to remain in a terminating state.
 
 See link:../use/uninstall-ads-manual.html[Uninstall Astra Data Store preview manually without a script] or
