@@ -488,7 +488,7 @@ ID      PID     STATUS    BUNDLE       CREATED    OWNER
 
 
 === Troubleshoot the Astra Data Store uninstall process
-The Astra Data Store uninstall process in Kubernetes v1.20 can occasionally cause pods to remain in a terminating state.
+The Astra Data Store uninstall process can occasionally cause pods to remain in a terminating state in Kubernetes.
 
 If this issue occurs, run the following command to force delete all pods in the `astrads-system` namespace:
 
