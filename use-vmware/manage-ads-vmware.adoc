@@ -23,19 +23,19 @@ You can manage the following Astra Data Store components in your vSphere environ
 You can work with the managed vCenters in the following ways:
 
 * <<View vCenter details in Astra Control Center>>
-* <<View vCenter details in the Astra Plugin for VMware vSphere>>
+* <<View vCenter details in Astra Control Center>>
 * <<Unmanage a vCenter in Astra Control Center>>
 
 === View vCenter details in Astra Control Center
 You can determine all the vCenters associated with a cluster.
 
 .Steps
-. From the Astra Control Center left navigation, click *Clusters*.
+. From the Astra Control Center left navigation, select *Clusters*.
 . View the list of vCenters.
-. Click *Save*.
+. Select *Save*.
 
 
-=== View vCenter details in the Astra Plugin for VMware vSphere
+=== View vCenter details in Astra Control Center
 You might want to view the health of your system and clusters. You can determine how many clusters are managed by looking at the Astra Control Center Dashboard.
 
 //Editing a vCenter enables you to change the server, user name, password, and port.
@@ -43,8 +43,7 @@ You might want to view the health of your system and clusters. You can determine
 //TIP: To edit a vCenter, you must have administrative privileges.
 
 .Steps
-. Log in to Astra Control Center.
-. Select *Clusters*.
+. From the Astra Control Center left navigation, select *Clusters*.
 . Select the vCenter.
 //. Right-click on the *Actions* menu and select *Edit*.
 . View the information.
@@ -60,7 +59,7 @@ NOTE: Clusters, storage backends and VMs associated with this vCenter must be re
 . From the Astra Control Center left navigation, select *Clusters*.
 . From the Clusters page, select the vCenter.
 +
-TIP: Or, select multiple vCenters and click *Unmanage all*.
+TIP: Or, select multiple vCenters and select *Unmanage all*.
 
 . Right-click the *Actions* menu and select *Unmanage*.
 . In the Unmanage vCenter page, type "unmanage".
@@ -90,9 +89,9 @@ If Astra Data Store is not being linked with more than one vCenter, when you rem
 
 .Steps
 
-. Access the NetApp Astra Plugin for VMware vSphere. 
+. Access the Astra Plugin for VMware vSphere. 
 . From the left navigation, select *Storage Backends*. 
-. On the Storage Backends page, click on the storage backend and select *Remove*.
+. On the Storage Backends page, click on the storage backend Actions menu and select *Remove*.
 . Enter the VASA provider user name and password. 
 . Select *Remove*.
 
@@ -111,8 +110,11 @@ Using the Astra Plugin for VMware vSphere, you can mount the datastore on one or
 .Steps
 
 . Select the datastore for Astra Data Store from your data center inventory in vCenter.
-. Right-click the datastore and select *Astra Plugin* > *Mount Datastore*.
+. Right-click the datastore and select *Astra Plugin for VMware vSphere* > *Mount Datastore*.
 . From the Mount datastore on hosts page, select the hosts on which you want to mount the datastore.
++
+TIP: If you want to mount the datastore on all hosts, check *Mount on all hosts*.
+
 . Select *Mount*.
 
 After you initiate the operation, you can follow progress in the Recent Tasks panel in the Astra Plugin for VMware vSphere.

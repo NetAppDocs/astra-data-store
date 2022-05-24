@@ -10,7 +10,7 @@ summary: You can monitor Astra Data Store performance using the vCenter plug-in.
 :icons: font
 :imagesdir: ../media/get-started/
 
-You can use the NetApp Astra Plugin for VMware vSphere to monitor components of your Astra Data Store installation. You can monitor the health of your system including the storage backends, VASA providers, VMs, and vVols. You can also view  capacity threshold alerts and vCenter information.
+You can use the NetApp Astra Plugin for VMware vSphere to monitor components of your Astra Data Store installation. You can monitor the health of your system including the storage backends, VASA providers, VMs, and vVols. You can also view capacity and vCenter information.
 
 
 == Monitor the health of your system using the Astra Plugin for VMware vSphere Dashboard
@@ -19,12 +19,12 @@ Managing your Astra Data Store with VMware environment involves monitoring the o
 Using the NetApp Astra Plugin for VMware vSphere Dashboard, you can see the following information:
 
 * Physical used and available capacity of all storage backends in this vCenter. You can hover over information and see more details.
-* Healthy and unhealthy storage backends and their details
+* Healthy and unhealthy storage backends and VASA providers
 * Latency, IOPS, throughput and capacity utilization for the top 10 VMs.
 
 From the Dashboard, you can perform several additional tasks:
 
-* Monitor capacity threshold alerts
+* Monitor capacity
 * Use an existing storage backend. See link:../use-vmware/setup-ads-vmware.html[Set up storage backends].
 * Access the product documentation
 
