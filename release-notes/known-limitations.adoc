@@ -15,9 +15,6 @@ Known limitations identify platforms, devices, or functions that are not support
 == Astra Data Store 22.05 Early Access Program (EAP) release
 This release includes these limitations. Review these limitations carefully.
 
-=== Astra Data Store EAP functionality is not validated with firewall enabled
-Astra Data Store EAP requires host firewalld to be disabled. Enabling firewall using CNI tools like Calico HostEndpoint has not been validated.
-
 === Cilium CNI requires portmap chaining with Astra Data Store
 For K8s environments using Cilium in eBPF mode, you can enable portmap chaining mode by adding `cni-chaining-mode: portmap` to the `cilium-config` configMap and restarting Cilium pods.
 

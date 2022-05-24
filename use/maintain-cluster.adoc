@@ -177,17 +177,18 @@ kubectl astrads maintenance list
 
 == Add drives to a node
 
-Use kubectl commands with Astra Data Store to add drives to a node in a cluster.
+Use kubectl commands with Astra Data Store to add physical or virtual drives to a node in an Astra Data Store cluster.
 
-////
 .What you'll need
 
-* One or more drives that you have already added to an Astra Data Store node, which meet the following criteria:
-** Less than
-** No partition table
-** etc
-////
+* One or more drives that meet the following criteria:
+** Already installed in the node (physical drives) or added to the node VM (virtual drives)
+** No partitions on the drive
+** Drive is not currently in use by the cluster
+** Drive raw capacity does not exceed licensed raw capacity in the cluster (For example, with a license granting 2TB of storage per CPU core, a cluster of 10 nodes would have a maximum of 20TB raw drive capacity)
+** Drive is at least the size of other active drives in the node
 
+NOTE: Astra Data Store requires no more than 16 drives per node. If you try to add a 17th drive, the drive add request is denied.
 
 .Steps
 

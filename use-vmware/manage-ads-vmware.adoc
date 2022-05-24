@@ -117,7 +117,7 @@ TIP: If you want to mount the datastore on all hosts, check *Mount on all hosts*
 
 . Select *Mount*.
 
-After you initiate the operation, you can follow progress in the Recent Tasks panel in the Astra Plugin for VMware vSphere.
+After you initiate the operation, you can follow progress in the Recent Tasks panel in the vSphere Client.
 
 === Delete a datastore
 
