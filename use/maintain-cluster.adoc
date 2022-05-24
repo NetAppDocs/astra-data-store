@@ -314,7 +314,7 @@ kubectl astrads nodes uninstall NODE_NAME --cleanup
 +
 [source,kubectl]
 ----
-kubectl get nodes --show-labels
+kubectl astrads nodes list
 ----
 +
 Response:
@@ -327,11 +327,10 @@ sti-rx2540-532d       Ready  <none>                24h   v1.20.0
 sti-rx2540-533d       Ready  <none>                24h
 ----
 
+.Result
+The node is removed from Astra Data Store.
 
-//.Result
-//The node is removed from Astra Data Store.
-
-
+////
 == Replace a node
 
 Use kubectl commands with Astra Data Store to replace a failed node in a cluster.
@@ -383,7 +382,7 @@ sti-rx2540-534d...       Added           cluster-multinodes-21209
 sti-rx2540-535d...       Added           cluster-multinodes-21209
 ----
 
-////
+
 +
 [source,sh]
 ----
@@ -423,12 +422,6 @@ DRIVE NAME    DRIVE ID    DRIVE STATUS   NODE NAME     CLUSTER NAME
 scsi-36000..  c3e197f2... Active         sti-rx2540... cluster-multinodes-21209
 ----
 
-////
-
-
-
-
-////
 . List all the nodes:
 +
 [source,sh]
