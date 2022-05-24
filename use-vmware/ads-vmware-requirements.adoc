@@ -10,27 +10,28 @@ summary: You should verify that your environment meets minimum requirements for 
 :icons: font
 :imagesdir: ../media/get-started/
 
-After you verify that your environment meets general link:../get-started/requirements.html[Astra Data Store requirements], you should verify that your environment also meets minimum requirements for VMware components such as the VMware VASA provider and the Astra VMware plugin.
+After you verify that your environment meets general link:../get-started/requirements.html[Astra Data Store requirements], you should verify that your environment also meets minimum requirements for VMware components such as the VMware VASA provider and the NetApp Astra Plugin for VMware vSphere.
 
-== VMWare VASA provider requirements
+== VMWare vSphere requirements
 Astra Data Store uses the VMWare VASA Provider as an API interface to communicate with storage. Make sure your environment meets the basic https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.storage.doc/GUID-BB4207DB-2DED-4E08-BC6D-DEF6D7357C63.html?hWord=N4IghgNiBcIG5gM5hAXyA[VASA Provider requirements^] as well as the following additional requirements:
 
 * VMware vSphere 7.0 (Update 1 through Update 3 supported)
 * One unassigned IP address for ingress traffic
-* A licensed Astra Data Store cluster running on a Kubernetes cluster
+//* A licensed Astra Data Store cluster running on a Kubernetes cluster
 
-== Astra VMware plugin requirements
-The Astra VMware plugin has the following requirements:
+== NetApp Astra Plugin for VMware vSphere requirements
+The NetApp Astra Plugin for VMware vSphere has the following requirements:
 
-* VMware VASA provider installed and configured
-* VMware vSphere 7.0 (Update 1 through Update 3 supported)
-* A licensed Astra Data Store cluster running on a Kubernetes cluster
-** NFSv3 enabled on Astra Data Store cluster
+//* VMware VASA provider installed and configured
+//* VMware vSphere 7.0 (Update 1 through Update 3 supported)
+* A licensed Astra Control Center instance running on a Kubernetes cluster
+* A licensed Astra Data Store instance running on a Kubernetes cluster
+* NFSv3 enabled on Astra Data Store cluster
 
-NOTE: Astra Data Store does not support NFSv4.x.
+//NOTE: Astra Data Store does not support NFSv4.x.
 
-=== Supported browsers
-Astra VMware Plugin supports the latest versions of the following web browsers:
+=== Supported web browsers
+The NetApp Astra Plugin for VMware vSphere supports the latest versions of the following web browsers:
 
 * Mozilla Firefox
 * Microsoft Edge

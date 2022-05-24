@@ -78,7 +78,7 @@ TIP: Both vCenters and Kubernetes clusters appear on the Astra Control Center Da
 . From the left navigation, select *Dashboard*.
 . From the Astra Control Center Dashboard, note the new managed vCenter cluster as part of the *Managed* count.
 +
-TIP: The Managed Clusters count includes both vCenters and Kubernetes clusters. If they are not healthy, the Dashboard shows that.
+TIP: The Managed Clusters count includes both vCenters and Kubernetes clusters.
 
 . To view cluster details, click the *Managed* count.
 +
@@ -107,17 +107,16 @@ The Astra Plugin for VMware vSphere Overview page appears in the VMware vSphere 
 
 . From the Overview page, select *Use existing storage backend*. Or, from the left navigation, select *Storage Backends* > *Add*, and select *Use existing storage backend*.
 
-+
-The *Use existing storage backend* wizard appears.
 
 . Select the existing Astra Data Store as the storage backend and select *Next*.
 
 . On the VASA provider page, enter the VASA provider name, IP address (if using a load balancer), user name, and password.
 +
-TIP: For the user name, you can use alpha characters, numbers, and the underscore. Do not enter any special characters. The first letter of the user name must begin with an alphabet character.
+TIP: For the user name, you can use alphanumeric characters and the underscore. Do not enter any special characters. The first letter of the user name must begin with an alphabet character.
 
 . Indicate whether you want to deploy a load balancer and enter the IP address, which will be used to access the VASA provider. The IP needs to be an additional routable free IP separate from the node IPs. When the load balancer is enabled, Metallb is deployed in the Astra Data Store Kubernetes cluster and configured to allocate the free IP.
-
++
+NOTE: If you are using a Google Anthos cluster for deployment, choose not to deploy a load balancer as Anthos already runs metallb as a load balancer. The metallb deploy flag should be set to false in VASA provider CR (v1beta1_vasaprovider.yaml).
 +
 If you choose not to deploy a load balancer, it is assumed that the load balancer has already been deployed and configured to allocate IPs for the Kubernetes service of type *Load Balancer*.
 
@@ -129,12 +128,15 @@ TIP: At this point in the deployment, the VASA provider is not yet deployed.
 . Select *Next*.
 . Review summary information.
 . Select *Add*.
++
+This deploys the VASA provider.
+
 
 === Verify the storage backend in the Astra Plugin for VMware vSphere
 
 After the Astra Data Store storage backend is registered, it appears in the Astra Plugin for VMware vSphere storage backends list.
 
-You can determine the storage backend status (whether it's healthy or not) and the VASA provider status (for example, connected). You can also see the used capacity of each storage backend.
+You can determine the storage backend status and the VASA provider status. You can also see the used capacity of each storage backend.
 
 After selecting a storage backend, you can also view licensing information, used and available capacity, data reduction ratio, internal network management IP address, and certificate details (type of certificate and date created).
 

@@ -7,7 +7,7 @@ entries:
     url: /use/deploy-apps.html
   - title: Manage the cluster
     url: /use/maintain-cluster.html
-  - title: Monitor Astra Data Store metrics
+  - title: Monitor Astra Data Store
     entries:
     - title: Monitor metrics with Cloud Insights
       url: /use/monitor-with-cloud-insights.html

@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: use/manage-keys.html
 keywords: astra, astra data store, kubectl, security, secure, expired, key, ekm, encryption, sear
-summary: You can manually revoke compromised or expired certificates in Astra Data Store.
+summary: You can use one or more external key management servers to secure the keys that the cluster uses to access encrypted data.
 ---
 
 = Manage external keys
@@ -11,17 +11,22 @@ You can use one or more external key management servers to secure the keys that 
 
 Astra Data Store supports Software Encryption at Rest (SEAR) by default on the Astra Data Store cluster with an internal key provider.
 
+NOTE: Astra Data Store includes an internal key provider and is enabled by default when the Astra Data Store cluster is created.
+
 Managing keys involves the following custom resource definitions (CRDs):
 
-* *AstraDSKeyProvider*: Configures an external KMIP server, which could be a cluster of servers
+* *AstraDSKeyProvider*: Configures an external KMIP server, which could be a cluster of servers.
 * *AstraDSSEARKeyRotate*: Gets a new key encryption key from the key provider and provides it to Astra Data Store.
 
 You can perform the following tasks related to external key management:
+
 
 * <<Set up external key management>>
 * <<Check the software encryption at rest status>>
 * <<Change external to internal key management>>
 * <<Rotate keys for security>>
+
+
 
 == Set up external key management
 
@@ -97,7 +102,7 @@ If you are currently using an external key manager, you can change it to an inte
 
 . (Optional) Delete the previous AstraDSKeyProvider and associated secret.
 
-NOTE: The previous key provider and secret will not be automatically removed.
+NOTE: The previous key provider and secret will not be removed automatically.
 
 
 

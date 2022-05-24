@@ -30,8 +30,8 @@ Yes. Astra Data Store requires NetApp CSI driver Astra Trident version 21.10.1 a
 
 Applications using an Astra Data Store cluster as a storage backend can use https://docs.netapp.com/us-en/astra-control-center/index.html[Astra Control Center^] version 21.12 to leverage application-aware data management capabilities, including data protection, disaster recovery, and migration of Kubernetes workloads.
 
-*How can I manage Astra Data Store cluster?*
-You can manage Astra Data Store assets by using kubectl commands and by using the Kubernetes API extension.
+*How can I manage the Astra Data Store cluster?*
+You can manage Astra Data Store resources by using kubectl commands and by using the Kubernetes API extension.
 
 The `kubectl astrads` command includes an `-h` switch that provides usage and flag documentation for your convenience.
 
@@ -61,14 +61,14 @@ The Astra Data Store license has a default term of 90 days from the download dat
 == Installation and use of Astra Data Store on a Kubernetes cluster
 
 *Can I install Astra Data Store on a Kubernetes cluster running on bare metal or virtual machines?*
-Yes. Astra Data Store can be installed on a Kubernetes cluster running on bare metal or on ESXi VMs. See link:../get-started/requirements.html[Astra Data Store requirements].
+Yes. Astra Data Store can be installed on a Kubernetes cluster running on bare metal or on vSphere VMs. See link:../get-started/requirements.html[Astra Data Store requirements].
 
 *What are the supported versions of Kubernetes for Astra Data Store?*
 
 Astra Data Store works with Kubernetes distributions that are compatible with v1.20 and later. However, it is not currently validated with all Kubernetes distributions. Learn about link:../get-started/requirements.html[Astra Data Store requirements].
 
-*My Kubernetes cluster is larger than 5 worker nodes. Can I install Astra Data Store on it?*
-Yes. An Astra Data Store cluster can be deployed on 4 worker nodes in a Kubernetes cluster. After deployment, you can grow the cluster to 5 worker nodes.
+*My Kubernetes cluster is larger than 4 worker nodes. Can I install Astra Data Store on it?*
+Yes. An Astra Data Store cluster must be initially deployed on 4 worker nodes in a Kubernetes cluster. After deployment, you can grow the cluster up to a maximum of 16 worker nodes.
 
 *Does Astra Data Store support an offline installation from a private registry?*
 Yes. Astra Data Store can be installed offline from a local registry. See link:../get-started/install-ads.html[Install Astra Data Store]. However, Astra Data Store requires connectivity (direct or via a proxy) to the NetApp AutoSupport backend (support.netapp.com) for continued operations.
