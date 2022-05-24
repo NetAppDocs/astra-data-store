@@ -34,8 +34,8 @@ The NetApp Astra Plugin for VMware vSphere has the following requirements:
 The NetApp Astra Plugin for VMware vSphere supports the latest versions of the following web browsers:
 
 * Mozilla Firefox
-* Microsoft Edge
-* Safari
+* Microsoft Edge (Chromium-based)
+* Google Chrome
 
 == For more information
 

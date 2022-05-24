@@ -115,7 +115,7 @@ Using the Astra Plugin for VMware vSphere, you can mount the datastore on one or
 . From the Mount datastore on hosts page, select the hosts on which you want to mount the datastore.
 . Select *Mount*.
 
-After you initiate the operation, you can follow progress in the Recent Tasks panel in the Astra Plugin for VMware vSphere.
+After you initiate the operation, you can follow progress in the Recent Tasks panel in the vSphere Client.
 
 === Delete a datastore
 
