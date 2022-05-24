@@ -273,7 +273,7 @@ Response:
 +
 ----
 NODE NAME           NODE STATUS    CLUSTER NAME
-sti-rx2540-534d..   Added       cluster-multinodes-21209
+sti-rx2540-534d...  Added       cluster-multinodes-21209
 sti-rx2540-535d...  Added       cluster-multinodes-21209
 ...
 ----
@@ -302,14 +302,33 @@ kubectl astrads nodes remove NODE_NAME
 Response:
 +
 ----
-CLUSTER NAME               CLUSTER STATUS  NODE COUNT
-cluster-multinodes-21209   created         4
+Removal label set on node sti-rx2540-534d.lab.org
+Successfully updated ADS cluster cluster-multinodes-21209 desired node count from 4 to 3
+----
++
+After you mark the node for removal, the node status should change from `active` to `present`.
+. Verify the `present` status of the removed node:
++
+[source,kubectl]
+----
+kubectl get nodes --show-labels
+----
++
+Response:
++
+----
+NAME                                            STATUS   ROLES                  AGE     VERSION   LABELS
+sti-astramaster-050.lab.org   Ready    control-plane,master   3h39m   v1.20.0   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=sti-astramaster-050.lab.org,kubernetes.io/os=linux,node-role.kubernetes.io/control-plane=,node-role.kubernetes.io/master=
+sti-rx2540-556a.lab.org       Ready    worker                 3h38m   v1.20.0   astrads.netapp.io/cluster=astrads-cluster-890c32c,astrads.netapp.io/storage-cluster-status=active,beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=sti-rx2540-556a.lab.org,kubernetes.io/os=linux,node-role.kubernetes.io/worker=true
+sti-rx2540-556b.lab.org       Ready    worker                 3h38m   v1.20.0   astrads.netapp.io/cluster=astrads-cluster-890c32c,astrads.netapp.io/storage-cluster-status=active,beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=sti-rx2540-556b.lab.org,kubernetes.io/os=linux,node-role.kubernetes.io/worker=true
+sti-rx2540-534d.lab.org       Ready    worker                 3h38m   v1.20.0   astrads.netapp.io/storage-cluster-status=present,astrads.netapp.io/storage-node-removal=,beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=sti-rx2540-557a.lab.org,kubernetes.io/os=linux,node-role.kubernetes.io/worker=true
+sti-rx2540-557b.lab.org       Ready    worker                 3h38m   v1.20.0   astrads.netapp.io/cluster=astrads-cluster-890c32c,astrads.netapp.io/storage-cluster-status=active,beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=sti-rx2540-557b.lab.org,kubernetes.io/os=linux,node-role.kubernetes.io/worker=true
 ----
 . Uninstall Astra Data Store from the node. Replace the information in capital letters with the appropriate values for your environment:
 +
 [source,kubectl]
 ----
-kubectl astrads nodes uninstall NODE_NAME --cleanup
+kubectl astrads nodes uninstall NODE_NAME
 ----
 . Verify the node is removed from the cluster:
 +
@@ -698,7 +717,7 @@ spec:
      path: /dev/disk/by-id/scsi-36000c290ace209465271ed6b8589b494
      present: true
      serial: 6000c290ace209465271ed6b8589b494
-     node: sti-rx2540-300b.ctl.gdl.englab.netapp.com
+     node: sti-rx2540-300b.lab.org
    state: ReadyToReplace
 ----
 
