@@ -79,7 +79,7 @@ Astra Data Store requires connectivity to the NetApp AutoSupport backend to peri
 *What are the roles and privileges used by Astra Data Store?*
 You need to be a kube admin to deploy the Astra Data Store operator.
 
-Astra Data Store has a privileged daemonset called `astrads-ds-nodeinfo-astradsversion` for discovering node resources used in selecting nodes.
+Astra Data Store has a privileged daemonset called `astrads-ds-nodeinfo` for discovering node resources used in selecting nodes.
 
 In addition, the operator will use privileged Kubernetes jobs to install the storage cluster’s containers on the selected worker nodes to build the Astra Data Store storage cluster.
 

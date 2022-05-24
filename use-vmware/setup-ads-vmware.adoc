@@ -24,7 +24,7 @@ Setting up Astra Data Store with VMware involves the following tasks:
 Before you set up Astra Data Store with VMware, you'll need to have the following items:
 
 * Astra Control Center must have already been installed and set up.
-* A self-managed Kubernetes cluster must already be managed by Astra Control Center.
+* A self-managed Kubernetes cluster must already be managed by Astra Control Center. The Kubernetes cluster that was used to deploy to Astra Control Center must already managed by Astra Control Center. For the Astra Data Store Early Access Program (EAP) release, Astra Control Center and Astra Data Store must be deployed in two different Kubernetes clusters.
 * Astra Data Store must already be licensed and deployed. See link:../get-started/install-ads.html[Install Astra Data Store].
 * NFSv3 must already be enabled.
 
@@ -51,7 +51,7 @@ Add your first vCenter, which registers the Astra Plugin for VMware vSphere.
 
 You must have administrative privileges to add the vCenter to Astra Control Center.
 
-TIP: After the plugin is registered with VMware vSphere, the Astra plugin icon appears in the VMware Shortcuts page.
+TIP: After the plugin is registered with VMware vSphere, the Astra Plugin for VMware vSphere icon appears in the VMware Shortcuts page.
 
 . Log in to Astra Control Center.
 . From the left navigation, select *Clusters*.
@@ -59,7 +59,7 @@ TIP: After the plugin is registered with VMware vSphere, the Astra plugin icon a
 
 . Enter the vCenter server details, vCenter port, and administrative user name and password to provide them to Astra Control Center.
 +
-TIP: This enables deployment of the Astra Plugin for this vCenter in the VMware vSphere web client.
+TIP: This enables deployment of the Astra Plugin for this vCenter in the VMware vSphere client.
 
 
 . Select *Add*.
@@ -101,11 +101,9 @@ NOTE: Astra Data Store should not be shared with multiple vCenters.
 .Steps
 
 . Access the NetApp Astra Plugin for VMware vSphere.
-. From the left navigation, select *Astra Plugin* or from the Shortcuts page, select the *Astra Plugin* icon.
-+
-The Astra Plugin for VMware vSphere Overview page appears in the VMware vSphere client.
+. From the left navigation, select *Astra Plugin for VMware vSphere* or from the Shortcuts page, select the *Astra Plugin* icon.
 
-. From the Overview page, select *Use existing storage backend*. Or, from the left navigation, select *Storage Backends* > *Add*, and select *Use existing storage backend*.
+. From the Astra Plugin for VMware vSphere Overview page, select *Use existing storage backend*. Or, from the left navigation, select *Storage Backends* > *Add*, and select *Use existing storage backend*.
 
 
 . Select the existing Astra Data Store as the storage backend and select *Next*.
@@ -138,12 +136,12 @@ After the Astra Data Store storage backend is registered, it appears in the Astr
 
 You can determine the storage backend status and the VASA provider status. You can also see the used capacity of each storage backend.
 
-After selecting a storage backend, you can also view licensing information, used and available capacity, data reduction ratio, internal network management IP address, and certificate details (type of certificate and date created).
+After selecting a storage backend, you can also view used and available capacity, data reduction ratio, and internal network management IP address.
 
 .Steps
 . In the NetApp Astra Plugin for VMware vSphere, from the left navigation, select *Storage Backends*.
 . Select the Astra Data Store storage backend to see the Summary tab.
-. Review licensing information, used and available capacity, data reduction ratio, IOPS, latency, and status of the VASA provider.
+. Review used and available capacity, data reduction ratio, and status of the VASA provider.
 . Select the other tabs to see information about VMs, datastores, hosts, and storage nodes.
 
 == Create a datastore using the Astra Plugin for VMware vSphere
@@ -171,7 +169,7 @@ TIP: You cannot use a storage backend that has an existing datastore.
 . Select *Create*.
 
 == What's next
-Next, you might want to mount the datastore. This is a standard VMware option. See https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.storage.doc/GUID-FAFF509B-0BED-4192-8FB3-E3C130C3924B.html[VMware vSphere documentation on mounting datastores^].
+Next, you might want to mount the datastore. See link:../use-vmware/manage-ads-vmware.html#mount-a-datastore[Mount a datastore].
 
 
 
