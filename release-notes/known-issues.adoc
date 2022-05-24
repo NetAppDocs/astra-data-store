@@ -15,6 +15,89 @@ Known issues identify problems that might prevent you from using this release of
 == Astra Data Store 22.04 release
 This release includes these known issues. Review these known issues carefully.
 
+=== 
+//1477520
+If you have extra interface, IP is using same subnet then cluster creation will fail.
+
+=== Key provider CRs not removed after deleting or uninstalling Astra Data Store
+
+If an external key provider has been configured for an Astra Data Store cluster that is being deleted or uninstalled, you might need to manually clean up any key provider CR that is not removed. Use the following workaround instructions:
+
+// Start snippet: collapsible block (open on page load)
+.Details
+[%collapsible]
+====
+If an Astra Data Store cluster with a configured external key provider is deleted or uninstalled, you might need to manually clean up any key provider that is not removed.
+
+.Steps
+. Confirm that the key provider CRs were not removed:
++
+----
+kubectl get astradskeyprovider --selector astrads.netapp.io/cluster=astrads-cluster-1db3e8b -n astrads-system
+----
++
+Response:
++
+----
+NAME                   AGE
+externalkeyprovider1   94s
+----
+
+. Remove the key provider CRs:
+
+.. Remove the finalizer:
++
+----
+kubectl edit astradskeyprovider -n astrads-system
+----
+
+.. Remove the finalizer line highlighted below:
++
+----
+kubectl edit astradskeyprovider externalkeyprovider1 -n astrads-system
+----
++
+----
+apiVersion: astrads.netapp.io/v1beta1
+kind: AstraDSKeyProvider
+metadata:
+  creationTimestamp: "2022-05-24T16:38:27Z"
+  *finalizers:*
+  *- astrads.netapp.io/astradskeyprovider-finalizer*
+  generation: 1
+  labels:
+    astrads.netapp.io/cluster: astrads-cluster-1db3e8b
+    astrads.netapp.io/rsid: "1"
+  name: externalkeyprovider1
+  namespace: astrads-system
+  resourceVersion: "1134699"
+  uid: a11111b2-31c0-4575-b7f3-97f9abla1bla
+spec:
+  cluster: astrads-cluster-1db3e8b
+  kmipServer:
+    hostnames:
+    - 10.xxx.xxx.xxx
+    port: 5696
+    secretRef: externalkeyprovider1
+status:
+  keyProviderUUID: a1b2cd34-4fc6-5bae-9184-2288c673181d
+  kmipServerStatus:
+    capabilities: '{ KMIP_library_version()=17367809, KMIP_library_version_str()="KMIP
+      1.9.3a  8-Apr-2019", KMIP_library_version_tag()="KMIP part of KMIP 1.9.3a  8-Apr-2019",
+      KMIP_library_is_eval()=false, KMIP_library_fips_capable()=true(FIPS140), KMIP_SSL_provider_build_version()=268444095,
+      KMIP_SSL_provider_version()=268444095, KMIP_SSL_provider_version_str()="OpenSSL
+      1.0.2zb-fips  23 Sep 2021" }'
+    keyServerUUID: 8422bdd0-74ad-579d-81bd-6d544ac4224a
+----
+.. After the finalizer has been removed, delete the key provider CR:
++
+----
+kubectl delete astradskeyprovider <key-provider-cr-name> -n astrads-system
+----
+
+====
+// End snippet
+
 === Astra Data Store uninstallation process might cause pods to remain in a terminating state
 The Astra Data Store preview uninstall process in Kubernetes v1.20 can occasionally cause pods to remain in a terminating state.
 
