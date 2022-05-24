@@ -101,7 +101,7 @@ NOTE: Astra Data Store should not be shared with multiple vCenters.
 .Steps
 
 . Access the NetApp Astra Plugin for VMware vSphere.
-. From the left navigation, select *Astra Plugin for VMware vSphere* or from the Shortcuts page, select the *Astra Plugin* icon.
+. From the left navigation, select *Astra Plugin for VMware vSphere* or from the Shortcuts page, select the *Astra Plugin for VMware vSphere* icon.
 
 . From the Astra Plugin for VMware vSphere Overview page, select *Use existing storage backend*. Or, from the left navigation, select *Storage Backends* > *Add*, and select *Use existing storage backend*.
 

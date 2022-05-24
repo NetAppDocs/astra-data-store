@@ -9,9 +9,7 @@ summary: You can use one or more external key management servers to secure the k
 
 You can use one or more external key management servers to secure the keys that the cluster uses to access encrypted data. An external key management server is a third-party system in your storage environment that serves keys to nodes using the Key Management Interoperability Protocol (KMIP).
 
-Astra Data Store supports Software Encryption at Rest (SEAR) on the Astra Data Store cluster with an internal key provider.
-
-NOTE: Astra Data Store includes an internal key provider, which is enabled by default when the Astra Data Store cluster is created.
+NOTE: Astra Data Store enables Software Encryption at Rest (SEAR) with an internal key provider by default when the Astra Data Store cluster is created.
 
 Managing keys involves the following custom resource definitions (CRDs):
 
