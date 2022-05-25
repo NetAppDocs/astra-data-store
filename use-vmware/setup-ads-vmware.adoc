@@ -18,6 +18,7 @@ Setting up Astra Data Store with VMware involves the following tasks:
 * <<Add a vCenter using Astra Control Center>>.
 * <<Use an existing storage backend in the Astra Plugin for VMware vSphere>>.
 * <<Create a datastore using the Astra Plugin for VMware vSphere>>.
+* <<Obtain VM storage policies>>. 
 
 
 .What you'll need
@@ -170,23 +171,25 @@ TIP: You cannot use a storage backend that has an existing datastore.
 
 == Obtain VM storage policies
 
-After you create a datastore and before you create VMs, you should retrieve VM storage policies by using the API ``/virtualization/api/v1/vcenters/vm-storage-policies`.
+After you create a datastore and before you create VMs, you should retrieve VM storage policies by using the API `/virtualization/api/v1/vcenters/vm-storage-policies`.
 
 .Steps
 
 . Access the Swagger page by going to `https://<ads_gateway_ip>:8443`[Swagger page].
-. In Swagger, go to the API `POST /virtualization/api/auth/login` and provide the username, password and vcenter hostname.
+. In Swagger, go to the API `POST /virtualization/api/auth/login` and provide the username, password and vCenter hostname.
 +
 Response:
++
 ----
 {
   "vmware-api-session-id": "212f4d6447b05586ab1509a76c6e7da56d29cc5b",
   "vcenter-guid": "8e475060-b3c8-4267-bf0f-9d472d592d39"
 }
 ----
-
 . In Swagger, go to `GET /virtualization/api/auth/validate-session` and complete the following steps:
-.. Use the `vmware-api-session-id` and `vcenter-guid` generated above as headers
+
+.. Use the `vmware-api-session-id` and `vcenter-guid` generated above as headers.
+
 .. Select *Try it now*.
 +
 Response: (authentication truncated below):
@@ -202,10 +205,13 @@ A "200" response appears and three VM storage policies are generated.
 
 . Verify the new VM storage policies (named Bronze, Silver, and Gold) on the VCenter Storage Policy page.
 
-. Continue by creating VMs. 
+. Continue by creating VMs.
 
 == What's next
-Next, you might want to mount the datastore. See link:../use-vmware/manage-ads-vmware.html#mount-a-datastore[Mount a datastore].
+Next, you might want to do the following tasks:
+
+* Create VMs.
+* Mount the datastore. See link:../use-vmware/manage-ads-vmware.html#mount-a-datastore[Mount a datastore].
 
 
 
