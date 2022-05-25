@@ -43,20 +43,22 @@ kubectl api-resources --api-group astrads.netapp.io
 Response:
 +
 ----
-NAME                   SHORTNAMES  APIGROUP           NAMESPACED  KIND
-astradsversions         adsve      astrads.netapp.io  true        AstraDSVersion
-astradsclusters         adscl      astrads.netapp.io  true        AstraDSCluster
-astradslicenses         adsli      astrads.netapp.io  true        AstraDSLicense
-astradsnodeinfoes       adsni      astrads.netapp.io  true        AstraDSNodeInfo
-astradsvolumes          adsvo      astrads.netapp.io  true        AstraDSVolume
-astradsqospolicies      adsqp      astrads.netapp.io  true        AstraDSQosPolicy
-astradsexportpolicies   adsep      astrads.netapp.io  true        AstraDSExportPolicy
-astradsvolumesnapshots  adsvs      astrads.netapp.io  true        AstraDSVolumeSnapshot
-astradsvolumefiles      adsvf      astrads.netapp.io  true        AstraDSVolumeFiles
-astradsautosupports     adsas      astrads.netapp.io  true        AstraDSAutoSupport
-astradsfaileddrives     adsfd      astrads.netapp.io  true        AstraDSFailedDrive
-astradsnodemanagements  adsnm      astrads.netapp.io  true        AstraDSNodeManagement
-----
+NAME                   SHORTNAMES  APIGROUP            NAMESPACED  KIND
+astradsautosupports    adsas   astrads.netapp.io/v1alpha1 true   AstraDSAutoSupport
+astradscloudsnapshots  adscs   astrads.netapp.io/v1alpha1 true   AstraDSCloudSnapshot
+astradsclusters        adscl   astrads.netapp.io/v1alpha1 true   AstraDSCluster
+astradsexportpolicies  adsep   astrads.netapp.io/v1alpha1 true   AstraDSExportPolicy
+astradsfaileddrives    adsfd   astrads.netapp.io/v1alpha1 true   AstraDSFailedDrive
+astradslicenses        adsli   astrads.netapp.io/v1alpha1 true   AstraDSLicense
+astradsnfsoptions      adsnf   astrads.netapp.io/v1alpha1 true   AstraDSNfsOption
+astradsnodeinfoes      adsni   astrads.netapp.io/v1alpha1 true   AstraDSNodeInfo
+astradsnodemanagements adsnm   astrads.netapp.io/v1alpha1 true   AstraDSNodeManagement
+astradsqospolicies     adsqp   astrads.netapp.io/v1alpha1 true   AstraDSQosPolicy
+astradsversions        adsve   astrads.netapp.io/v1alpha1 true   AstraDSVersion
+astradsvolumefiles     adsvf   astrads.netapp.io/v1alpha1 true   AstraDSVolumeFiles
+astradsvolumes         adsvo   astrads.netapp.io/v1alpha1 true   AstraDSVolume
+astradsvolumesnapshots adsvs   astrads.netapp.io/v1alpha1 true   AstraDSVolumeSnapshot
+
 
 . To get all the current Astra Data Store objects in your Kubernetes cluster, use the `kubectl get ads -A` command:
 +
