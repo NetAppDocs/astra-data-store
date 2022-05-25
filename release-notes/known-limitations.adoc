@@ -18,11 +18,6 @@ This release includes these known limitations. Review these known limitations ca
 === All IP addresses must be known to interfaces
 Astra Data Store requires that there are no unknown IP addresses configured on a worker node in the same subnet as the Data IP or Cluster IP. The presence of an unknown address will cause cluster creation to fail. An unknown IP address is any address that is not configured on the management interface, cluster interface, or storage interface.
 
-=== Astra Data Store deployed with Cilium CNI requires portmap chaining
-An Astra Data Store deployed with Cilium CNI requires the portmap plugin for HostPort support.
-
-For K8s environments using Cilium in eBPF mode, you can enable portmap chaining mode by adding `cni-chaining-mode: portmap` to the `cilium-config` configMap and restarting Cilium pods.
-
 === VMware integrations limitations
 The following workflows are not supported in this release:
 

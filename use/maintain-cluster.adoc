@@ -735,7 +735,7 @@ NAME       NODE                             CLUSTER        STATE                
 
 .Steps
 
-. List possible replacement drives with the `kubectl astrads show-replacements` command, which filters drives that fit replacement restrictions (unused in cluster, not mounted, no partitions, and equal or larger than failed drive).
+. List possible replacement drives with the `kubectl astrads faileddrive show-replacements` command, which filters drives that fit replacement restrictions (unused in cluster, not mounted, no partitions, and equal or larger than failed drive).
 +
 To list all drives without filtering possible replacement drives, add `--all` to `show-replacements` command.
 +
@@ -782,4 +782,4 @@ kubectl astrads replacedrive replace --cluster astrads-cluster-f51b10a --name 60
 
 == For more information
 
-* link:../use/kubectl-commands-ads.html[Manage Astra Data Store assets with kubectl commands]
+* link:../use/kubectl-commands-ads.html[Manage Astra Data Store resources with kubectl commands]
