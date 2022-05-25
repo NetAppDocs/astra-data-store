@@ -41,8 +41,8 @@ The Astra Data Store installation process for standard Kubernetes clusters guide
 * <<Understand deployment-related events>>
 
 NOTE: To use Astra Data Data Store with Google Anthos, complete these installation steps and add the Astra Data Store cluster to your Anthos environment.
-+
-To install Astra Data Store with Rancher RKE environments, complete these installation steps and substitute Rancher commands for kubectl commands.
+
+NOTE: To install Astra Data Store with Rancher RKE environments, complete these installation steps and substitute Rancher commands for kubectl commands.
 
 === Download the Astra Data Store bundle and extract the images
 . Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store bundle (`2022.05.0_ads.tar`).
@@ -288,14 +288,14 @@ subjects:
   namespace: astrads-system
 ----
 
-.Reserve resources for data-plane components using kubelet config.json
+.Reserve resources for data-plane components using kubelet config
 //ocp
 
 To ensure K8s components have enough resources for Astra Data Store components to run, you need to reserve resources using the `systemReserved` parameter of the Kubelet config file. On Openshift, this file is located here: `/var/lib/kubelet/config.json`. The config file is managed by a Machine Config Operator (MCO) on Openshift clusters.
 
-IMPORTANT: Any manual edits to this config file will leave your cluster in a degraded state. The procedure that follows updates this file using Openshift native options.
+IMPORTANT: Any manual edits to this config file will leave your cluster in a degraded state. This procedure updates this config file using Openshift-native options.
 
-This procedure applies to the profile role "master" that is applied to all nodes and nodes labeled "worker". Some steps require updates for both roles.
+This procedure should be performed for the profile role "master" that is applied to all nodes and for nodes labeled "worker". Some steps require updates for both roles.
 
 .Steps
 
@@ -307,7 +307,7 @@ This procedure applies to the profile role "master" that is applied to all nodes
 apiVersion: machineconfiguration.openshift.io/v1
 kind: MachineConfig
 metadata:
-  labels:
+  *labels:*
     *machineconfiguration.openshift.io/role: master*
   name: 10-master-config
 spec:
@@ -351,21 +351,24 @@ spec:
 sudo cat /var/lib/kubelet/config.json {"auths":{"docker.repo.eng.netapp.com":{"auth":"<auth token>"}}}
 ----
 
-. In the config for "master" and again for the config for "worker", add the `systemReserved` parameter to the copied Kubelet config:
+. In the config template for "master" and again for the config template for "worker", add the `systemReserved` parameter to the copied Kubelet config:
 +
-NOTE: Use the same CPU and memory values you will use in your link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store cluster CR]. If your config.json file was empty originally, add the `systemReserved` contents to it.
+NOTE: Use the CPU and memory values you will later use in your link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store cluster CR] *except* reduce your CPU by 1 and memory by 2. For example, if you use a small installation template size, CPU 9 and memory 38 becomes CPU 8 and memory 36.
+
+NOTE: If your config.json file was empty originally, add the `systemReserved` contents to it.
 
 +
 Example:
++
 ----
-{"auths":{"docker.repo.eng.netapp.com":{"auth":"<auth token>"}}, "systemReserved":{"cpu":9,"memory":34}}
+{"auths":{"docker.repo.eng.netapp.com":{"auth":"<auth token>"}}, "systemReserved":{"cpu":8,"memory":34}}
 ----
 
-. In the config for "master" and again for the config for "worker", update the `contents.source` section of the template from link:substep_contents_source_data[step 1]. Use data from the `systemReserved` parameter you updated in the previous step in base64 format.
+. In the config template for "master" and again for the config template for "worker", update the `contents.source` section of the template from anchor:substep_contents_source_data[step 1]. Use CPU and memory data from the `systemReserved` parameter you updated in the previous step in base64 format.
 
 +
 ----
-base64 {"auths":{"docker.repo.eng.netapp.com":{"auth":"<auth token>"}}, "systemReserved":{"cpu":9,"memory":34}}
+base64 {"auths":{"docker.repo.eng.netapp.com":{"auth":"<auth token>"}}, "systemReserved":{"cpu":8,"memory":34}}
 YmFzZTY0IHsiYXV0aHMiOnsiZG9ja2VyLnJlcG8uZW5nLm5ldGFwcC5jb20iOnsiYXV0aCI6IllXVnliem85VVVSb0l5b3JhelpPZEMxYVRHNW8ifX0sICJzeXN0ZW1SZXNlcnZlZCI6eyJjcHUiOjksIm1lbW9yeSI6MzR9fQo=
 ----
 
@@ -411,7 +414,7 @@ spec:
         path: /var/lib/kubelet/config.json
 ----
 
-. Apply both MachineConfig templates on your cluster:
+. Apply both MachineConfig templates to your cluster:
 +
 ----
 oc create -f 10-master-config.yaml
@@ -435,8 +438,8 @@ NAME                                               GENERATEDBYCONTROLLER        
 01-master-kubelet                                  d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
 01-worker-container-runtime                        d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
 01-worker-kubelet                                  d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
-*10-master-config                                                                         3.2.0             7h51m*
-*10-worker-config                                                                         3.2.0             7d*
+*10-master-config                                                                              3.2.0             7h51m*
+*10-worker-config                                                                              3.2.0             7d*
 99-master-chrony-configuration                                                                2.2.0             85d
 99-master-generated-registries                     d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
 99-master-ssh                                                                                 3.2.0             85d
