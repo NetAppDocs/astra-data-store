@@ -13,13 +13,18 @@ summary: Known limitations identify platforms, devices, or functions that are no
 Known limitations identify platforms, devices, or functions that are not supported by this Early Access Program (EAP) release of the product or do not interoperate correctly with it.
 
 == Astra Data Store 22.05 Early Access Program (EAP) release
-This release includes these limitations. Review these limitations carefully.
+This release includes these known limitations. Review these known limitations carefully.
 
-=== Cilium CNI requires portmap chaining with Astra Data Store
+=== All IP addresses must be known to interfaces
+Astra Data Store requires that there are no unknown IP addresses configured on a worker node in the same subnet as the Data IP or Cluster IP. The presence of an unknown address will cause cluster creation to fail. An unknown IP address is any address that is not configured on the management interface, cluster interface, or storage interface.
+
+=== Astra Data Store deployed with Cilium CNI requires portmap chaining
+An Astra Data Store deployed with Cilium CNI requires the portmap plugin for HostPort support.
+
 For K8s environments using Cilium in eBPF mode, you can enable portmap chaining mode by adding `cni-chaining-mode: portmap` to the `cilium-config` configMap and restarting Cilium pods.
 
 === VMware integrations limitations
-The following workflows are not supported:
+The following workflows are not supported in this release:
 
 * VM: Clone, suspend, and snapshot with memory
 * Snapshot and revert of a VM with multiple disks

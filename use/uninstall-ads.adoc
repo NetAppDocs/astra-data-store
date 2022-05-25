@@ -32,7 +32,7 @@ The Astra Data Store uninstallation process guides you through the following hig
 * <<Validate the removal of the astrads-system namespace>>
 * <<Ensure containers are not running on worker nodes>>
 * <<Delete OpenShift Container Platform resources>>
-* <<Troubleshoot the Astra Data Store uninstall process>>
+
 
 
 === Remove existing workloads and bindings
@@ -229,15 +229,7 @@ NOTE: Ignore "resources not found" errors in these steps. 
 
 //. Remove `/var/lib/kubelet/config.yaml` from all Kubernetes nodes. 
 
-=== Troubleshoot the Astra Data Store uninstall process
-The Astra Data Store uninstall process can occasionally cause pods to remain in a terminating state in Kubernetes.
 
-If this issue occurs, run the following command to force delete all pods in the `astrads-system` namespace:
-
-----
-kubectl delete pods --all  -n astrads-system   --force --grace-period 0
-
-----
 
 
 == Uninstall Astra Data Store manually without a script
@@ -261,7 +253,7 @@ The Astra Data Store uninstallation process guides you through the following hig
 * <<Validate the removal of the astrads-system namespace>>
 * <<Ensure containers are not running on worker nodes>>
 * <<Delete OpenShift Container Platform resources>>
-* <<Troubleshoot the Astra Data Store uninstall process>>
+
 
 
 
@@ -487,7 +479,10 @@ ID      PID     STATUS    BUNDLE       CREATED    OWNER
 ----
 
 
-=== Troubleshoot the Astra Data Store uninstall process
+== Troubleshoot the Astra Data Store uninstall process
+If you need to troubleshoot the uninstall process, review the following suggestions.
+
+=== Pods in terminating state
 The Astra Data Store uninstall process can occasionally cause pods to remain in a terminating state in Kubernetes.
 
 If this issue occurs, run the following command to force delete all pods in the `astrads-system` namespace:
@@ -495,3 +490,16 @@ If this issue occurs, run the following command to force delete all pods in the 
 ----
 kubectl delete pods --all  -n astrads-system   --force --grace-period 0
 ----
+
+=== Quality of Service policy points to old cluster
+If you delete the Astra Data Store Cluster only and redeploy it, you might not be able to create a persistent volume claim (PVC) or volume because the Quality of Service (QoS) policy points to the old cluster and cannot be found.
+
+. To avoid this, after deleting the Astra Data Store cluster, manually delete the QoS policy:
++
+
+"kubectl delete AstraDSQosPolicy --all -A"
+
+. Delete the entire Astra Data Store deployment (not just the cluster):
++
+
+uninstall.sh all

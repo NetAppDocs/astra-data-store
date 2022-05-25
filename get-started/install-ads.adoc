@@ -14,23 +14,9 @@ You can install Astra Data Store using Kubernetes-native commands or using the U
 
 == Installation options
 
-=== With Kubernetes-native commands
-// Start snippet: collapsible block (open on page load)
-.Details
-[%collapsible]
-====
-To install Astra Data Store using Kubernetes-native commands, complete the installation steps described in <<Install Astra Data Store,this procedure>>.
-====
-// End snippet
+* *With Kubernetes-native commands*: To install Astra Data Store using Kubernetes-native commands, complete the installation steps described in <<Install Astra Data Store,this procedure>>.
 
-=== With Astra Control Center
-// Start snippet: collapsible block (open on page load)
-.Details
-[%collapsible]
-====
-To use Astra Data Store with Astra Control Center, complete the installation steps described in <<Install Astra Data Store using Astra Control Center,this procedure>>.
-====
-// End snippet
+* *With Astra Control Center*: To use Astra Data Store with Astra Control Center, complete the installation steps described in <<Install Astra Data Store using Astra Control Center,this procedure>>.
 
 == What you'll need
 
