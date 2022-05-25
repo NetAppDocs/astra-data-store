@@ -41,6 +41,10 @@ Astra Data Store has the following resource limits during the Early Access Progr
 |Clones per Volume
 |0
 |9
+
+|VMs per node
+|0
+|50
 |===
 
 //NOTE: Astra Data Store does not support VM workloads. VMware vVol workload support will be available in a future release.
