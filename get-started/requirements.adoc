@@ -67,7 +67,7 @@ Each worker node has the following additional requirements:
 == Hardware and software
 Astra Data Store software is validated on the following hardware platforms, software, and storage configuration. Visit link:../support/get-help-ads.html[NetApp community support] if your Kubernetes cluster configuration is different.
 
-.Hardware platforms
+=== Hardware platforms
 //* NetApp H610S - not supported as this would void the SF node warranty
 * Dell R640
 * Dell R740
@@ -82,7 +82,7 @@ Astra Data Store software is validated on the following hardware platforms, soft
 NOTE: VM-based deployments can also use servers that are listed as compatible on the https://www.vmware.com/resources/compatibility/search.php[VMware Compatibility Guide^].
 
 //POLARIS-461
-.Storage
+=== Storage
 Astra Data Store has been validated with SATA, SAS, and NVMe TLC SSDs.
 
 For VM-based deployments, you can use drives presented as virtual disks or passthrough drives.
@@ -95,11 +95,13 @@ For VM-based deployments, you can use drives presented as virtual disks or passt
 ** Drives presented as virtual disks or passthrough drives
 ////
 
-NOTE: If your host uses SSDs behind a hardware RAID controller, configure the hardware RAID controller to use "passthrough" mode.
+[NOTE]
+====
+* If your host uses SSDs behind a hardware RAID controller, configure the hardware RAID controller to use "passthrough" mode.
+* Each drive should have a unique serial number. Add the attribute `disk.enableuuid=TRUE` in the virtual machine advanced settings during VM creation.
+====
 
-NOTE: Each drive should have a unique serial number. Add the attribute `disk.enableuuid=TRUE` in the virtual machine advanced settings during VM creation.
-
-.Software
+=== Software
 * Hypervisor: Astra Data Store is validated with VMware-based VM deployments with vSphere 7.0. KVM-based deployments are not supported by Astra Data Store.
 * Astra Data Store has been validated on the following host operating systems:
 ** Red Hat Enterprise Linux 8.4
@@ -220,9 +222,11 @@ a|
 ** CIP: One (1) pre-configured IP address on data interface per node in a different subnet from MIP
 ** Data IP: One (1) unused or unconfigured IP address per node in same subnet as CIP
 |===
-NOTE: You should omit the data network gateway field in the cluster Custom Resource (CR) file, `astradscluster.yaml`, for both of these configurations. The existing routing configuration on each node accommodates all of the addresses.
-
-NOTE: No VLAN tags are used in these configurations.
+[NOTE]
+====
+* You should omit the data network gateway field in the cluster Custom Resource (CR) file, `astradscluster.yaml`, for both of these configurations. The existing routing configuration on each node accommodates all of the addresses.
+* No VLAN tags are used in these configurations.
+====
 
 == Astra Trident
 Astra Data Store requires the application Kubernetes clusters to be running Astra Trident for storage provisioning and orchestration. Astra Trident versions 21.10.1 through 22.04 are supported. Astra Data Store can be configured as a link:../get-started/setup-ads.html#set-up-astra-data-store-as-storage-backend[storage backend] with Astra Trident to provision persistent volumes.
