@@ -351,11 +351,9 @@ spec:
 sudo cat /var/lib/kubelet/config.json {"auths":{"docker.repo.eng.netapp.com":{"auth":"<auth token>"}}}
 ----
 
-. In the config template for "master" and again for the config template for "worker", add the `systemReserved` parameter to the copied Kubelet config:
+. In the config template for "master" and again for the config template for "worker", add the `systemReserved` parameter to the copied Kubelet config. If your config.json file was empty originally, add the `systemReserved` contents to it:
 +
 NOTE: Use the CPU and memory values you will later use in your link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store cluster CR] *except* reduce your CPU by 1 and memory by 2. For example, if you use a small installation template size, CPU 9 and memory 38 becomes CPU 8 and memory 36.
-
-NOTE: If your config.json file was empty originally, add the `systemReserved` contents to it.
 
 +
 Example:
@@ -364,7 +362,7 @@ Example:
 {"auths":{"docker.repo.eng.netapp.com":{"auth":"<auth token>"}}, "systemReserved":{"cpu":8,"memory":34}}
 ----
 
-. In the config template for "master" and again for the config template for "worker", update the `contents.source` section of the template from anchor:substep_contents_source_data[step 1]. Use CPU and memory data from the `systemReserved` parameter you updated in the previous step in base64 format.
+. In the config template for "master" and again for the config template for "worker", update the `contents.source` section of the config template from step 1. Use CPU and memory data from the `systemReserved` parameter you updated in the previous step in base64 format.
 
 +
 ----
