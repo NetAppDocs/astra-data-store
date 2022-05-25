@@ -168,6 +168,42 @@ TIP: You cannot use a storage backend that has an existing datastore.
 . From the Summary page, review the information.
 . Select *Create*.
 
+== Obtain VM storage policies
+
+After you create a datastore and before you create VMs, you should retrieve VM storage policies by using the API ``/virtualization/api/v1/vcenters/vm-storage-policies`.
+
+.Steps
+
+. Access the Swagger page by going to `https://<ads_gateway_ip>:8443`[Swagger page].
+. In Swagger, go to the API `POST /virtualization/api/auth/login` and provide the username, password and vcenter hostname.
++
+Response:
+----
+{
+  "vmware-api-session-id": "212f4d6447b05586ab1509a76c6e7da56d29cc5b",
+  "vcenter-guid": "8e475060-b3c8-4267-bf0f-9d472d592d39"
+}
+----
+
+. In Swagger, go to `GET /virtualization/api/auth/validate-session` and complete the following steps:
+.. Use the `vmware-api-session-id` and `vcenter-guid` generated above as headers
+.. Select *Try it now*.
++
+Response: (authentication truncated below):
++
+----
+authorization: eyJhbGciOiJSUzI1NiIsInR...9h15DYYvClT3oA  connection: keep-alive  content-type: application/json  date: Wed,18 May 2022 13:31:18 GMT  server: nginx  transfer-encoding: chunked
+----
+
+. In Swagger, go to ``/virtualization/api/v1/vcenters/vm-storage-policies` and add the bearer token generated in previous response as 'authorization'.
+
++
+A "200" response appears and three VM storage policies are generated.
+
+. Verify the new VM storage policies (named Bronze, Silver, and Gold) on the VCenter Storage Policy page.
+
+. Continue by creating VMs. 
+
 == What's next
 Next, you might want to mount the datastore. See link:../use-vmware/manage-ads-vmware.html#mount-a-datastore[Mount a datastore].
 
