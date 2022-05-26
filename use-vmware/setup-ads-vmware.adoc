@@ -18,7 +18,7 @@ Setting up Astra Data Store with VMware involves the following tasks:
 * <<Add a vCenter using Astra Control Center>>.
 * <<Use an existing storage backend in the Astra Plugin for VMware vSphere>>.
 * <<Create a datastore using the Astra Plugin for VMware vSphere>>.
-* <<Obtain VM storage policies>>. 
+* <<Generate VM storage policies>>.
 
 
 .What you'll need
@@ -169,14 +169,16 @@ TIP: You cannot use a storage backend that has an existing datastore.
 . From the Summary page, review the information.
 . Select *Create*.
 
-== Obtain VM storage policies
+== Generate VM storage policies
 
-After you create a datastore and before you create VMs, you should retrieve VM storage policies by using the API `/virtualization/api/v1/vcenters/vm-storage-policies`.
+After you create a datastore and before you create VMs, you should generate predesigned VM storage policies by using `/virtualization/api/v1/vcenters/vm-storage-policies` in the REST API UI. 
+
+//VMware ADS EAP review
 
 .Steps
 
-. Access the Swagger page by going to `https://<ads_gateway_ip>:8443`[Swagger page].
-. In Swagger, go to the API `POST /virtualization/api/auth/login` and provide the username, password and vCenter hostname.
+. Access the REST API UI page by going to `https://<ads_gateway_ip>:8443`[Swagger page].
+. Go to the API `POST /virtualization/api/auth/login` and provide the username, password and vCenter hostname.
 +
 Response:
 +
@@ -186,7 +188,7 @@ Response:
   "vcenter-guid": "8e475060-b3c8-4267-bf0f-9d472d592d39"
 }
 ----
-. In Swagger, go to `GET /virtualization/api/auth/validate-session` and complete the following steps:
+. Go to the API `GET /virtualization/api/auth/validate-session` and complete the following steps:
 
 .. Use the `vmware-api-session-id` and `vcenter-guid` generated above as headers.
 
@@ -198,7 +200,7 @@ Response: (authentication truncated below):
 authorization: eyJhbGciOiJSUzI1NiIsInR...9h15DYYvClT3oA  connection: keep-alive  content-type: application/json  date: Wed,18 May 2022 13:31:18 GMT  server: nginx  transfer-encoding: chunked
 ----
 
-. In Swagger, go to ``/virtualization/api/v1/vcenters/vm-storage-policies` and add the bearer token generated in previous response as 'authorization'.
+. Go to the API `/virtualization/api/v1/vcenters/vm-storage-policies` and add the bearer token generated in the previous response as 'authorization'.
 
 +
 A "200" response appears and three VM storage policies are generated.
