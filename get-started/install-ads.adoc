@@ -830,8 +830,7 @@ To deploy and use Astra Data Store with Astra Control Center, do the following:
 * You have installed Astra Control Center 22.04.0 or later.
 
 .Steps
-. https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-cluster[Add the underlying Kubernetes cluster running Astra Data Store^]
-. https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-a-storage-backend[Add Astra Data Store as a storage backend to Astra Control Center^].
+. https://review.docs.netapp.com/us-en/astra-control-center_ads-eap-pi5-review/get-started/setup_overview.html#add-a-storage-backend[Deploy Astra Data Store using Astra Control Center^].
 
 == What's next
 

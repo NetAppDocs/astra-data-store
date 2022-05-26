@@ -20,8 +20,9 @@ This release includes these known limitations. Review these known limitations ca
 Astra Data Store requires that there are no unknown IP addresses configured on a worker node in the same subnet as the Data IP or Cluster IP. The presence of an unknown address will cause cluster creation to fail. An unknown IP address is any address that is not configured on the management interface, cluster interface, or storage interface.
 
 === VMware integrations limitations
-The following workflows are not supported in this release:
 //VMware ADS EAP review
+The following workflows are not supported in this release:
+
 * VM:
 ** Clone, including cloning from a template
 ** Suspend
@@ -33,6 +34,7 @@ The following workflows are not supported in this release:
 
 The following functionality is not supported:
 //VMware ADS EAP review
+
 * First Class Disks (FCDs)
 * VMware vMotion
 * Compliance alerts and notifications
@@ -43,10 +45,7 @@ The following functionality is not supported:
 
 ==== Cannot resize multiple VM disks simultaneously
 //VMware ADS EAP review
-If you try to resize multiple disks at a time, the resize operation works only for the first disk and fails for rest. For this release, you can only resize one disk at a time.
-
-When you try to resize a disk already attached to the VM, the operation will resize the disk but throws the following error:
-`Storage policy change failure: The VVol target encountered a vendor specific error.`
+If you try to resize multiple disks at a time, the resize operation works only for the first disk and fails for the rest. For this release, you can only resize one disk at a time.
 
 == Find more information
 

@@ -75,6 +75,7 @@ You can manage VMs associated with Astra Data Store using native vSphere operati
 * https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-76E73C62-A973-4839-BB67-AC1817908E6D.html[Rename VM^]
 * https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-E1D541D1-DF96-467A-89B7-E84F83B2563D.html?hWord=N4IghgNiBcIMYAswDsDmBTABAZwJYC8sA3AWxAF8g[Resize VM^]
 //VMware ADS EAP review
+
 NOTE: For this release, you can only resize one VM disk at a time. Attempts to resize multiple disks will fail.
 
 * https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.hostclient.doc/GUID-450AF515-09D4-44B6-85B2-EE848B371E58.html?hWord=N4IghgNiBcIAoHsDuBTATgAgMoBcw5QGcMEAzDMDANQEs0cBXSDAWTAGMALGgOxQ14YcnflRZIwafgAkEhHBgDCEGih44QAXyA[Power VM on or off^]
@@ -86,6 +87,7 @@ The following snapshot workflows are available for the Astra Data Store using na
 * https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-9720B104-9875-4C2C-A878-F1C351A4F3D8.html[Take snapshot of Astra Data Store^]
 * https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-3E1BB630-9223-45E8-A64B-DCB90D450673.html[Revert a snapshot^]
 * https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-542CF191-B8DE-42F1-9CCC-D9030491AE25.html[Delete a snapshot^]
+
 //VMware ADS EAP review
 NOTE: Snapshot operations might occasionally fail with a vVol runtime error. If this happens, retry the operation.
 
