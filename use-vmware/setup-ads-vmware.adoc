@@ -16,6 +16,7 @@ Setting up Astra Data Store with VMware involves the following tasks:
 
 * <<Activate VMware vSphere services using Astra Control Center>>.
 * <<Add a vCenter using Astra Control Center>>.
+* <<Create a custom SCC (if using OpenShift)>>
 * <<Use an existing storage backend in the Astra Plugin for VMware vSphere>>.
 * <<Create a datastore using the Astra Plugin for VMware vSphere>>.
 * <<Generate VM storage policies>>.
@@ -84,6 +85,100 @@ TIP: The Managed Clusters count includes both vCenters and Kubernetes clusters.
 . To view cluster details, click the *Managed* count.
 +
 The Clusters page appears.
+
+== Create a custom SCC (if using OpenShift)
+//ocp
+//VMware ADS EAP review
+
+If you are using OpenShift, you can optionally assign security context constraints (SCC) that control the actions that a pod can perform and control what the pod can access.
+
+By default, the execution of any container will be granted the restricted SCC and only the capabilities defined by that SCC. Restricted SCC does not provide permissions required by VASA provider pods. Use this procedure to provide the required higher privileges (listed in the sample) to the service accounts used by VASA provider deployments.
+
+Assign a custom SCC to various default service accounts for the Astra Data Store 'ntv-system' namespace, which is a hybrid of privileged and node-exporter SCCs.
+
+The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).
+
+. Create a custom SCC called `vp_backend_privileged_scc.yaml`:
++
+----
+kubectl create -f vp_backend_privileged_scc.yaml
+----
++
+Sample: vp_backend_privileged_scc.yaml
++
+----
+allowHostDirVolumePlugin: true
+allowHostIPC: false
+allowHostNetwork: true
+allowHostPID: false
+allowHostPorts: true
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: true
+allowedCapabilities:
+  - '*'
+allowedUnsafeSysctls:
+  - '*'
+apiVersion: security.openshift.io/v1
+defaultAddCapabilities: null
+fsGroup:
+  type: RunAsAny
+groups: []
+kind: SecurityContextConstraints
+metadata:
+  name: vpbackend-privileged
+priority: null
+readOnlyRootFilesystem: false
+requiredDropCapabilities: null
+runAsUser:
+  type: RunAsAny
+seLinuxContext:
+  type: RunAsAny
+seccompProfiles:
+  - '*'
+supplementalGroups:
+  type: RunAsAny
+users:
+  - system:serviceaccount:ntv-system:default
+  - system:serviceaccount:ntv-system:ntv-auth-svc
+  - system:serviceaccount:ntv-system:ntv-autosupport
+  - system:serviceaccount:ntv-system:ntv-compliance-svc
+  - system:serviceaccount:ntv-system:ntv-datastore-svc
+  - system:serviceaccount:ntv-system:ntv-metallb-controller
+  - system:serviceaccount:ntv-system:ntv-metallb-speaker
+  - system:serviceaccount:ntv-system:ntv-mongodb
+  - system:serviceaccount:ntv-system:ntv-nfs-svc
+  - system:serviceaccount:ntv-system:ntv-rabbitmq-svc
+  - system:serviceaccount:ntv-system:ntv-storage-svc
+  - system:serviceaccount:ntv-system:ntv-vault
+  - system:serviceaccount:ntv-system:ntv-vault-admin
+  - system:serviceaccount:ntv-system:ntv-vault-agent-injector
+  - system:serviceaccount:ntv-system:ntv-vault-controller
+  - system:serviceaccount:ntv-system:ntv-vault-initializer
+  - system:serviceaccount:ntv-system:ntv-vcenter-svc
+  - system:serviceaccount:ntv-system:ntv-vm-management-svc
+  - system:serviceaccount:ntv-system:ntv-watcher-svc
+  - system:serviceaccount:ntv-system:ntv-vault-sa-vault-tls
+  - system:serviceaccount:ntv-system:ntv-gateway-svc
+  - system:serviceaccount:ntv-system:ntv-jobmanager-svc
+  - system:serviceaccount:ntv-system:ntv-vasa-svc
+volumes:
+  - '*'
+----
+
+
+. Display the newly added SCC using the `oc get scc` command:
++
+----
+oc get scc vpbackend-privileged
+----
++
+Response:
++
+----
+NAME                 PRIV  CAPS  SELINUX  RUNASUSER FSGROUP  SUPGROUP PRIORITY   READONLYROOTFS VOLUMES
+vpbackend-privileged true ["*"]  RunAsAny RunAsAny  RunAsAny RunAsAny <no value> false          ["*"]
+----
+
 
 == Use an existing storage backend in the Astra Plugin for VMware vSphere
 
@@ -171,7 +266,7 @@ TIP: You cannot use a storage backend that has an existing datastore.
 
 == Generate VM storage policies
 
-After you create a datastore and before you create VMs, you should generate predesigned VM storage policies by using `/virtualization/api/v1/vcenters/vm-storage-policies` in the REST API UI. 
+After you create a datastore and before you create VMs, you should generate predesigned VM storage policies by using `/virtualization/api/v1/vcenters/vm-storage-policies` in the REST API UI.
 
 //VMware ADS EAP review
 
