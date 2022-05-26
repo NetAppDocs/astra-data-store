@@ -40,6 +40,13 @@ From the Dashboard, you can perform several additional tasks:
 
 TIP: You can instead show what you want, for example, the top 10 VMs with high latency, by clicking on the table heading.
 
+.Steps to monitor Astra Data Store in other views
+
+. Access the following views to monitor Astra Data Store components:
++
+* *Virtual Machines* tab: Lists all the VMs that are managed by Astra Data Store compared to the Dashboard, which lists only the top 10 VMs.
+* *Storage* drill down: Displays hosts, virtual machines and datastores that are associated with the storage system.
+* *VM Storage* view: Provides details of vVols that are created by the VASA provider.
 
 == Review storage backend threshold settings
 
@@ -51,6 +58,11 @@ The following default thresholds are set when you deploy or add a storage backen
 * 80% full generates a yellow alert
 
 You can view the level at which the system generates an alert in VMware.
+
+NOTE: For the Astra Data Store Early Access Program, if the same storage container is used across multiple datacenters, you might seen an incorrect alarm for datastores.
+
+//VMware ADS EAP review
+
 
 .Steps
 . Access the NetApp Astra Plugin for VMware vSphere.
