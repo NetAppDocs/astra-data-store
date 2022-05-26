@@ -30,7 +30,7 @@ Before you set up Astra Data Store with VMware, you'll need to have the followin
 * Astra Data Store must already be licensed and deployed. See link:../get-started/install-ads.html[Install Astra Data Store].
 * NFSv3 must already be enabled.
 
-
+NOTE: NetApp Astra Plugin for VMware vSphere does not support deployment in OpenShift clusters.
 
 == Activate VMware vSphere services using Astra Control Center
 Begin setting up Astra Data Store with VMware by activating vSphere services on Astra Control Center.
