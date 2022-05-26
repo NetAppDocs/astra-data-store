@@ -88,21 +88,6 @@ sti-rx2540-534d...  Added       cluster-multinodes-21209
 sti-rx2540-535d...  Added       cluster-multinodes-21209
 ...
 ----
-
-//. Describe the cluster:
-//+
-//[source,kubectl]
-//----
-//kubectl astrads clusters list
-//----
-//+
-//Response:
-//+
-//----
-//CLUSTER NAME               CLUSTER STATUS  NODE COUNT
-//cluster-multinodes-21209   created         4
-//----
-
 . Mark the node for removal. Replace the information in capital letters with the appropriate values for your environment:
 +
 [source,kubectl]
@@ -146,16 +131,6 @@ kubectl astrads nodes uninstall NODE_NAME
 [source,kubectl]
 ----
 kubectl astrads nodes list
-----
-+
-Response:
-+
-----
-
-NAME                  STATUS   ROLES               AGE   VERSION   LABELS
-sti-astramaster-237   Ready control-plane,master   24h   v1.20.0
-sti-rx2540-532d       Ready  <none>                24h   v1.20.0
-sti-rx2540-533d       Ready  <none>                24h
 ----
 
 .Result

@@ -233,14 +233,18 @@ Astra Data Store requires the application Kubernetes clusters to be running Astr
 
 == Container Network Interfaces
 
-Astra Data Store has been validated with the following Container Network Interfaces (CNIs). Note that if you deploy with a CNI, you need to disable the host firewall (firewalld).
+Astra Data Store has been validated with the following Container Network Interfaces (CNIs).
 
 * Calico for RKE clusters
 * Calico and Weave Net CNIs for vanilla Kubernetes clusters
 * OpenShift SDN for Red Hat OpenShift Container Platform (OCP)
 * Cilium for Google Anthos
 
-NOTE: Astra Data Store deployed with the Cilium CNI requires portmap chaining. You will need to use the port-mapping plugin for HostPort support. You can enable CNI chaining mode by adding `cni-chaining-mode: portmap` to the cilium-config configMap and restarting the Cilium pods.
+[NOTE]
+====
+* Astra Data Store deployed with the Cilium CNI requires the portmap plugin for HostPort support. You can enable CNI chaining mode by adding `cni-chaining-mode: portmap` to the cilium-config configMap and restarting the Cilium pods.
+* Firewall-enabled configurations are supported only for the Calico and OpenShift SDN CNIs.
+====
 
 ////
 NOTE: If you use the Calico Container Networking Interface (CNI) networking provider plugin with Kubernetes, you need to configure it to exclude at least one routing table from Calico control. For example, you can do this by changing the "routeTableRange" value in the Calico configmap .yaml file to a value of {Min: 2, Max: 250}. This enables Astra Data Store to perform policy-based network routing.
