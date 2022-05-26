@@ -15,7 +15,7 @@ You can manage Astra Data Store resources by using kubectl commands and by using
 
 To learn how to deploy a sample app, see link:../use/deploy-apps.html[Deploy a test application].
 
-For cluster maintenance information, see link:../use/maintain-cluster.html[Manage the cluster]:
+For cluster maintenance information, see link:../use/maintain-cluster.html[Manage the cluster].
 ////
 * Place a node in maintenance mode
 * Replace a drive
@@ -32,7 +32,7 @@ You can use kubectl commands inside of Kubernetes to interact with and observe t
 
 Each item listed from the `api-resources` command represents a Kubernetes custom resource definition (CRD) that Astra Data Store uses internally to manage your cluster.
 
-This list is particularly helpful to get shortnames of each Astra Data Store object to reduce your typing, as shown later.
+This list is particularly helpful to get short names of each Astra Data Store object to reduce your typing, as shown later.
 
 . Display a list of Kubernetes custom API resources for Astra Data Store:
 +
@@ -58,7 +58,7 @@ astradsversions        adsve   astrads.netapp.io/v1alpha1 true   AstraDSVersion
 astradsvolumefiles     adsvf   astrads.netapp.io/v1alpha1 true   AstraDSVolumeFiles
 astradsvolumes         adsvo   astrads.netapp.io/v1alpha1 true   AstraDSVolume
 astradsvolumesnapshots adsvs   astrads.netapp.io/v1alpha1 true   AstraDSVolumeSnapshot
-
+----
 
 . To get all the current Astra Data Store objects in your Kubernetes cluster, use the `kubectl get ads -A` command:
 +
