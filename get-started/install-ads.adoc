@@ -41,8 +41,8 @@ The Astra Data Store installation process for standard Kubernetes clusters guide
 * <<Understand deployment-related events>>
 
 NOTE: To use Astra Data Data Store with Google Anthos, complete these installation steps and add the Astra Data Store cluster to your Anthos environment.
-+
-To install Astra Data Store with Rancher RKE environments, complete these installation steps and substitute Rancher commands for kubectl commands.
+
+NOTE: To install Astra Data Store with Rancher RKE environments, complete these installation steps and substitute Rancher commands for kubectl commands.
 
 === Download the Astra Data Store bundle and extract the images
 . Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store bundle (`2022.05.0_ads.tar`).
@@ -286,6 +286,173 @@ subjects:
 - kind: ServiceAccount
   name: default
   namespace: astrads-system
+----
+
+.Reserve resources for data-plane components using kubelet config
+//ocp
+
+To ensure Astra Data Store data-plane components have enough resources to run, you need to reserve resources using the `systemReserved` parameter of the Kubelet config file. On Openshift, this file is located here: `/var/lib/kubelet/config.json`. The config file is managed by a Machine Config Operator (MCO) on Openshift clusters.
+
+IMPORTANT: Any manual edits to this config file will leave your cluster in a degraded state. This procedure updates this config file using Openshift-native options.
+
+This procedure should be performed for the profile role "master" that is applied to all nodes and for nodes labeled "worker". Some steps require updates for both roles.
+
+.Steps
+
+. [[substep_contents_source_data]]Create new MachineConfig CRD YAML files:
+.. Create a new MachineConfig CRD YAML file using this template for `master` profile:
++
+[subs=+quotes]
+----
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  *labels:*
+    *machineconfiguration.openshift.io/role: master*
+  name: 10-master-config
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    storage:
+      files:
+      - *contents:*
+          *source: data:,*
+        mode: 384
+        path: /var/lib/kubelet/config.json
+----
+
+.. Create a new MachineConfig CRD YAML file using this template for `worker` profile:
++
+[subs=+quotes]
+----
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  *labels:*
+    *machineconfiguration.openshift.io/role: worker*
+    name: 10-worker-config
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    storage:
+      files:
+      *- contents:*
+          *source: data:,*
+        mode: 384
+        path: /var/lib/kubelet/config.json
+----
+
+. Make a copy of the existing contents of Kubelet config as a backup.
+
++
+----
+sudo cat /var/lib/kubelet/config.json {"auths":{"docker.repo.eng.netapp.com":{"auth":"<auth token>"}}}
+----
+
+. In the config template for "master" and again for the config template for "worker", add the `systemReserved` parameter to the copied Kubelet config. If your config.json file was empty originally, add the `systemReserved` contents to it:
++
+NOTE: Use the CPU and memory values you will later use in your link:../get-started/install-ads.html#install-the-astra-data-store-cluster[Astra Data Store cluster CR] *except* reduce your CPU by 1 and memory by 2. For example, if you use a small installation template size, CPU 9 and memory 38 becomes CPU 8 and memory 36.
+
++
+Example:
++
+----
+{"auths":{"docker.repo.eng.netapp.com":{"auth":"<auth token>"}}, "systemReserved":{"cpu":8,"memory":34}}
+----
+
+. In the config template for "master" and again for the config template for "worker", update the `contents.source` section of the config template from step 1. Use CPU and memory data from the `systemReserved` parameter you updated in the previous step in base64 format.
+
++
+----
+base64 {"auths":{"docker.repo.eng.netapp.com":{"auth":"<auth token>"}}, "systemReserved":{"cpu":8,"memory":34}}
+YmFzZTY0IHsiYXV0aHMiOnsiZG9ja2VyLnJlcG8uZW5nLm5ldGFwcC5jb20iOnsiYXV0aCI6IllXVnliem85VVVSb0l5b3JhelpPZEMxYVRHNW8ifX0sICJzeXN0ZW1SZXNlcnZlZCI6eyJjcHUiOjksIm1lbW9yeSI6MzR9fQo=
+----
+
+. The updated templates should now appear similar to the following examples:
++
+[subs=+quotes]
+----
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  *labels:*
+    *machineconfiguration.openshift.io/role: master*
+  name: 10-master-config
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    storage:
+      files:
+      *- contents:*
+          *source: data:text/plain;charset=utf-8;base64,YmFzZTY0IHsiYXV0aHMiOnsiZG9ja2VyLnJlcG8uZW5nLm5ldGFwcC5jb20iOnsiYXV0aCI6IllXVnliem85VVVSb0l5b3JhelpPZEMxYVRHNW8ifX0sICJzeXN0ZW1SZXNlcnZlZCI6eyJjcHUiOjksIm1lbW9yeSI6MzR9fQo=*
+        mode: 384
+        path: /var/lib/kubelet/config.json
+----
++
+[subs=+quotes]
+----
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  *labels:*
+    *machineconfiguration.openshift.io/role: worker*
+  name: 10-worker-config
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    storage:
+      files:
+      *- contents:*
+          *source: data:text/plain;charset=utf-8;base64,YmFzZTY0IHsiYXV0aHMiOnsiZG9ja2VyLnJlcG8uZW5nLm5ldGFwcC5jb20iOnsiYXV0aCI6IllXVnliem85VVVSb0l5b3JhelpPZEMxYVRHNW8ifX0sICJzeXN0ZW1SZXNlcnZlZCI6eyJjcHUiOjksIm1lbW9yeSI6MzR9fQo=*
+        mode: 384
+        path: /var/lib/kubelet/config.json
+----
+
+. Apply both MachineConfig templates to your cluster:
++
+----
+oc create -f 10-master-config.yaml
+oc create -f 10-worker-config.yaml
+----
+
+. After you have created these configs, list the existing MachineConfigs:
++
+----
+oc get mc
+----
++
+In the response, you should see new MachineConfig entries and new `rendered` configs that will be applied to the master and worker nodes:
++
+[subs=+quotes]
+----
+NAME                                               GENERATEDBYCONTROLLER                      IGNITIONVERSION   AGE
+00-master                                          d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
+00-worker                                          d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
+01-master-container-runtime                        d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
+01-master-kubelet                                  d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
+01-worker-container-runtime                        d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
+01-worker-kubelet                                  d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
+*10-master-config                                                                              3.2.0             7h51m*
+*10-worker-config                                                                              3.2.0             7d*
+99-master-chrony-configuration                                                                2.2.0             85d
+99-master-generated-registries                     d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
+99-master-ssh                                                                                 3.2.0             85d
+99-worker-chrony-configuration                                                                2.2.0             85d
+99-worker-generated-registries                     d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
+99-worker-ssh                                                                                 3.2.0             85d
+rendered-master-0141f3b33ce753008483ee54c0c9f38b   d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
+rendered-master-4c45e4f0a24fbd57714fa09b65efe2b8   d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
+*rendered-master-6d0ec17122b6fd772824525117723da7   d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             7h51m*
+rendered-master-9015688349ab306f1c3bdf4be08c56c7   d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
+*rendered-worker-b52664d4ea0e986cb6dedf57d8bf1e71   d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             1m*
+rendered-worker-4107ba1f8c7d36c2897c01f09fa86792   d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
+rendered-worker-4f52e606f7beb79bd617d843f78a5beb   d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             7d
+rendered-worker-5b4dd904499c55ce04b0088508991a73   d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
+rendered-worker-7c06f39a35e188a159b7330c13b3717f   d2d236b1952843821602ec36cd5817e72fd0a407   3.2.0             85d
 ----
 
 ====
