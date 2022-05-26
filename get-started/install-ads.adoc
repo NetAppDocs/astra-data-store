@@ -291,7 +291,7 @@ subjects:
 .Reserve resources for data-plane components using kubelet config
 //ocp
 
-To ensure K8s components have enough resources for Astra Data Store components to run, you need to reserve resources using the `systemReserved` parameter of the Kubelet config file. On Openshift, this file is located here: `/var/lib/kubelet/config.json`. The config file is managed by a Machine Config Operator (MCO) on Openshift clusters.
+To ensure Astra Data Store data-plane components have enough resources to run, you need to reserve resources using the `systemReserved` parameter of the Kubelet config file. On Openshift, this file is located here: `/var/lib/kubelet/config.json`. The config file is managed by a Machine Config Operator (MCO) on Openshift clusters.
 
 IMPORTANT: Any manual edits to this config file will leave your cluster in a degraded state. This procedure updates this config file using Openshift-native options.
 
