@@ -10,7 +10,7 @@ summary: You can deploy and manage the Astra Data Store using the Astra vCenter 
 :icons: font
 :imagesdir: ../media/use-vmware/
 
-You can deploy Astra Data Store and manage it using the NetApp Astra Plugin for VMware vSphere.
+You can set up Astra Data Store as a storage backend and manage it using the NetApp Astra Plugin for VMware vSphere.
 
 Setting up Astra Data Store with VMware involves the following tasks:
 

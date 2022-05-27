@@ -10,25 +10,31 @@ summary: This FAQ can help if you're just looking for a quick answer to a questi
 :icons: font
 :imagesdir: ../media/
 
-Find answers to the frequently asked questions about installing, configuring, upgrading, and troubleshooting Astra Data Store.
+Find answers to the frequently asked questions about installing, configuring, upgrading, and troubleshooting Astra Data Store Early Access Program release.
 
 
 == General questions
 
-*Can I use Astra Data Store for production?*
-No. While Astra Data Store is designed and developed to deliver enterprise grade resiliency, this release of Astra Data Store is not targeted for production workloads.
+*Can I use Astra Data Store Early Access Program release for production?*
+No. While Astra Data Store is designed and developed to deliver enterprise grade resiliency, the Early Access Program release of Astra Data Store is not targeted for production workloads.
 
 *Can I use Astra Data Store for virtual machine workloads?*
 //Astra Data Store release is limited only to applications running on Kubernetes, whether on bare metal or virtual machines. Future releases will support applications on both Kubernetes and directly on ESXi virtual machines.
-Yes. Astra Data Store supports both bare metal and VM-based deployments, and supports both Kubernetes and VMware vVol workloads.
+Yes. Astra Data Store supports both Kubernetes and VMware vVol workloads.
 
- See link:../get-started/requirements.html[Astra Data Store requirements].
+See link:../use-vmware/use-ads-vmware-overview.html[Learn about Astra Data Store with VMware].
+
+*Can I use VMware vSphere to manage Astra Data Store?*
+Yes, Astra Data Store can be natively managed in vCenter with the NetApp Astra Plugin for VMware vSphere.
+See link:../use-vmware/manage-ads-vmware.html[Manage Astra Data Store components of your VMware installation].
 
 *Does Astra Data Store have any dependencies on other NetApp products for its functioning?*
 
-Yes. Astra Data Store requires NetApp CSI driver Astra Trident version 21.10.1 and later to be deployed on workload Kubernetes clusters. Learn about link:../use-vmware/ads-vmware-requirements.html[Astra Data Store with VMware requirements].
+Yes. Astra Data Store requires NetApp CSI driver Astra Trident version 21.10.1 and later to be deployed on workload Kubernetes clusters. Learn about link:../get-started/requirements.html[Astra Data Store requirements].
 
-Applications using an Astra Data Store cluster as a storage backend can use https://docs.netapp.com/us-en/astra-control-center/index.html[Astra Control Center^] version 21.12 to leverage application-aware data management capabilities, including data protection, disaster recovery, and migration of Kubernetes workloads.
+Astra Control Center is required to enable the VMware workflows and NetApp Astra Plugin for VMware vSphere.
+
+Applications using an Astra Data Store cluster as a storage backend can use https://docs.netapp.com/us-en/astra-control-center/index.html[Astra Control Center^] to leverage application-aware data management capabilities, including data protection, disaster recovery, and migration of Kubernetes workloads.
 
 *How can I manage the Astra Data Store cluster?*
 You can manage Astra Data Store resources by using kubectl commands and by using the Kubernetes API extension.
@@ -36,7 +42,7 @@ You can manage Astra Data Store resources by using kubectl commands and by using
 The `kubectl astrads` command includes an `-h` switch that provides usage and flag documentation for your convenience.
 
 *How can I monitor Astra Data Store cluster metrics?*
-You can monitor Astra Data Store metrics using Cloud Insights. See link:../use/monitor-with-cloud-insights.html[Monitor metrics with Cloud Insights].
+You can monitor Astra Data Store metrics using Cloud Insights (see link:../use/monitor-with-cloud-insights.html[Monitor metrics with Cloud Insights]) or Kubernetes native monitoring (see link:../use/monitor-with-prometheus-grafana.html[Monitor with Prometheus and Grafana]).
 
 You can also monitor logs. See link:../use/configure-endpoints.html[Configure and monitor event logs].
 
@@ -49,12 +55,12 @@ Astra Trident will not be uninstalled from the cluster if you uninstall Astra Da
 == Licensing
 
 *Does Astra Data Store require a license?*
-Yes, Astra Data Store requires a NetApp license file (NLF).
+Yes, Astra Data Store requires an evaluation NetApp license file (NLF).
 //The Astra Data Store preview release also requires a NetApp license file (NLF).
 
 See link:../get-started/requirements.html[Astra Data Store requirements].
 
-*How long is the Astra Data Store license valid?*
+*How long is the Astra Data Store evaluation license valid?*
 The Astra Data Store license has a default term of 90 days from the download date.
 
 
@@ -71,7 +77,7 @@ Astra Data Store works with Kubernetes distributions that are compatible with v1
 Yes. An Astra Data Store cluster must be initially deployed on 4 worker nodes in a Kubernetes cluster. After deployment, you can grow the cluster up to a maximum of 16 worker nodes.
 
 *Does Astra Data Store support an offline installation from a private registry?*
-Yes. Astra Data Store can be installed offline from a local registry. See link:../get-started/install-ads.html[Install Astra Data Store]. However, Astra Data Store requires connectivity (direct or via a proxy) to the NetApp AutoSupport backend (support.netapp.com) for continued operations.
+Yes. Astra Data Store can be installed offline from a local registry. See link:../get-started/install-ads.html[Install Astra Data Store].
 
 *Do I need internet connectivity to use Astra Data Store?*
 Astra Data Store requires connectivity to the NetApp AutoSupport backend to periodically send the mandatory telemetry AutoSupport bundles. This connectivity can be direct or via a proxy. If this connectivity is missing or AutoSupport is disabled, the cluster will lock down and new volume creation will be disabled until the periodic bundle uploads are resumed.
@@ -99,7 +105,6 @@ With Astra Data Store, you can access community support using the NetApp Contain
 
 https://netapp.io/slack[NetApp Container Slack channel^]
 
-This release requires that your system is connected to the cloud and integrated into the NetApp Active IQ and AutoSupport tools.
 
 See link:../support/get-help-ads.html[Astra Data Store support operations].
 
@@ -121,11 +126,9 @@ No, Astra Data Store only supports IPv4 address. IPv6 support will be added in a
 *What NFS version is used while provisioning a volume on Astra Data Store?*
 By default, Astra Data Store supports NFS v4.1 for all volumes provisioned for Kubernetes applications.
 
-*Why can't I get larger persistent volumes even though I have configured Astra Data Store with large capacity drives?*
-Astra Data Store limits the maximum capacity provisioned for all volumes on a node to 2 TiB and up to 32 TiB across all nodes in an Astra Data Store cluster.
 
 See link:../get-started/requirements.html[Astra Data Store requirements] and link:capabilities.html[Astra Data Store limits].
 
 == Upgrading Astra Data Store
 *Can I upgrade from Astra Data Store preview release?*
-Yes. You can upgrade from the Astra Data Store 2021.12.1 patch release.
+Yes. You can upgrade from the Astra Data Store Early Access Program release to a future release.
