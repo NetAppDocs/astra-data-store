@@ -291,7 +291,7 @@ storageclass.storage.k8s.io/trident-csi created
 . Verify that the storage class has been added:
 +
 ----
-kubectl get storageclass -A
+kubectl get storageclass
 ----
 +
 Response:
