@@ -32,6 +32,7 @@ The following workflows are not supported in this release:
 The following functionality is not supported:
 //VMware ADS EAP review
 
+* If you plan to use the NetApp Astra Plugin for VMware vSphere with Astra Data Store, you should not deploy Astra Control Center on an OpenShift cluster.
 * First Class Disks (FCDs)
 * VMware vMotion
 * Linked Mode vCenter servers
