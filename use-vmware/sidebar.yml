@@ -11,7 +11,5 @@ entries:
     url: /use-vmware/monitor-ads-vmware.html
   - title: Manage Astra Data Store components of your VMware installation
     url: /use-vmware/manage-ads-vmware.html
-  - title: Protect components of your VMware installation
-    url: /use-vmware/protect-ads-vmware.html
   - title: Uninstall Astra Data Store from a VMware-integrated environment
     url: /use-vmware/uninstall-ads-vmware.html

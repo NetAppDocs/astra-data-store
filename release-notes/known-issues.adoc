@@ -12,11 +12,21 @@ summary: Known issues identify problems that might prevent you from using this r
 
 Known issues identify problems that might prevent you from using this release of the product successfully.
 
-== Astra Data Store 22.04 release
+== Astra Data Store 22.05 Early Access Program (EAP) release
 This release includes these known issues. Review these known issues carefully.
 
 === Storage backend tasks not showing in vSphere
+//VMware ADS EAP review
 When an action to use an existing storage backend or remove a storage backend is submitted, the task does not appear in the Recent Tasks panel of vSphere client.
+
+=== Extra folders are created when creating a VM
+//VMware ADS EAP review
+When you create a VM in vSphere, additional folders are sometimes created instead of a single folder per VM under the datastore.
+
+=== Filtered views in Astra Plugin for VMware vSphere intermittently do not show data
+//VMware ADS EAP review
+The table column filters for virtual machines occasionally omit filtered data. The filtered view shows the loading icon instead. To resolve this, you can go to another view and reset filters to show the data again.
+
 
 == Find more information
 

@@ -30,7 +30,7 @@ Before you set up Astra Data Store with VMware, you'll need to have the followin
 * Astra Data Store must already be licensed and deployed. See link:../get-started/install-ads.html[Install Astra Data Store].
 * NFSv3 must already be enabled.
 
-
+NOTE: NetApp Astra Plugin for VMware vSphere does not support deployment in OpenShift clusters.
 
 == Activate VMware vSphere services using Astra Control Center
 Begin setting up Astra Data Store with VMware by activating vSphere services on Astra Control Center.
@@ -189,8 +189,10 @@ This process completes the following actions:
 * Adds an existing storage backend to the selected vCenter.
 * Registers the VASA provider with the selected vCenter. The VASA provider provides communication between VMware and Astra Data Store.
 * Adds a VASA provider self-signed certificate to the storage backend.
+//VMware ADS EAP review
+NOTE: It can sometimes take 10 minutes for the vCenter you added to appear in the storage backend wizard.
 
-
+//VMware ADS EAP review
 NOTE: Astra Data Store should not be shared with multiple vCenters.
 
 
@@ -263,6 +265,10 @@ TIP: You cannot use a storage backend that has an existing datastore.
 . Select *Next*.
 . From the Summary page, review the information.
 . Select *Create*.
+//VMware ADS EAP review
++
+NOTE: If you encounter an error related to a failed scan or general system error, https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.storage.doc/GUID-E8EA857E-268C-41AE-BBD9-08092B9A905D.html[rescan/synchronize your storage provider on vCenter] then try to create the datastore again.
+
 
 == Generate VM storage policies
 
