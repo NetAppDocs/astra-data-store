@@ -17,7 +17,7 @@ This release includes these known limitations. Review these known limitations ca
 
 === IP address restrictions on Kubernetes worker nodes
 //VMware ADS EAP review
-Astra Data Store cluster creation fails if any Kubernetes worker node has an IP address hosted on an interface not assigned to Astra Data Store and has the same subnet as the cluster/data IP assigned to the Astra Data Store cluster.
+Astra Data Store cluster creation fails if any Kubernetes worker node has an IP address hosted on an interface not assigned to Astra Data Store and is in the same subnet as the cluster/data IP addresses assigned to the Astra Data Store cluster.
 
 === VMware integrations limitations
 //VMware ADS EAP review
