@@ -22,7 +22,7 @@ Astra Data Store uses the VMWare VASA Provider as an API interface to communicat
 [NOTE]
 ====
 * NetApp Astra Plugin for VMware vSphere does not support vSphere 7.0 Update 3c; use vSphere 7.0 Update 3d instead.
-* NetApp Astra Plugin for VMware vSphere does not support linked mode vCenter servers.
+* NetApp Astra Plugin for VMware vSphere does not support Linked Mode vCenter servers.
 ====
 
 

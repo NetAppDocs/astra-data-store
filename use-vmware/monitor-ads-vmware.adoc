@@ -59,7 +59,7 @@ The following default thresholds are set when you deploy or add a storage backen
 
 You can view the level at which the system generates an alert in VMware.
 
-NOTE: For the Astra Data Store Early Access Program, if the same storage container is used across multiple datacenters, you might seen an incorrect alarm for datastores.
+NOTE: For the Astra Data Store Early Access Program, if the same storage container is used across multiple datacenters, you might see an incorrect alarm for datastores.
 
 //VMware ADS EAP review
 

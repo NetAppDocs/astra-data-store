@@ -40,7 +40,7 @@ The Astra Data Store installation process for standard Kubernetes clusters guide
 * <<Install the Astra Data Store cluster>>
 * <<Understand deployment-related events>>
 
-NOTE: To use Astra Data Data Store with Google Anthos, complete these installation steps and add the Astra Data Store cluster to your Anthos environment.
+NOTE: To use Astra Data Store with Google Anthos, complete these installation steps and add the Astra Data Store cluster to your Anthos environment.
 
 NOTE: To install Astra Data Store with Rancher RKE environments, complete these installation steps and substitute Rancher commands for kubectl commands.
 
@@ -827,7 +827,7 @@ To deploy and use Astra Data Store with Astra Control Center, do the following:
 .What you'll need
 
 * You have reviewed <<What you'll need,general Astra Data Store prerequisites>>
-* You have installed Astra Control Center 22.04.0 or later.
+* You have installed Astra Control Center.
 
 .Steps
 . https://review.docs.netapp.com/us-en/astra-control-center_ads-eap-pi5-review/get-started/setup_overview.html#add-a-storage-backend[Deploy Astra Data Store using Astra Control Center^].

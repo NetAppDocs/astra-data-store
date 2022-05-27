@@ -15,9 +15,9 @@ Known limitations identify platforms, devices, or functions that are not support
 == Astra Data Store 2022.05 Early Access Program (EAP) release
 This release includes these known limitations. Review these known limitations carefully.
 
-=== All node IP addresses must be known to Astra Data Store interfaces
+=== Astra Data Store management IP addresses must be correctly configured on node interfaces
 //VMware ADS EAP review
-Cluster creation fails if any node has an IP address in the same subnet as the Cluster/Data IP hosted on an interface other than the ones assigned to Astra Data Store.
+Astra Data Store requires that all IP addresses on a node that belong to the Astra Data Store management, cluster, or data subnet be configured on the worker nodes' respective interfaces. If an IP address that belongs to one of those subnets is configured on a different interface on the same worker node, cluster creation will fail.
 
 === VMware integrations limitations
 //VMware ADS EAP review
@@ -34,6 +34,7 @@ The following functionality is not supported:
 
 * First Class Disks (FCDs)
 * VMware vMotion
+* Linked Mode vCenter servers
 * Compliance alerts and notifications
 * Multi-vCenter and multi-VASA Provider configurations are not supported. A single VASA Provider per vCenter configuration is supported.
 * NFSv4.1 is not supported.
