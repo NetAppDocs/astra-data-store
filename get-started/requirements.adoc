@@ -222,7 +222,7 @@ a|
 ** CIP: One (1) pre-configured IP address on data interface per node in a different subnet from MIP
 ** Data IP: One (1) unused or unconfigured IP address per node in same subnet as CIP
 |===
-+
+
 NOTE: No VLAN tags are used in these configurations.
 
 == Astra Trident
