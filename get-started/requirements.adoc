@@ -222,11 +222,8 @@ a|
 ** CIP: One (1) pre-configured IP address on data interface per node in a different subnet from MIP
 ** Data IP: One (1) unused or unconfigured IP address per node in same subnet as CIP
 |===
-[NOTE]
-====
-* You should omit the data network gateway field in the cluster Custom Resource (CR) file, `astradscluster.yaml`, for both of these configurations. The existing routing configuration on each node accommodates all of the addresses.
-* No VLAN tags are used in these configurations.
-====
++
+NOTE: No VLAN tags are used in these configurations.
 
 == Astra Trident
 Astra Data Store requires the application Kubernetes clusters to be running Astra Trident for storage provisioning and orchestration. Astra Trident versions 21.10.1 through 22.04 are supported. Astra Data Store can be configured as a link:../get-started/setup-ads.html#set-up-astra-data-store-as-storage-backend[storage backend] with Astra Trident to provision persistent volumes.
