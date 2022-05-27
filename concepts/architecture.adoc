@@ -27,7 +27,7 @@ Astra Data Store works with the following:
 
 * *Astra Control Center*: Use Astra Control Center software for application-aware data management of Kubernetes clusters in your on-premise environment. Easily back up Kubernetes apps, migrate data to a different cluster, and instantly create working application clones.
 +
-Astra Control Center supports OpenShift Kubernetes clusters with an Astra Trident storage backend with ONTAP or an Astra Data Store storage backend.
+Astra Control Center supports Kubernetes clusters with an Astra Trident storage backend with ONTAP or an Astra Data Store storage backend.
 
 * *Astra Trident*: As a fully supported open source storage provisioner and orchestrator maintained by NetApp, Astra Trident enables you to create storage volumes for containerized applications managed by Docker and Kubernetes.
 +

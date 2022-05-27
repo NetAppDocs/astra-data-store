@@ -15,7 +15,7 @@ Find answers to the frequently asked questions about installing, configuring, up
 
 == General questions
 
-*Can I use Astra Data Store Early Access Program release for production?*
+*Can I use the Astra Data Store Early Access Program release for production?*
 No. While Astra Data Store is designed and developed to deliver enterprise grade resiliency, the Early Access Program release of Astra Data Store is not targeted for production workloads.
 
 *Can I use Astra Data Store for virtual machine workloads?*
@@ -80,7 +80,7 @@ Yes. An Astra Data Store cluster must be initially deployed on 4 worker nodes in
 Yes. Astra Data Store can be installed offline from a local registry. See link:../get-started/install-ads.html[Install Astra Data Store].
 
 *Do I need internet connectivity to use Astra Data Store?*
-Astra Data Store requires connectivity to the NetApp AutoSupport backend to periodically send the mandatory telemetry AutoSupport bundles. This connectivity can be direct or via a proxy. If this connectivity is missing or AutoSupport is disabled, the cluster will lock down and new volume creation will be disabled until the periodic bundle uploads are resumed.
+No, Astra Data Store Early Access Program does not require internet connectivity. However, it is recommended to have connectivity to the NetApp AutoSupport backend periodically to send the mandatory telemetry AutoSupport bundles. This connectivity can be direct or via a proxy.
 
 *What are the roles and privileges used by Astra Data Store?*
 You need to be a kube admin to deploy the Astra Data Store operator.
@@ -121,10 +121,10 @@ See link:../support/get-help-ads.html#generate-support-bundle-to-provide-to-neta
 See link:../get-started/install-ads.html[Install Astra Data Store].
 
 *Can IPv6 addresses be used for management, data, and cluster networks?*
-No, Astra Data Store only supports IPv4 address. IPv6 support will be added in a future release of Astra Data Store.
+No, Astra Data Store supports only IPv4 address. IPv6 support will be added in a future release of Astra Data Store.
 
 *What NFS version is used while provisioning a volume on Astra Data Store?*
-By default, Astra Data Store supports NFS v4.1 for all volumes provisioned for Kubernetes applications.
+Astra Data Store supports NFS v4.1 for all volumes provisioned for Kubernetes applications and NFSv3 for all volumes provisioned for VMware workloads.
 
 
 See link:../get-started/requirements.html[Astra Data Store requirements] and link:capabilities.html[Astra Data Store limits].
