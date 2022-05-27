@@ -15,9 +15,9 @@ Known limitations identify platforms, devices, or functions that are not support
 == Astra Data Store 2022.05 Early Access Program (EAP) release
 This release includes these known limitations. Review these known limitations carefully.
 
-=== Astra Data Store management IP addresses must be correctly configured on node interfaces
+=== IP address restrictions on Kubernetes worker nodes
 //VMware ADS EAP review
-Astra Data Store requires that all IP addresses on a node that belong to the Astra Data Store management, cluster, or data subnet be configured on the worker nodes' respective interfaces. If an IP address that belongs to one of those subnets is configured on a different interface on the same worker node, cluster creation will fail.
+Astra Data Store cluster creation fails if any Kubernetes worker node has an IP address hosted on an interface not assigned to Astra Data Store and has the same subnet as the cluster/data IP assigned to the Astra Data Store cluster.
 
 === VMware integrations limitations
 //VMware ADS EAP review
