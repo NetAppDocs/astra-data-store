@@ -10,7 +10,7 @@ summary: You can use the Astra vCenter Plug-in user interface to perform Astra D
 :icons: font
 :imagesdir: ../media/use/
 
-Astra Data Store is architected for both containerized and virtualized workloads. Integrations with vVols and storage policy-based management enables vSphere administrators to easily apply storage quality of service. The NetApp Astra Plugin for VMware vSphere provides a familiar management and monitoring experience eliminating cumbersome storage tasks.
+Astra Data Store supports both containerized and virtualized workloads. Integrations with vVols and storage policy-based management enable vSphere administrators to apply a storage quality of service. The NetApp Astra Plugin for VMware vSphere provides a familiar management and monitoring experience, eliminating cumbersome storage tasks.
 
 The Astra Plugin for VMware vSphere offers the following benefits:
 
