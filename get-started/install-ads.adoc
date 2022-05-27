@@ -16,7 +16,7 @@ You can install Astra Data Store using Kubernetes-native commands or using the U
 
 * *With Kubernetes-native commands*: To install Astra Data Store using Kubernetes-native commands, complete the installation steps described in <<Install Astra Data Store,this procedure>>.
 
-* *With Astra Control Center*: To use Astra Data Store with Astra Control Center, complete the installation steps described in <<Install Astra Data Store using Astra Control Center,this procedure>>.
+* *With Astra Control Center*: To install Astra Data Store using Astra Control Center, complete the installation steps described in <<Install Astra Data Store using Astra Control Center,this procedure>>.
 
 == What you'll need
 
@@ -468,7 +468,7 @@ As optional step for certain environments, you can make configuration changes to
 kubectl create namespace astrads-system
 ----
 
-. Create the private registry:
+. Create the secret:
 +
 ----
 kubectl create secret docker-registry <secret-name> -n astrads-system --docker-server=<registry name> --docker-username= <registry username> --docker-password=<registry user password>

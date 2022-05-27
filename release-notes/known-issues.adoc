@@ -12,7 +12,7 @@ summary: Known issues identify problems that might prevent you from using this r
 
 Known issues identify problems that might prevent you from using this release of the product successfully.
 
-== Astra Data Store 22.05 Early Access Program (EAP) release
+== Astra Data Store 2202.05 Early Access Program (EAP) release
 This release includes these known issues. Review these known issues carefully.
 
 === Storage backend tasks not showing in vSphere

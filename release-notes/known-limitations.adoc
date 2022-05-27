@@ -12,23 +12,20 @@ summary: Known limitations identify platforms, devices, or functions that are no
 
 Known limitations identify platforms, devices, or functions that are not supported by this Early Access Program (EAP) release of the product or do not interoperate correctly with it.
 
-== Astra Data Store 22.05 Early Access Program (EAP) release
+== Astra Data Store 2022.05 Early Access Program (EAP) release
 This release includes these known limitations. Review these known limitations carefully.
 
-=== All IP addresses must be known to interfaces
+=== All node IP addresses must be known to Astra Data Store interfaces
 //VMware ADS EAP review
-Astra Data Store requires that there are no unknown IP addresses configured on a worker node in the same subnet as the Data IP or Cluster IP. The presence of an unknown address will cause cluster creation to fail. An unknown IP address is any address that is not configured on the management interface, cluster interface, or storage interface.
+Cluster creation fails if any node has an IP address in the same subnet as the Cluster/Data IP hosted on an interface other than the ones assigned to Astra Data Store.
 
 === VMware integrations limitations
 //VMware ADS EAP review
 The following workflows are not supported in this release:
 
-* VM:
-** Clone, including cloning from a template
-** Suspend
-** Snapshot with memory
-** Snapshot and revert of a VM with multiple disks
-** Attaching a VM disk after previously removing it from VM.
+* VM workflows:
+** Clone a VM, including clones from a template
+** Attaching a VM disk after previously removing it.
 * vVol replication
 * Delete vVol datastore
 
@@ -40,7 +37,6 @@ The following functionality is not supported:
 * Compliance alerts and notifications
 * Multi-vCenter and multi-VASA Provider configurations are not supported. A single VASA Provider per vCenter configuration is supported.
 * NFSv4.1 is not supported.
-* For all services, only a single instance of a pod is supported.
 * Storage policy-based management is applicable only at the VM level and cannot be modified after VM creation.
 
 ==== Cannot resize multiple VM disks simultaneously
