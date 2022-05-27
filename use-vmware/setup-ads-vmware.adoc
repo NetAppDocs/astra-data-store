@@ -278,11 +278,11 @@ NOTE: If you encounter an error related to a failed scan or general system error
 
 After you create a datastore and before you create VMs, you should generate predesigned VM storage policies by using `/virtualization/api/v1/vcenters/vm-storage-policies` in the REST API UI.
 
-//VMware ADS EAP review
+//VMware ADS EAP review - should "ads_gateway_ip" be something else, as in an ADS node?
 
 .Steps
 
-. Access the REST API UI page by going to `https://<ads_gateway_ip>:8443`[Swagger page].
+. Access the REST API UI page by going to `https://<ads_gateway_ip>:8443`.
 . Go to the API `POST /virtualization/api/auth/login` and provide the username, password and vCenter hostname.
 +
 Response:
