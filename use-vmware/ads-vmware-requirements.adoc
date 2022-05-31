@@ -35,7 +35,7 @@ The NetApp Astra Plugin for VMware vSphere has the following requirements:
 * A licensed Astra Data Store instance running on a Kubernetes cluster
 * NFSv3 enabled on Astra Data Store cluster
 
-NOTE: NetApp Astra Plugin for VMware vSphere does not support deployment in OpenShift clusters.
+//NOTE: NetApp Astra Plugin for VMware vSphere does not support deployment in OpenShift clusters.
 
 
 === Supported web browsers

@@ -34,7 +34,7 @@ Before you set up Astra Data Store with VMware, you'll need to have the followin
 * Upload your Astra Control Center and VASA provider packages before adding a vCenter. https://docs.netapp.com/us-en/astra-control-center/use/manage-packages-acc.html[Manage software packages^]
 
 
-NOTE: NetApp Astra Plugin for VMware vSphere does not support deployment in OpenShift clusters.
+//NOTE: NetApp Astra Plugin for VMware vSphere does not support deployment in OpenShift clusters.
 
 == Activate VMware vSphere services using Astra Control Center
 Begin setting up Astra Data Store with VMware by activating vSphere services on Astra Control Center.
