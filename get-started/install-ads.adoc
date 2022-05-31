@@ -78,7 +78,7 @@ TIP: Use the `which kubectl` command to find the path where kubectl binaries are
 +
 
 ----
-cp -p .astrads/bin/kubectl-astrads /usr/bin/.
+cp -p ./astrads/bin/kubectl-astrads /usr/bin/.
 ----
 
 . Add the files in the Astra Data Store image directory to your local registry.
@@ -101,7 +101,7 @@ export REGISTRY=repo.company.com/astrads
 +
 ----
 for astraImageFile in $(ls astrads/images/*.tar) ; do
-   astraImage=$(docker load --input ${astraImageFile} | sed 's~Loaded image(s): ~~')
+   astraImage=$(docker load --input ${astraImageFile} | sed 's~Loaded image: ~~')
    astraImageShort=`echo $astraImage | sed 's~.*/~~'`
    docker tag ${astraImage} ${REGISTRY}/${astraImageShort}
    docker push ${REGISTRY}/${astraImageShort}
