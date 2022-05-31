@@ -27,6 +27,12 @@ When you create a VM in vSphere, additional folders are sometimes created instea
 //VMware ADS EAP review
 The table column filters for virtual machines occasionally omit filtered data. The filtered view shows the loading icon instead. To resolve this, you can go to another view and reset filters to show the data again.
 
+=== IP address restrictions on Kubernetes worker nodes
+//VMware ADS EAP review
+Astra Data Store cluster creation fails in the following scenario:
+
+. Kubernetes worker node has an IP address hosted on an interface not assigned to Astra Data Store.
+. The IP address is in the same subnet as the cluster/data IP addresses assigned to the Astra Data Store cluster.
 
 == Find more information
 

@@ -15,36 +15,26 @@ Known limitations identify platforms, devices, or functions that are not support
 == Astra Data Store 2022.05 Early Access Program (EAP) release
 This release includes these known limitations. Review these known limitations carefully.
 
-=== IP address restrictions on Kubernetes worker nodes
-//VMware ADS EAP review
-Astra Data Store cluster creation fails if any Kubernetes worker node has an IP address hosted on an interface not assigned to Astra Data Store and is in the same subnet as the cluster/data IP addresses assigned to the Astra Data Store cluster.
-
 === VMware integrations limitations
 //VMware ADS EAP review
-The following workflows are not supported in this release:
+The following features are not supported:
 
 * VM workflows:
 ** Clone a VM, including clones from a template
 ** Attaching a VM disk after previously removing it.
 * vVol replication
 * Delete vVol datastore
-
-The following functionality is not supported:
-//VMware ADS EAP review
-
-//* If you plan to use the NetApp Astra Plugin for VMware vSphere with Astra Data Store, you should not deploy Astra Control Center on an OpenShift cluster.
-* For the Astra Data Store Early Access Program (EAP) release, Astra Control Center and Astra Data Store must be deployed in two different Kubernetes clusters.
 * First Class Disks (FCDs)
 * VMware vMotion
 * Linked Mode vCenter servers
 * Compliance alerts and notifications
-* Multi-vCenter and multi-VASA Provider configurations are not supported. A single VASA Provider per vCenter configuration is supported.
-* NFSv4.1 is not supported.
+* Multi-vCenter and multi-VASA Provider configurations.
+** A single VASA Provider per vCenter configuration is supported.
 * Storage policy-based management is applicable only at the VM level and cannot be modified after VM creation.
 
 ==== Cannot resize multiple VM disks simultaneously
 //VMware ADS EAP review
-If you try to resize multiple disks at a time, the resize operation works only for the first disk and fails for the rest. For this release, you can only resize one disk at a time.
+For this release, you can only resize one disk at a time. If you try to resize multiple disks at once, the resize operation works only for the first disk.
 
 == Find more information
 
