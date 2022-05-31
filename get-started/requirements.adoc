@@ -213,7 +213,7 @@ In environments that enforce network firewall traffic filtering, the firewall mu
 |2010/UDP
 |CIP
 |Cluster/node discovery
-|Includes both unicast and broadcast traffic to port 2010 with replies. The firewall must pass broadcast traffic to and from port 2010 (including broadcast replies).
+|Includes both unicast and broadcast traffic to and from UDP port 2010, including the replies.
 
 |2049/TCP
 |DIP
@@ -266,9 +266,6 @@ In environments that enforce network firewall traffic filtering, the firewall mu
 |Data IPs move between cluster nodes at runtime. Each node should allow this traffic for all data IPs (or for the entire subnet).
 
 |===
-
-
-
 
 == Astra Trident
 Astra Data Store requires the application Kubernetes clusters to be running Astra Trident for storage provisioning and orchestration. Astra Trident versions 21.10.1 through 22.04 are supported. Astra Data Store can be configured as a link:../get-started/setup-ads.html#set-up-astra-data-store-as-storage-backend[storage backend] with Astra Trident to provision persistent volumes.
