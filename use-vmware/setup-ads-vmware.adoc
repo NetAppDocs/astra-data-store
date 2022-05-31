@@ -25,6 +25,7 @@ Setting up Astra Data Store with VMware involves the following tasks:
 .What you'll need
 Before you set up Astra Data Store with VMware, you'll need to have the following items:
 
+* For the Astra Data Store Early Access Program (EAP) release, Astra Control Center and Astra Data Store must be deployed in two different Kubernetes clusters.
 * Astra Control Center must have already been installed and set up.
 * A self-managed Kubernetes cluster must already be managed by Astra Control Center. The Kubernetes cluster that was used to deploy to Astra Control Center must already managed by Astra Control Center.
 
