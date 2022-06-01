@@ -5,35 +5,36 @@ keywords: astra, astra data store, astra datastore, kubectl
 summary: You can use kubectl commands directly with Astra Data Store.
 ---
 
-= Manage Astra Data Store preview assets with kubectl commands
+= Manage Astra Data Store resources with kubectl commands
 :hardbreaks:
 :icons: font
 :imagesdir: ../media/get-started/
 
-You can manage Astra Data Store preview assets by using kubectl commands and by using the Kubernetes API extension.
+You can manage Astra Data Store resources by using kubectl commands and by using the Kubernetes API extension.
 
 
 To learn how to deploy a sample app, see link:../use/deploy-apps.html[Deploy a test application].
 
-For the following cluster maintenance information, see link:../use/maintain-cluster.html[Manage the cluster]:
-
+For cluster maintenance information, see link:../use/maintain-cluster.html[Manage the cluster].
+////
 * Place a node in maintenance mode
 * Replace a drive
 * Add a node
 * Replace a node
+////
 
 .What you'll need
 
-* The Astra Data Store preview kubectl plugin you installed in link:../get-started/install-ads.html[Install Astra Data Store preview]
+* The Astra Data Store kubectl plugin you installed in link:../get-started/install-ads.html[Install Astra Data Store]
 
-== List Kubernetes custom API resources for Astra Data Store preview
-You can use kubectl commands inside of Kubernetes to interact with and observe the state of your Astra Data Store preview cluster.
+== List Kubernetes custom API resources for Astra Data Store
+You can use kubectl commands inside of Kubernetes to interact with and observe the state of your Astra Data Store cluster.
 
-Each item listed from the `api-resources` command represents a Kubernetes custom resource definition (CRD) that Astra Data Store preview uses internally to manage your cluster.
+Each item listed from the `api-resources` command represents a Kubernetes custom resource definition (CRD) that Astra Data Store uses internally to manage your cluster.
 
-This list is particularly helpful to get shortnames of each Astra Data Store preview object to reduce your typing, as shown later.
+This list is particularly helpful to get short names of each Astra Data Store object to reduce your typing, as shown later.
 
-. Display a list of Kubernetes custom API resources for Astra Data Store preview :
+. Display a list of Kubernetes custom API resources for Astra Data Store:
 +
 ----
 kubectl api-resources --api-group astrads.netapp.io
@@ -42,22 +43,24 @@ kubectl api-resources --api-group astrads.netapp.io
 Response:
 +
 ----
-NAME                   SHORTNAMES  APIGROUP           NAMESPACED  KIND
-astradsversions         adsve      astrads.netapp.io  true        AstraDSVersion
-astradsclusters         adscl      astrads.netapp.io  true        AstraDSCluster
-astradslicenses         adsli      astrads.netapp.io  true        AstraDSLicense
-astradsnodeinfoes       adsni      astrads.netapp.io  true        AstraDSNodeInfo
-astradsvolumes          adsvo      astrads.netapp.io  true        AstraDSVolume
-astradsqospolicies      adsqp      astrads.netapp.io  true        AstraDSQosPolicy
-astradsexportpolicies   adsep      astrads.netapp.io  true        AstraDSExportPolicy
-astradsvolumesnapshots  adsvs      astrads.netapp.io  true        AstraDSVolumeSnapshot
-astradsvolumefiles      adsvf      astrads.netapp.io  true        AstraDSVolumeFiles
-astradsautosupports     adsas      astrads.netapp.io  true        AstraDSAutoSupport
-astradsfaileddrives     adsfd      astrads.netapp.io  true        AstraDSFailedDrive
-astradsnodemanagements  adsnm      astrads.netapp.io  true        AstraDSNodeManagement
+NAME                   SHORTNAMES  APIGROUP            NAMESPACED  KIND
+astradsautosupports    adsas   astrads.netapp.io/v1alpha1 true   AstraDSAutoSupport
+astradscloudsnapshots  adscs   astrads.netapp.io/v1alpha1 true   AstraDSCloudSnapshot
+astradsclusters        adscl   astrads.netapp.io/v1alpha1 true   AstraDSCluster
+astradsexportpolicies  adsep   astrads.netapp.io/v1alpha1 true   AstraDSExportPolicy
+astradsfaileddrives    adsfd   astrads.netapp.io/v1alpha1 true   AstraDSFailedDrive
+astradslicenses        adsli   astrads.netapp.io/v1alpha1 true   AstraDSLicense
+astradsnfsoptions      adsnf   astrads.netapp.io/v1alpha1 true   AstraDSNfsOption
+astradsnodeinfoes      adsni   astrads.netapp.io/v1alpha1 true   AstraDSNodeInfo
+astradsnodemanagements adsnm   astrads.netapp.io/v1alpha1 true   AstraDSNodeManagement
+astradsqospolicies     adsqp   astrads.netapp.io/v1alpha1 true   AstraDSQosPolicy
+astradsversions        adsve   astrads.netapp.io/v1alpha1 true   AstraDSVersion
+astradsvolumefiles     adsvf   astrads.netapp.io/v1alpha1 true   AstraDSVolumeFiles
+astradsvolumes         adsvo   astrads.netapp.io/v1alpha1 true   AstraDSVolume
+astradsvolumesnapshots adsvs   astrads.netapp.io/v1alpha1 true   AstraDSVolumeSnapshot
 ----
 
-. To get all the current Astra Data Store preview objects in your Kubernetes cluster, use the `kubectl get ads -A` command:
+. To get all the current Astra Data Store objects in your Kubernetes cluster, use the `kubectl get ads -A` command:
 +
 ----
 kubectl get ads -A
@@ -123,7 +126,7 @@ astrads-system   test2345   21Gi   172.25.138.111   astrads-cluster-9f1c99f   tr
 The `kubectl astrads` command includes an `-h` switch that provides usage and flag documentation for your convenience.
 
 
-. Show help for all commands in the Astra Data Store preview kubectl extension:
+. Show help for all commands in the Astra Data Store kubectl extension:
 +
 ----
 kubectl astrads -h
