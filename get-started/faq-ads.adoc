@@ -55,8 +55,7 @@ Astra Trident will not be uninstalled from the cluster if you uninstall Astra Da
 == Licensing
 
 *Does Astra Data Store require a license?*
-Yes, Astra Data Store requires an evaluation NetApp license file (NLF).
-//The Astra Data Store preview release also requires a NetApp license file (NLF).
+Yes, Astra Data Store requires an evaluation NetApp license file (NLF) for the Early Access Program.
 
 See link:../get-started/requirements.html[Astra Data Store requirements].
 
@@ -80,7 +79,7 @@ Yes. An Astra Data Store cluster must be initially deployed on 4 worker nodes in
 Yes. Astra Data Store can be installed offline from a local registry. See link:../get-started/install-ads.html[Install Astra Data Store].
 
 *Do I need internet connectivity to use Astra Data Store?*
-No, Astra Data Store Early Access Program does not require internet connectivity. However, it is recommended to have connectivity to the NetApp AutoSupport backend periodically to send the mandatory telemetry AutoSupport bundles. This connectivity can be direct or via a proxy.
+No, Astra Data Store Early Access Program does not require internet connectivity. However, it is recommended to have connectivity to the NetApp AutoSupport backend to periodically send the telemetry bundles. This connectivity can be direct or via a proxy.
 
 *What are the roles and privileges used by Astra Data Store?*
 You need to be a kube admin to deploy the Astra Data Store operator.

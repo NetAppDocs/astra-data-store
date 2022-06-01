@@ -21,15 +21,15 @@ The following features are not supported:
 
 * VM workflows:
 ** Clone a VM, including clones from a template
-** Attaching a VM disk after previously removing it.
+** Attaching a VM disk after previously removing it
 * vVol replication
 * Delete vVol datastore
 * First Class Disks (FCDs)
 * VMware vMotion
 * Linked Mode vCenter servers
 * Compliance alerts and notifications
-* Multi-vCenter and multi-VASA Provider configurations.
-** A single VASA Provider per vCenter configuration is supported.
+* Multi-vCenter and multi-VASA Provider configurations
+** A single VASA Provider per vCenter configuration is supported
 * Storage policy-based management is applicable only at the VM level and cannot be modified after VM creation.
 
 ==== Cannot resize multiple VM disks simultaneously

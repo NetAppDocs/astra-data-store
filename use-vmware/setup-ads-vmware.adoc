@@ -23,19 +23,16 @@ Setting up Astra Data Store with VMware involves the following tasks:
 
 
 .What you'll need
-Before you set up Astra Data Store with VMware, you'll need to have the following items:
+Before you set up Astra Data Store with VMware, you'll need to ensure the following:
 
-* For the Astra Data Store Early Access Program (EAP) release, Astra Control Center and Astra Data Store must be deployed in two different Kubernetes clusters.
-* Astra Control Center must have already been installed and set up.
-* A self-managed Kubernetes cluster must already be managed by Astra Control Center. The Kubernetes cluster that was used to deploy to Astra Control Center must already managed by Astra Control Center.
+* Astra Control Center is https://docs.netapp.com/us-en/astra-control-center/get-started/install_overview.html[installed] and set up.
+* Astra Data Store is licensed and deployed. See link:../get-started/install-ads.html[Install Astra Data Store].
 
-//For the Astra Data Store Early Access Program (EAP) release, Astra Control Center and Astra Data Store must be deployed in two different Kubernetes clusters.
-* Astra Data Store must already be licensed and deployed. See link:../get-started/install-ads.html[Install Astra Data Store].
-* NFSv3 must already be enabled.
-* Upload your Astra Control Center and VASA provider packages before adding a vCenter. https://docs.netapp.com/us-en/astra-control-center/use/manage-packages-acc.html[Manage software packages^]
+NOTE: For the Astra Data Store Early Access Program (EAP) release, Astra Control Center and Astra Data Store must be deployed in two different Kubernetes clusters.
 
-
-//NOTE: NetApp Astra Plugin for VMware vSphere does not support deployment in OpenShift clusters.
+* The Kubernetes clusters that were used to deploy Astra Control Center and Astra Data Store must already be managed by Astra Control Center.
+* NFSv3 is enabled.
+* You have uploaded your Astra Control Center and VASA provider packages before adding a vCenter. https://docs.netapp.com/us-en/astra-control-center/use/manage-packages-acc.html[See Manage software packages^].
 
 == Activate VMware vSphere services using Astra Control Center
 Begin setting up Astra Data Store with VMware by activating vSphere services on Astra Control Center.
