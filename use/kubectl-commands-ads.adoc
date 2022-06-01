@@ -123,10 +123,9 @@ astrads-system   test2345   21Gi   172.25.138.111   astrads-cluster-9f1c99f   tr
 
 == Use the help option on the kubectl extension
 
-The `kubectl astrads` command includes an `-h` switch that provides usage and flag documentation for your convenience.
+NetApp provides an `astrads` extension to the `kubectl` command that allows you to perform Astra Data Store cluster management tasks such as adding a license, managing nodes, troubleshooting issues and expanding the Astra Data Store cluster. The `astrads` extension includes an `-h` option that provides information about how to use the extension and for what tasks.
 
-
-. Show help for all commands in the Astra Data Store kubectl extension:
+. Show help for all commands in the Astra Data Store `kubectl` extension:
 +
 ----
 kubectl astrads -h
