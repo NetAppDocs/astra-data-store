@@ -1,7 +1,7 @@
 section: concepts
 title: Concepts
 entries:
-  - title: Intro to Astra Data Store
+  - title: Learn about Astra Data Store
     url: /concepts/intro.html
   - title: Deployment models
     url: /concepts/architecture.html

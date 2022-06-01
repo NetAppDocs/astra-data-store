@@ -5,6 +5,7 @@ settings:
     pdf_enabled: true
   prod:
     pdf_enabled: true
+    harmony_enabled: true
 sidebar:
   entries:
     - title: Astra Data Store docs
@@ -13,7 +14,10 @@ sidebar:
     - section: concepts
     - section: get-started
     - section: use
+    - section: use-vmware
     - section: support
+    - title: Earlier versions
+      url: /ads-earlier-versions.html
     - title: Legal notices
       url: /legal-notices.html
 product-family:
@@ -26,29 +30,27 @@ homepage:
       links:
         - title: Learn about Astra Data Store
           url: /concepts/intro.html
-        - title: What's in Astra Data Store preview
+        - title: What's in Astra Data Store
           url: /release-notes/whats-new.html
         - title: Try it out
           url: /get-started/install-ads.html#edit-and-apply-the-astra-data-store-license
-        - title: Install Astra Data Store preview
+        - title: Install Astra Data Store
           url: /get-started/install-ads.html
-        - title: Set up Astra Data Store preview
+        - title: Set up Astra Data Store
           url: /get-started/setup-ads.html
-    - title: Use Astra Data Store preview
+    - title: Use Astra Data Store
       links:
-        - title: Manage with kubectl commands
+        - title: Manage Astra Data Store resources 
           url: /use/kubectl-commands-ads.html
         - title: Monitor metrics with Cloud Insights
           url: /use/monitor-with-cloud-insights.html
         - title: Monitor event logs
           url: /use/configure-endpoints.html
-        - title: Astra Control Center integration
-          url: /use/ads-acc-ui.html
     - title: Demos & tutorials
       links:
         - title: Future of Kubernetes
           url: https://cloud.netapp.com/astra-data-store
-        - title: Astra Data Store preview demo
+        - title: Astra Data Store demo
           url: https://netapp.hubs.vidyard.com/watch/aDmgkBbJhUTZAGmH5XKimA?
     - title: Blogs & community
       links:

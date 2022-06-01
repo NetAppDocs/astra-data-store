@@ -1,0 +1,327 @@
+---
+sidebar: sidebar
+permalink: use-vmware/setup-ads-vmware.html
+keywords: astra, vmware, vcenter, astra data store
+summary: You can deploy and manage the Astra Data Store using the Astra vCenter Plug-in and VMware vSphere-native functionality.
+---
+
+= Set up Astra Data Store with VMware
+:hardbreaks:
+:icons: font
+:imagesdir: ../media/use-vmware/
+
+You can set up Astra Data Store as a storage backend and manage it using the NetApp Astra Plugin for VMware vSphere.
+
+Setting up Astra Data Store with VMware involves the following tasks:
+
+* <<Activate VMware vSphere services using Astra Control Center>>.
+* <<Add a vCenter using Astra Control Center>>.
+* <<Create a custom SCC (if using OpenShift)>>
+* <<Use an existing storage backend in the Astra Plugin for VMware vSphere>>.
+* <<Create a datastore using the Astra Plugin for VMware vSphere>>.
+* <<Generate VM storage policies>>.
+
+
+.What you'll need
+Before you set up Astra Data Store with VMware, you'll need to ensure the following:
+
+* Astra Control Center is https://docs.netapp.com/us-en/astra-control-center/get-started/install_overview.html[installed] and set up.
+* Astra Data Store is licensed and deployed. See link:../get-started/install-ads.html[Install Astra Data Store].
+
+NOTE: For the Astra Data Store Early Access Program (EAP) release, Astra Control Center and Astra Data Store must be deployed in two different Kubernetes clusters.
+
+* The Kubernetes clusters that were used to deploy Astra Control Center and Astra Data Store must already be managed by Astra Control Center.
+* NFSv3 is enabled.
+* You have uploaded your Astra Control Center and VASA provider packages before adding a vCenter. https://docs.netapp.com/us-en/astra-control-center/use/manage-packages-acc.html[See Manage software packages^].
+
+== Activate VMware vSphere services using Astra Control Center
+Begin setting up Astra Data Store with VMware by activating vSphere services on Astra Control Center.
+
+NOTE: VMware vSphere services in Astra Control Center are not enabled by default.
+
+
+. Log in to Astra Control Center.
+. From the left navigation, select *Clusters*.
++
+The banner displays a message that VMware vSphere services are not yet enabled.
+
+. Select *Enable VMware vSphere services*.
++
+This action might take a while. After the services are enabled, the *Add vCenter* button is enabled.
+
+
+== Add a vCenter using Astra Control Center
+Add your first vCenter, which registers the Astra Plugin for VMware vSphere.
+
+You must have administrative privileges to add the vCenter to Astra Control Center.
+
+TIP: After the plugin is registered with VMware vSphere, the Astra Plugin for VMware vSphere icon appears in the VMware Shortcuts page.
+
+. Log in to Astra Control Center.
+. From the left navigation, select *Clusters*.
+. Select *Add vCenter*.
+
+. Enter the vCenter server details, vCenter port, and administrative user name and password to provide them to Astra Control Center.
++
+TIP: This enables deployment of the Astra Plugin for this vCenter in the VMware vSphere client.
+
+
+. Select *Add*.
+
++
+The vCenter appears on the Clusters page and the total number of managed vCenters is updated on the Astra Control Dashboard. This also initiates the Astra Plugin for VMware vSphere deployment.
+
+=== Verify the vCenter addition
+The newly added vCenter appears on the Clusters page and on the Dashboard.
+
+TIP: Both vCenters and Kubernetes clusters appear on the Astra Control Center Dashboard.
+
+. Access Astra Control Center.
+. From the left navigation, select *Clusters*.
+. Verify that the newly managed vCenter appears on the Clusters page.
+. From the left navigation, select *Dashboard*.
+. From the Astra Control Center Dashboard, note the new managed vCenter cluster as part of the *Managed* count.
++
+TIP: The Managed Clusters count includes both vCenters and Kubernetes clusters.
+
+. To view cluster details, click the *Managed* count.
++
+The Clusters page appears.
+
+== Create a custom SCC (if using OpenShift)
+//ocp
+//VMware ADS EAP review
+
+If you are using OpenShift, you can optionally assign security context constraints (SCC) that control the actions that a pod can perform and control what the pod can access.
+
+By default, the execution of any container will be granted the restricted SCC and only the capabilities defined by that SCC. Restricted SCC does not provide permissions required by VASA provider pods. Use this procedure to provide the required higher privileges (listed in the sample) to the service accounts used by VASA provider deployments.
+
+Assign a custom SCC to various default service accounts for the Astra Data Store 'ntv-system' namespace, which is a hybrid of privileged and node-exporter SCCs.
+
+The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).
+
+. Create a custom SCC called `vp_backend_privileged_scc.yaml`:
++
+----
+kubectl create -f vp_backend_privileged_scc.yaml
+----
++
+Sample: vp_backend_privileged_scc.yaml
++
+----
+allowHostDirVolumePlugin: true
+allowHostIPC: false
+allowHostNetwork: true
+allowHostPID: false
+allowHostPorts: true
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: true
+allowedCapabilities:
+  - '*'
+allowedUnsafeSysctls:
+  - '*'
+apiVersion: security.openshift.io/v1
+defaultAddCapabilities: null
+fsGroup:
+  type: RunAsAny
+groups: []
+kind: SecurityContextConstraints
+metadata:
+  name: vpbackend-privileged
+priority: null
+readOnlyRootFilesystem: false
+requiredDropCapabilities: null
+runAsUser:
+  type: RunAsAny
+seLinuxContext:
+  type: RunAsAny
+seccompProfiles:
+  - '*'
+supplementalGroups:
+  type: RunAsAny
+users:
+  - system:serviceaccount:ntv-system:default
+  - system:serviceaccount:ntv-system:ntv-auth-svc
+  - system:serviceaccount:ntv-system:ntv-autosupport
+  - system:serviceaccount:ntv-system:ntv-compliance-svc
+  - system:serviceaccount:ntv-system:ntv-datastore-svc
+  - system:serviceaccount:ntv-system:ntv-metallb-controller
+  - system:serviceaccount:ntv-system:ntv-metallb-speaker
+  - system:serviceaccount:ntv-system:ntv-mongodb
+  - system:serviceaccount:ntv-system:ntv-nfs-svc
+  - system:serviceaccount:ntv-system:ntv-rabbitmq-svc
+  - system:serviceaccount:ntv-system:ntv-storage-svc
+  - system:serviceaccount:ntv-system:ntv-vault
+  - system:serviceaccount:ntv-system:ntv-vault-admin
+  - system:serviceaccount:ntv-system:ntv-vault-agent-injector
+  - system:serviceaccount:ntv-system:ntv-vault-controller
+  - system:serviceaccount:ntv-system:ntv-vault-initializer
+  - system:serviceaccount:ntv-system:ntv-vcenter-svc
+  - system:serviceaccount:ntv-system:ntv-vm-management-svc
+  - system:serviceaccount:ntv-system:ntv-watcher-svc
+  - system:serviceaccount:ntv-system:ntv-vault-sa-vault-tls
+  - system:serviceaccount:ntv-system:ntv-gateway-svc
+  - system:serviceaccount:ntv-system:ntv-jobmanager-svc
+  - system:serviceaccount:ntv-system:ntv-vasa-svc
+volumes:
+  - '*'
+----
+
+
+. Display the newly added SCC using the `oc get scc` command:
++
+----
+oc get scc vpbackend-privileged
+----
++
+Response:
++
+----
+NAME                 PRIV  CAPS  SELINUX  RUNASUSER FSGROUP  SUPGROUP PRIORITY   READONLYROOTFS VOLUMES
+vpbackend-privileged true ["*"]  RunAsAny RunAsAny  RunAsAny RunAsAny <no value> false          ["*"]
+----
+
+
+== Use an existing storage backend in the Astra Plugin for VMware vSphere
+
+After adding a vCenter by using the Astra Control Center UI, add the Astra Data Store storage backend using the Astra Plugin for VMware vSphere.
+
+This process completes the following actions:
+
+* Adds an existing storage backend to the selected vCenter.
+* Registers the VASA provider with the selected vCenter. The VASA provider provides communication between VMware and Astra Data Store.
+* Adds a VASA provider self-signed certificate to the storage backend.
+//VMware ADS EAP review
+
+NOTE: It can sometimes take 10 minutes for the vCenter you added to appear in the storage backend wizard.
+
+//VMware ADS EAP review
+NOTE: Astra Data Store should not be shared with multiple vCenters.
+
+
+.Steps
+
+. Access the NetApp Astra Plugin for VMware vSphere.
+. From the left navigation, select *Astra Plugin for VMware vSphere* or from the Shortcuts page, select the *Astra Plugin for VMware vSphere* icon.
+
+. From the Astra Plugin for VMware vSphere Overview page, select *Use existing storage backend*. Or, from the left navigation, select *Storage Backends* > *Add*, and select *Use existing storage backend*.
+
+
+. Select the existing Astra Data Store as the storage backend and select *Next*.
+
+. On the VASA provider page, enter the VASA provider name, IP address (if using a load balancer), user name, and password.
++
+TIP: For the user name, you can use alphanumeric characters and the underscore. Do not enter any special characters. The first letter of the user name must begin with an alphabet character.
+
+. Indicate whether you want to deploy a load balancer and enter the IP address, which will be used to access the VASA provider. The IP needs to be an additional routable free IP separate from the node IPs. When the load balancer is enabled, Metallb is deployed in the Astra Data Store Kubernetes cluster and configured to allocate the free IP.
++
+NOTE: If you are using a Google Anthos cluster for deployment, choose not to deploy a load balancer as Anthos already runs metallb as a load balancer. The metallb deploy flag should be set to false in VASA provider CR (v1beta1_vasaprovider.yaml).
++
+If you choose not to deploy a load balancer, it is assumed that the load balancer has already been deployed and configured to allocate IPs for the Kubernetes service of type *Load Balancer*.
+
++
+TIP: At this point in the deployment, the VASA provider is not yet deployed.
+
+. Select *Next*.
+. On the Certificate page, review the certificate information for the self-signed certificate.
+. Select *Next*.
+. Review summary information.
+. Select *Add*.
++
+This deploys the VASA provider.
+
+
+=== Verify the storage backend in the Astra Plugin for VMware vSphere
+
+After the Astra Data Store storage backend is registered, it appears in the Astra Plugin for VMware vSphere storage backends list.
+
+You can determine the storage backend status and the VASA provider status. You can also see the used capacity of each storage backend.
+
+After selecting a storage backend, you can also view used and available capacity, data reduction ratio, and internal network management IP address.
+
+.Steps
+. In the NetApp Astra Plugin for VMware vSphere, from the left navigation, select *Storage Backends*.
+. Select the Astra Data Store storage backend to see the Summary tab.
+. Review used and available capacity, data reduction ratio, and status of the VASA provider.
+. Select the other tabs to see information about VMs, datastores, hosts, and storage nodes.
+
+== Create a datastore using the Astra Plugin for VMware vSphere
+
+After adding the storage backend and registering the Astra Plugin for VMware vSphere, you can create a datastore in VMware.
+
+You can add the datastore to a datacenter, compute, or a host cluster.
+
+NOTE: You cannot use the same storage backend to create multiple datastores under same datacenter.
+
+You can add a vVol datastore type using an NFS protocol.
+
+.Steps
+. Access the Astra Plugin for VMware vSphere.
+. From the plugin menu, select *Create Datastore*.
+
+. Enter the new datastore name, type (vVol), and protocol (NFS).
+. Select *Next*.
+. From the Storage page, select the Astra Data Store storage backend that you just created.
++
+TIP: You cannot use a storage backend that has an existing datastore.
+
+. Select *Next*.
+. From the Summary page, review the information.
+. Select *Create*.
+//VMware ADS EAP review
++
+NOTE: If you encounter an error related to a failed scan or general system error, https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.storage.doc/GUID-E8EA857E-268C-41AE-BBD9-08092B9A905D.html[rescan/synchronize your storage provider on vCenter] then try to create the datastore again.
+
+
+== Generate VM storage policies
+
+After you create a datastore and before you create VMs, you should generate predesigned VM storage policies by using `/virtualization/api/v1/vcenters/vm-storage-policies` in the REST API UI.
+
+//VMware ADS EAP review - should "ads_gateway_ip" be something else, as in an ADS node?
+
+.Steps
+
+. Access the REST API UI page by going to `https://<ads_gateway_ip>:8443`.
+. Go to the API `POST /virtualization/api/auth/login` and provide the username, password and vCenter hostname.
++
+Response:
++
+----
+{
+  "vmware-api-session-id": "212f4d6447b05586ab1509a76c6e7da56d29cc5b",
+  "vcenter-guid": "8e475060-b3c8-4267-bf0f-9d472d592d39"
+}
+----
+. Go to the API `GET /virtualization/api/auth/validate-session` and complete the following steps:
+
+.. Use the `vmware-api-session-id` and `vcenter-guid` generated above as headers.
+
+.. Select *Try it now*.
++
+Response: (authentication truncated below):
++
+----
+authorization: eyJhbGciOiJSUzI1NiIsInR...9h15DYYvClT3oA  connection: keep-alive  content-type: application/json  date: Wed,18 May 2022 13:31:18 GMT  server: nginx  transfer-encoding: chunked
+----
+
+. Go to the API `/virtualization/api/v1/vcenters/vm-storage-policies` and add the bearer token generated in the previous response as 'authorization'.
+
++
+A "200" response appears and three VM storage policies are generated.
+
+. Verify the new VM storage policies (named Bronze, Silver, and Gold) on the VCenter Storage Policy page.
+
+. Continue by creating VMs.
+
+== What's next
+Next, you might want to do the following tasks:
+
+* Create VMs.
+* Mount the datastore. See link:../use-vmware/manage-ads-vmware.html#mount-a-datastore[Mount a datastore].
+
+
+
+== For more information
+
+* https://docs.netapp.com/us-en/astra-control-center/[Astra Control Center documentation^]
+* https://docs.netapp.com/us-en/astra-family/intro-family.html[Astra family introduction^]

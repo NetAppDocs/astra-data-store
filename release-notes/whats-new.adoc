@@ -10,7 +10,18 @@ summary: NetApp periodically updates Astra Data Store to bring you new features,
 :icons: font
 :imagesdir: ../media/release-notes/
 
-We're pleased to announce the 2021.12.1 patch of the preview release of Astra Data Store.
+We're pleased to announce the 2022.05 Early Access Program (EAP) release of Astra Data Store.
+
+== 31 May 2022 (2022.05 EAP Release)
+The Astra Data Store 2022.05 release includes these features:
+
+* VMware environment integrations:
+** NFS vVol datastore workflows and Storage Policy Based Management storage provisioning.
+** Astra Plugin for VMware vSphere for native storage management and monitoring from vCenter.
+* Enhanced cluster management, including link:../get-started/install-ads.html#install-astra-data-store-using-astra-control-center[GUI-based cluster deployment from Astra Control Center].
+* Support for link:../get-started/requirements.html#kubernetes-worker-node-resource-requirements[larger cluster scale] (higher number of nodes, increased CPU and capacity).
+* Security enhancements (keys and certificates and support for external key management (KMIP)).
+
 
 == 08 February 2022 (2021.12.1)
 
@@ -25,13 +36,13 @@ Patch release (2021.12.1) for the Astra Data Store preview (21.12).
 
 Initial release of Astra Data Store preview.
 
-* link:../concepts/intro.html[What it is]
-* link:../concepts/architecture.html[Deployment models and components]
-* link:../get-started/requirements.html[What it takes to get started]
-* link:../get-started/install-ads.html[Install] and link:../get-started/setup-ads.html[setup]
-* link:../use/kubectl-commands-ads.html[Manage] and link:../use/monitor-with-cloud-insights.html[monitor] performance
-* link:../use/monitor-with-cloud-insights.html[Monitor with Cloud Insights]
-* link:../support/get-help-ads.html[Get help] and link:../support/autosupport.html[use automatic support monitoring]
+* https://docs.netapp.com/us-en/astra-data-store-2112/concepts/intro.html[What it is^]
+* https://docs.netapp.com/us-en/astra-data-store-2112/concepts/architecture.html[Deployment models and components^]
+* https://docs.netapp.com/us-en/astra-data-store-2112/get-started/requirements.html[What it takes to get started^]
+* https://docs.netapp.com/us-en/astra-data-store-2112/get-started/install-ads.html[Install^] and https://docs.netapp.com/us-en/astra-data-store-2112/get-started/setup-ads.html[setup^]
+* https://docs.netapp.com/us-en/astra-data-store-2112/use/kubectl-commands-ads.html[Manage^] and https://docs.netapp.com/us-en/astra-data-store-2112/use/monitor-with-cloud-insights.html[monitor^] performance
+* https://docs.netapp.com/us-en/astra-data-store-2112/use/monitor-with-cloud-insights.html[Monitor with Cloud Insights^]
+* https://docs.netapp.com/us-en/astra-data-store-2112/support/get-help-ads.html[Get help^] and https://docs.netapp.com/us-en/astra-data-store-2112/support/autosupport.html[use automatic support monitoring^]
 
 == Find more information
 

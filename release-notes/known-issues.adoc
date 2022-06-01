@@ -10,18 +10,29 @@ summary: Known issues identify problems that might prevent you from using this r
 :icons: font
 :imagesdir: ../media/release-notes/
 
-Known issues identify problems that might prevent you from using this preview release of the product successfully.
+Known issues identify problems that might prevent you from using this release of the product successfully.
 
+== Astra Data Store 2202.05 Early Access Program (EAP) release
+This release includes these known issues. Review these known issues carefully.
 
-== MongoDB deployment with default liveness probe value fails with pods in crash loop
-As a workaround, set the liveness probe initialDelaySeconds to 600 seconds in the MongoDB deployment spec.
+=== Storage backend tasks not showing in vSphere
+//VMware ADS EAP review
+When an action to use an existing storage backend or remove a storage backend is submitted, the task does not appear in the Recent Tasks panel of vSphere client.
 
-== Astra Data Store preview uninstallation process might cause pods to remain in a terminating state
-The Astra Data Store preview uninstall process in Kubernetes v1.20 can occasionally cause pods to remain in a terminating state.
+=== Extra folders are created when creating a VM
+//VMware ADS EAP review
+When you create a VM in vSphere, additional folders are sometimes created instead of a single folder per VM under the datastore.
 
-See link:../use/uninstall-ads-manual.html[Uninstall Astra Data Store preview manually without a script] or
-link:../use/uninstall-ads.html[Uninstall Astra Data Store preview automatically with a script].
+=== Filtered views in Astra Plugin for VMware vSphere intermittently do not show data
+//VMware ADS EAP review
+The table column filters for virtual machines occasionally omit filtered data. The filtered view shows the loading icon instead. To resolve this, you can go to another view and reset filters to show the data again.
 
+=== IP address restrictions on Kubernetes worker nodes
+//VMware ADS EAP review
+Astra Data Store cluster creation fails in the following scenario:
+
+. Kubernetes worker node has an IP address hosted on an interface not assigned to Astra Data Store.
+. The IP address is in the same subnet as the cluster/data IP addresses assigned to the Astra Data Store cluster.
 
 == Find more information
 

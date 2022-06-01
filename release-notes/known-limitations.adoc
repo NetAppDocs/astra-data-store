@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar
 permalink: release-notes/known-limitations.html
-keywords: astra, control center, limitations, known limitations, interoperability
+keywords: astra, astra data store, control center, limitations, known limitations, interoperability
 summary: Known limitations identify platforms, devices, or functions that are not supported by this release of the product, or that do not interoperate correctly with it. Review these limitations carefully.
 ---
 
@@ -10,22 +10,31 @@ summary: Known limitations identify platforms, devices, or functions that are no
 :icons: font
 :imagesdir: ../media/release-notes/
 
-Known limitations identify platforms, devices, or functions that are not supported by this preview release of the product, or that do not interoperate correctly with it. Review these limitations carefully.
+Known limitations identify platforms, devices, or functions that are not supported by this Early Access Program (EAP) release of the product or do not interoperate correctly with it.
 
-== Functionality to remove one or more nodes is not supported
-Astra Data Store preview supports replacing a failed node but does not support node removal functionality.
+== Astra Data Store 2022.05 Early Access Program (EAP) release
+This release includes these known limitations. Review these known limitations carefully.
 
-== Functionality to add or remove drives is not supported
-Astra Data Store preview supports replacing a failed drive but does not support adding or removing drives to or from an existing cluster.
+=== VMware integrations limitations
+//VMware ADS EAP review
+The following features are not supported:
 
-== Astra Data Store preview functionality is not validated with firewall enabled
-Astra Data Store preview requires host firewalld to be disabled. Enabling firewall using CNI tools like Calico HostEndpoint has not been validated.
+* VM workflows:
+** Clone a VM, including clones from a template
+** Attaching a VM disk after previously removing it
+* vVol replication
+* Delete vVol datastore
+* First Class Disks (FCDs)
+* VMware vMotion
+* Linked Mode vCenter servers
+* Compliance alerts and notifications
+* Multi-vCenter and multi-VASA Provider configurations
+** A single VASA Provider per vCenter configuration is supported
+* Storage policy-based management is applicable only at the VM level and cannot be modified after VM creation.
 
-== Upgrade or patch requires a fresh install
-Astra Data Store preview is not targeted for production workloads.
-
-== Ubuntu-based bare-metal or VM passthrough deployments require NVMe TLC SSDs
-This limitation is not applicable to RHEL, RHCOS, or CentOS-based deployments.
+==== Cannot resize multiple VM disks simultaneously
+//VMware ADS EAP review
+For this release, you can only resize one disk at a time. If you try to resize multiple disks at once, the resize operation works only for the first disk.
 
 == Find more information
 
