@@ -31,7 +31,7 @@ Before you set up Astra Data Store with VMware, you'll need to ensure the follow
 NOTE: For the Astra Data Store Early Access Program (EAP) release, Astra Control Center and Astra Data Store must be deployed in two different Kubernetes clusters.
 
 * The Kubernetes clusters that were used to deploy Astra Control Center and Astra Data Store must already be managed by Astra Control Center.
-* NFSv3 is enabled.
+//* NFSv3 is enabled.
 * You have uploaded your Astra Control Center and VASA provider packages before adding a vCenter. https://docs.netapp.com/us-en/astra-control-center/use/manage-packages-acc.html[See Manage software packages^].
 
 == Activate VMware vSphere services using Astra Control Center
