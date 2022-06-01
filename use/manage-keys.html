@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head class="at-element-marker">
-  <title>Configure and monitor event logs</title>
+  <title>Manage external keys</title>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
   <meta http-equiv="language" content="en">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:title" content="Configure and monitor event logs" />
+  <meta property="og:title" content="Manage external keys" />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://docs.netapp.com/us-en/astra-data-store/use/configure-endpoints.html" />
-	<meta property="og:description" content="You can use kubectl commands with Astra Data Store to configure endpoints for use with Confluent, for example." />
+	<meta property="og:url" content="https://docs.netapp.com/us-en/astra-data-store/use/manage-keys.html" />
+	<meta property="og:description" content="You can use one or more external key management servers to secure the keys that the cluster uses to access encrypted data." />
   <meta property="og:image" content="https://docs.netapp.com/us-en/astra-data-store/images/logo-tophat-social.png" />
   <meta property="og:image:alt" content="NetApp Logo" />
   <meta name="format-detection" content="telephone=no">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="encoding" content="utf-8">
   <meta http-equiv="nss-type" content="Product Documentation"/>
-  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="You can use kubectl commands with Astra Data Store to configure endpoints for use with Confluent, for example.">
-  <meta name="keywords" content=" astra, astra data store, kubectl, endpoints, confluent"><!-- Icons -->
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="You can use one or more external key management servers to secure the keys that the cluster uses to access encrypted data.">
+  <meta name="keywords" content=" astra, astra data store, kubectl, security, secure, expired, key, ekm, encryption, sear"><!-- Icons -->
   <link rel="icon" href="/us-en/astra-data-store/images/favicon.ico" type="image/x-icon">
 
   <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
@@ -169,7 +169,7 @@
   
   <!-- Start Page Toolbar -->
   
-  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/issues/new?body=Page%3A%20[Configure and monitor event logs](https://docs.netapp.com/us-en/astra-data-store/use/configure-endpoints.html)" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/discuss-sm.svg" class="github-icon" />Request doc changes</a><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/blob/main/use/configure-endpoints.adoc" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/edit-sm.svg" class="github-icon" />Edit this page</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/us-en/astra-data-store/images/article-sm.svg" class="github-icon" />Learn how to contribute</a></div>
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/issues/new?body=Page%3A%20[Manage external keys](https://docs.netapp.com/us-en/astra-data-store/use/manage-keys.html)" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/discuss-sm.svg" class="github-icon" />Request doc changes</a><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/blob/main/use/manage-keys.adoc" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/edit-sm.svg" class="github-icon" />Edit this page</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/us-en/astra-data-store/images/article-sm.svg" class="github-icon" />Learn how to contribute</a></div>
     <div class="page-nav-container">
       <nav class="page-nav-fixed">
         <div class="page-nav-title">ON THIS PAGE</div>
@@ -292,15 +292,15 @@
           <ul class="n-menu__list">
             <li class="n-menu__list-column">
               <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/us-en/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
+                  <a href="https://docs.netapp.com/us-en/astra-data-store/use/manage-keys.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/ja-jp/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
+                  <a href="https://docs.netapp.com/ja-jp/astra-data-store/use/manage-keys.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/ko-kr/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
+                  <a href="https://docs.netapp.com/ko-kr/astra-data-store/use/manage-keys.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/zh-cn/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
+                  <a href="https://docs.netapp.com/zh-cn/astra-data-store/use/manage-keys.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/zh-tw/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">繁體中文</span></a>
+                  <a href="https://docs.netapp.com/zh-tw/astra-data-store/use/manage-keys.html" class="n-menu__header-text"><span translate="no" class="notranslate">繁體中文</span></a>
                 </li></ul>
             </li>
           </ul>
@@ -507,15 +507,6 @@
 
 
 
-    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
-  <a target="_blank" href="/us-en/astra-data-store/pdfs/pages/use/configure-endpoints.pdf" >
-    <img src="/us-en/astra-data-store/images/pdf.png" width="16" height="16"/>
-    PDF of this page
-  </a>
-</li>
-
-</ul>
-  
 
 
 
@@ -545,6 +536,15 @@
           
 
 
+    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
+  <a target="_blank" href="/us-en/astra-data-store/pdfs/pages/use/manage-keys.pdf" >
+    <img src="/us-en/astra-data-store/images/pdf.png" width="16" height="16"/>
+    PDF of this page
+  </a>
+</li>
+
+</ul>
+  
 
 
 
@@ -735,14 +735,14 @@
         Monitor metrics with Cloud Insights
       </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/monitor-with-prometheus-grafana.html">
         Monitor metrics with Prometheus and Grafana
-      </a></li><li class="  active "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/configure-endpoints.html">
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/configure-endpoints.html">
         Configure and monitor event logs
       </a></li></ul></li><li class="subfolders "><a href="#">
         <div class="na-navbar-padding"> Secure Astra Data Store</div>
       </a>
       <ul><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/manage-certificates.html">
         Manage security certificates
-      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/manage-keys.html">
+      </a></li><li class="  active "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/manage-keys.html">
         Manage external keys
       </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/update-ads-license.html">
         Update the Astra Data Store license
@@ -822,14 +822,14 @@
 </div>
 
       <div class="n-doc__component-detail-heading-wrap">
-  <h1 class="n-doc__component-detail-heading">Configure and monitor event logs</h1>
+  <h1 class="n-doc__component-detail-heading">Manage external keys</h1>
 </div>
 
 
 <p class="page-details">
   
     
-    <time datetime="2022-05-23 22:33:47 +0000">05/23/2022</time>
+    <time datetime="2022-05-24 18:47:06 +0000">05/24/2022</time>
     
   
 
@@ -850,14 +850,6 @@
           style="border-radius: 50%;"/>
   </a>
   
-  <a target="_blank" class="ext-link-indicator" href="https://github.com/netapp-mwallis">
-    <img  class="avatar avatar-small"
-          alt="netapp-mwallis"
-          width="20" height="20"
-          src="https://avatars.githubusercontent.com/u/53353653?v=4"
-          style="border-radius: 50%;"/>
-  </a>
-  
 </span>
 
 
@@ -866,74 +858,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>To monitor Event Management System (EMS) logs, you can do the following high level tasks:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#configure-monitoring-in-the-astra-data-store-cluster-custom-resource-cr">Configure monitoring in the Astra Data Store cluster custom resource (CR)</a></p>
-</li>
-<li>
-<p><a href="#set-up-cloud-insights">Set up Cloud Insights</a></p>
-</li>
-<li>
-<p><a href="#stream-event-logs-to-elastic">Stream event logs to Elastic</a>.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="configure-monitoring-in-the-astra-data-store-cluster-custom-resource-cr">Configure monitoring in the Astra Data Store cluster custom resource (CR)</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>If the monitoring option has not been configured on the Astra Data Store cluster CR, you can set it up using <code>astrads</code> extensions.</p>
-</div>
-<div class="paragraph">
-<p>Enter:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>kubectl astrads monitoring setup -n &lt;NAMESPACE OF AGENT INSTALLED&gt; -r &lt;DOCKER REPO TO FIND FLUENT/TELEGRAF ETC IMAGES&gt;</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>where:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Namespace of agent installed: Enter the namespace for the Monitoring agent, which is the default name of the monitoring-netapp CR for the Monitoring Operator.</p>
-</li>
-<li>
-<p><code>-r</code> is optional to set up the Docker registry where the Fluent or Telegraf images are located. By default, the path is set to <code>docker.repo.eng.netapp.com/global/astra</code>, which you can change.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="set-up-cloud-insights">Set up Cloud Insights</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To view the logs, setting up Cloud Insights is optional; however, it is helpful to view data using Cloud Insights.<br>
-See <a href="../use/monitor-with-cloud-insights.html">how to set up NetApp Cloud Insights</a> for use with Astra Data Store.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="stream-event-logs-to-elastic">Stream event logs to Elastic</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To stream EMS events and other pod logs to a third-party endpoint such as Elastic, use the <code>astrads</code> extensions.</p>
-</div>
-<div class="paragraph">
-<p>Enter:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>kubectl astrads monitoring --host &lt;ELASTIC HOST NAME&gt; --port &lt;ELASTIC HOST PORT&gt; es</pre>
-</div>
+<p>You can use one or more external key management servers to secure the keys that the cluster uses to access encrypted data. An external key management server is a third-party system in your storage environment that serves keys to nodes using the Key Management Interoperability Protocol (KMIP).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -942,10 +867,259 @@ See <a href="../use/monitor-with-cloud-insights.html">how to set up NetApp Cloud
 <img src="/us-en/astra-data-store/images/note.svg" alt="Note">
 </td>
 <td class="content">
-The Elastic host name can be an IP address.
+Astra Data Store enables Software Encryption at Rest (SEAR) with an internal key provider by default when the Astra Data Store cluster is created.
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>Managing keys involves the following custom resource definitions (CRDs):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>AstraDSKeyProvider</strong>: Configures an external KMIP server, which could be a cluster of servers.</p>
+</li>
+<li>
+<p><strong>AstraDSSEARKeyRotate</strong>: Gets a new key encryption key from the key provider and provides it to Astra Data Store.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can perform the following tasks related to external key management:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#set-up-external-key-management">Set up external key management</a></p>
+</li>
+<li>
+<p><a href="#check-the-software-encryption-at-rest-status">Check the software encryption at rest status</a></p>
+</li>
+<li>
+<p><a href="#change-external-to-internal-key-management">Change external to internal key management</a></p>
+</li>
+<li>
+<p><a href="#rotate-keys-for-security">Rotate keys for security</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="set-up-external-key-management">Set up external key management</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Setting up external key management in Astra Data Store uses <code>kubectl astrads</code> commands.</p>
+</div>
+<div class="paragraph">
+<div class="title">What you&#8217;ll need</div>
+<p>You will need an SSL certificate on the cluster or KMIP server that enables you to set up external keys, for example, by using OpenSSL.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Prepare the certificate for the key provider client. Include the client certificate, client private key, and trust CA bundles.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-data-store/images/note.svg" alt="Note">
+</td>
+<td class="content">
+You&#8217;ll prepare the SSL certificate on the cluster or KMIP server that allows you to set up external keys, for example, by using OpenSSL.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Log in to one of the nodes in the Astra Data Store cluster.</p>
+</li>
+<li>
+<p>Configure the key provider for the Astra Data Store cluster by entering the following kubectl extension command:</p>
+<div class="listingblock">
+<div class="content">
+<pre>kubectl-astrads key-provider certs --key key.pem
+--client-cert client_cert.pem --ca-cert server_ca.pem
+--hostnames=&lt;kmip_server_ip&gt; &lt;key_provider_cr_name&gt;
+--namespace astrads-system --cluster &lt;ads_cluster_name&gt;</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Example</div>
+<p>The following example configures an external key provider named "hashicorp" for ADS Cluster "astrads-cluster-f23d158".</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>kubectl-astrads key-provider certs --key key.pem
+--client-cert client_cert.pem --ca-cert server_ca.pem
+--hostnames=10.235.nnn.nnn hashicorp
+--namespace astrads-system --cluster astrads-cluster-f23d158</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Configure the Astra Data Store cluster to use an external key manager for SEAR via the AstraDSCluster CR. Display the help.</p>
+<div class="listingblock">
+<div class="content">
+<pre>kubectl-astrads clusters sears -h</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response:</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Configure SEARS in AstraDS cluster
+
+Usage:
+  astrads clusters sears [flags]
+
+Flags:
+  -d, --duration string   Duration for key rotation (default "2160h")
+  -h, --help              help for sears
+
+
+Global Flags:
+      --ads-cluster-name string        Name of the ADS Cluster
+      --ads-cluster-namespace string   Namespace of the ADS Cluster
+      ...</pre>
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Example</div>
+<p>The following command configures the Astra Data Store cluster to use <code>AstraDSKeyProvider hashicorp</code> as the key manager of SEAR. The command also uses the key rotate time, which has the default value of 90 days (2160 hours).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>kubectl-astrads clusters sears -d 500h hashicorp
+--ads-cluster-name=astrads-cluster-f23d158
+--ads-cluster-namespace=astrads-system</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="check-the-software-encryption-at-rest-status">Check the software encryption at rest status</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can check the configuration of the software encryption at rest.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Step</div>
+<ol class="arabic">
+<li>
+<p>Inspect the AstraDSCluster CR.</p>
+<div class="listingblock">
+<div class="content">
+<pre>Name:         astrads-cluster-f23d158
+Namespace:    astrads-system
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+API Version:  astrads.netapp.io/v1beta1
+Kind:         AstraDSCluster
+...
+Spec:
+...
+  Software Encryption At Rest:
+    Ads Key Provider:     hashicorp
+    Key Rotation Period:  500h0m0s
+...
+Status:
+...
+  Software Encryption At Rest Status:
+    Key Active Time:       2022-05-16T15:53:47Z
+    Key Provider Name:     hashicorp
+    Key Provider UUID:     ccfc2b0b-dd98-5ca4-b778-99debef83550
+    Key UUID:              nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="change-external-to-internal-key-management">Change external to internal key management</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you are currently using an external key manager, you can change it to an internal key manager.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Change the AstraDSCluster CR by removing the SoftwareEncryptionAtRest configuration.</p>
+</li>
+<li>
+<p>(Optional) Delete the previous AstraDSKeyProvider and associated secret.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-data-store/images/note.svg" alt="Note">
+</td>
+<td class="content">
+The previous key provider and secret will not be removed automatically.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="rotate-keys-for-security">Rotate keys for security</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Key rotation enhances security. By default, Astra Data Store rotates keys automatically every 90 days. You can change the default setting. Additionally, you can rotate keys on demand when you want.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Configure automatic key rotation</div>
+<ol class="arabic">
+<li>
+<p>Update the AstraDSSEARKeyRotate parameter in the CRD. </p>
+<div class="listingblock">
+<div class="content">
+<pre>kubectl patch astradscluster astrads-cluster-f23d158
+-n astrads-system
+--type=merge -p '{"spec": {"softwareEncryptionAtRest": { "keyRotationPeriod": "3000h"}}}'</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<div class="title">Configure on-demand key rotation</div>
+<ol class="arabic">
+<li>
+<p>Create an AstraDSSEARKeyRotateRequest CR to rotate keys.</p>
+<div class="listingblock">
+<div class="content">
+<pre>cat &lt;&lt; EOF | kubectl apply -f  -
+apiVersion: astrads.netapp.io/v1beta1
+kind: AstraDSSEARKeyRotateRequest
+metadata:
+  name: manual
+  namespace: astrads-system
+spec:
+  cluster: astrads-cluster-f23d158
+EOF</pre>
+</div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>

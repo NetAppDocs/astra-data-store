@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head class="at-element-marker">
-  <title>Configure and monitor event logs</title>
+  <title>Upgrade Astra Data Store</title>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
   <meta http-equiv="language" content="en">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:title" content="Configure and monitor event logs" />
+  <meta property="og:title" content="Upgrade Astra Data Store" />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://docs.netapp.com/us-en/astra-data-store/use/configure-endpoints.html" />
-	<meta property="og:description" content="You can use kubectl commands with Astra Data Store to configure endpoints for use with Confluent, for example." />
+	<meta property="og:url" content="https://docs.netapp.com/us-en/astra-data-store/use/upgrade-ads.html" />
+	<meta property="og:description" content="You can upgrade Astra Data Store to the latest version." />
   <meta property="og:image" content="https://docs.netapp.com/us-en/astra-data-store/images/logo-tophat-social.png" />
   <meta property="og:image:alt" content="NetApp Logo" />
   <meta name="format-detection" content="telephone=no">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="encoding" content="utf-8">
   <meta http-equiv="nss-type" content="Product Documentation"/>
-  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="You can use kubectl commands with Astra Data Store to configure endpoints for use with Confluent, for example.">
-  <meta name="keywords" content=" astra, astra data store, kubectl, endpoints, confluent"><!-- Icons -->
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="You can upgrade Astra Data Store to the latest version.">
+  <meta name="keywords" content=" astra, astra data store, kubectl, upgrade"><!-- Icons -->
   <link rel="icon" href="/us-en/astra-data-store/images/favicon.ico" type="image/x-icon">
 
   <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
@@ -169,7 +169,7 @@
   
   <!-- Start Page Toolbar -->
   
-  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/issues/new?body=Page%3A%20[Configure and monitor event logs](https://docs.netapp.com/us-en/astra-data-store/use/configure-endpoints.html)" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/discuss-sm.svg" class="github-icon" />Request doc changes</a><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/blob/main/use/configure-endpoints.adoc" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/edit-sm.svg" class="github-icon" />Edit this page</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/us-en/astra-data-store/images/article-sm.svg" class="github-icon" />Learn how to contribute</a></div>
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/issues/new?body=Page%3A%20[Upgrade Astra Data Store](https://docs.netapp.com/us-en/astra-data-store/use/upgrade-ads.html)" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/discuss-sm.svg" class="github-icon" />Request doc changes</a><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/blob/main/use/upgrade-ads.adoc" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/edit-sm.svg" class="github-icon" />Edit this page</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/us-en/astra-data-store/images/article-sm.svg" class="github-icon" />Learn how to contribute</a></div>
     <div class="page-nav-container">
       <nav class="page-nav-fixed">
         <div class="page-nav-title">ON THIS PAGE</div>
@@ -292,15 +292,15 @@
           <ul class="n-menu__list">
             <li class="n-menu__list-column">
               <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/us-en/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
+                  <a href="https://docs.netapp.com/us-en/astra-data-store/use/upgrade-ads.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/ja-jp/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
+                  <a href="https://docs.netapp.com/ja-jp/astra-data-store/use/upgrade-ads.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/ko-kr/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
+                  <a href="https://docs.netapp.com/ko-kr/astra-data-store/use/upgrade-ads.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/zh-cn/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
+                  <a href="https://docs.netapp.com/zh-cn/astra-data-store/use/upgrade-ads.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/zh-tw/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">繁體中文</span></a>
+                  <a href="https://docs.netapp.com/zh-tw/astra-data-store/use/upgrade-ads.html" class="n-menu__header-text"><span translate="no" class="notranslate">繁體中文</span></a>
                 </li></ul>
             </li>
           </ul>
@@ -507,15 +507,6 @@
 
 
 
-    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
-  <a target="_blank" href="/us-en/astra-data-store/pdfs/pages/use/configure-endpoints.pdf" >
-    <img src="/us-en/astra-data-store/images/pdf.png" width="16" height="16"/>
-    PDF of this page
-  </a>
-</li>
-
-</ul>
-  
 
 
 
@@ -558,6 +549,15 @@
 
 
 
+    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
+  <a target="_blank" href="/us-en/astra-data-store/pdfs/pages/use/upgrade-ads.pdf" >
+    <img src="/us-en/astra-data-store/images/pdf.png" width="16" height="16"/>
+    PDF of this page
+  </a>
+</li>
+
+</ul>
+  
 
 
 
@@ -735,7 +735,7 @@
         Monitor metrics with Cloud Insights
       </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/monitor-with-prometheus-grafana.html">
         Monitor metrics with Prometheus and Grafana
-      </a></li><li class="  active "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/configure-endpoints.html">
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/configure-endpoints.html">
         Configure and monitor event logs
       </a></li></ul></li><li class="subfolders "><a href="#">
         <div class="na-navbar-padding"> Secure Astra Data Store</div>
@@ -746,7 +746,7 @@
         Manage external keys
       </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/update-ads-license.html">
         Update the Astra Data Store license
-      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/upgrade-ads.html">
+      </a></li><li class="  active "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/upgrade-ads.html">
         Upgrade Astra Data Store
       </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/uninstall-ads.html">
         Uninstall Astra Data Store
@@ -822,23 +822,23 @@
 </div>
 
       <div class="n-doc__component-detail-heading-wrap">
-  <h1 class="n-doc__component-detail-heading">Configure and monitor event logs</h1>
+  <h1 class="n-doc__component-detail-heading">Upgrade Astra Data Store</h1>
 </div>
 
 
 <p class="page-details">
   
     
-    <time datetime="2022-05-23 22:33:47 +0000">05/23/2022</time>
+    <time datetime="2022-05-27 22:14:50 +0000">05/27/2022</time>
     
   
 
 <span>Contributors
-  <a target="_blank" class="ext-link-indicator" href="https://github.com/amgrissino">
+  <a target="_blank" class="ext-link-indicator" href="https://github.com/netapp-mwallis">
     <img  class="avatar avatar-small"
-          alt="amgrissino"
+          alt="netapp-mwallis"
           width="20" height="20"
-          src="https://avatars.githubusercontent.com/u/36450105?v=4"
+          src="https://avatars.githubusercontent.com/u/53353653?v=4"
           style="border-radius: 50%;"/>
   </a>
   
@@ -850,14 +850,6 @@
           style="border-radius: 50%;"/>
   </a>
   
-  <a target="_blank" class="ext-link-indicator" href="https://github.com/netapp-mwallis">
-    <img  class="avatar avatar-small"
-          alt="netapp-mwallis"
-          width="20" height="20"
-          src="https://avatars.githubusercontent.com/u/53353653?v=4"
-          style="border-radius: 50%;"/>
-  </a>
-  
 </span>
 
 
@@ -866,73 +858,46 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>To monitor Event Management System (EMS) logs, you can do the following high level tasks:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#configure-monitoring-in-the-astra-data-store-cluster-custom-resource-cr">Configure monitoring in the Astra Data Store cluster custom resource (CR)</a></p>
-</li>
-<li>
-<p><a href="#set-up-cloud-insights">Set up Cloud Insights</a></p>
-</li>
-<li>
-<p><a href="#stream-event-logs-to-elastic">Stream event logs to Elastic</a>.</p>
-</li>
-</ul>
+<p>You can upgrade Astra Data Store to take advantage of the latest features and fixes. You can upgrade Astra Data Store by using the Astra Data Store <code>kubectl</code> extension.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="configure-monitoring-in-the-astra-data-store-cluster-custom-resource-cr">Configure monitoring in the Astra Data Store cluster custom resource (CR)</h2>
+<h2 id="upgrade-astra-data-store-using-kubectl">Upgrade Astra Data Store using kubectl</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If the monitoring option has not been configured on the Astra Data Store cluster CR, you can set it up using <code>astrads</code> extensions.</p>
+<p>You can use the Astra Data Store <code>kubectl</code> extension to upgrade Astra Data Store.</p>
 </div>
-<div class="paragraph">
-<p>Enter:</p>
-</div>
+<div class="sect2">
+<h3 id="download-the-astra-data-store-bundle-and-extract-the-images">Download the Astra Data Store bundle and extract the images</h3>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Log in to the <a href="https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab" target="_blank" rel="noopener">NetApp Support Site</a> and download the Astra Data Store bundle (<code>Astra_Data_Store_2022.05.tar</code>).</p>
+</li>
+<li>
+<p>(Optional) Use the following command to verify the signature of the bundle:</p>
 <div class="listingblock">
 <div class="content">
-<pre>kubectl astrads monitoring setup -n &lt;NAMESPACE OF AGENT INSTALLED&gt; -r &lt;DOCKER REPO TO FIND FLUENT/TELEGRAF ETC IMAGES&gt;</pre>
+<pre>openssl dgst -sha256 -verify Astra_Data_Store_2022.05.pub -signature Astra_Data_Store_2022.05.sig 2022.12.01_ads.tar</pre>
 </div>
 </div>
-<div class="paragraph">
-<p>where:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Namespace of agent installed: Enter the namespace for the Monitoring agent, which is the default name of the monitoring-netapp CR for the Monitoring Operator.</p>
 </li>
 <li>
-<p><code>-r</code> is optional to set up the Docker registry where the Fluent or Telegraf images are located. By default, the path is set to <code>docker.repo.eng.netapp.com/global/astra</code>, which you can change.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="set-up-cloud-insights">Set up Cloud Insights</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To view the logs, setting up Cloud Insights is optional; however, it is helpful to view data using Cloud Insights.<br>
-See <a href="../use/monitor-with-cloud-insights.html">how to set up NetApp Cloud Insights</a> for use with Astra Data Store.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="stream-event-logs-to-elastic">Stream event logs to Elastic</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To stream EMS events and other pod logs to a third-party endpoint such as Elastic, use the <code>astrads</code> extensions.</p>
-</div>
-<div class="paragraph">
-<p>Enter:</p>
-</div>
+<p>Create a directory:</p>
 <div class="listingblock">
 <div class="content">
-<pre>kubectl astrads monitoring --host &lt;ELASTIC HOST NAME&gt; --port &lt;ELASTIC HOST PORT&gt; es</pre>
+<pre>mkdir Astra_Data_Store_2022.05
+cd Astra_Data_Store_2022.05</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Extract the images:</p>
+<div class="listingblock">
+<div class="content">
+<pre>tar -vxzf &lt;path to tar file&gt;/Astra_Data_Store_2022.05.tar</pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -942,10 +907,126 @@ See <a href="../use/monitor-with-cloud-insights.html">how to set up NetApp Cloud
 <img src="/us-en/astra-data-store/images/note.svg" alt="Note">
 </td>
 <td class="content">
-The Elastic host name can be an IP address.
+The images will be extracted to a <code>astrads/images</code> directory created within the working directory.
 </td>
 </tr>
 </table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="copy-the-binary-and-push-images-to-your-local-registry">Copy the binary and push images to your local registry</h3>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Copy the kubectl-astrads binary from the directory you used to extract images to the standard path where Kubernetes kubectl binaries are installed (<code>/usr/bin/</code> is used as the path in the example below). kubectl-astrads is a custom kubectl extension that installs and manages Astra Data Store clusters.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-data-store/images/tip.svg" alt="Tip">
+</td>
+<td class="content">
+Use the <code>which kubectl</code> command to find the path where kubectl binaries are installed.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>cp -p .astrads/bin/kubectl-astrads /usr/bin/.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the files in the Astra Data Store image directory to your local registry.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-data-store/images/note.svg" alt="Note">
+</td>
+<td class="content">
+See a sample script for the automatic loading of images below.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Log in to your registry:</p>
+<div class="listingblock">
+<div class="content">
+<pre>docker login [your_registry_path]</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set an environment variable to the registry path where you want to push the Astra Data Store images; for example, <code>repo.company.com</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre>export REGISTRY=repo.company.com/astrads</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the following script to load the images into Docker, tag the images, and push the images to your local registry:</p>
+<div class="listingblock">
+<div class="content">
+<pre>for astraImageFile in $(ls astrads/images/*.tar) ; do
+   astraImage=$(docker load --input ${astraImageFile} | sed 's~Loaded image(s): ~~')
+   astraImageShort=`echo $astraImage | sed 's~.*/~~'`
+   docker tag ${astraImage} ${REGISTRY}/${astraImageShort}
+   docker push ${REGISTRY}/${astraImageShort}
+done
+sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./astrads/manifests/*.yaml</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="perform-the-upgrade">Perform the upgrade</h3>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Copy the <code>astradsoperator.yaml</code> file to the local directory:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-sh" data-lang="sh">cp /PATH/TO/FILE/astradsoperator.yaml ./</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Upgrade the operator. Replace arguments in capital letters with the appropriate information for your environment:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-kubectl" data-lang="kubectl">kubectl-astrads upgrade ads-operator --repository-url REPOSITORY_URL --operator-yaml astradsoperator.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Begin the Astra Data Store upgrade. Replace arguments in capital letters with the appropriate information for your environment:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-kubectl" data-lang="kubectl">kubectl-astrads upgrade ads-version --repository-url REPOSITORY_URL --ads-version-yaml ./astrads/manifests/astradsversion.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A message appears notifying you that the upgrade has started, and will take a few minutes to complete.</p>
+</div>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </div>

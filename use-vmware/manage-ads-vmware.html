@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head class="at-element-marker">
-  <title>Configure and monitor event logs</title>
+  <title>Manage Astra Data Store components of your VMware installation</title>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
   <meta http-equiv="language" content="en">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:title" content="Configure and monitor event logs" />
+  <meta property="og:title" content="Manage Astra Data Store components of your VMware installation" />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://docs.netapp.com/us-en/astra-data-store/use/configure-endpoints.html" />
-	<meta property="og:description" content="You can use kubectl commands with Astra Data Store to configure endpoints for use with Confluent, for example." />
+	<meta property="og:url" content="https://docs.netapp.com/us-en/astra-data-store/use-vmware/manage-ads-vmware.html" />
+	<meta property="og:description" content="You can manage the Astra Data Store using VMware applications." />
   <meta property="og:image" content="https://docs.netapp.com/us-en/astra-data-store/images/logo-tophat-social.png" />
   <meta property="og:image:alt" content="NetApp Logo" />
   <meta name="format-detection" content="telephone=no">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="encoding" content="utf-8">
   <meta http-equiv="nss-type" content="Product Documentation"/>
-  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="You can use kubectl commands with Astra Data Store to configure endpoints for use with Confluent, for example.">
-  <meta name="keywords" content=" astra, astra data store, kubectl, endpoints, confluent"><!-- Icons -->
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="You can manage the Astra Data Store using VMware applications.">
+  <meta name="keywords" content=" astra data store, vm, vcenter, datastore, manage"><!-- Icons -->
   <link rel="icon" href="/us-en/astra-data-store/images/favicon.ico" type="image/x-icon">
 
   <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
@@ -169,7 +169,7 @@
   
   <!-- Start Page Toolbar -->
   
-  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/issues/new?body=Page%3A%20[Configure and monitor event logs](https://docs.netapp.com/us-en/astra-data-store/use/configure-endpoints.html)" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/discuss-sm.svg" class="github-icon" />Request doc changes</a><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/blob/main/use/configure-endpoints.adoc" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/edit-sm.svg" class="github-icon" />Edit this page</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/us-en/astra-data-store/images/article-sm.svg" class="github-icon" />Learn how to contribute</a></div>
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/issues/new?body=Page%3A%20[Manage Astra Data Store components of your VMware installation](https://docs.netapp.com/us-en/astra-data-store/use-vmware/manage-ads-vmware.html)" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/discuss-sm.svg" class="github-icon" />Request doc changes</a><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/blob/main/use-vmware/manage-ads-vmware.adoc" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/edit-sm.svg" class="github-icon" />Edit this page</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/us-en/astra-data-store/images/article-sm.svg" class="github-icon" />Learn how to contribute</a></div>
     <div class="page-nav-container">
       <nav class="page-nav-fixed">
         <div class="page-nav-title">ON THIS PAGE</div>
@@ -292,15 +292,15 @@
           <ul class="n-menu__list">
             <li class="n-menu__list-column">
               <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/us-en/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
+                  <a href="https://docs.netapp.com/us-en/astra-data-store/use-vmware/manage-ads-vmware.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/ja-jp/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
+                  <a href="https://docs.netapp.com/ja-jp/astra-data-store/use-vmware/manage-ads-vmware.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/ko-kr/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
+                  <a href="https://docs.netapp.com/ko-kr/astra-data-store/use-vmware/manage-ads-vmware.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/zh-cn/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
+                  <a href="https://docs.netapp.com/zh-cn/astra-data-store/use-vmware/manage-ads-vmware.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/zh-tw/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">繁體中文</span></a>
+                  <a href="https://docs.netapp.com/zh-tw/astra-data-store/use-vmware/manage-ads-vmware.html" class="n-menu__header-text"><span translate="no" class="notranslate">繁體中文</span></a>
                 </li></ul>
             </li>
           </ul>
@@ -507,15 +507,6 @@
 
 
 
-    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
-  <a target="_blank" href="/us-en/astra-data-store/pdfs/pages/use/configure-endpoints.pdf" >
-    <img src="/us-en/astra-data-store/images/pdf.png" width="16" height="16"/>
-    PDF of this page
-  </a>
-</li>
-
-</ul>
-  
 
 
 
@@ -595,6 +586,15 @@
 
 
 
+    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
+  <a target="_blank" href="/us-en/astra-data-store/pdfs/pages/use-vmware/manage-ads-vmware.pdf" >
+    <img src="/us-en/astra-data-store/images/pdf.png" width="16" height="16"/>
+    PDF of this page
+  </a>
+</li>
+
+</ul>
+  
 
 
 
@@ -735,7 +735,7 @@
         Monitor metrics with Cloud Insights
       </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/monitor-with-prometheus-grafana.html">
         Monitor metrics with Prometheus and Grafana
-      </a></li><li class="  active "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/configure-endpoints.html">
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/configure-endpoints.html">
         Configure and monitor event logs
       </a></li></ul></li><li class="subfolders "><a href="#">
         <div class="na-navbar-padding"> Secure Astra Data Store</div>
@@ -761,7 +761,7 @@
         Set up Astra Data Store with VMware
       </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use-vmware/monitor-ads-vmware.html">
         Monitor components of your VMware installation
-      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use-vmware/manage-ads-vmware.html">
+      </a></li><li class="  active "><a class="na-navbar-padding" href="/us-en/astra-data-store/use-vmware/manage-ads-vmware.html">
         Manage Astra Data Store components of your VMware installation
       </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use-vmware/uninstall-ads-vmware.html">
         Uninstall Astra Data Store from a VMware-integrated environment
@@ -822,31 +822,31 @@
 </div>
 
       <div class="n-doc__component-detail-heading-wrap">
-  <h1 class="n-doc__component-detail-heading">Configure and monitor event logs</h1>
+  <h1 class="n-doc__component-detail-heading">Manage Astra Data Store components of your VMware installation</h1>
 </div>
 
 
 <p class="page-details">
   
     
-    <time datetime="2022-05-23 22:33:47 +0000">05/23/2022</time>
+    <time datetime="2022-05-26 21:44:39 +0000">05/26/2022</time>
     
   
 
 <span>Contributors
-  <a target="_blank" class="ext-link-indicator" href="https://github.com/amgrissino">
-    <img  class="avatar avatar-small"
-          alt="amgrissino"
-          width="20" height="20"
-          src="https://avatars.githubusercontent.com/u/36450105?v=4"
-          style="border-radius: 50%;"/>
-  </a>
-  
   <a target="_blank" class="ext-link-indicator" href="https://github.com/netapp-dbagwell">
     <img  class="avatar avatar-small"
           alt="netapp-dbagwell"
           width="20" height="20"
           src="https://avatars.githubusercontent.com/u/53352450?v=4"
+          style="border-radius: 50%;"/>
+  </a>
+  
+  <a target="_blank" class="ext-link-indicator" href="https://github.com/amgrissino">
+    <img  class="avatar avatar-small"
+          alt="amgrissino"
+          width="20" height="20"
+          src="https://avatars.githubusercontent.com/u/36450105?v=4"
           style="border-radius: 50%;"/>
   </a>
   
@@ -866,74 +866,89 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>To monitor Event Management System (EMS) logs, you can do the following high level tasks:</p>
+<p>You can manage the following Astra Data Store components in your vSphere environment and from Astra Control Center:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#configure-monitoring-in-the-astra-data-store-cluster-custom-resource-cr">Configure monitoring in the Astra Data Store cluster custom resource (CR)</a></p>
+<p><a href="#work-with-managed-vcenters">Work with managed vCenters</a></p>
 </li>
 <li>
-<p><a href="#set-up-cloud-insights">Set up Cloud Insights</a></p>
+<p><a href="#manage-vms-from-vsphere">Manage VMs from vSphere</a></p>
 </li>
 <li>
-<p><a href="#stream-event-logs-to-elastic">Stream event logs to Elastic</a>.</p>
+<p><a href="#manage-the-storage-backend">Manage the storage backend</a></p>
+</li>
+<li>
+<p><a href="#manage-datastores">Manage datastores</a></p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="configure-monitoring-in-the-astra-data-store-cluster-custom-resource-cr">Configure monitoring in the Astra Data Store cluster custom resource (CR)</h2>
+<h2 id="work-with-managed-vcenters">Work with managed vCenters</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If the monitoring option has not been configured on the Astra Data Store cluster CR, you can set it up using <code>astrads</code> extensions.</p>
-</div>
-<div class="paragraph">
-<p>Enter:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>kubectl astrads monitoring setup -n &lt;NAMESPACE OF AGENT INSTALLED&gt; -r &lt;DOCKER REPO TO FIND FLUENT/TELEGRAF ETC IMAGES&gt;</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>where:</p>
+<p>You can work with the managed vCenters in the following ways:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Namespace of agent installed: Enter the namespace for the Monitoring agent, which is the default name of the monitoring-netapp CR for the Monitoring Operator.</p>
+<p><a href="#view-vcenter-details-in-astra-control-center">View vCenter details in Astra Control Center</a></p>
 </li>
 <li>
-<p><code>-r</code> is optional to set up the Docker registry where the Fluent or Telegraf images are located. By default, the path is set to <code>docker.repo.eng.netapp.com/global/astra</code>, which you can change.</p>
+<p><a href="#view-vcenter-details-in-astra-control-center">View vCenter details in Astra Control Center</a></p>
+</li>
+<li>
+<p><a href="#unmanage-a-vcenter-in-astra-control-center">Unmanage a vCenter in Astra Control Center</a></p>
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="set-up-cloud-insights">Set up Cloud Insights</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="view-vcenter-details-in-astra-control-center">View vCenter details in Astra Control Center</h3>
 <div class="paragraph">
-<p>To view the logs, setting up Cloud Insights is optional; however, it is helpful to view data using Cloud Insights.<br>
-See <a href="../use/monitor-with-cloud-insights.html">how to set up NetApp Cloud Insights</a> for use with Astra Data Store.</p>
+<p>You can determine all the vCenters associated with a cluster.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>From the Astra Control Center left navigation, select <strong>Clusters</strong>.</p>
+</li>
+<li>
+<p>View the list of vCenters.</p>
+</li>
+<li>
+<p>Select <strong>Save</strong>.</p>
+</li>
+</ol>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="stream-event-logs-to-elastic">Stream event logs to Elastic</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="view-vcenter-details-in-astra-control-center-2">View vCenter details in Astra Control Center</h3>
 <div class="paragraph">
-<p>To stream EMS events and other pod logs to a third-party endpoint such as Elastic, use the <code>astrads</code> extensions.</p>
+<p>You might want to view the health of your system and clusters. You can determine how many clusters are managed by looking at the Astra Control Center Dashboard.</p>
 </div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>From the Astra Control Center left navigation, select <strong>Clusters</strong>.</p>
+</li>
+<li>
+<p>Select the vCenter.</p>
+</li>
+<li>
+<p>View the information.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="unmanage-a-vcenter-in-astra-control-center">Unmanage a vCenter in Astra Control Center</h3>
 <div class="paragraph">
-<p>Enter:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>kubectl astrads monitoring --host &lt;ELASTIC HOST NAME&gt; --port &lt;ELASTIC HOST PORT&gt; es</pre>
-</div>
+<p>If you no longer want Astra Control Center to manage the vCenter, you can unmanage it. This removes and unregisters the vCenter from Astra Control Center.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -942,10 +957,281 @@ See <a href="../use/monitor-with-cloud-insights.html">how to set up NetApp Cloud
 <img src="/us-en/astra-data-store/images/note.svg" alt="Note">
 </td>
 <td class="content">
-The Elastic host name can be an IP address.
+Clusters, storage backends and VMs associated with this vCenter must be removed from the Astra Plugin for VMware vSphere first.
 </td>
 </tr>
 </table>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>From the Astra Control Center left navigation, select <strong>Clusters</strong>.</p>
+</li>
+<li>
+<p>From the Clusters page, select the vCenter.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-data-store/images/tip.svg" alt="Tip">
+</td>
+<td class="content">
+Or, select multiple vCenters and select <strong>Unmanage all</strong>.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Right-click the <strong>Actions</strong> menu and select <strong>Unmanage</strong>.</p>
+</li>
+<li>
+<p>In the Unmanage vCenter page, type "unmanage".</p>
+</li>
+<li>
+<p>Select <strong>Yes, unmanage vCenter</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="manage-vms-from-vsphere">Manage VMs from vSphere</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can manage VMs associated with Astra Data Store using native vSphere operations.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.hostclient.doc/GUID-358BF9C1-333E-4AB4-A1CB-62BEA1C94878.html?hWord=N4IghgNiBcICYFMIIC4IAQDcC2IC+QA" target="_blank" rel="noopener">Delete VM</a></p>
+</li>
+<li>
+<p><a href="https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-76E73C62-A973-4839-BB67-AC1817908E6D.html" target="_blank" rel="noopener">Rename VM</a></p>
+</li>
+<li>
+<p><a href="https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-E1D541D1-DF96-467A-89B7-E84F83B2563D.html?hWord=N4IghgNiBcIMYAswDsDmBTABAZwJYC8sA3AWxAF8g" target="_blank" rel="noopener">Resize VM</a></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-data-store/images/note.svg" alt="Note">
+</td>
+<td class="content">
+For this release, you can only resize one VM disk at a time. Attempts to resize multiple disks will fail.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.hostclient.doc/GUID-450AF515-09D4-44B6-85B2-EE848B371E58.html?hWord=N4IghgNiBcIAoHsDuBTATgAgMoBcw5QGcMEAzDMDANQEs0cBXSDAWTAGMALGgOxQ14YcnflRZIwafgAkEhHBgDCEGih44QAXyA" target="_blank" rel="noopener">Power VM on or off</a></p>
+</li>
+<li>
+<p><a href="https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-879FA851-2B24-49E6-B58F-F25D0E923D17.html?hWord=N4IghgNiBcIM4Fc4AcCmA7AJgAgGoFkQBfIA" target="_blank" rel="noopener">Suspend VM</a></p>
+</li>
+<li>
+<p><a href="https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.hostclient.doc/GUID-450AF515-09D4-44B6-85B2-EE848B371E58.html?hWord=N4IghgNiBcIAoHsDuBTATgAgMoBcw5QGcMEAzDMDANQEs0cBXSDAWTAGMALGgOxQ14YcnflRZIwafgAkEhHBgDCEGih44QAXyA" target="_blank" rel="noopener">Reset VM</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following snapshot workflows are available for the Astra Data Store using native vCenter operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-9720B104-9875-4C2C-A878-F1C351A4F3D8.html" target="_blank" rel="noopener">Take snapshot of Astra Data Store</a></p>
+</li>
+<li>
+<p><a href="https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-3E1BB630-9223-45E8-A64B-DCB90D450673.html" target="_blank" rel="noopener">Revert a snapshot</a></p>
+</li>
+<li>
+<p><a href="https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-542CF191-B8DE-42F1-9CCC-D9030491AE25.html" target="_blank" rel="noopener">Delete a snapshot</a></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-data-store/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Snapshot operations might occasionally fail with a vVol runtime error. If this happens, retry the operation.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="manage-the-storage-backend">Manage the storage backend</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can remove the storage backend. Removing a storage backend does not destroy it and does not delete the Astra Data Store product itself; it just unregisters the VASA provider from VMware and unlinks the storage backend for that vCenter.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-data-store/images/note.svg" alt="Note">
+</td>
+<td class="content">
+If the VASA provider is enabled and deployed outside of the vCenter, you can only remove Astra Data Store. If the storage backend is being used as part of a provisioning datastores process, you won&#8217;t be able to remove the storage backend.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If Astra Data Store is not being linked with more than one vCenter, when you remove it, the VASA provider will be unregistered and uninstalled.  </p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Access the Astra Plugin for VMware vSphere. </p>
+</li>
+<li>
+<p>From the left navigation, select <strong>Storage Backends</strong>. </p>
+</li>
+<li>
+<p>On the Storage Backends page, click on the storage backend Actions menu and select <strong>Remove</strong>.</p>
+</li>
+<li>
+<p>Enter the VASA provider user name and password. </p>
+</li>
+<li>
+<p>Select <strong>Remove</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="manage-datastores">Manage datastores</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can manage Astra Data Store in your vSphere environment using native vCenter operations to manage VMs and Astra Plugin extensions to manage datastores:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../use-vmware/setup-ads-vmware.html">Create a datastore</a> </p>
+</li>
+<li>
+<p><a href="#mount-a-datastore">Mount a datastore</a></p>
+</li>
+<li>
+<p><a href="#delete-a-datastore">Delete a datastore</a></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="mount-a-datastore">Mount a datastore</h3>
+<div class="paragraph">
+<p>Using the Astra Plugin for VMware vSphere, you can mount the datastore on one or more additional hosts.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Select the datastore for Astra Data Store from your data center inventory in vCenter.</p>
+</li>
+<li>
+<p>Right-click the datastore and select <strong>Astra Plugin for VMware vSphere</strong> &gt; <strong>Mount Datastore</strong>.</p>
+</li>
+<li>
+<p>From the Mount datastore on hosts page, select the hosts on which you want to mount the datastore.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-data-store/images/tip.svg" alt="Tip">
+</td>
+<td class="content">
+If you want to mount the datastore on all hosts, check <strong>Mount on all hosts</strong>.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Select <strong>Mount</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>After you initiate the operation, you can follow progress in the Recent Tasks panel in the vSphere Client.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-data-store/images/note.svg" alt="Note">
+</td>
+<td class="content">
+If you encounter an error related to a failed scan or general system error, <a href="https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.storage.doc/GUID-E8EA857E-268C-41AE-BBD9-08092B9A905D.html">rescan/synchronize your storage provider on vCenter</a> then try to create the datastore again.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="delete-a-datastore">Delete a datastore</h3>
+<div class="paragraph">
+<p>Using the Astra Plugin for VMware vSphere, you can delete a datastore.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-data-store/images/tip.svg" alt="Tip">
+</td>
+<td class="content">
+To delete the datastore, all VMs on the datastore must first be removed.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Select the datastore from your data center inventory in vCenter.</p>
+</li>
+<li>
+<p>Right-click the datastore and select <strong>Astra Plugin</strong> &gt; <strong>Delete Datastore</strong>.</p>
+</li>
+<li>
+<p>In the Delete Datastore page, confirm the information or take additional suggested actions so that the datastore can be deleted.</p>
+</li>
+<li>
+<p>Select <strong>Delete</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="for-more-information">For more information</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.netapp.com/us-en/astra-control-center/" target="_blank" rel="noopener">Astra Control Center documentation</a></p>
+</li>
+<li>
+<p><a href="https://docs.netapp.com/us-en/astra-family/intro-family.html" target="_blank" rel="noopener">Astra family introduction</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>

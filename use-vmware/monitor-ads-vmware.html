@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head class="at-element-marker">
-  <title>Configure and monitor event logs</title>
+  <title>Monitor components of your VMware installation</title>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
   <meta http-equiv="language" content="en">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:title" content="Configure and monitor event logs" />
+  <meta property="og:title" content="Monitor components of your VMware installation" />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://docs.netapp.com/us-en/astra-data-store/use/configure-endpoints.html" />
-	<meta property="og:description" content="You can use kubectl commands with Astra Data Store to configure endpoints for use with Confluent, for example." />
+	<meta property="og:url" content="https://docs.netapp.com/us-en/astra-data-store/use-vmware/monitor-ads-vmware.html" />
+	<meta property="og:description" content="You can monitor Astra Data Store performance using the vCenter plug-in." />
   <meta property="og:image" content="https://docs.netapp.com/us-en/astra-data-store/images/logo-tophat-social.png" />
   <meta property="og:image:alt" content="NetApp Logo" />
   <meta name="format-detection" content="telephone=no">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="encoding" content="utf-8">
   <meta http-equiv="nss-type" content="Product Documentation"/>
-  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="You can use kubectl commands with Astra Data Store to configure endpoints for use with Confluent, for example.">
-  <meta name="keywords" content=" astra, astra data store, kubectl, endpoints, confluent"><!-- Icons -->
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="You can monitor Astra Data Store performance using the vCenter plug-in.">
+  <meta name="keywords" content=" astra, astra data store, vmware, vcenter, esxi"><!-- Icons -->
   <link rel="icon" href="/us-en/astra-data-store/images/favicon.ico" type="image/x-icon">
 
   <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
@@ -169,7 +169,7 @@
   
   <!-- Start Page Toolbar -->
   
-  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/issues/new?body=Page%3A%20[Configure and monitor event logs](https://docs.netapp.com/us-en/astra-data-store/use/configure-endpoints.html)" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/discuss-sm.svg" class="github-icon" />Request doc changes</a><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/blob/main/use/configure-endpoints.adoc" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/edit-sm.svg" class="github-icon" />Edit this page</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/us-en/astra-data-store/images/article-sm.svg" class="github-icon" />Learn how to contribute</a></div>
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/issues/new?body=Page%3A%20[Monitor components of your VMware installation](https://docs.netapp.com/us-en/astra-data-store/use-vmware/monitor-ads-vmware.html)" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/discuss-sm.svg" class="github-icon" />Request doc changes</a><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/blob/main/use-vmware/monitor-ads-vmware.adoc" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/edit-sm.svg" class="github-icon" />Edit this page</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/us-en/astra-data-store/images/article-sm.svg" class="github-icon" />Learn how to contribute</a></div>
     <div class="page-nav-container">
       <nav class="page-nav-fixed">
         <div class="page-nav-title">ON THIS PAGE</div>
@@ -292,15 +292,15 @@
           <ul class="n-menu__list">
             <li class="n-menu__list-column">
               <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/us-en/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
+                  <a href="https://docs.netapp.com/us-en/astra-data-store/use-vmware/monitor-ads-vmware.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/ja-jp/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
+                  <a href="https://docs.netapp.com/ja-jp/astra-data-store/use-vmware/monitor-ads-vmware.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/ko-kr/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
+                  <a href="https://docs.netapp.com/ko-kr/astra-data-store/use-vmware/monitor-ads-vmware.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/zh-cn/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
+                  <a href="https://docs.netapp.com/zh-cn/astra-data-store/use-vmware/monitor-ads-vmware.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/zh-tw/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">繁體中文</span></a>
+                  <a href="https://docs.netapp.com/zh-tw/astra-data-store/use-vmware/monitor-ads-vmware.html" class="n-menu__header-text"><span translate="no" class="notranslate">繁體中文</span></a>
                 </li></ul>
             </li>
           </ul>
@@ -507,15 +507,6 @@
 
 
 
-    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
-  <a target="_blank" href="/us-en/astra-data-store/pdfs/pages/use/configure-endpoints.pdf" >
-    <img src="/us-en/astra-data-store/images/pdf.png" width="16" height="16"/>
-    PDF of this page
-  </a>
-</li>
-
-</ul>
-  
 
 
 
@@ -593,6 +584,15 @@
 
 
 
+    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
+  <a target="_blank" href="/us-en/astra-data-store/pdfs/pages/use-vmware/monitor-ads-vmware.pdf" >
+    <img src="/us-en/astra-data-store/images/pdf.png" width="16" height="16"/>
+    PDF of this page
+  </a>
+</li>
+
+</ul>
+  
 
 
 
@@ -735,7 +735,7 @@
         Monitor metrics with Cloud Insights
       </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/monitor-with-prometheus-grafana.html">
         Monitor metrics with Prometheus and Grafana
-      </a></li><li class="  active "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/configure-endpoints.html">
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/configure-endpoints.html">
         Configure and monitor event logs
       </a></li></ul></li><li class="subfolders "><a href="#">
         <div class="na-navbar-padding"> Secure Astra Data Store</div>
@@ -759,7 +759,7 @@
         Astra Data Store with VMware requirements
       </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use-vmware/setup-ads-vmware.html">
         Set up Astra Data Store with VMware
-      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use-vmware/monitor-ads-vmware.html">
+      </a></li><li class="  active "><a class="na-navbar-padding" href="/us-en/astra-data-store/use-vmware/monitor-ads-vmware.html">
         Monitor components of your VMware installation
       </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use-vmware/manage-ads-vmware.html">
         Manage Astra Data Store components of your VMware installation
@@ -822,14 +822,14 @@
 </div>
 
       <div class="n-doc__component-detail-heading-wrap">
-  <h1 class="n-doc__component-detail-heading">Configure and monitor event logs</h1>
+  <h1 class="n-doc__component-detail-heading">Monitor components of your VMware installation</h1>
 </div>
 
 
 <p class="page-details">
   
     
-    <time datetime="2022-05-23 22:33:47 +0000">05/23/2022</time>
+    <time datetime="2022-05-27 19:20:34 +0000">05/27/2022</time>
     
   
 
@@ -850,14 +850,6 @@
           style="border-radius: 50%;"/>
   </a>
   
-  <a target="_blank" class="ext-link-indicator" href="https://github.com/netapp-mwallis">
-    <img  class="avatar avatar-small"
-          alt="netapp-mwallis"
-          width="20" height="20"
-          src="https://avatars.githubusercontent.com/u/53353653?v=4"
-          style="border-radius: 50%;"/>
-  </a>
-  
 </span>
 
 
@@ -866,74 +858,128 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>To monitor Event Management System (EMS) logs, you can do the following high level tasks:</p>
+<p>You can use the NetApp Astra Plugin for VMware vSphere to monitor components of your Astra Data Store installation. You can monitor the health of your system including the storage backends, VASA providers, VMs, and vVols. You can also view capacity and vCenter information.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="monitor-the-health-of-your-system-using-the-astra-plugin-for-vmware-vsphere-dashboard">Monitor the health of your system using the Astra Plugin for VMware vSphere Dashboard</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Managing your Astra Data Store with VMware environment involves monitoring the overall health of storage backends and VASA providers.</p>
+</div>
+<div class="paragraph">
+<p>Using the NetApp Astra Plugin for VMware vSphere Dashboard, you can see the following information:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#configure-monitoring-in-the-astra-data-store-cluster-custom-resource-cr">Configure monitoring in the Astra Data Store cluster custom resource (CR)</a></p>
+<p>Physical used and available capacity of all storage backends in this vCenter. You can hover over information and see more details.</p>
 </li>
 <li>
-<p><a href="#set-up-cloud-insights">Set up Cloud Insights</a></p>
+<p>Healthy and unhealthy storage backends and VASA providers</p>
 </li>
 <li>
-<p><a href="#stream-event-logs-to-elastic">Stream event logs to Elastic</a>.</p>
+<p>Latency, IOPS, throughput and capacity utilization for the top 10 VMs.</p>
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="configure-monitoring-in-the-astra-data-store-cluster-custom-resource-cr">Configure monitoring in the Astra Data Store cluster custom resource (CR)</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>If the monitoring option has not been configured on the Astra Data Store cluster CR, you can set it up using <code>astrads</code> extensions.</p>
-</div>
-<div class="paragraph">
-<p>Enter:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>kubectl astrads monitoring setup -n &lt;NAMESPACE OF AGENT INSTALLED&gt; -r &lt;DOCKER REPO TO FIND FLUENT/TELEGRAF ETC IMAGES&gt;</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>where:</p>
+<p>From the Dashboard, you can perform several additional tasks:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Namespace of agent installed: Enter the namespace for the Monitoring agent, which is the default name of the monitoring-netapp CR for the Monitoring Operator.</p>
+<p>Monitor capacity</p>
 </li>
 <li>
-<p><code>-r</code> is optional to set up the Docker registry where the Fluent or Telegraf images are located. By default, the path is set to <code>docker.repo.eng.netapp.com/global/astra</code>, which you can change.</p>
+<p>Use an existing storage backend. See <a href="../use-vmware/setup-ads-vmware.html">Set up storage backends</a>.</p>
+</li>
+<li>
+<p>Access the product documentation</p>
 </li>
 </ul>
 </div>
+<div class="olist arabic">
+<div class="title">Steps to review the Dashboard</div>
+<ol class="arabic">
+<li>
+<p>Access the Astra Plugin for VMware vSphere.</p>
+</li>
+<li>
+<p>From the Overview page, review the following sections:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Storage backends</strong> section: You can click on the states of both the storage backends and VASA providers to see details about their status. You can also click to view all storage backends.</p>
+</li>
+<li>
+<p><strong>Storage Backend Capacity</strong> section: Review the total physical used and available capacity for the storage backends in the selected vCenter. To change the vCenter server, click the vCenter Server option in the upper right.</p>
+</li>
+<li>
+<p><strong>Virtual Machines</strong> section: Review virtual machines having the top 10 capacity utilization.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-data-store/images/tip.svg" alt="Tip">
+</td>
+<td class="content">
+You can instead show what you want, for example, the top 10 VMs with high latency, by clicking on the table heading.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<div class="title">Steps to monitor Astra Data Store in other views</div>
+<ol class="arabic">
+<li>
+<p>Access the following views to monitor Astra Data Store components:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Virtual Machines</strong> tab: Lists all the VMs that are managed by Astra Data Store compared to the Dashboard, which lists only the top 10 VMs.</p>
+</li>
+<li>
+<p><strong>Storage</strong> drill down: Displays hosts, virtual machines and datastores that are associated with the storage system.</p>
+</li>
+<li>
+<p><strong>VM Storage</strong> view: Provides details of vVols that are created by the VASA provider.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="set-up-cloud-insights">Set up Cloud Insights</h2>
+<h2 id="review-storage-backend-threshold-settings">Review storage backend threshold settings</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To view the logs, setting up Cloud Insights is optional; however, it is helpful to view data using Cloud Insights.<br>
-See <a href="../use/monitor-with-cloud-insights.html">how to set up NetApp Cloud Insights</a> for use with Astra Data Store.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="stream-event-logs-to-elastic">Stream event logs to Elastic</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To stream EMS events and other pod logs to a third-party endpoint such as Elastic, use the <code>astrads</code> extensions.</p>
+<p>Storage backend capacity threshold settings govern when alert notifications appear on all datastores in the storage backend.</p>
 </div>
 <div class="paragraph">
-<p>Enter:</p>
+<p>The following default thresholds are set when you deploy or add a storage backend by using the Astra Plugin for VMware vSphere:</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre>kubectl astrads monitoring --host &lt;ELASTIC HOST NAME&gt; --port &lt;ELASTIC HOST PORT&gt; es</pre>
+<div class="ulist">
+<ul>
+<li>
+<p>90% full generates a red alert</p>
+</li>
+<li>
+<p>80% full generates a yellow alert</p>
+</li>
+</ul>
 </div>
+<div class="paragraph">
+<p>You can view the level at which the system generates an alert in VMware.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -942,10 +988,39 @@ See <a href="../use/monitor-with-cloud-insights.html">how to set up NetApp Cloud
 <img src="/us-en/astra-data-store/images/note.svg" alt="Note">
 </td>
 <td class="content">
-The Elastic host name can be an IP address.
+For the Astra Data Store Early Access Program, if the same storage container is used across multiple datacenters, you might see an incorrect alarm for datastores.
 </td>
 </tr>
 </table>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Access the NetApp Astra Plugin for VMware vSphere.</p>
+</li>
+<li>
+<p>From the left navigation, select <strong>Settings</strong>.</p>
+</li>
+<li>
+<p>Review the settings thresholds.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="for-more-information">For more information</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.netapp.com/us-en/astra-control-center/" target="_blank" rel="noopener">Astra Control Center documentation</a></p>
+</li>
+<li>
+<p><a href="https://docs.netapp.com/us-en/astra-family/intro-family.html" target="_blank" rel="noopener">Astra family introduction</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>

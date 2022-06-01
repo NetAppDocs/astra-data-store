@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head class="at-element-marker">
-  <title>Configure and monitor event logs</title>
+  <title>Manage security certificates</title>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
   <meta http-equiv="language" content="en">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:title" content="Configure and monitor event logs" />
+  <meta property="og:title" content="Manage security certificates" />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://docs.netapp.com/us-en/astra-data-store/use/configure-endpoints.html" />
-	<meta property="og:description" content="You can use kubectl commands with Astra Data Store to configure endpoints for use with Confluent, for example." />
+	<meta property="og:url" content="https://docs.netapp.com/us-en/astra-data-store/use/manage-certificates.html" />
+	<meta property="og:description" content="You can manually revoke compromised or expired certificates in Astra Data Store." />
   <meta property="og:image" content="https://docs.netapp.com/us-en/astra-data-store/images/logo-tophat-social.png" />
   <meta property="og:image:alt" content="NetApp Logo" />
   <meta name="format-detection" content="telephone=no">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="encoding" content="utf-8">
   <meta http-equiv="nss-type" content="Product Documentation"/>
-  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="You can use kubectl commands with Astra Data Store to configure endpoints for use with Confluent, for example.">
-  <meta name="keywords" content=" astra, astra data store, kubectl, endpoints, confluent"><!-- Icons -->
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="You can manually revoke compromised or expired certificates in Astra Data Store.">
+  <meta name="keywords" content=" astra, astra data store, kubectl, certs, cert, certificate, certificates, revoke, security, secure, expired, compromised, regenerate, generate"><!-- Icons -->
   <link rel="icon" href="/us-en/astra-data-store/images/favicon.ico" type="image/x-icon">
 
   <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
@@ -169,7 +169,7 @@
   
   <!-- Start Page Toolbar -->
   
-  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/issues/new?body=Page%3A%20[Configure and monitor event logs](https://docs.netapp.com/us-en/astra-data-store/use/configure-endpoints.html)" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/discuss-sm.svg" class="github-icon" />Request doc changes</a><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/blob/main/use/configure-endpoints.adoc" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/edit-sm.svg" class="github-icon" />Edit this page</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/us-en/astra-data-store/images/article-sm.svg" class="github-icon" />Learn how to contribute</a></div>
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/issues/new?body=Page%3A%20[Manage security certificates](https://docs.netapp.com/us-en/astra-data-store/use/manage-certificates.html)" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/discuss-sm.svg" class="github-icon" />Request doc changes</a><a target="_blank" href="https://github.com/NetAppDocs/astra-data-store/blob/main/use/manage-certificates.adoc" class="page-nav-contribute-link" role="button"><img src="/us-en/astra-data-store/images/edit-sm.svg" class="github-icon" />Edit this page</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/us-en/astra-data-store/images/article-sm.svg" class="github-icon" />Learn how to contribute</a></div>
     <div class="page-nav-container">
       <nav class="page-nav-fixed">
         <div class="page-nav-title">ON THIS PAGE</div>
@@ -292,15 +292,15 @@
           <ul class="n-menu__list">
             <li class="n-menu__list-column">
               <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/us-en/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
+                  <a href="https://docs.netapp.com/us-en/astra-data-store/use/manage-certificates.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/ja-jp/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
+                  <a href="https://docs.netapp.com/ja-jp/astra-data-store/use/manage-certificates.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/ko-kr/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
+                  <a href="https://docs.netapp.com/ko-kr/astra-data-store/use/manage-certificates.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/zh-cn/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
+                  <a href="https://docs.netapp.com/zh-cn/astra-data-store/use/manage-certificates.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
                 </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/zh-tw/astra-data-store/use/configure-endpoints.html" class="n-menu__header-text"><span translate="no" class="notranslate">繁體中文</span></a>
+                  <a href="https://docs.netapp.com/zh-tw/astra-data-store/use/manage-certificates.html" class="n-menu__header-text"><span translate="no" class="notranslate">繁體中文</span></a>
                 </li></ul>
             </li>
           </ul>
@@ -507,15 +507,6 @@
 
 
 
-    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
-  <a target="_blank" href="/us-en/astra-data-store/pdfs/pages/use/configure-endpoints.pdf" >
-    <img src="/us-en/astra-data-store/images/pdf.png" width="16" height="16"/>
-    PDF of this page
-  </a>
-</li>
-
-</ul>
-  
 
 
 
@@ -543,6 +534,15 @@
             Secure Astra Data Store
           </a>
           
+    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
+  <a target="_blank" href="/us-en/astra-data-store/pdfs/pages/use/manage-certificates.pdf" >
+    <img src="/us-en/astra-data-store/images/pdf.png" width="16" height="16"/>
+    PDF of this page
+  </a>
+</li>
+
+</ul>
+  
 
 
 
@@ -735,12 +735,12 @@
         Monitor metrics with Cloud Insights
       </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/monitor-with-prometheus-grafana.html">
         Monitor metrics with Prometheus and Grafana
-      </a></li><li class="  active "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/configure-endpoints.html">
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/configure-endpoints.html">
         Configure and monitor event logs
       </a></li></ul></li><li class="subfolders "><a href="#">
         <div class="na-navbar-padding"> Secure Astra Data Store</div>
       </a>
-      <ul><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/manage-certificates.html">
+      <ul><li class="  active "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/manage-certificates.html">
         Manage security certificates
       </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/use/manage-keys.html">
         Manage external keys
@@ -822,34 +822,18 @@
 </div>
 
       <div class="n-doc__component-detail-heading-wrap">
-  <h1 class="n-doc__component-detail-heading">Configure and monitor event logs</h1>
+  <h1 class="n-doc__component-detail-heading">Manage security certificates</h1>
 </div>
 
 
 <p class="page-details">
   
     
-    <time datetime="2022-05-23 22:33:47 +0000">05/23/2022</time>
+    <time datetime="2022-05-18 23:01:12 +0000">05/18/2022</time>
     
   
 
 <span>Contributors
-  <a target="_blank" class="ext-link-indicator" href="https://github.com/amgrissino">
-    <img  class="avatar avatar-small"
-          alt="amgrissino"
-          width="20" height="20"
-          src="https://avatars.githubusercontent.com/u/36450105?v=4"
-          style="border-radius: 50%;"/>
-  </a>
-  
-  <a target="_blank" class="ext-link-indicator" href="https://github.com/netapp-dbagwell">
-    <img  class="avatar avatar-small"
-          alt="netapp-dbagwell"
-          width="20" height="20"
-          src="https://avatars.githubusercontent.com/u/53352450?v=4"
-          style="border-radius: 50%;"/>
-  </a>
-  
   <a target="_blank" class="ext-link-indicator" href="https://github.com/netapp-mwallis">
     <img  class="avatar avatar-small"
           alt="netapp-mwallis"
@@ -866,74 +850,16 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>To monitor Event Management System (EMS) logs, you can do the following high level tasks:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#configure-monitoring-in-the-astra-data-store-cluster-custom-resource-cr">Configure monitoring in the Astra Data Store cluster custom resource (CR)</a></p>
-</li>
-<li>
-<p><a href="#set-up-cloud-insights">Set up Cloud Insights</a></p>
-</li>
-<li>
-<p><a href="#stream-event-logs-to-elastic">Stream event logs to Elastic</a>.</p>
-</li>
-</ul>
+<p>Astra Data Store uses Mutual Transport Layer Security (mTLS) encryption between the cluster&#8217;s software components. Each Astra Data Store cluster has a self-signed root CA certificate (<code>astrads-cert-root</code>) and an intermediate CA certificate (<code>astrads-cert-&lt;cluster_name&gt;</code>).
+These certificates are managed by the Astra Data Store operator; the operator automatically renews each certificate 7 days before their expiration date. You can also revoke the certificates manually.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="configure-monitoring-in-the-astra-data-store-cluster-custom-resource-cr">Configure monitoring in the Astra Data Store cluster custom resource (CR)</h2>
+<h2 id="revoke-a-certificate">Revoke a certificate</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If the monitoring option has not been configured on the Astra Data Store cluster CR, you can set it up using <code>astrads</code> extensions.</p>
-</div>
-<div class="paragraph">
-<p>Enter:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>kubectl astrads monitoring setup -n &lt;NAMESPACE OF AGENT INSTALLED&gt; -r &lt;DOCKER REPO TO FIND FLUENT/TELEGRAF ETC IMAGES&gt;</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>where:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Namespace of agent installed: Enter the namespace for the Monitoring agent, which is the default name of the monitoring-netapp CR for the Monitoring Operator.</p>
-</li>
-<li>
-<p><code>-r</code> is optional to set up the Docker registry where the Fluent or Telegraf images are located. By default, the path is set to <code>docker.repo.eng.netapp.com/global/astra</code>, which you can change.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="set-up-cloud-insights">Set up Cloud Insights</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To view the logs, setting up Cloud Insights is optional; however, it is helpful to view data using Cloud Insights.<br>
-See <a href="../use/monitor-with-cloud-insights.html">how to set up NetApp Cloud Insights</a> for use with Astra Data Store.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="stream-event-logs-to-elastic">Stream event logs to Elastic</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To stream EMS events and other pod logs to a third-party endpoint such as Elastic, use the <code>astrads</code> extensions.</p>
-</div>
-<div class="paragraph">
-<p>Enter:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>kubectl astrads monitoring --host &lt;ELASTIC HOST NAME&gt; --port &lt;ELASTIC HOST PORT&gt; es</pre>
-</div>
+<p>If an Astra Data Store controller, node, or CA certificate is compromised, you can revoke it by deleting its mTLS secret. When you do this, the Astra Data Store operator automatically issues a new certificate. You can revoke an Astra Data Store certificate at any time.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -942,10 +868,55 @@ See <a href="../use/monitor-with-cloud-insights.html">how to set up NetApp Cloud
 <img src="/us-en/astra-data-store/images/note.svg" alt="Note">
 </td>
 <td class="content">
-The Elastic host name can be an IP address.
+If you revoke a CA certificate, this will revoke any certificates signed by that CA.
 </td>
 </tr>
 </table>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Log in to the controller node in the Astra Data Store cluster.</p>
+</li>
+<li>
+<p>List the existing certificates on the system. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre>kubectl get secrets -n astrads-system | grep astrads-cert</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output should be similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>astrads-cert-astrads-cluster-controller                   kubernetes.io/tls     4      6d6h
+astrads-cert-astrads-cluster-f23d158                      kubernetes.io/tls     4      6d6h
+astrads-cert-astrads-ds-dms-astrads-cluster-f23d158       kubernetes.io/tls     4      6d6h
+astrads-cert-astrads-ds-support-astrads-cluster-f23d158   kubernetes.io/tls     4      6d6h
+astrads-cert-astrads-support-astrads-cluster-f23d158      kubernetes.io/tls     4      6d6h
+astrads-cert-root                                         kubernetes.io/tls     4      6d6h
+astrads-cert-sti-net-com                                  kubernetes.io/tls     5      6d6h</pre>
+</div>
+</div>
+</li>
+<li>
+<p>In the output, note the name of the certificate you need to revoke.</p>
+</li>
+<li>
+<p>Use the <code>kubectl</code> utility to revoke the certificate, replacing <code>CERTIFICATE_NAME</code> with the name of the certificate. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre>kubectl delete secret CERTIFICATE_NAME -n astrads-system</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Result</div>
+<p>The existing certificate is revoked, and a new certificate is automatically generated in its place.</p>
 </div>
 </div>
 </div>
