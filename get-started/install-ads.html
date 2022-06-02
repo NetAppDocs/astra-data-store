@@ -829,7 +829,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-06-01 00:52:03 +0000">06/01/2022</time>
+    <time datetime="2022-06-02 15:55:38 +0000">06/02/2022</time>
     
   
 
@@ -847,6 +847,14 @@
           alt="netapp-mwallis"
           width="20" height="20"
           src="https://avatars.githubusercontent.com/u/53353653?v=4"
+          style="border-radius: 50%;"/>
+  </a>
+  
+  <a target="_blank" class="ext-link-indicator" href="https://github.com/amgrissino">
+    <img  class="avatar avatar-small"
+          alt="amgrissino"
+          width="20" height="20"
+          src="https://avatars.githubusercontent.com/u/36450105?v=4"
           style="border-radius: 50%;"/>
   </a>
   
@@ -972,7 +980,7 @@ To install Astra Data Store with Rancher RKE environments, complete these instal
 <img src="/us-en/astra-data-store/images/note.svg" alt="Note">
 </td>
 <td class="content">
-If you are looking for instructions for earlier versions of the bundle, see <a href="../acc-earlier-versions.html">documentation for that the version</a>.
+If you are looking for instructions for earlier versions of the bundle, see <a href="../ads-earlier-versions.html">documentation for that version</a>.
 </td>
 </tr>
 </table>
@@ -1099,6 +1107,19 @@ sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./astrads/manifests/*.yaml</pre>
 <div class="paragraph">
 <p>Use the following procedure only for deployment on the Red Hat OpenShift Container Platform (OCP). Skip this procedure for deployment on non-OCP Kubernetes clusters.</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a namespace to deploy Astra Data Store</p>
+</li>
+<li>
+<p>Create a custom SCC</p>
+</li>
+<li>
+<p>Create roles and role bindings</p>
+</li>
+</ul>
+</div>
 <details>
 <summary class="title">Details</summary>
 <div class="content">
@@ -1107,7 +1128,7 @@ sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./astrads/manifests/*.yaml</pre>
 <p>Create a namespace <code>astrads-system</code> in which all Astra Data Store components will be installed.</p>
 </div>
 <div class="paragraph">
-<p>The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).</p>
+<p>The following step is needed only for deployment on the Red Hat OpenShift Container Platform (OCP).</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1207,8 +1228,8 @@ volumes:
 <div class="listingblock">
 <div class="content">
 <pre># oc get scc/ads-privileged
-NAME             PRIV   CAPS    SELINUX    RUNASUSER   FSGROUP    SUPGROUP   PRIORITY     READONLYROOTFS   VOLUMES
-ads-privileged   true   ["*"]   RunAsAny   RunAsAny    RunAsAny   RunAsAny   &lt;no value&gt;   false            ["*"]
+NAME           PRIV  CAPS  SELINUX  RUNASUSER FSGROUP   SUPGROUP  PRIORITY   READONLYROOTFS  VOLUMES
+ads-privileged true  ["*"] RunAsAny RunAsAny  RunAsAny  RunAsAny  &lt;no value&gt; false           ["*"]
 #</pre>
 </div>
 </div>
@@ -1305,7 +1326,7 @@ subjects:
 <div class="sect2">
 <h3 id="configure-a-private-image-registry">Configure a private image registry</h3>
 <div class="paragraph">
-<p>As optional step for certain environments, you can make configuration changes to pull an image from a private registry that uses secrets.</p>
+<p>As an optional step for certain environments, you can change the configuration to pull an image from a private registry that uses secrets.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1339,7 +1360,7 @@ subjects:
 <img src="/us-en/astra-data-store/images/note.svg" alt="Note">
 </td>
 <td class="content">
-These change will be applied when you <a href="#install-the-astra-data-store-operator">install the Astra Data Store operator</a>.
+These changes will be applied when you <a href="#install-the-astra-data-store-operator">install the Astra Data Store operator</a>.
 </td>
 </tr>
 </table>
@@ -1375,7 +1396,7 @@ astrads/manifests/configuration.yaml</pre>
 </div>
 </li>
 <li>
-<p>Deploy the operator using kubectl apply:</p>
+<p>Deploy the operator using <code>kubectl apply</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre>kubectl apply -f ./astrads/manifests/astradsoperator.yaml</pre>
@@ -1391,7 +1412,7 @@ astrads/manifests/configuration.yaml</pre>
 <img src="/us-en/astra-data-store/images/note.svg" alt="Note">
 </td>
 <td class="content">
-The namespace response might differ depending on whether you performed the standard installation or the <a href="../get-started/install-ads.html#openshift-procedure">OCP installation</a>.
+The namespace response might differ depending on whether you performed the standard installation or the <a href="../get-started/install-ads.html#openshift-procedure">OpenShift Container Platform installation</a>.
 </td>
 </tr>
 </table>
@@ -1497,7 +1518,7 @@ astrads-operator-5ffb94fbf-7ln4h    1/1     Running   0          17m</pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Deploy using kubectl apply:</p>
+<p>Deploy using <code>kubectl apply</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre>kubectl apply -f ./astrads/manifests/astradsversion.yaml</pre>
@@ -1554,8 +1575,8 @@ astrads-operator-5ffb94fbf-7ln4h              1/1     Running   0          2m10s
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>NAME                     ADSCLUSTER                 VALID   PRODUCT             EVALUATION  ENDDATE     VALIDATED
-e100000006-ads-capacity  astrads-example-cluster    true    Astra Data Store    true        2023-01-23  2022-04-04T14:38:54Z</pre>
+<pre>NAME                    ADSCLUSTER               VALID PRODUCT          EVALUATION  ENDDATE     VALIDATED
+e100000006-ads-capacity astrads-example-cluster  true  Astra Data Store true        2023-01-23  2022-04-04T14:38:54Z</pre>
 </div>
 </div>
 </li>
@@ -1885,7 +1906,7 @@ astrads-example-cluster     created   2022.05.0-X  e100000006       10.x.x.x   1
 <p><strong>Kubernetes-native deployments and third-party distributions</strong>: Complete the Astra Data Store deployment by performing additional <a href="setup-ads.html">setup tasks</a>.</p>
 </li>
 <li>
-<p><strong>Astra Control Center</strong>: If you have used Astra Control Center to deploy Astra Data Store, you do not need to follow these <a href="../get-started/setup-ads.html#configure-astra-data-store-monitoring">setup tasks</a> unless you want to configure any additional monitoring options. After you deploy Astra Data Store, you can use Astra Control Center UI to accomplish these tasks:</p>
+<p><strong>Astra Control Center</strong>: If you have used Astra Control Center to deploy Astra Data Store, you do not need to follow these <a href="../get-started/setup-ads.html#configure-astra-data-store-monitoring">setup tasks</a> unless you want to configure any additional monitoring options. After you deploy Astra Data Store, you can use the Astra Control Center UI to accomplish these tasks:</p>
 <div class="ulist">
 <ul>
 <li>
