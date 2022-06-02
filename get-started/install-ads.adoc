@@ -47,7 +47,7 @@ NOTE: To install Astra Data Store with Rancher RKE environments, complete these 
 === Download the Astra Data Store bundle and extract the images
 . Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store bundle (`Astra_Data_Store_2022.05.tar`).
 +
-NOTE: If you are looking for instructions for earlier versions of the bundle, see link:../acc-earlier-versions.html[documentation for that the version].
+NOTE: If you are looking for instructions for earlier versions of the bundle, see link:../ads-earlier-versions.html[documentation for that version].
 
 . (Optional) Use the following command to verify the signature of the bundle:
 +
@@ -113,6 +113,10 @@ sed -i 's~\[YOUR REGISTRY\]~'${REGISTRY}'~' ./astrads/manifests/*.yaml
 
 Use the following procedure only for deployment on the Red Hat OpenShift Container Platform (OCP). Skip this procedure for deployment on non-OCP Kubernetes clusters.
 
+* Create a namespace to deploy Astra Data Store
+* Create a custom SCC
+* Create roles and role bindings
+
 // Start snippet: collapsible block (open on page load)
 .Details
 [%collapsible]
@@ -122,7 +126,8 @@ Use the following procedure only for deployment on the Red Hat OpenShift Contain
 
 Create a namespace `astrads-system` in which all Astra Data Store components will be installed.
 
-The following steps are needed only for deployment on the Red Hat OpenShift Container Platform (OCP).
+The following step is needed only for deployment on the Red Hat OpenShift Container Platform (OCP).
+
 //ocp
 
 . Create the namespace:
@@ -206,8 +211,8 @@ volumes:
 +
 ----
 # oc get scc/ads-privileged
-NAME             PRIV   CAPS    SELINUX    RUNASUSER   FSGROUP    SUPGROUP   PRIORITY     READONLYROOTFS   VOLUMES
-ads-privileged   true   ["*"]   RunAsAny   RunAsAny    RunAsAny   RunAsAny   <no value>   false            ["*"]
+NAME           PRIV  CAPS  SELINUX  RUNASUSER FSGROUP   SUPGROUP  PRIORITY   READONLYROOTFS  VOLUMES
+ads-privileged true  ["*"] RunAsAny RunAsAny  RunAsAny  RunAsAny  <no value> false           ["*"]
 #
 ----
 
@@ -292,7 +297,7 @@ subjects:
 // End snippet
 
 === Configure a private image registry
-As optional step for certain environments, you can make configuration changes to pull an image from a private registry that uses secrets.
+As an optional step for certain environments, you can change the configuration to pull an image from a private registry that uses secrets.
 
 . Create the `astrads-system` namespace unless you did so already in a previous step:
 +
@@ -312,7 +317,7 @@ kubectl create secret docker-registry <secret-name> -n astrads-system --docker-s
 kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "<secret-name>"}]}' -n astrads-system
 ----
 +
-NOTE: These change will be applied when you <<Install the Astra Data Store operator,install the Astra Data Store operator>>.
+NOTE: These changes will be applied when you <<Install the Astra Data Store operator,install the Astra Data Store operator>>.
 
 === Install the Astra Data Store operator
 . List the Astra Data Store manifests:
@@ -333,7 +338,7 @@ astrads/manifests/manifest.yaml
 astrads/manifests/configuration.yaml
 ----
 
-. Deploy the operator using kubectl apply:
+. Deploy the operator using `kubectl apply`:
 +
 ----
 kubectl apply -f ./astrads/manifests/astradsoperator.yaml
@@ -341,7 +346,7 @@ kubectl apply -f ./astrads/manifests/astradsoperator.yaml
 +
 Response:
 +
-NOTE: The namespace response might differ depending on whether you performed the standard installation or the link:../get-started/install-ads.html#openshift-procedure[OCP installation].
+NOTE: The namespace response might differ depending on whether you performed the standard installation or the link:../get-started/install-ads.html#openshift-procedure[OpenShift Container Platform installation].
 
 +
 ----
@@ -432,7 +437,7 @@ astrads-operator-5ffb94fbf-7ln4h    1/1     Running   0          17m
 
 === Deploy the Astra Data Store version YAML
 
-. Deploy using kubectl apply:
+. Deploy using `kubectl apply`:
 +
 ----
 kubectl apply -f ./astrads/manifests/astradsversion.yaml
@@ -474,8 +479,8 @@ kubectl astrads license list
 Response:
 +
 ----
-NAME                     ADSCLUSTER                 VALID   PRODUCT             EVALUATION  ENDDATE     VALIDATED
-e100000006-ads-capacity  astrads-example-cluster    true    Astra Data Store    true        2023-01-23  2022-04-04T14:38:54Z
+NAME                    ADSCLUSTER               VALID PRODUCT          EVALUATION  ENDDATE     VALIDATED
+e100000006-ads-capacity astrads-example-cluster  true  Astra Data Store true        2023-01-23  2022-04-04T14:38:54Z
 ----
 
 === Install the Astra Data Store cluster
@@ -668,7 +673,7 @@ To deploy and use Astra Data Store with Astra Control Center, do the following.
 
 * *Kubernetes-native deployments and third-party distributions*: Complete the Astra Data Store deployment by performing additional link:setup-ads.html[setup tasks].
 
-* *Astra Control Center*: If you have used Astra Control Center to deploy Astra Data Store, you do not need to follow these link:../get-started/setup-ads.html#configure-astra-data-store-monitoring[setup tasks] unless you want to configure any additional monitoring options. After you deploy Astra Data Store, you can use Astra Control Center UI to accomplish these tasks:
+* *Astra Control Center*: If you have used Astra Control Center to deploy Astra Data Store, you do not need to follow these link:../get-started/setup-ads.html#configure-astra-data-store-monitoring[setup tasks] unless you want to configure any additional monitoring options. After you deploy Astra Data Store, you can use the Astra Control Center UI to accomplish these tasks:
 
 ** https://docs.netapp.com/us-en/astra-control-center/use/monitor-protect.html[Monitor the health of your Astra Data Store assets^].
 ** https://docs.netapp.com/us-en/astra-control-center/use/manage-backend.html[Manage the Astra Data Store backend storage^].
