@@ -153,48 +153,6 @@ Each node in an Astra Data Store cluster has the following capabilities:
 
 == Networking
 
-//Each network in Astra Data Store installations requires the following bandwidth:
-
-////
-|===
-|Network |Required bandwidth
-
-|Management
-|1GbE or faster interface
-
-|Cluster
-|10GbE or faster interface
-
-|Data
-|10GbE or faster interface
-|===
-////
-
-////
-.Network interface requirements
-* Minimum configuration: One 10GbE or faster network interface
-+
-NOTE: If unspecified, the interface that hosts the management IP address (MIP) on the node is used for all 3 networks (management, cluster and data).
-
-* Maximum configuration: Two network interfaces
-** One 1GbE or faster interface for the management network
-** One 10GbE or faster interface for the data network
-
-NOTE: The cluster network should reside on the same interface as either the management network (if the management network is 10GbE or faster), or the data network.
-////
-
-
-////
-.IP address requirements
-* Management network
-** One IPv4 address (pre-configured) for the management IP address (MIP) of each node
-** One IPv4 address (free/spare/unconfigured) for the management virtual IP address (MVIP) of the cluster. This address is configured on the management network interface during Astra Data Store preview cluster installation.
-* Cluster network
-** One IPv4 address (pre-configured) for the cluster IP address of each node on the data network interface. As an alternative, the MIP of the management network interface can be used only if the MIP is hosted on a 10GbE or faster interface.
-* Data network
-** One IPv4 address (free/spare/unconfigured) for the volume's export address of each node. This address is configured on the data network interface during Astra Data Store preview cluster installation.
-////
-
 Astra Data Store requires one IP address per cluster for MVIP. It needs to be an unused or unconfigured IP address in same subnet as MIP. The Astra Data Store management interface should be same as the Kubernetes node’s management interface.
 
 In addition, each node can be configured as described in the following table:
@@ -224,6 +182,90 @@ a|
 |===
 
 NOTE: No VLAN tags are used in these configurations.
+
+=== Firewall considerations
+In environments that enforce network firewall traffic filtering, the firewall must be configured to allow incoming traffic to the ports and protocols listed in the table below. The IP Address column uses the following abbreviations:
+
+
+* MIP: Primary IP address on the management interface of each node
+* CIP: Primary IP address on the cluster interface of each node
+* DIP: One or more data IP addresses configured on a node
+* MVIP: The management virtual IP address configured on one cluster node
+
+|===
+|Port/protocol |IP address |Purpose |Notes
+
+|111/TCP
+|DIP
+|NFS
+|Data IPs move between cluster nodes at runtime. Each node should allow this traffic for all data IPs (or for the entire subnet).
+
+|442/TCP
+|MIP
+|API
+|
+
+|635/TCP
+|DIP
+|NFS
+|Data IPs move between cluster nodes at runtime. Each node should allow this traffic for all data IPs (or for the entire subnet).
+
+|2010/UDP
+|CIP
+|Cluster/node discovery
+|Includes both unicast and broadcast traffic to and from UDP port 2010, including the replies.
+
+|2049/TCP
+|DIP
+|NFS
+|Data IPs move between cluster nodes at runtime. Each node should allow this traffic for all data IPs (or for the entire subnet).
+
+|2181-2183/TCP
+|CIP
+|Distributed communication
+|
+
+|2443/TCP
+|MIP
+|API
+|
+
+|2443/TCP
+|MVIP
+|API
+|The MVIP address can be hosted by any cluster node and is relocated at runtime when needed.
+
+|4000-4006/TCP
+|CIP
+|Intra-cluster RPC
+|
+
+|4045-4046/TCP
+|DIP
+|NFS
+|Data IPs move between cluster nodes at runtime. Each node should allow this traffic for all data IPs (or for the entire subnet).
+
+|7700/TCP
+|CIP
+|Session manager
+|
+
+|9919/TCP
+|MIP
+|DMS API
+|
+
+|9920/TCP
+|DIP
+|DMS REST server
+|
+
+|ICMP
+|CIP + DIP
+|Intra-node communication, health check
+|Data IPs move between cluster nodes at runtime. Each node should allow this traffic for all data IPs (or for the entire subnet).
+
+|===
 
 == Astra Trident
 Astra Data Store requires the application Kubernetes clusters to be running Astra Trident for storage provisioning and orchestration. Astra Trident versions 21.10.1 through 22.04 are supported. Astra Data Store can be configured as a link:../get-started/setup-ads.html#set-up-astra-data-store-as-storage-backend[storage backend] with Astra Trident to provision persistent volumes.
