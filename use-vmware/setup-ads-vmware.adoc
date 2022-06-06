@@ -26,6 +26,10 @@ Setting up Astra Data Store with VMware involves the following tasks:
 Before you set up Astra Data Store with VMware, you'll need to ensure the following:
 
 * Astra Control Center is https://docs.netapp.com/us-en/astra-control-center/get-started/install_overview.html[installed] and set up.
+//VMware ADS EAP review
++
+NOTE: For the Astra Data Store Early Access Program (EAP) release, Astra Control Center and NetApp Astra Plugin for VMware vSphere should be deployed only on the `pcloud` namespace and not on a custom namespace.
+
 * Astra Data Store is licensed and deployed. See link:../get-started/install-ads.html[Install Astra Data Store].
 
 NOTE: For the Astra Data Store Early Access Program (EAP) release, Astra Control Center and Astra Data Store must be deployed in two different Kubernetes clusters.
