@@ -585,3 +585,19 @@ kubectl delete astradskeyprovider <key-provider-cr-name> -n astrads-system
 
 ====
 // End snippet
+
+=== Unable to uninstall Astra Data Store from Astra Control Center web UI
+The Astra Data Store uninstallation process can occasionally fail if you initiated it from the Astra Control Center web UI.
+
+If this issue occurs, take the following steps:
+. Log in to a machine that can access the Kubernetes cluster where Astra Data Store resides.
+. Change to the manifests directory.
++
+----
+cd ~/astrads/manifests/
+----
+. Manually remove Astra Data Store:
++
+----
+./uninstall all
+----
