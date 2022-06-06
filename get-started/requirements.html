@@ -277,35 +277,27 @@
     </div>
   </div>
   <div class="n-property-bar__toolbar">
-    <!-- Start Language Selector --><div id="ie-i18n" class="n-property-bar__lang-selector">
-      <div id="ie-i18n-menu">
-      <span class="ie-i18n-lang">English</span>
-        <button class="ie-i18n-icon-container" type="button">
+    <!-- Start Language Selector --><div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+      <div class="custom-dropdown-select custom-dropdown-select-lang">
+      <span class="lang-name">English</span>
           <svg class="n-globe__icon" aria-labelledby="title">
             <title>globe</title>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/us-en/astra-data-store/common/svg/sprite.svg#globe"></use>
           </svg>
         </button>
       </div>
-      <div id="n-property-navigation-bar__menu--language-selector" class="ie-i18n-results-container n-menu n-menu--v3 n-menu--is-active" style="display: none;">
-        <div class="n-language-selector-menu">
-          <ul class="n-menu__list">
-            <li class="n-menu__list-column">
-              <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/us-en/astra-data-store/get-started/requirements.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
-                </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/ja-jp/astra-data-store/get-started/requirements.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
-                </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/ko-kr/astra-data-store/get-started/requirements.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
-                </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/zh-cn/astra-data-store/get-started/requirements.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
-                </li><li class="n-menu__list-item n-menu__list-item--level-1">
-                  <a href="https://docs.netapp.com/zh-tw/astra-data-store/get-started/requirements.html" class="n-menu__header-text"><span translate="no" class="notranslate">繁體中文</span></a>
-                </li></ul>
-            </li>
-          </ul>
-        </div>
-      </div>
+
+      <ul class="custom-dropdown-menu"><li>
+          <a href="https://docs.netapp.com/us-en/astra-data-store/get-started/requirements.html" target="_self"><span translate="no" class="notranslate">English</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ja-jp/astra-data-store/get-started/requirements.html" target="_self"><span translate="no" class="notranslate">日本語</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-cn/astra-data-store/get-started/requirements.html" target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-tw/astra-data-store/get-started/requirements.html" target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ko-kr/astra-data-store/get-started/requirements.html" target="_self"><span translate="no" class="notranslate">한국어</span></a>
+        </li></ul>
     </div><!-- End Language Selector -->
 
     <div class="n-property-bar__cta"></div>
@@ -679,7 +671,7 @@
     $("#toggleContainerPdf").toggle('display');
     $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
   });
-</script><div class="sidebar-nav-container">
+</script><div class="sidebar-nav-container" id="mysidebardiv">
   <ul id="mysidebar" class="nav"><li class=" "><a class="na-navbar-padding" href="/us-en/astra-data-store/index.html">
         Astra Data Store docs
       </a></li><li class="subfolders "><a href="/us-en/astra-data-store/release-notes/rn_overview.html">
@@ -829,7 +821,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-05-27 18:01:52 +0000">05/27/2022</time>
+    <time datetime="2022-05-31 21:11:22 +0000">05/31/2022</time>
     
   
 
@@ -1224,6 +1216,130 @@ No VLAN tags are used in these configurations.
 </tr>
 </table>
 </div>
+<div class="sect2">
+<h3 id="firewall-considerations">Firewall considerations</h3>
+<div class="paragraph">
+<p>In environments that enforce network firewall traffic filtering, the firewall must be configured to allow incoming traffic to the ports and protocols listed in the table below. The IP Address column uses the following abbreviations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>MIP: Primary IP address on the management interface of each node</p>
+</li>
+<li>
+<p>CIP: Primary IP address on the cluster interface of each node</p>
+</li>
+<li>
+<p>DIP: One or more data IP addresses configured on a node</p>
+</li>
+<li>
+<p>MVIP: The management virtual IP address configured on one cluster node</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Port/protocol</th>
+<th class="tableblock halign-left valign-top">IP address</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+<th class="tableblock halign-left valign-top">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">111/TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DIP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NFS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data IPs move between cluster nodes at runtime. Each node should allow this traffic for all data IPs (or for the entire subnet).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">442/TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MIP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">635/TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DIP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NFS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data IPs move between cluster nodes at runtime. Each node should allow this traffic for all data IPs (or for the entire subnet).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2010/UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cluster/node discovery</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Includes both unicast and broadcast traffic to and from UDP port 2010, including the replies.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2049/TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DIP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NFS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data IPs move between cluster nodes at runtime. Each node should allow this traffic for all data IPs (or for the entire subnet).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2181-2183/TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Distributed communication</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2443/TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MIP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2443/TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MVIP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The MVIP address can be hosted by any cluster node and is relocated at runtime when needed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4000-4006/TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Intra-cluster RPC</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4045-4046/TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DIP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NFS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data IPs move between cluster nodes at runtime. Each node should allow this traffic for all data IPs (or for the entire subnet).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7700/TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Session manager</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9919/TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MIP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DMS API</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9920/TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DIP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DMS REST server</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ICMP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIP + DIP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Intra-node communication, health check</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data IPs move between cluster nodes at runtime. Each node should allow this traffic for all data IPs (or for the entire subnet).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1452,4 +1568,5 @@ No VLAN tags are used in these configurations.
     </script>
     <script src='/us-en/astra-data-store/js/www-ntap.js'></script>
     <script src='/us-en/astra-data-store/js/tabbed-blocks.js'></script>
+    <script src='/us-en/astra-data-store/js/sidebar.js'></script>
   </body></html>
