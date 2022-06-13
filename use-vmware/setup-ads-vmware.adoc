@@ -59,7 +59,8 @@ Add your first vCenter, which registers the Astra Plugin for VMware vSphere.
 
 You must have administrative privileges to add the vCenter to Astra Control Center.
 
-TIP: After the plugin is registered with VMware vSphere, the Astra Plugin for VMware vSphere icon appears in the VMware Shortcuts page.
+TIP: After the plugin is registered with VMware vSphere, the Astra Plugin for VMware vSphere icon appears in the VMware Shortcuts page. Sometimes after you register the Astra Plugin for VMware vSphere, the plugin doesn't appear immediately. In this case, wait a few seconds and refresh the browser. 
+
 
 . Log in to Astra Control Center.
 . From the left navigation, select *Clusters*.
