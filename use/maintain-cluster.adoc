@@ -758,3 +758,4 @@ kubectl astrads replacedrive replace --cluster astrads-cluster-f51b10a --name 60
 == For more information
 
 * link:../use/kubectl-commands-ads.html[Manage Astra Data Store resources with kubectl commands]
+* https://docs.netapp.com/us-en/astra-control-center/use/manage-backend.html#add-nodes-to-a-storage-backend-cluster[Add nodes to a storage backend cluster in Astra Control Center^]
