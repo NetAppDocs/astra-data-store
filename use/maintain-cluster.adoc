@@ -38,13 +38,6 @@ NOTE: To add a node using Astra Control Center, see https://docs.netapp.com/us-e
 ----
 kubectl edit astradscluster CLUSTER_NAME -n astrads-system
 ----
-+
-Response:
-+
-----
-adsDataNetworks:
-    -addresses:  dataIP1,dataIP2,dataIP3,dataIP4,NEW_DATA_IP
-----
 
 .. Save the CR.
 .. Add the node to the Astra Data Store cluster. Replace the information in capital letters with the appropriate values for your environment:
@@ -158,11 +151,11 @@ Response:
 +
 ----
  NAME             STATUS   ROLES                  AGE     VERSION
- nhcitjj1525      Ready    <none>                 3d18h   v1.20.0
- nhcitjj1526      Ready    <none>                 3d18h   v1.20.0
- nhcitjj1527      Ready    <none>                 3d18h   v1.20.0
- nhcitjj1528      Ready    <none>                 3d18h   v1.20.0
- scs000039783-1   Ready    control-plane,master   3d18h   v1.20.0
+ nhcitjj1525      Ready    <none>                 3d18h   v1.23.5
+ nhcitjj1526      Ready    <none>                 3d18h   v1.23.5
+ nhcitjj1527      Ready    <none>                 3d18h   v1.23.5
+ nhcitjj1528      Ready    <none>                 3d18h   v1.23.5
+ scs000039783-1   Ready    control-plane,master   3d18h   v1.23.5
 ----
 
 . Ensure that the node is not already in maintenance mode:
@@ -731,6 +724,11 @@ sdh   /scsi-36000c29417  45000c  0                false     100GB
 [source,kubectl]
 ----
 kubectl astrads faileddrive replace --cluster arda-6e4b4af --name 6000c290 --replaceWith 45000c --wait
+----
++
+Response:
++
+----
 Drive replacement completed successfully
 ----
 +
