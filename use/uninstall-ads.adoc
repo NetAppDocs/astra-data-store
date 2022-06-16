@@ -594,7 +594,7 @@ If this issue occurs, take the following steps.
 .Steps
 
 . Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store bundle (`Astra_Data_Store_2022.05.tar`) to a machine that can access the Kubernetes cluster where Astra Data Store resides.
-. Log in to the machine to which you copied the Astra Data Store bundle.
+. Log in to the machine to which you downloaded the Astra Data Store bundle.
 . Extract the contents of the bundle:
 +
 ----
