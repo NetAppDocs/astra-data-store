@@ -593,20 +593,13 @@ If this issue occurs, take the following steps.
 
 .Steps
 
-. Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store bundle (`Astra_Data_Store_2022.05.tar`).
-. Create a directory:
-+
-----
-mkdir Astra_Data_Store_2022.05
-cd Astra_Data_Store_2022.05
-----
-
+. Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store bundle (`Astra_Data_Store_2022.05.tar`) to a machine that can access the Kubernetes cluster where Astra Data Store resides.
+. Log in to the machine to which you copied the Astra Data Store bundle.
 . Extract the contents of the bundle:
 +
 ----
 tar -xvf <path to tar file>/Astra_Data_Store_2022.05.tar
 ----
-. Log in to a machine that can access the Kubernetes cluster where Astra Data Store resides.
 . Change to the manifests directory, where the uninstall script is stored:
 +
 ----
