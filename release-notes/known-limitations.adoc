@@ -23,7 +23,6 @@ The following features are not supported:
 ** Clone a VM, including clones from a template
 ** Attaching a VM disk after previously removing it
 * vVol replication
-* Delete vVol datastore
 * First Class Disks (FCDs)
 * VMware vMotion
 * Linked Mode vCenter servers
