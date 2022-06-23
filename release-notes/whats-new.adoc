@@ -13,11 +13,12 @@ summary: NetApp periodically updates Astra Data Store to bring you new features,
 We're pleased to announce the 2022.05.01 Early Access Program (EAP) release of Astra Data Store.
 
 == 28 June 2022 (2022.05.01 EAP Release)
-The Astra Data Store 2022.05.01 release includes these improvements:
+This patch release (2022.05.01) for the Astra Data Store EAP release (22.05) includes the following improvements:
 
 * Astra Data Store and Astra Control Center can now be run in the same cluster.
 * Delete VVol datastore workflow from vSphere is now available.
-* The kubectl-astra utility is now packaged in Astra Control Center.
+
+NOTE: This release requires an updated version of the Astra Control Center that is packaged with the kubectl-astra plugin.
 
 == 31 May 2022 (2022.05 EAP Release)
 The Astra Data Store 2022.05 release includes these features:
@@ -30,7 +31,7 @@ The Astra Data Store 2022.05 release includes these features:
 * Security enhancements (keys and certificates and support for external key management (KMIP)).
 
 
-== 08 February 2022 (2021.12.1)
+== 08 February 2022 (https://docs.netapp.com/us-en/astra-data-store-2112/release-notes/whats-new.html[2021.12.1^])
 
 Patch release (2021.12.1) for the Astra Data Store preview (21.12).
 
@@ -39,7 +40,7 @@ Patch release (2021.12.1) for the Astra Data Store preview (21.12).
 * Updated AstraDSCluster.yaml `adsNetworkInterfaces` section includes improved, descriptive comments.
 * New Astra Data Store uninstall script now provided as an easier alternative to the kubectl command uninstall process.
 
-== 21 December 2021 (21.12)
+== 21 December 2021 (https://docs.netapp.com/us-en/astra-data-store-2112/release-notes/whats-new.html[21.12^])
 
 Initial release of Astra Data Store preview.
 
