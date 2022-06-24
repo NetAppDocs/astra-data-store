@@ -196,7 +196,7 @@ This process completes the following actions:
 * Adds a VASA provider self-signed certificate to the storage backend.
 //VMware ADS EAP review
 
-NOTE: It can sometimes take a few minutes for the vCenter you added to appear in the storage backend wizard.
+NOTE: It can sometimes take a few minutes for the storage backend you added to appear in the storage backend wizard.
 
 //VMware ADS EAP review
 NOTE: Astra Data Store should not be shared with multiple vCenters.
