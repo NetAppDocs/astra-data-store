@@ -45,27 +45,27 @@ NOTE: To use Astra Data Store with Google Anthos, complete these installation st
 NOTE: To install Astra Data Store with Rancher RKE environments, complete these installation steps and substitute Rancher commands for kubectl commands.
 
 === Download the Astra Data Store bundle and extract the images
-. Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store bundle (`Astra_Data_Store_2022.05.tar`).
+. Log in to the https://mysupport.netapp.com/site/products/all/details/astra-data-store/downloads-tab[NetApp Support Site^] and download the Astra Data Store bundle (`Astra_Data_Store_2022.05.01.tar`).
 +
 NOTE: If you are looking for instructions for earlier versions of the bundle, see link:../ads-earlier-versions.html[documentation for that version].
 
 . (Optional) Use the following command to verify the signature of the bundle:
 +
 ----
-openssl dgst -sha256 -verify Astra_Data_Store_2022.05.pub -signature Astra_Data_Store_2022.05.sig 2022.12.01_ads.tar
+openssl dgst -sha256 -verify Astra_Data_Store_2022.05.01.pub -signature Astra_Data_Store_2022.05.01.sig 2022.12.01_ads.tar
 ----
 
 . Create a directory:
 +
 ----
-mkdir Astra_Data_Store_2022.05
-cd Astra_Data_Store_2022.05
+mkdir Astra_Data_Store_2022.05.01
+cd Astra_Data_Store_2022.05.01
 ----
 
 . Extract the images:
 +
 ----
-tar -xvf <path to tar file>/Astra_Data_Store_2022.05.tar
+tar -xvf <path to tar file>/Astra_Data_Store_2022.05.01.tar
 ----
 +
 NOTE: The images will be extracted to a `astrads/images` directory created within the working directory.
