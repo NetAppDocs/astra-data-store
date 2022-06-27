@@ -32,8 +32,6 @@ NOTE: For the Astra Data Store Early Access Program (EAP) release, deploy Astra 
 
 * Astra Data Store is licensed and deployed. See link:../get-started/install-ads.html[Install Astra Data Store].
 
-NOTE: For the Astra Data Store Early Access Program (EAP) release, Astra Control Center and Astra Data Store must be deployed in two different Kubernetes clusters.
-
 * The Kubernetes clusters that were used to deploy Astra Control Center and Astra Data Store must already be managed by Astra Control Center.
 //* NFSv3 is enabled.
 * You have uploaded your Astra Control Center and VASA provider packages before adding a vCenter. https://docs.netapp.com/us-en/astra-control-center/use/manage-packages-acc.html[See Manage software packages^].
@@ -59,7 +57,7 @@ Add your first vCenter, which registers the Astra Plugin for VMware vSphere.
 
 You must have administrative privileges to add the vCenter to Astra Control Center.
 
-TIP: After the plugin is registered with VMware vSphere, the Astra Plugin for VMware vSphere icon appears in the VMware Shortcuts page. Sometimes after you register the Astra Plugin for VMware vSphere, the plugin doesn't appear immediately. In this case, wait a few seconds and refresh the browser. 
+TIP: After the plugin is registered with VMware vSphere, the Astra Plugin for VMware vSphere icon appears in the VMware Shortcuts page. Sometimes after you register the Astra Plugin for VMware vSphere, the plugin doesn't appear immediately. In this case, wait a few seconds and refresh the browser.
 
 
 . Log in to Astra Control Center.
@@ -198,7 +196,7 @@ This process completes the following actions:
 * Adds a VASA provider self-signed certificate to the storage backend.
 //VMware ADS EAP review
 
-NOTE: It can sometimes take 10 minutes for the vCenter you added to appear in the storage backend wizard.
+NOTE: It can sometimes take a few minutes for the storage backend you added to appear in the storage backend wizard.
 
 //VMware ADS EAP review
 NOTE: Astra Data Store should not be shared with multiple vCenters.

@@ -12,7 +12,7 @@ summary: Known limitations identify platforms, devices, or functions that are no
 
 Known limitations identify platforms, devices, or functions that are not supported by this Early Access Program (EAP) release of the product or do not interoperate correctly with it.
 
-== Astra Data Store 2022.05 Early Access Program (EAP) release
+== Astra Data Store 2022.05.01 Early Access Program (EAP) release
 This release includes these known limitations. Review these known limitations carefully.
 
 === VMware integrations limitations
@@ -23,7 +23,6 @@ The following features are not supported:
 ** Clone a VM, including clones from a template
 ** Attaching a VM disk after previously removing it
 * vVol replication
-* Delete vVol datastore
 * First Class Disks (FCDs)
 * VMware vMotion
 * Linked Mode vCenter servers
